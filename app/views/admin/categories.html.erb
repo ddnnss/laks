@@ -1,0 +1,110 @@
+<div id="content">
+  <div class="container">
+<button class="btn btn-primary" data-toggle="modal" data-target=".new-category">Добавить новую категорию</button>
+    <hr/>
+<table class="table">
+  <tbody>
+
+  <% @maincat.each do |cat| %>
+      <tr class="table-dark">
+        <td width="90%"><%= cat.cat_name%></td>
+        <td><a href="#" id="<%= cat.id%>" class="maincat"  data-toggle="modal" data-target=".new-subcategory"><i class="far fa-plus-square" ></i></a></td>
+        <td><a href="#"><i class="far fa-edit" ></i></a> </td>
+        <td><a href="/admin/deletecategory?id=<%= cat.id%>&type=main"><i class="fas fa-trash-alt" ></i></a></td>
+
+      </tr>
+  <% cat.subcategories.each do |sc|%>
+          <tr>
+
+            <td width="90"%><%= sc.subcat_name%></td>
+           <td></td>
+            <td><a href="#"><i class="far fa-edit" ></i></a> </td>
+            <td><a href="/admin/deletecategory?id=<%= sc.id%>&maincat=<%= cat.id%>"><i class="fas fa-trash-alt" ></i></a></td>
+
+          </tr>
+      <% end %>
+
+  <% end %>
+
+  </tbody>
+</table>
+
+<!-- modal add new cat -->
+    <div class="modal fade new-category" tabindex="-1" role="dialog" aria-labelledby="myCenteredModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">
+              Новая категория товаров
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+          </div>
+          <div class="modal-body">
+            <%= form_for  :addnewcategory, url: addnewcategory_path   do |f|%>
+                  <div class="col-sm-12">
+                    <p>Название категории :
+                      <%=f.text_field  :maincat_name, :required => true , class:'form-control'%></p>
+                  </div>
+                <div class="col-sm-12">
+                  <p>Картинка для категории  :
+                    <%= f.file_field :maincat_image %>
+                </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            <%= submit_tag 'Создать категорию' , class:'btn btn-primary'%>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- modal add new cat -->
+
+<!-- modal add new subcat -->
+    <div class="modal fade new-subcategory" tabindex="-1" role="dialog" aria-labelledby="myCenteredModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">
+              Новая подкатегория товаров
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+          </div>
+          <div class="modal-body">
+            <%= form_for  :addnewsubcategory, url: addnewsubcategory_path   do |f|%>
+                <div class="col-sm-12">
+                  <p>Название подкатегории :
+                    <%=f.text_field  :subcat_name, :required => true , class:'form-control'%></p>
+                </div>
+                <div class="col-sm-12">
+                  <p>Картинка для подкатегории  :
+                    <%= f.file_field :subcat_image %>
+                </div>
+                <input id="cat_id" name="cat_id" value="0" type="hidden" />
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                  <%= submit_tag 'Создать подкатегорию' , class:'btn btn-primary'%>
+            <% end %>
+            </div>
+            </div>
+      </div>
+    </div>
+<!-- modal add new subcat -->
+  </div>
+</div>
+
+<script language="JavaScript">
+    $(document).ready(function() {
+
+
+
+        $('a.maincat').click(function() {
+            var main_cat_id = $(this).attr('id');
+            $('#cat_id').val(main_cat_id);
+
+        });
+
+    });
+</script>
