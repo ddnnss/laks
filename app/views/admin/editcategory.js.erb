@@ -1,0 +1,29 @@
+if ('<%= j  @cat_main %>' == '1' ) {
+    $('#maincat_name').val('<%= j @cat_name %>');
+    $('#maincat_page_title').val('<%= j @cat_page_title %>');
+    $('#maincat_page_description').val('<%= j @cat_page_description %>');
+    $("#maincat_image").attr("src", "/images/maincategory/<%= j  @cat_image %>");
+    $('#maincat_id').val(<%= j  @cat_id %>);
+    $(".summernote-2").summernote('code',"<%= j @cat_description %>");
+    $('.edit-maincategory').modal('show');
+}
+
+else{
+
+    console.log (<%= raw @maincat_sel.to_json.inspect.html_safe %>);
+    temp = <%= raw @maincat_sel.to_json %>;
+    var $select = $('#maincat_select');
+    $select.find('option').remove();
+    $.each(temp,function(key, value)
+    {
+        $select.append('<option value=' + key + '>' + value + '</option>');
+    });
+
+    $('#subcat_name').val('<%= j @subcat_name %>');
+    $('#subcat_page_title').val('<%= j @subcat_page_title %>');
+    $('#subcat_page_description').val('<%= j @subcat_page_description %>');
+    $("#subcat_image").attr("src", "/images/subcategory/<%= j  @subcat_image %>");
+    $('#subcat_id').val(<%= j  @subcat_id %>);
+    $(".summernote-4").summernote('code',"<%= j @subcat_description %>");
+    $('.edit-subcategory').modal('show');
+}

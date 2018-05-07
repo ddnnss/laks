@@ -18,14 +18,18 @@ ActiveRecord::Schema.define(version: 20180503092427) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string "cat_name"
-    t.string "cat_image"
+    t.string "cat_name", default: ""
+    t.string "cat_image", default: ""
+    t.text "cat_page_title", default: ""
+    t.text "cat_page_description", default: ""
+    t.text "cat_description", default: ""
   end
 
   create_table "clients", force: :cascade do |t|
     t.string "client_email"
     t.string "client_name", default: ""
     t.string "client_family", default: ""
+    t.string "client_password"
     t.string "client_view_history", default: ""
     t.string "client_items_rate", default: ""
     t.boolean "client_vip", default: false
@@ -44,16 +48,23 @@ ActiveRecord::Schema.define(version: 20180503092427) do
     t.integer "subcategory_id"
     t.string "item_name"
     t.string "item_name_caps"
-    t.string "item_image", default: ""
-    t.string "item_size", default: ""
-    t.string "item_model", default: ""
-    t.string "item_badge", default: ""
-    t.string "item_page_title", default: ""
-    t.string "item_page_description", default: ""
+    t.string "item_image1", default: "none"
+    t.string "item_image2", default: "none"
+    t.string "item_image3", default: "none"
+    t.string "item_image4", default: "none"
+    t.string "item_size", default: "не указано"
+    t.string "item_model", default: "не указано"
+    t.string "item_badge", default: "не указано"
+    t.string "item_color", default: "не указано"
+    t.text "item_description", default: ""
+    t.text "item_page_title", default: ""
+    t.text "item_page_description", default: ""
     t.integer "item_price"
     t.integer "item_rating", default: 0
     t.integer "item_discount", default: 0
+    t.integer "item_views_count", default: 0
     t.boolean "item_in_sale", default: false
+    t.boolean "item_new", default: false
     t.boolean "item_presents", default: true
     t.index ["item_name"], name: "index_items_on_item_name"
     t.index ["item_name_caps"], name: "index_items_on_item_name_caps"
@@ -62,8 +73,11 @@ ActiveRecord::Schema.define(version: 20180503092427) do
 
   create_table "subcategories", force: :cascade do |t|
     t.integer "category_id"
-    t.string "subcat_name"
-    t.string "subcat_image"
+    t.string "subcat_name", default: ""
+    t.string "subcat_image", default: ""
+    t.text "subcat_page_title", default: ""
+    t.text "subcat_page_description", default: ""
+    t.text "subcat_description", default: ""
     t.index ["category_id"], name: "index_subcategories_on_category_id"
   end
 

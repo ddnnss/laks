@@ -7,18 +7,20 @@
 
   <% @maincat.each do |cat| %>
       <tr class="table-dark">
-        <td width="90%"><%= cat.cat_name%></td>
+        <td width="70%"><%= cat.cat_name%></td>
+        <td></td>
         <td><a href="#" id="<%= cat.id%>" class="maincat"  data-toggle="modal" data-target=".new-subcategory"><i class="far fa-plus-square" ></i></a></td>
-        <td><a href="#"><i class="far fa-edit" ></i></a> </td>
+        <td> <%= link_to '<i class="far fa-edit" ></i>'.html_safe, {:controller => 'admin', :action => 'editcategory', :cat_id => cat.id, :main => '1' },method: :post, :remote => true  %></td>
         <td><a href="/admin/deletecategory?id=<%= cat.id%>&type=main"><i class="fas fa-trash-alt" ></i></a></td>
 
       </tr>
   <% cat.subcategories.each do |sc|%>
           <tr>
 
-            <td width="90"%><%= sc.subcat_name%></td>
-           <td></td>
-            <td><a href="#"><i class="far fa-edit" ></i></a> </td>
+            <td width="70"%><%= sc.subcat_name%></td>
+            <td>Товаров : <span class="badge badge-primary"><%= sc.items.count%></span>  </td>
+            <td><a href="#" id="<%= sc.id%>" class="subcat"  data-toggle="modal" data-target=".add-item"><i class="fas fa-cart-plus" ></i></a></td>
+            <td><%= link_to '<i class="far fa-edit" ></i>'.html_safe, {:controller => 'admin', :action => 'editcategory', :cat_id => sc.id, :main => '0' },method: :post, :remote => true  %></td>
             <td><a href="/admin/deletecategory?id=<%= sc.id%>&maincat=<%= cat.id%>"><i class="fas fa-trash-alt" ></i></a></td>
 
           </tr>
@@ -30,8 +32,8 @@
 </table>
 
 <!-- modal add new cat -->
-    <div class="modal fade new-category" tabindex="-1" role="dialog" aria-labelledby="myCenteredModalLabel" aria-hidden="true" style="display: none;">
-      <div class="modal-dialog modal-dialog-centered">
+    <div class="modal fade new-category" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">
@@ -45,11 +47,23 @@
                     <p>Название категории :
                       <%=f.text_field  :maincat_name, :required => true , class:'form-control'%></p>
                   </div>
+              <div class="col-sm-12">
+                <p>Тег TITLE для данной категории :
+                  <%=f.text_field  :maincat_page_title, :required => true , class:'form-control'%></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Тег DESCRIPTION для данной категории :
+                  <%=f.text_field  :maincat_page_description, :required => true , class:'form-control'%></p>
+              </div>
+                <div class="col-sm-12">
+                  <p>Описание данной категории товара:
+                    <textarea class="summernote-1"  id="summernote-newcat" name="maincat_description" rows="18" required></textarea></p>
+                </div>
                 <div class="col-sm-12">
                   <p>Картинка для категории  :
-                    <%= f.file_field :maincat_image %>
+                    <%= f.file_field :maincat_image, :required => true %>
                 </div>
-
+              <input id="action_type" name="action_type" value="new" type="hidden" />
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
@@ -63,7 +77,7 @@
 
 <!-- modal add new subcat -->
     <div class="modal fade new-subcategory" tabindex="-1" role="dialog" aria-labelledby="myCenteredModalLabel" aria-hidden="true" style="display: none;">
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">
@@ -77,10 +91,23 @@
                   <p>Название подкатегории :
                     <%=f.text_field  :subcat_name, :required => true , class:'form-control'%></p>
                 </div>
+              <div class="col-sm-12">
+                <p>Тег TITLE для данной подкатегории :
+                  <%=f.text_field  :subcat_page_title, :required => true , class:'form-control'%></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Тег DESCRIPTION для данной подкатегории :
+                  <%=f.text_field  :subcat_page_description, :required => true , class:'form-control'%></p>
+              </div>
+                <div class="col-sm-12">
+                  <p>Описание данной подкатегории товара:
+                    <textarea class="summernote-3"  id="summernote-newsubcat" name="subcat_description" rows="18" required></textarea></p>
+                </div>
                 <div class="col-sm-12">
                   <p>Картинка для подкатегории  :
-                    <%= f.file_field :subcat_image %>
+                    <%= f.file_field :subcat_image, :required => true %>
                 </div>
+              <input id="action_type" name="action_type" value="new" type="hidden" />
                 <input id="cat_id" name="cat_id" value="0" type="hidden" />
                 </div>
                 <div class="modal-footer">
@@ -92,11 +119,209 @@
       </div>
     </div>
 <!-- modal add new subcat -->
+    <!-- modal edit maincat -->
+    <div class="modal fade edit-maincategory" tabindex="-1" role="dialog" aria-labelledby="myCenteredModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">
+              Редактирование категории товаров
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+          </div>
+          <div class="modal-body">
+            <%= form_for  :addnewcategory, url: addnewcategory_path   do |f|%>
+              <div class="col-sm-12">
+                <p>Новое название категории :
+                  <%=f.text_field  :maincat_name, :required => true , class:'form-control', id:'maincat_name'%></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Тег TITLE для данной категории :
+                  <%=f.text_field  :maincat_page_title, :required => true , class:'form-control', id:'maincat_page_title'%></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Тег DESCRIPTION для данной категории :
+                  <%=f.text_field  :maincat_page_description, :required => true , class:'form-control', id:'maincat_page_description'%></p>
+              </div>
+                <div class="col-sm-12">
+                  <p>Описание данной категории товара:
+                    <textarea class="summernote-2"  id="summernote-editnewcat" name="maincat_description" rows="18" ></textarea></p>
+                </div>
+
+              <div class="col-sm-12" >
+                <p align="center"> Текущая картинка</p>
+                <img style="margin: 0 auto; display: block;" id='maincat_image' src="" width="200px"/>
+              </div>
+              <div class="col-sm-12">
+                <p>Новая картинка для категории  :
+                  <%= f.file_field :maincat_image %></p>
+              </div>
+              <input id="action_type" name="action_type" value="edit" type="hidden" />
+              <input id="maincat_id" name="maincat_id" value="" type="hidden" />
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                <%= submit_tag 'Внести изменения' , class:'btn btn-primary'%>
+            <% end %>
+            </div>
+            </div>
+      </div>
+    </div>
+    <!-- modal edit maincat -->
   </div>
+  <!-- modal edit subcat -->
+  <div class="modal fade edit-subcategory" tabindex="-1" role="dialog" aria-labelledby="myCenteredModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            Редактирование подкатегории товаров
+          </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+        </div>
+        <div class="modal-body">
+          <%= form_for  :addnewsubcategory, url: addnewsubcategory_path   do |f|%>
+
+              <div class="col-sm-12">
+
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" name="cat_remove"  id="cat_remove" value="on">
+                    Перенести в другую категорию ?:
+                  </label>
+                </div>
+
+                <select class="form-control" id="maincat_select" name="maincat_select" disabled>
+                  <option>1</option>
+                </select>
+              </div>
+
+              <div class="col-sm-12">
+                <p>Новое название подкатегории :
+                  <%=f.text_field  :subcat_name, :required => true , class:'form-control', id:'subcat_name'%></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Тег TITLE для данной категории :
+                  <%=f.text_field  :subcat_page_title, :required => true , class:'form-control', id:'subcat_page_title'%></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Тег DESCRIPTION для данной категории :
+                  <%=f.text_field  :subcat_page_description, :required => true , class:'form-control', id:'subcat_page_description'%></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Описание данной подкатегории товара:
+                  <textarea class="summernote-4"  id="summernote-editsubcat" name="subcat_description" rows="18" required></textarea></p>
+              </div>
+              <div class="col-sm-12" >
+                <p align="center"> Текущая картинка</p>
+                <img style="margin: 0 auto; display: block;" id='subcat_image' src="" width="200px"/>
+              </div>
+              <div class="col-sm-12">
+                <p>Новая картинка для подкатегории  :
+                  <%= f.file_field :subcat_image %></p>
+              </div>
+              <input id="action_type" name="action_type" value="edit" type="hidden" />
+              <input id="subcat_id" name="subcat_id" value="" type="hidden" />
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                <%= submit_tag 'Внести изменения' , class:'btn btn-primary'%>
+          <% end %>
+          </div>
+          </div>
+    </div>
+  </div>
+  <!-- modal edit subcat -->
+
+  <!-- modal add item -->
+  <div class="modal fade add-item" tabindex="-1" role="dialog" aria-labelledby="myCenteredModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            Создание нового товара в выбранной подкатегории
+          </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+        </div>
+        <div class="modal-body">
+          <%= form_for  :addnewitem, url: addnewitem_path   do |f|%>
+
+
+
+              <div class="col-sm-12">
+                <p>Название товара :
+                  <%=f.text_field  :item_name, :required => true , class:'form-control', id:'item_name'%></p>
+
+                <label class="form-check-label form-check-inline">
+                  <input type="checkbox" class="form-check-input" name="item_new" id="item_new" value="1" >
+                  Товар новинка?
+                </label> |
+                <label class="form-check-label form-check-inline">
+                  <input style="width: 90px;" required="required" class="form-control" type="number" value="0" id="item_price" name="item_price" >
+                   <span style="margin-left: 10px;">Цена</span>
+                </label> |
+                <label class="form-check-label form-check-inline">
+                  <input type="checkbox" class="form-check-input" name="item_discount" id="item_discount" value="1" >
+                  Есть скидка?
+                </label>
+                <label class="form-check-label form-check-inline">
+                <input style="width: 60px;" class="form-control" type="number" value="0" id="item_discount_val" name="item_discount_val" disabled>
+                  <span style="margin-left: 10px;">% скидки</span>
+                </label>
+
+              </div>
+<hr/>
+              <div class="col-sm-12">
+                <p>Тег TITLE для товара :
+                  <%=f.text_field  :item_page_title, :required => true , class:'form-control', id:'item_page_title'%></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Тег DESCRIPTION для товара :
+                  <%=f.text_field  :item_page_description, :required => true , class:'form-control', id:'item_page_description'%></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Описание товара:
+                  <textarea class="summernote-5"  id="summernote-addnewitrm" name="item_description" rows="18" required></textarea></p>
+              </div>
+
+              <div class="col-sm-12">
+                <p>Картинка №1 для товара  :
+                  <%= f.file_field :item_image1, :required => true %></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Картинка №2 для товара  :
+                  <%= f.file_field :item_image2 %></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Картинка №3 для товара  :
+                  <%= f.file_field :item_image3 %></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Картинка №4 для товара  :
+                  <%= f.file_field :item_image4 %></p>
+              </div>
+
+              <input id="sub_cat_id" name="subcat_id" value="" type="hidden" />
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                <%= submit_tag 'Создать товар' , class:'btn btn-primary'%>
+          <% end %>
+          </div>
+          </div>
+    </div>
+  </div>
+  <!-- modal add item -->
+
 </div>
 
 <script language="JavaScript">
     $(document).ready(function() {
+        $('.summernote-1').summernote();
+        $('.summernote-3').summernote();
+        $('.summernote-5').summernote();
+        $('.note-popover').css('display', 'none');
+
 
 
 
@@ -104,6 +329,35 @@
             var main_cat_id = $(this).attr('id');
             $('#cat_id').val(main_cat_id);
 
+        });
+
+        $('a.subcat').click(function() {
+            var sub_cat_id = $(this).attr('id');
+            $('#sub_cat_id').val(sub_cat_id);
+
+
+        });
+
+        const checkbox = $("#cat_remove");
+
+        checkbox.change(function(event) {
+            var checkbox = event.target;
+            if (checkbox.checked) {
+                $('#maincat_select').removeAttr('disabled');
+            } else {
+                $("#maincat_select").attr("disabled","disabled")
+            }
+        });
+
+        const checkbox1 = $("#item_discount");
+
+        checkbox1.change(function(event) {
+            var checkbox1 = event.target;
+            if (checkbox1.checked) {
+                $('#item_discount_val').removeAttr('disabled');
+            } else {
+                $("#item_discount_val").attr("disabled","disabled")
+            }
         });
 
     });

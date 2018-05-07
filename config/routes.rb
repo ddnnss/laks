@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   match '/addnewcategory'  => 'admin#addnewcategory',    via: [:post]
   match '/addnewsubcategory'  => 'admin#addnewsubcategory',    via: [:post]
   match '/admin/deletecategory'  => 'admin#deletecategory',    via: [:get]
-
+  match '/admin/editcategory'  => 'admin#editcategory', via: [:post]
+  match '/admin/additem'  => 'admin#additem', via: [:post, :get]
+  match '/addnewitem'  => 'admin#addnewitem', via: [:post]
 
 end
