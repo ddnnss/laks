@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180503092427) do
+ActiveRecord::Schema.define(version: 20180508065125) do
 
   create_table "carts", force: :cascade do |t|
     t.integer "client_id"
@@ -19,10 +19,13 @@ ActiveRecord::Schema.define(version: 20180503092427) do
 
   create_table "categories", force: :cascade do |t|
     t.string "cat_name", default: ""
+    t.string "cat_name_translit", default: ""
     t.string "cat_image", default: ""
     t.text "cat_page_title", default: ""
     t.text "cat_page_description", default: ""
     t.text "cat_description", default: ""
+    t.index ["cat_name"], name: "index_categories_on_cat_name"
+    t.index ["cat_name_translit"], name: "index_categories_on_cat_name_translit"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -36,7 +39,20 @@ ActiveRecord::Schema.define(version: 20180503092427) do
     t.boolean "client_mail_subscribe", default: true
     t.boolean "client_activated", default: false
     t.boolean "client_admin", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["client_email"], name: "index_clients_on_client_email"
+  end
+
+  create_table "collections", force: :cascade do |t|
+    t.string "collection_name", default: ""
+    t.string "collection_name_translit", default: ""
+    t.string "collection_image", default: ""
+    t.text "collection_page_title", default: ""
+    t.text "collection_page_description", default: ""
+    t.text "collection_description", default: ""
+    t.index ["collection_name"], name: "index_collections_on_collection_name"
+    t.index ["collection_name_translit"], name: "index_collections_on_collection_name_translit"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -44,10 +60,15 @@ ActiveRecord::Schema.define(version: 20180503092427) do
     t.index ["item_id"], name: "index_comments_on_item_id"
   end
 
+  create_table "homepages", force: :cascade do |t|
+  end
+
   create_table "items", force: :cascade do |t|
     t.integer "subcategory_id"
+    t.integer "collection_id"
     t.string "item_name"
     t.string "item_name_caps"
+    t.string "item_name_translit", default: ""
     t.string "item_image1", default: "none"
     t.string "item_image2", default: "none"
     t.string "item_image3", default: "none"
@@ -56,29 +77,51 @@ ActiveRecord::Schema.define(version: 20180503092427) do
     t.string "item_model", default: "не указано"
     t.string "item_badge", default: "не указано"
     t.string "item_color", default: "не указано"
+    t.string "item_tags", default: ""
     t.text "item_description", default: ""
     t.text "item_page_title", default: ""
     t.text "item_page_description", default: ""
     t.integer "item_price"
+    t.integer "item_opt_price"
+    t.integer "item_opt_price_count"
     t.integer "item_rating", default: 0
     t.integer "item_discount", default: 0
     t.integer "item_views_count", default: 0
     t.boolean "item_in_sale", default: false
+    t.boolean "item_in_collection", default: false
     t.boolean "item_new", default: false
     t.boolean "item_presents", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["collection_id"], name: "index_items_on_collection_id"
+    t.index ["item_in_collection"], name: "index_items_on_item_in_collection"
+    t.index ["item_in_sale"], name: "index_items_on_item_in_sale"
     t.index ["item_name"], name: "index_items_on_item_name"
     t.index ["item_name_caps"], name: "index_items_on_item_name_caps"
+    t.index ["item_name_translit"], name: "index_items_on_item_name_translit"
+    t.index ["item_new"], name: "index_items_on_item_new"
     t.index ["subcategory_id"], name: "index_items_on_subcategory_id"
+  end
+
+  create_table "sliders", force: :cascade do |t|
+    t.string "slider_image"
+    t.string "slider_text1"
+    t.string "slider_text2"
+    t.string "slider_text3"
+    t.string "slider_url"
   end
 
   create_table "subcategories", force: :cascade do |t|
     t.integer "category_id"
     t.string "subcat_name", default: ""
+    t.string "subcat_name_translit", default: ""
     t.string "subcat_image", default: ""
     t.text "subcat_page_title", default: ""
     t.text "subcat_page_description", default: ""
     t.text "subcat_description", default: ""
     t.index ["category_id"], name: "index_subcategories_on_category_id"
+    t.index ["subcat_name"], name: "index_subcategories_on_subcat_name"
+    t.index ["subcat_name_translit"], name: "index_subcategories_on_subcat_name_translit"
   end
 
   create_table "wishlists", force: :cascade do |t|

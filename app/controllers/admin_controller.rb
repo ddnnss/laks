@@ -8,9 +8,27 @@ class AdminController < ApplicationController
 
   end
   def addnewitem
+    if params[:type] == 'getcoll'
+      colls = Hash.new
+      coll = Collection.all
+      coll.each do |cc|
+        colls[cc.id] = cc.collection_name
+      end
+
+      respond_to do |format|
+
+        @coll_sel = colls
+        @subcat_id = params[:id]
+
+        format.js
+      end
+
+    end
+    if params[:type] == 'save'
     newitem = Item.new
     newitem.subcategory_id = params[:subcat_id]
     newitem.item_name = params[:addnewitem][:item_name]
+    newitem.item_name_translit = Translit.convert(params[:addnewitem][:item_name]).gsub(' ','-')
     newitem.item_name_caps = params[:addnewitem][:item_name].mb_chars.upcase
     newitem.item_page_title = params[:addnewitem][:item_page_title]
     newitem.item_page_description = params[:addnewitem][:item_page_description]
@@ -20,6 +38,10 @@ class AdminController < ApplicationController
     end
     if params[:item_discount] == '1'
       newitem.item_discount = params[:item_discount_val].to_i
+    end
+    if params[:add_coll] == 'on'
+      newitem.collection_id = params[:collections_select]
+
     end
     newitem.save
 
@@ -52,7 +74,8 @@ class AdminController < ApplicationController
       end
       newitem.update_column(:item_image4,uploadedFile4.original_filename)
     end
-
+    redirect_to :controller => 'admin', :action => 'categories'
+  end
 
   end
 
@@ -60,6 +83,7 @@ class AdminController < ApplicationController
     if params[:action_type] == 'new'
     newcat = Category.new
     newcat.cat_name = params[:addnewcategory][:maincat_name]
+    newcat.cat_name_translit = Translit.convert(params[:addnewcategory][:maincat_name]).gsub(' ','-')
     newcat.cat_page_title = params[:addnewcategory][:maincat_page_title]
     newcat.cat_page_description = params[:addnewcategory][:maincat_page_description]
     newcat.cat_description = params[:maincat_description]
@@ -78,6 +102,7 @@ class AdminController < ApplicationController
     if params[:action_type] == 'edit'
       newcat = Category.find(params[:maincat_id])
       newcat.update_column(:cat_name, params[:addnewcategory][:maincat_name])
+      newcat.update_column(:cat_name_translit , Translit.convert(params[:addnewcategory][:maincat_name]).gsub(' ','-'))
       newcat.update_column(:cat_page_title, params[:addnewcategory][:maincat_page_title])
       newcat.update_column(:cat_page_description , params[:addnewcategory][:maincat_page_description])
       newcat.update_column(:cat_description , params[:maincat_description])
@@ -101,6 +126,7 @@ class AdminController < ApplicationController
     newcat = Subcategory.new
     newcat.category_id = params[:cat_id]
     newcat.subcat_name = params[:addnewsubcategory][:subcat_name]
+    newcat.subcat_name_translit = Translit.convert(params[:addnewsubcategory][:subcat_name].gsub(' ','-'))
     newcat.subcat_page_title = params[:addnewsubcategory][:subcat_page_title]
     newcat.subcat_page_description = params[:addnewsubcategory][:subcat_page_description]
     newcat.subcat_description = params[:subcat_description]
@@ -123,6 +149,7 @@ class AdminController < ApplicationController
         newcat.update_column(:category_id,params[:maincat_select])
       end
       newcat.update_column(:subcat_name , params[:addnewsubcategory][:subcat_name])
+      newcat.update_column(:subcat_name_translit , Translit.convert(params[:addnewsubcategory][:subcat_name].gsub(' ','-')))
       newcat.update_column(:subcat_page_title , params[:addnewsubcategory][:subcat_page_title])
       newcat.update_column(:subcat_page_description , params[:addnewsubcategory][:subcat_page_description])
       newcat.update_column(:subcat_description,params[:subcat_description])
@@ -185,5 +212,66 @@ class AdminController < ApplicationController
         format.js
       end
     end
+  end
+
+  def collections
+    @collections = Collection.all
+  end
+  def addcollection
+    if params[:action_type] == 'new'
+      newcoll = Collection.new
+      newcoll.collection_name = params[:addcollection][:collection_name]
+      newcoll.collection_name_translit = Translit.convert(params[:addcollection][:collection_name]).gsub(' ','-')
+      newcoll.collection_page_title = params[:addcollection][:collection_page_title]
+      newcoll.collection_page_description = params[:addcollection][:collection_page_description]
+      newcoll.collection_description = params[:collection_description]
+      uploadedFile = params[:addcollection][:collection_image]
+      if File.file?(Rails.root.join('public','images','collections', uploadedFile.original_filename))
+        uploadedFile.original_filename = [*('a'..'z'),*('0'..'9')].shuffle[0,4].join + uploadedFile.original_filename
+      end
+
+      File.open(Rails.root.join('public','images','collections', uploadedFile.original_filename), 'wb' ) do |f|
+        f.write(uploadedFile.read)
+      end
+      newcoll.collection_image = uploadedFile.original_filename
+      newcoll.save
+      redirect_to :controller => 'admin', :action => 'collections'
+    end
+    if params[:action_type] == 'edit'
+      newcoll = Collection.find(params[:collection_id])
+      newcoll.update_column(:collection_name , params[:addcollection][:collection_name])
+      newcoll.update_column(:collection_name_translit , Translit.convert(params[:addcollection][:collection_name]).gsub(' ','-'))
+      newcoll.update_column(:collection_page_title , params[:addcollection][:collection_page_title])
+      newcoll.update_column(:collection_page_description , params[:addcollection][:collection_page_description])
+      newcoll.update_column(:collection_description , params[:collection_description])
+      uploadedFile = params[:addcollection][:collection_image]
+      if File.file?(Rails.root.join('public','images','collections', uploadedFile.original_filename))
+        uploadedFile.original_filename = [*('a'..'z'),*('0'..'9')].shuffle[0,4].join + uploadedFile.original_filename
+      end
+
+      File.open(Rails.root.join('public','images','collections', uploadedFile.original_filename), 'wb' ) do |f|
+        f.write(uploadedFile.read)
+      end
+      newcoll.update_column(:collection_image , uploadedFile.original_filename)
+
+      redirect_to :controller => 'admin', :action => 'collections'
+    end
+
+  end
+  def editcollection
+    coll = Collection.find(params[:collection_id])
+    respond_to do |format|
+      @collection_name = coll.collection_name
+      @collection_image = coll.collection_image
+      @collection_page_title = coll.collection_page_title
+      @collection_page_description = coll.collection_page_description
+      @collection_description = coll.collection_description.html_safe
+      @collection_id = params[:collection_id]
+
+      format.js
+    end
+  end
+  def add2collection
+
   end
 end

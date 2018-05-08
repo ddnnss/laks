@@ -19,7 +19,8 @@
 
             <td width="70"%><%= sc.subcat_name%></td>
             <td>Товаров : <span class="badge badge-primary"><%= sc.items.count%></span>  </td>
-            <td><a href="#" id="<%= sc.id%>" class="subcat"  data-toggle="modal" data-target=".add-item"><i class="fas fa-cart-plus" ></i></a></td>
+
+            <td><%= link_to '<i class="fas fa-cart-plus" ></i>'.html_safe, {:controller => 'admin', :action => 'addnewitem', :id => sc.id, :type => 'getcoll' },method: :post, :remote => true  %></td>
             <td><%= link_to '<i class="far fa-edit" ></i>'.html_safe, {:controller => 'admin', :action => 'editcategory', :cat_id => sc.id, :main => '0' },method: :post, :remote => true  %></td>
             <td><a href="/admin/deletecategory?id=<%= sc.id%>&maincat=<%= cat.id%>"><i class="fas fa-trash-alt" ></i></a></td>
 
@@ -272,6 +273,20 @@
               </div>
 <hr/>
               <div class="col-sm-12">
+
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" name="add_coll"  id="add_coll" value="on">
+                    Добавить товар в коллекцию ?:
+                  </label>
+                </div>
+
+                <select class="form-control" id="collections_select" name="collections_select" disabled>
+                  <option>1</option>
+                </select>
+              </div>
+
+              <div class="col-sm-12">
                 <p>Тег TITLE для товара :
                   <%=f.text_field  :item_page_title, :required => true , class:'form-control', id:'item_page_title'%></p>
               </div>
@@ -302,6 +317,7 @@
               </div>
 
               <input id="sub_cat_id" name="subcat_id" value="" type="hidden" />
+              <input name="type" value="save" type="hidden" />
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
@@ -357,6 +373,15 @@
                 $('#item_discount_val').removeAttr('disabled');
             } else {
                 $("#item_discount_val").attr("disabled","disabled")
+            }
+        });
+        const checkbox2 = $("#add_coll");
+        checkbox2.change(function(event) {
+            var checkbox2 = event.target;
+            if (checkbox2.checked) {
+                $('#collections_select').removeAttr('disabled');
+            } else {
+                $("#collections_select").attr("disabled","disabled")
             }
         });
 

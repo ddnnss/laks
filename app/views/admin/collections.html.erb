@@ -1,0 +1,138 @@
+<div id="content">
+  <div class="container">
+    <button class="btn btn-primary" data-toggle="modal" data-target=".new-collection">Добавить новую коллекцию</button>
+    <hr/>
+    <table class="table">
+      <tbody>
+
+      <% @collections.each do |c| %>
+          <tr class="table-dark">
+            <td width="70%"><%= c.collection_name%></td>
+            <td>Товаров : <span class="badge badge-primary"><%= c.items.count%></span>  </td>
+            <td><a href="#" id="<%= c.id%>" ><i class="far fa-plus-square" ></i></a></td>
+            <td> <%= link_to '<i class="far fa-edit" ></i>'.html_safe, {:controller => 'admin', :action => 'editcollection', :collection_id => c.id },method: :post, :remote => true  %></td>
+            <td><a href="/admin/deletecategory?id=<%= c.id%>&type=main"><i class="fas fa-trash-alt" ></i></a></td>
+
+          </tr>
+
+
+      <% end %>
+
+      </tbody>
+    </table>
+
+    <!-- modal add new cat -->
+    <div class="modal fade new-collection" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">
+              Новая коллекция товаров
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+          </div>
+          <div class="modal-body">
+            <%= form_for  :addcollection, url: addcollection_path   do |f|%>
+                <div class="col-sm-12">
+                  <p>Название коллекции :
+                    <%=f.text_field  :collection_name, :required => true , class:'form-control'%></p>
+                </div>
+                <div class="col-sm-12">
+                  <p>Тег TITLE для данной коллекции :
+                    <%=f.text_field  :collection_page_title, :required => true , class:'form-control'%></p>
+                </div>
+                <div class="col-sm-12">
+                  <p>Тег DESCRIPTION для данной коллекции :
+                    <%=f.text_field  :collection_page_description, :required => true , class:'form-control'%></p>
+                </div>
+                <div class="col-sm-12">
+                  <p>Описание данной коллекции товара:
+                    <textarea class="summernote-1"  id="summernote-collection" name="collection_description" rows="18" required></textarea></p>
+                </div>
+                <div class="col-sm-12">
+                  <p>Картинка для коллекции  :
+                    <%= f.file_field :collection_image, :required => true %>
+                </div>
+                <input id="action_type" name="action_type" value="new" type="hidden" />
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                  <%= submit_tag 'Создать коллекцию' , class:'btn btn-primary'%>
+            <% end %>
+            </div>
+            </div>
+      </div>
+    </div>
+    <!-- modal add new cat -->
+
+
+    <!-- modal edit maincat -->
+    <div class="modal fade edit-collection" tabindex="-1" role="dialog" aria-labelledby="myCenteredModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">
+              Редактирование коллекции товаров
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+          </div>
+          <div class="modal-body">
+            <%= form_for  :addcollection, url: addcollection_path   do |f|%>
+                <div class="col-sm-12">
+                  <p>Новое название коллекции :
+                    <%=f.text_field  :collection_name, :required => true , class:'form-control', id:'collection_name'%></p>
+                </div>
+                <div class="col-sm-12">
+                  <p>Тег TITLE для данной коллекции :
+                    <%=f.text_field  :collection_page_title, :required => true , class:'form-control', id:'collection_page_title'%></p>
+                </div>
+                <div class="col-sm-12">
+                  <p>Тег DESCRIPTION для данной коллекции :
+                    <%=f.text_field  :collection_page_description, :required => true , class:'form-control', id:'collection_page_description'%></p>
+                </div>
+                <div class="col-sm-12">
+                  <p>Описание данной коллекции товара:
+                    <textarea class="summernote-2"  id="summernote-editcollection" name="collection_description" rows="18" ></textarea></p>
+                </div>
+
+                <div class="col-sm-12" >
+                  <p align="center"> Текущая картинка</p>
+                  <img style="margin: 0 auto; display: block;" id='collection_image' src="" width="200px"/>
+                </div>
+                <div class="col-sm-12">
+                  <p>Новая картинка для коллекции  :
+                    <%= f.file_field :collection_image %></p>
+                </div>
+                <input id="action_type" name="action_type" value="edit" type="hidden" />
+                <input id="collection_id" name="collection_id" value="" type="hidden" />
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                  <%= submit_tag 'Внести изменения' , class:'btn btn-primary'%>
+            <% end %>
+            </div>
+            </div>
+      </div>
+    </div>
+    <!-- modal edit maincat -->
+  </div>
+
+
+</div>
+
+<script language="JavaScript">
+    $(document).ready(function() {
+        $('.summernote-1').summernote();
+
+        $('.note-popover').css('display', 'none');
+
+
+
+
+
+
+
+
+
+    });
+</script>
