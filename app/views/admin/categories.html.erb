@@ -246,31 +246,99 @@
         </div>
         <div class="modal-body">
           <%= form_for  :addnewitem, url: addnewitem_path   do |f|%>
-
-
-
-              <div class="col-sm-12">
-                <p>Название товара :
-                  <%=f.text_field  :item_name, :required => true , class:'form-control', id:'item_name'%></p>
-
-                <label class="form-check-label form-check-inline">
-                  <input type="checkbox" class="form-check-input" name="item_new" id="item_new" value="1" >
-                  Товар новинка?
-                </label> |
-                <label class="form-check-label form-check-inline">
-                  <input style="width: 90px;" required="required" class="form-control" type="number" value="0" id="item_price" name="item_price" >
-                   <span style="margin-left: 10px;">Цена</span>
-                </label> |
-                <label class="form-check-label form-check-inline">
-                  <input type="checkbox" class="form-check-input" name="item_discount" id="item_discount" value="1" >
-                  Есть скидка?
-                </label>
-                <label class="form-check-label form-check-inline">
-                <input style="width: 60px;" class="form-control" type="number" value="0" id="item_discount_val" name="item_discount_val" disabled>
-                  <span style="margin-left: 10px;">% скидки</span>
-                </label>
-
+              <div class="form-group row">
+                <label for="item_name" class="col-sm-2 col-form-label">Название товара :</label>
+                <div class="col-sm-10">
+                  <%=f.text_field  :item_name, :required => true , class:'form-control', id:'item_name'%>
+                </div>
               </div>
+              <table class="table">
+                <tbody>
+                <tr >
+                  <td style="width: 50%;">  <div class="form-group row">
+                    <label class="col-sm-4">Розничная цена :</label>
+                    <div class="col-sm-1">
+
+                        <input style="width: 90px;" required="required" class="form-control" type="number" value="0" id="item_price" name="item_price" >
+
+                    </div>
+                  </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4">Оптовая  цена :</label>
+                      <div class="col-sm-1">
+
+                          <input style="width: 90px;" required="required" class="form-control" type="number" value="0" id="item_opt_price" name="item_opt_price" >
+
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4">Кол-во товара для опт. цены</label>
+                      <div class="col-sm-1">
+
+                          <input style="width: 90px;" required="required" class="form-control" type="number" value="0" id="item_opt_price_count" name="item_opt_price_count" >
+
+                      </div>
+                    </div></td>
+                  <td>
+                    <div class="form-group row">
+                    <label class="col-sm-4">Товар новинка ?</label>
+                    <div class="col-sm-1">
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="item_new" id="item_new" value="1"  >
+                      </div>
+                    </div>
+                  </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4">Есть скидка ?</label>
+                      <div class="col-sm-1">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" name="item_discount" id="item_discount" value="1" >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4">% скидки</label>
+                      <div class="col-sm-1">
+                        <div class="form-check">
+                          <input style="width: 60px;" class="form-control" type="number" value="0" id="item_discount_val" name="item_discount_val" disabled>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-group row">
+                      <label class="col-sm-4">Товар новинка ?</label>
+                      <div class="col-sm-1">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" name="item_new" id="item_new" value="1"  >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4">Есть скидка ?</label>
+                      <div class="col-sm-1">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" name="item_discount" id="item_discount" value="1" >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4">% скидки</label>
+                      <div class="col-sm-1">
+                        <div class="form-check">
+                          <input style="width: 60px;" class="form-control" type="number" value="0" id="item_discount_val" name="item_discount_val" disabled>
+                        </div>
+                      </div>
+                    </div>
+
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+
+
+
+
 <hr/>
               <div class="col-sm-12">
 
@@ -295,9 +363,15 @@
                   <%=f.text_field  :item_page_description, :required => true , class:'form-control', id:'item_page_description'%></p>
               </div>
               <div class="col-sm-12">
+                <p>Тэги товара (через запятую):
+                  <%=f.text_field  :item_tags,  class:'form-control', id:'item_tags'%></p>
+              </div>
+              <div class="col-sm-12">
                 <p>Описание товара:
                   <textarea class="summernote-5"  id="summernote-addnewitrm" name="item_description" rows="18" required></textarea></p>
               </div>
+
+
 
               <div class="col-sm-12">
                 <p>Картинка №1 для товара  :
@@ -372,7 +446,7 @@
             if (checkbox1.checked) {
                 $('#item_discount_val').removeAttr('disabled');
             } else {
-                $("#item_discount_val").attr("disabled","disabled")
+                $("#item_discount_val").attr("disabled","disabled").focus();
             }
         });
         const checkbox2 = $("#add_coll");

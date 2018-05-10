@@ -3,7 +3,7 @@ class CreateItems < ActiveRecord::Migration[5.1]
     create_table :items do |t|
       t.belongs_to :subcategory
       t.belongs_to :collection
-      t.string :item_name, index:true
+      t.string :item_name
       t.string :item_name_caps, index:true
       t.string :item_name_translit, :default => '', index: true
       t.string :item_image1, :default => 'none'
@@ -11,9 +11,8 @@ class CreateItems < ActiveRecord::Migration[5.1]
       t.string :item_image3, :default => 'none'
       t.string :item_image4, :default => 'none'
       t.string :item_size, :default => 'не указано'
-      t.string :item_model, :default => 'не указано'
-      t.string :item_badge, :default => 'не указано'
-      t.string :item_color, :default => 'не указано'
+      t.string :item_article, :default => 'не указано'
+      t.string :item_weight, :default => 'не указано'
       t.string :item_tags, :default => ''
       t.text   :item_description, :default => ''
       t.text :item_page_title, :default => ''

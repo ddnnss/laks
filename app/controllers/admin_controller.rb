@@ -32,7 +32,11 @@ class AdminController < ApplicationController
     newitem.item_name_caps = params[:addnewitem][:item_name].mb_chars.upcase
     newitem.item_page_title = params[:addnewitem][:item_page_title]
     newitem.item_page_description = params[:addnewitem][:item_page_description]
+    newitem.item_description = params[:item_description]
     newitem.item_price = params[:item_price].to_i
+    newitem.item_opt_price = params[:item_opt_price].to_i
+    newitem.item_opt_price_count = params[:item_opt_price_count].to_i
+    newitem.item_tags = params[:item_tags]
     if params[:item_new] == '1'
       newitem.item_new = true
     end
