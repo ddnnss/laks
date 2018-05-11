@@ -37,6 +37,18 @@ class AdminController < ApplicationController
     newitem.item_opt_price = params[:item_opt_price].to_i
     newitem.item_opt_price_count = params[:item_opt_price_count].to_i
     newitem.item_tags = params[:item_tags]
+
+    if params[params[:addnewitem]][:item_weight] != ''
+      newitem.item_weight = params[params[:addnewitem]][:item_weight]
+    end
+    if params[params[:addnewitem]][:item_size] != ''
+      newitem.item_size = params[params[:addnewitem]][:item_size]
+    end
+    if params[params[:addnewitem]][:item_article] != ''
+      newitem.item_article = params[params[:addnewitem]][:item_article]
+    end
+
+
     if params[:item_new] == '1'
       newitem.item_new = true
     end
