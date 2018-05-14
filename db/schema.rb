@@ -24,8 +24,10 @@ ActiveRecord::Schema.define(version: 20180508065125) do
     t.text "cat_page_title", default: ""
     t.text "cat_page_description", default: ""
     t.text "cat_description", default: ""
+    t.boolean "show_in_menu", default: false
     t.index ["cat_name"], name: "index_categories_on_cat_name"
     t.index ["cat_name_translit"], name: "index_categories_on_cat_name_translit"
+    t.index ["show_in_menu"], name: "index_categories_on_show_in_menu"
   end
 
   create_table "clients", force: :cascade do |t|

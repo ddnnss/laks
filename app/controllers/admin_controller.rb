@@ -1,4 +1,9 @@
 class AdminController < ApplicationController
+  before_action :getmenu
+  def getmenu
+    @menu_drop = Category.all
+    @menu_cat = Category.where(show_in_menu: true)
+  end
   def items
     @maincat = Category.where(cat_main: true)
 
@@ -103,6 +108,9 @@ class AdminController < ApplicationController
     newcat.cat_page_title = params[:addnewcategory][:maincat_page_title]
     newcat.cat_page_description = params[:addnewcategory][:maincat_page_description]
     newcat.cat_description = params[:maincat_description]
+    if params[:show_in_menu] == 'on'
+      newcat.show_in_menu = true
+    end
     uploadedFile = params[:addnewcategory][:maincat_image]
     if File.file?(Rails.root.join('public','images','maincategory', uploadedFile.original_filename))
       uploadedFile.original_filename = [*('a'..'z'),*('0'..'9')].shuffle[0,4].join + uploadedFile.original_filename

@@ -45,6 +45,12 @@
           <div class="modal-body">
             <%= form_for  :addnewcategory, url: addnewcategory_path   do |f|%>
                   <div class="col-sm-12">
+                    <div class="form-check form-check-inline">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="show_in_menu"   value="on">
+                       Отображать в главном меню ?:
+                      </label>
+                    </div>
                     <p>Название категории :
                       <%=f.text_field  :maincat_name, :required => true , class:'form-control'%></p>
                   </div>

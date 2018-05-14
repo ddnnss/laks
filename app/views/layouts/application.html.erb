@@ -27,6 +27,7 @@
     <link href='http://fonts.googleapis.com/css?family=Rambla:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 
 
 
@@ -37,7 +38,7 @@
   </head>
 
   <body class="page page-shop header-compact-sticky page-shop navbar-layout-navbar-below">
-  <%=render 'pageparts/header'%>
+  <%=render partial: 'pageparts/header' ,  locals: {mc: @menu_cat, md: @menu_drop}%>
     <%= yield %>
   <%=render 'pageparts/footer'%>
   </body>
