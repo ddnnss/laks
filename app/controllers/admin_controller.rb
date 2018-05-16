@@ -130,6 +130,11 @@ class AdminController < ApplicationController
       newcat.update_column(:cat_page_title, params[:addnewcategory][:maincat_page_title])
       newcat.update_column(:cat_page_description , params[:addnewcategory][:maincat_page_description])
       newcat.update_column(:cat_description , params[:maincat_description])
+      if params[:show_in_menu] == 'on'
+        newcat.update_column(:show_in_menu , true)
+      else
+        newcat.update_column(:show_in_menu , false)
+      end
           if params[:addnewcategory][:maincat_image].present?
             uploadedFile = params[:addnewcategory][:maincat_image]
             if File.file?(Rails.root.join('public','images','maincategory', uploadedFile.original_filename))
@@ -210,6 +215,9 @@ class AdminController < ApplicationController
         @cat_page_title = cat.cat_page_title
         @cat_page_description = cat.cat_page_description
         @cat_description = cat.cat_description.html_safe
+        if cat.show_in_menu
+        @cat_show_in_menu = '1'
+        end
         @cat_id = params[:cat_id]
         @cat_main = '1'
         format.js

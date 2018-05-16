@@ -21,7 +21,6 @@ class CreateItems < ActiveRecord::Migration[5.1]
       t.integer    :item_price
       t.integer    :item_opt_price
       t.integer    :item_opt_price_count
-      t.integer    :item_rating, :default => 0
       t.integer    :item_discount, :default => 0
       t.integer    :item_views_count, :default => 0
 

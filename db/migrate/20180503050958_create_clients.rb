@@ -4,9 +4,13 @@ class CreateClients < ActiveRecord::Migration[5.1]
       t.string  :client_email, index: true
       t.string  :client_name, :default => ''
       t.string  :client_family, :default => ''
+      t.string  :client_phone, :default => ''
+      t.string  :client_country, :default => ''
+      t.string  :client_city, :default => ''
+      t.string  :client_address, :default => ''
       t.string  :client_password
       t.string  :client_view_history, :default => ''
-      t.string  :client_items_rate, :default => ''
+
 
       t.boolean :client_vip, :default => false
       t.boolean :client_mail_subscribe,:default => true

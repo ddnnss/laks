@@ -4,6 +4,14 @@ if ('<%= j  @cat_main %>' == '1' ) {
     $('#maincat_page_description').val('<%= j @cat_page_description %>');
     $("#maincat_image").attr("src", "/images/maincategory/<%= j  @cat_image %>");
     $('#maincat_id').val(<%= j  @cat_id %>);
+    if('<%= j @cat_show_in_menu %>' == '1'){
+        $('#show_in_menu')[0].checked = true;
+    }
+    else
+    {
+        $('#show_in_menu')[0].checked = false;
+    }
+
     $(".summernote-2").summernote('code',"<%= j @cat_description %>");
     $('.edit-maincategory').modal('show');
 }
