@@ -1,0 +1,23 @@
+if('<%= @status %>' == 'ok') {
+    $(".reg_result_ok").css('display', 'block');
+    $(".reg_result_err").css('display','none');
+
+    $(".reg_result_ok").text('<%= raw @res %>');
+    $('#regbutt').html("Спасибо за регистрацию");
+
+
+    setTimeout(function () {
+        $('.login-modal-lg').modal('hide');
+    }, 3500);
+}
+else{
+    $(".reg_result_err").css('display','block');
+
+    $(".reg_result_err").text('<%= raw @res %>');
+    $('#regbutt').html("Зарегистрироваться");
+    $('#regbutt').removeAttr('disabled');
+
+
+
+
+}

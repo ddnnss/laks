@@ -14,6 +14,58 @@
  * Includes the base variables & mixins needed for all
  * scss files
  *******************************************************/
+#container {
+  width: 100%;
+
+  margin: 2em auto;
+}
+.cols {
+  -moz-column-count:3;
+  -moz-column-gap: 3%;
+  -moz-column-width: 30%;
+  -webkit-column-count:3;
+  -webkit-column-gap: 3%;
+  -webkit-column-width: 30%;
+  column-count: 3;
+  column-gap: 3%;
+  column-width: 30%;
+}
+.box {
+  margin-bottom: 20px;
+}
+.box.one {
+  height: 100%;
+  background-color: #d77575;
+}
+.box.two {
+  height: 100%;
+  background-color: #dcbc4c;
+}
+.box.three {
+  background-color: #a3ca3b;
+  height: 100%;
+}
+.box.four {
+  background-color: #3daee3;
+  height: 100%;
+}
+.box.five {
+  background-color: #bb8ed8;
+  height: 100%;
+}
+.box.six {
+  background-color: #baafb1;
+  height: 100%;
+}
+
+.form_label {
+  font-size: 14px;
+}
+
+
+
+
+
 
 .product-offer-countdown .countdown {
   display: -webkit-box;

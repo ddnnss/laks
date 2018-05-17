@@ -1,6 +1,8 @@
 class PageController < ApplicationController
   before_action :getmenu
   def index
+    @cat_all = Category.all
+    @w=['','one','two','three','four','five','six']
 
   end
 

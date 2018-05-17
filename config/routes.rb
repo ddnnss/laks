@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   match '/addcollection'  => 'admin#addcollection',    via: [:post]
   match '/editcollection'  => 'admin#editcollection', via: [:post]
 
-
+  match '/login'  => 'client#login', via: [:post]
+  match '/registration'  => 'client#registration', via: [:post]
+  match '/logout'  => 'client#logout', via: [:get]
 
 
   get '/category(/:name)', to: 'page#showcategory'

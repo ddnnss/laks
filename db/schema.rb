@@ -34,9 +34,12 @@ ActiveRecord::Schema.define(version: 20180508065125) do
     t.string "client_email"
     t.string "client_name", default: ""
     t.string "client_family", default: ""
+    t.string "client_phone", default: ""
+    t.string "client_country", default: ""
+    t.string "client_city", default: ""
+    t.string "client_address", default: ""
     t.string "client_password"
     t.string "client_view_history", default: ""
-    t.string "client_items_rate", default: ""
     t.boolean "client_vip", default: false
     t.boolean "client_mail_subscribe", default: true
     t.boolean "client_activated", default: false
@@ -85,7 +88,6 @@ ActiveRecord::Schema.define(version: 20180508065125) do
     t.integer "item_price"
     t.integer "item_opt_price"
     t.integer "item_opt_price_count"
-    t.integer "item_rating", default: 0
     t.integer "item_discount", default: 0
     t.integer "item_views_count", default: 0
     t.boolean "item_in_sale", default: false
