@@ -106,7 +106,7 @@
   <div class="container py-4 py-lg-6">
     <hr class="hr-lg mt-0 mb-3 w-10 mx-auto hr-primary" />
     <h2 class="text-center text-uppercase font-weight-bold my-0">
-      КАТЕГОРИИ ТОВАРОВ
+      КАТАЛОГ ТОВАРОВ
     </h2>
     <h5 class="text-center font-weight-light mt-2 mb-0 text-muted">
       ЧТО ТУТ НАПИСАТЬ???????????
@@ -115,22 +115,26 @@
 
 
 
-    <div id="container" class="cols">
+
+
+    <div class="grid">
+      <div class="grid-sizer"></div>
       <%  @cat_all.each do |cat|%>
-          <div class="box <%=@w[rand(1..6)]%> overlay-hover">
-            <!-- Hover content -->
-            <div class="overlay-hover-content overlay-op-9 overlay-gradient overlay-dark">
-              <h3  class="mb-0">
-                <%=cat.cat_name%>
-              </h3>
+      <div class="grid-item overlay-hover">
+        <!-- Hover content -->
+        <div class="overlay-hover-content overlay-op-9 overlay-gradient overlay-dark">
+          <h3  style="font-size:2vw;">
+            <%=cat.cat_name%>
+          </h3>
 
-            </div>
-            <!-- Image -->
-            <img class="card-img-top img-fluid w-100 w-md-auto" style="width: 100%;" src="/images/maincategory/<%=cat.cat_image%>" alt="Card image cap">
-          </div>
+        </div>
+        <!-- Image -->
+        <img class="card-img-top img-fluid w-100 w-md-auto"  src="/images/maincategory/<%=cat.cat_image%>" alt="Card image cap">
 
+      </div>
       <%end%>
     </div>
+
 
 
 
@@ -368,6 +372,20 @@
   <!-- New Products -->
 
 </div>
+
+<script language="JavaScript">
+    var $grid = $('.grid').masonry({
+        itemSelector: '.grid-item',
+        percentPosition: true,
+        columnWidth: '.grid-sizer',
+        gutter: 10
+
+    });
+    // layout Masonry after each image loads
+    $grid.imagesLoaded().progress( function() {
+        $grid.masonry();
+    });
+</script>
 
 
 

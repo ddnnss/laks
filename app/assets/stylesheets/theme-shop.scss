@@ -14,53 +14,44 @@
  * Includes the base variables & mixins needed for all
  * scss files
  *******************************************************/
-#container {
-  width: 100%;
+/* ---- grid ---- */
 
-  margin: 2em auto;
+.grid {
+  margin: 0 auto;
 }
-.cols {
-  -moz-column-count:3;
-  -moz-column-gap: 3%;
-  -moz-column-width: 30%;
-  -webkit-column-count:3;
-  -webkit-column-gap: 3%;
-  -webkit-column-width: 30%;
-  column-count: 3;
-  column-gap: 3%;
-  column-width: 30%;
+
+/* clear fix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
 }
-.box {
-  margin-bottom: 20px;
+
+/* ---- .grid-item ---- */
+
+.grid-sizer,
+.grid-item {
+  width: 30%;
 }
-.box.one {
-  height: 100%;
-  background-color: #d77575;
+
+.grid-item {
+  float: left;
+  margin-bottom: 10px;
 }
-.box.two {
-  height: 100%;
-  background-color: #dcbc4c;
+
+.grid-item img {
+  display: block;
+ max-width: 100%;
 }
-.box.three {
-  background-color: #a3ca3b;
-  height: 100%;
-}
-.box.four {
-  background-color: #3daee3;
-  height: 100%;
-}
-.box.five {
-  background-color: #bb8ed8;
-  height: 100%;
-}
-.box.six {
-  background-color: #baafb1;
-  height: 100%;
-}
+
+/* ---- grid ---- */
+
 
 .form_label {
   font-size: 14px;
 }
+
+
 
 
 
