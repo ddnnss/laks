@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
   before_action :getmenu
   def getmenu
-    @menu_drop = Category.all
+    @cat_all = Category.all
     @menu_cat = Category.where(show_in_menu: true)
   end
   def items
@@ -33,7 +33,7 @@ class AdminController < ApplicationController
     newitem = Item.new
     newitem.subcategory_id = params[:subcat_id]
     newitem.item_name = params[:addnewitem][:item_name]
-    newitem.item_name_translit = Translit.convert(params[:addnewitem][:item_name]).gsub(' ','-')
+    newitem.item_name_translit = Translit.convert(params[:addnewitem][:item_name].gsub(' ','-'), :english)
     newitem.item_name_caps = params[:addnewitem][:item_name].mb_chars.upcase
     newitem.item_page_title = params[:addnewitem][:item_page_title]
     newitem.item_page_description = params[:addnewitem][:item_page_description]
@@ -43,14 +43,14 @@ class AdminController < ApplicationController
     newitem.item_opt_price_count = params[:item_opt_price_count].to_i
     newitem.item_tags = params[:item_tags]
 
-    if params[params[:addnewitem]][:item_weight] != ''
-      newitem.item_weight = params[params[:addnewitem]][:item_weight]
+    if params[:addnewitem][:item_weight] != ''
+      newitem.item_weight = params[:addnewitem][:item_weight]
     end
-    if params[params[:addnewitem]][:item_size] != ''
-      newitem.item_size = params[params[:addnewitem]][:item_size]
+    if params[:addnewitem][:item_size] != ''
+      newitem.item_size = params[:addnewitem][:item_size]
     end
-    if params[params[:addnewitem]][:item_article] != ''
-      newitem.item_article = params[params[:addnewitem]][:item_article]
+    if params[:addnewitem][:item_article] != ''
+      newitem.item_article = params[:addnewitem][:item_article]
     end
 
 
@@ -104,7 +104,7 @@ class AdminController < ApplicationController
     if params[:action_type] == 'new'
     newcat = Category.new
     newcat.cat_name = params[:addnewcategory][:maincat_name]
-    newcat.cat_name_translit = Translit.convert(params[:addnewcategory][:maincat_name]).gsub(' ','-')
+    newcat.cat_name_translit = Translit.convert(params[:addnewcategory][:maincat_name].gsub(' ','-'), :english)
     newcat.cat_page_title = params[:addnewcategory][:maincat_page_title]
     newcat.cat_page_description = params[:addnewcategory][:maincat_page_description]
     newcat.cat_description = params[:maincat_description]
@@ -126,7 +126,7 @@ class AdminController < ApplicationController
     if params[:action_type] == 'edit'
       newcat = Category.find(params[:maincat_id])
       newcat.update_column(:cat_name, params[:addnewcategory][:maincat_name])
-      newcat.update_column(:cat_name_translit , Translit.convert(params[:addnewcategory][:maincat_name]).gsub(' ','-'))
+      newcat.update_column(:cat_name_translit , Translit.convert(params[:addnewcategory][:maincat_name].gsub(' ','-'), :english))
       newcat.update_column(:cat_page_title, params[:addnewcategory][:maincat_page_title])
       newcat.update_column(:cat_page_description , params[:addnewcategory][:maincat_page_description])
       newcat.update_column(:cat_description , params[:maincat_description])
@@ -155,7 +155,7 @@ class AdminController < ApplicationController
     newcat = Subcategory.new
     newcat.category_id = params[:cat_id]
     newcat.subcat_name = params[:addnewsubcategory][:subcat_name]
-    newcat.subcat_name_translit = Translit.convert(params[:addnewsubcategory][:subcat_name].gsub(' ','-'))
+    newcat.subcat_name_translit = Translit.convert(params[:addnewsubcategory][:subcat_name].gsub(' ','-'), :english)
     newcat.subcat_page_title = params[:addnewsubcategory][:subcat_page_title]
     newcat.subcat_page_description = params[:addnewsubcategory][:subcat_page_description]
     newcat.subcat_description = params[:subcat_description]
@@ -178,7 +178,7 @@ class AdminController < ApplicationController
         newcat.update_column(:category_id,params[:maincat_select])
       end
       newcat.update_column(:subcat_name , params[:addnewsubcategory][:subcat_name])
-      newcat.update_column(:subcat_name_translit , Translit.convert(params[:addnewsubcategory][:subcat_name].gsub(' ','-')))
+      newcat.update_column(:subcat_name_translit , Translit.convert(params[:addnewsubcategory][:subcat_name].gsub(' ','-'), :english))
       newcat.update_column(:subcat_page_title , params[:addnewsubcategory][:subcat_page_title])
       newcat.update_column(:subcat_page_description , params[:addnewsubcategory][:subcat_page_description])
       newcat.update_column(:subcat_description,params[:subcat_description])

@@ -1,0 +1,84 @@
+<div id="page-header">
+  <div class="container clearfix">
+
+    <nav class="breadcrumb float-md-left">
+      <a class="breadcrumb-item" href="/">ГЛАВНАЯ</a>
+      <a class="breadcrumb-item" href="/category/<%= @parent_cat.cat_name_translit%>"><%= @parent_cat.cat_name.mb_chars.upcase%></a>
+      <span class="breadcrumb-item active"><%= @subcat.subcat_name.mb_chars.upcase%></span>
+    </nav>
+  </div>
+</div>
+<div id="content" class="py-3 py-lg-6">
+  <div class="container">
+    <div class="row">
+      <!-- Products grid -->
+      <div class="col-lg-9 order-lg-2">
+
+
+
+        <div class="row">
+
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation">
+          <ul class="pagination pagination-lg justify-content-center">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">«</span> <span class="sr-only">Previous</span> </a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">5</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">»</span> <span class="sr-only">Next</span> </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!-- Products sidebar -->
+      <div class="col-lg-3 order-lg-1">
+
+        <!-- Sections Menu-->
+        <ul class="nav nav-section-menu mb-4 py-3">
+          <li class="nav-header">Наш ассортимент</li>
+          <%@cat_all.each do |cat|%>
+              <li>
+                <a href="#<%=cat.cat_name_translit%>" data-toggle="collapse" class="nav-link text-uppercase text-slab active show">
+                  <%=cat.cat_name.mb_chars.upcase%>
+
+                  <i class="fa fa-angle-right"></i>
+                </a>
+                <ul class="nav nav-section-menu collapse " id="<%=cat.cat_name_translit%>">
+                  <%cat.subcategories.each do |cs|%>
+                      <li><a href="/subcategory/<%=cs.subcat_name_translit%>" id="<%=cs.subcat_name_translit%>" class="nav-link"><%=cs.subcat_name.mb_chars.upcase%></a></li>
+                  <% end %>
+                </ul>
+              </li>
+          <% end %>
+        </ul>
+        <div class="p-3 overlay overlay-op-5 rounded flex-valign mb-4 clickable-element bg-img blazy-bg b-loaded" data-css="{&quot;background-position&quot;:&quot;center bottom&quot;}" data-url="shop-product.html" style="background-position: center bottom; background-image: url(http://lakshmi888.ru/image/amulet.png);">
+          <h4 class="text-white mb-0">
+            Новая
+          </h4>
+          <p class="text-white mb-0">коллекция</p>
+          <hr class="hr-lg my-2 w-20 mx-auto hr-primary">
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <hr class="my-5">
+  <div class="container">
+    <%=@subcat.subcat_description.html_safe %>
+
+  </div>
+</div>
+<script language="JavaScript">
+    $( document ).ready(function() {
+        $('#<%=@parent_cat.cat_name_translit %>').addClass('show');
+        $('#<%=@subcat.subcat_name_translit %>').addClass('text-primary');
+    });
+</script>

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
 
   get '/category(/:name)', to: 'page#showcategory'
+  get '/subcategory(/:name)', to: 'page#showsubcategory'
 
 
 end

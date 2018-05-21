@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20180508065125) do
     t.text "cat_page_title", default: ""
     t.text "cat_page_description", default: ""
     t.text "cat_description", default: ""
+    t.integer "cat_views", default: 0
     t.boolean "show_in_menu", default: false
     t.index ["cat_name"], name: "index_categories_on_cat_name"
     t.index ["cat_name_translit"], name: "index_categories_on_cat_name_translit"
@@ -40,6 +41,7 @@ ActiveRecord::Schema.define(version: 20180508065125) do
     t.string "client_address", default: ""
     t.string "client_password"
     t.string "client_view_history", default: ""
+    t.date "client_last_login"
     t.boolean "client_vip", default: false
     t.boolean "client_mail_subscribe", default: true
     t.boolean "client_activated", default: false
@@ -53,6 +55,7 @@ ActiveRecord::Schema.define(version: 20180508065125) do
     t.string "collection_name", default: ""
     t.string "collection_name_translit", default: ""
     t.string "collection_image", default: ""
+    t.integer "collection_views", default: 0
     t.text "collection_page_title", default: ""
     t.text "collection_page_description", default: ""
     t.text "collection_description", default: ""
@@ -118,6 +121,7 @@ ActiveRecord::Schema.define(version: 20180508065125) do
     t.string "subcat_name", default: ""
     t.string "subcat_name_translit", default: ""
     t.string "subcat_image", default: ""
+    t.integer "subcat_views", default: 0
     t.text "subcat_page_title", default: ""
     t.text "subcat_page_description", default: ""
     t.text "subcat_description", default: ""
