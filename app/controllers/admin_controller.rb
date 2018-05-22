@@ -1,8 +1,20 @@
 class AdminController < ApplicationController
-  before_action :getmenu
+  before_action :getmenu, :getcart
   def getmenu
     @cat_all = Category.all
     @menu_cat = Category.where(show_in_menu: true)
+  end
+  def getcart
+    if session[:active]
+    else
+      if session[:cart].nil?
+        session[:total] = 0
+      else
+        session[:total] = 0
+        @cart= Item.find(session[:cart])
+      end
+
+    end
   end
   def items
     @maincat = Category.where(cat_main: true)

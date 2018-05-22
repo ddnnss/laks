@@ -45,7 +45,7 @@
 
   <a id="#top" href="#content" class="sr-only">Skip to content</a>
 
-  <%=render partial: 'pageparts/header' ,  locals: {mc: @menu_cat, md: @cat_all}%>
+  <%=render partial: 'pageparts/header' ,  locals: {mc: @menu_cat, md: @cat_all, cart: @cart}%>
     <%= yield %>
   <%=render 'pageparts/footer'%>
   </body>

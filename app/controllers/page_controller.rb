@@ -1,5 +1,5 @@
 class PageController < ApplicationController
-  before_action :getmenu
+  before_action :getmenu, :getcart
   def index
     @title = 'Купить сувениры оптом дешево в Москве. Интернет-магазин оригинальных и необычных подарков оптом Лакшми'
     @description = 'Оригинальные и необычные сувениры и подарки в интернет-магазине lakshmi888.ru мелким и крупным оптом в Москве.'
@@ -29,4 +29,17 @@ class PageController < ApplicationController
     @cat_all = Category.all
     @menu_cat = Category.where(show_in_menu: true)
   end
+  def getcart
+    if session[:active]
+    else
+      if session[:cart].nil?
+        session[:total] = 0
+      else
+        session[:total] = 0
+        @cart= Item.find(session[:cart])
+      end
+
+    end
+  end
+
 end

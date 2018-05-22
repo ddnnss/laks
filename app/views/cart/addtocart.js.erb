@@ -1,13 +1,13 @@
 var cartItem = " <div class=\"cart-items-item\">\n" +
     "                  <a href=\"#\" class=\"cart-img mr-2 float-left\">\n" +
-    "                    <img class=\"img-fluid\" src=\"/images/items/<%= @item_id%>/<%= @item_image%>\" alt=\"Product 1\">\n" +
+    "                    <img class=\"img-fluid\" src=\"/images/items/<%= @item_id%>/<%= @item_image%>\" alt=\"Интернет магазин Lakshmi88 предлагает купить <%= @item_name%>\">\n" +
     "                  </a>\n" +
     "                  <div class=\"float-left\">\n" +
     "                    <h5 class=\"mb-0\">\n" +
     "                      <%= @item_name%>\n" +
     "                    </h5>\n" +
     "                    <p class=\"mb-0 cart_item\"><%= @item_price%> &#8381;</p>\n" +
-    "                    <a href=\"#\" class=\"close cart-remove text-primary\"> <i class=\"fa fa-times\"></i> </a>\n" +
+
     "                  </div>\n" +
     "                </div>";
 
@@ -16,3 +16,4 @@ var cur_count = parseInt( $('#cart_count').html());
 $('#cart_count').html(cur_count + 1);
 var cur_total = parseInt( $('#total').html());
 $('#total').html(cur_total + <%= @item_price%>);
+$('#item-<%=@item_id%>').attr("href", "");javascript:void(0)
