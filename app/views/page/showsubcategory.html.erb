@@ -13,44 +13,84 @@
     <div class="row">
       <!-- Products grid -->
       <div class="col-lg-9 order-lg-2">
+        <div class="row">
 
+          <div class="col-lg-12">
+            <form class="form-inline  text-sm">
+              <label class="control-label mr-2">Сортировать:</label>
+              <select class="form-control form-control-sm">
+                <option value="#">Cо скидкой</option>
+                <option value="#">Новинки</option>
+                <option value="#">Цена (Ниже &gt; Выше)</option>
+                <option value="#" >Цена (Выше &gt; Ниже)</option>
+                             </select>
+              <label class="control-label mr-2 ml-lg-3">Показывать:</label>
+              <select class="form-control form-control-sm">
+                <option value="#">15</option>
+                <option value="#">20</option>
+                <option value="#">25</option>
+                <option value="#">30</option>
+                <option value="#">35</option>
+                <option value="#">40</option>
+                <option value="#">45</option>
+                <option value="#">50</option>
+              </select>
+              <button style="margin-left: 15px;" type="submit" class="btn btn-primary ">Применить</button>
+            </form>
+          </div>
+
+        </div>
+        <hr class="my-4" >
 
 
         <div class="row">
           <%@subcat.items.each do |item|%>
           <div class="col-lg-4">
             <!-- Product 2 -->
-            <div class="card mb-4 product-card overlay-hover">
-              <!-- Hover content -->
+            <div class="card mb-4 product-card">
+              <!-- Hover content
               <div class="overlay-hover-content overlay-op-7">
                 <a href="shop-cart.html" class="btn btn-primary btn-block text-uppercase font-weight-bold mb-3 btn-lg"><i class="fa fa-cart-plus mr-2"></i> В корзину</a>
                 <a href="shop-product.html" class="text-white text-sm">Подробнее о товаре</a> <a href="#" class="text-white text-sm">Добавить в закладки</a>
 
-              </div>
+              </div>-->
               <!-- Image & price content -->
               <div class="pos-relative">
                 <img class="card-img-top img-fluid" src="/images/items/<%=item.id%>/<%=item.item_image1%>" alt="Купить <%=item.item_name%> в Москве по оптовым ценам">
 
-                <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-r mt-2 mr-2 persist">
-                  <%if item.item_discount > 0 %>
-                      <del class="op-5">&#8381; <%=item.item_price%></del>
-                    /
-                    &#8381; <%=item.item_price - (item.item_price * item.item_discount / 100)%>
-                    <%else %>
-                   &#8381; <%=item.item_price%>
-                    <%end%>
+                <%if item.item_discount > 0 %>
+                    <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-r mt-2 mr-2 persist">
+                 - <%=item.item_discount%> %
+                </span>
+                <%else %>
 
-                    </span>
+                <%end%>
+
               </div>
               <!-- Content -->
-              <div class="card-body">
+              <div class="card-body text-center ">
+                <a href=""> <%=item.item_name%></a>
+                <hr/>
+                <a href="/addtocart/<%=item.id%>" data-remote="true"><span class="fa fa-cart-plus"></span></a>
 
-                <h4 class="card-title">
-                  <%=item.item_name%>
-                </h4>
+
+                |
+                <a href="#"><span class="fa fa-heart"></span></a>
+
+
               </div>
-              <div class="card-footer">
-                <small class="text-muted">Оптовая цена <span class="badge badge-primary product-price-badge">&#8381; <%=item.item_opt_price%></span> при заказе от :  <%=item.item_opt_price_count%> штук</small>
+              <div class="card-footer text-center">
+               Цена :
+                <%if item.item_discount > 0 %>
+                    <del class="op-5">&#8381; <%=item.item_price%></del>
+                    /
+                    <%=item.item_price - (item.item_price * item.item_discount / 100)%> &#8381;
+                <%else %>
+                     <%=item.item_price%> &#8381;
+                <%end%>
+               <br/>
+
+            Оптовая цена :  <%=item.item_opt_price%> &#8381; <a href="#" data-toggle="tooltip" title="" data-original-title="При заказе от :  <%=item.item_opt_price_count%> штук"><i class="fa fa-info-circle fa-lg text-info"></i></a>
               </div>
             </div>
           </div>
@@ -79,7 +119,7 @@
 
         <!-- Sections Menu-->
         <ul class="nav nav-section-menu mb-4 py-3">
-          <li class="nav-header">Наш ассортимент</li>
+          <li class="nav-header"><i class="fas fa-bars mr-2" style="font-size: 15px;"></i>КАТАЛОГ ТОВАРОВ</li>
           <%@cat_all.each do |cat|%>
               <li>
                 <a href="#<%=cat.cat_name_translit%>" data-toggle="collapse" class="nav-link text-uppercase text-slab active show">

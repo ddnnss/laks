@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   match '/logout'  => 'client#logout', via: [:get]
   get '/activate', to: 'client#activate'
 
+  match '/addtocart(/:item_id)'  => 'cart#addtocart', via: [:get]
+
 
   get '/category(/:name)', to: 'page#showcategory'
   get '/subcategory(/:name)', to: 'page#showsubcategory'
