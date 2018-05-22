@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   match '/login'  => 'client#login', via: [:post]
   match '/registration'  => 'client#registration', via: [:post]
   match '/logout'  => 'client#logout', via: [:get]
+  get '/activate', to: 'client#activate'
 
 
   get '/category(/:name)', to: 'page#showcategory'

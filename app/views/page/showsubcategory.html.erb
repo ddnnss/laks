@@ -17,7 +17,44 @@
 
 
         <div class="row">
+          <%@subcat.items.each do |item|%>
+          <div class="col-lg-4">
+            <!-- Product 2 -->
+            <div class="card mb-4 product-card overlay-hover">
+              <!-- Hover content -->
+              <div class="overlay-hover-content overlay-op-7">
+                <a href="shop-cart.html" class="btn btn-primary btn-block text-uppercase font-weight-bold mb-3 btn-lg"><i class="fa fa-cart-plus mr-2"></i> В корзину</a>
+                <a href="shop-product.html" class="text-white text-sm">Подробнее о товаре</a> <a href="#" class="text-white text-sm">Добавить в закладки</a>
 
+              </div>
+              <!-- Image & price content -->
+              <div class="pos-relative">
+                <img class="card-img-top img-fluid" src="/images/items/<%=item.id%>/<%=item.item_image1%>" alt="Купить <%=item.item_name%> в Москве по оптовым ценам">
+
+                <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-r mt-2 mr-2 persist">
+                  <%if item.item_discount > 0 %>
+                      <del class="op-5">&#8381; <%=item.item_price%></del>
+                    /
+                    &#8381; <%=item.item_price - (item.item_price * item.item_discount / 100)%>
+                    <%else %>
+                   &#8381; <%=item.item_price%>
+                    <%end%>
+
+                    </span>
+              </div>
+              <!-- Content -->
+              <div class="card-body">
+
+                <h4 class="card-title">
+                  <%=item.item_name%>
+                </h4>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">Оптовая цена <span class="badge badge-primary product-price-badge">&#8381; <%=item.item_opt_price%></span> при заказе от :  <%=item.item_opt_price_count%> штук</small>
+              </div>
+            </div>
+          </div>
+        <% end %>
         </div>
 
         <!-- Pagination -->

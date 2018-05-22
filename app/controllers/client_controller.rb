@@ -15,12 +15,13 @@ class ClientController < ApplicationController
 
           session[:active] = true
           session[:client_email] = client.client_email
+          session[:client_id] = client.id
           session[:client_vip] = client.client_vip
           session[:admin] = client.client_admin
 
 
           respond_to do |format|
-            format.js {render inline: " window.location = '/';" }
+            format.js {render inline: " window.location.reload()" }
 
           end
 
@@ -64,7 +65,7 @@ class ClientController < ApplicationController
         @client.client_phone = params[:registration][:client_phone]
         @client.save
 
-       ## clientMailer.activation(@client).deliver_now
+        MailerMailer.activation(@client).deliver_later
 
         respond_to do |format|
           @res='Письмо с инструкцией по активации отправлено (возможно оно попадет в спам)'
@@ -102,6 +103,24 @@ class ClientController < ApplicationController
     session[:active] = false
     reset_session
     redirect_to '/'
+  end
+
+  def activate
+    u=Client.find(params[:id])
+    if u.client_activated == false
+      u.update_column(:client_activated, true)
+
+      flash[:activatesuccess] = 'Аккаунт активирован.'
+
+      session[:active] = true
+      session[:client_email] = u.client_email
+      session[:client_id] = u.id
+
+      redirect_to root_path and return
+    else
+      flash[:activateerror] = 'Аккаунт уже активирован.'
+      redirect_to root_path and return
+    end
   end
 
   private
