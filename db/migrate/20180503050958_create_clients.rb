@@ -10,6 +10,7 @@ class CreateClients < ActiveRecord::Migration[5.1]
       t.string  :client_address, :default => ''
       t.string  :client_password
       t.string  :client_view_history, :default => ''
+      t.string  :client_personal_discount, :default => ''
       t.date    :client_last_login
 
       t.boolean :client_vip, :default => false

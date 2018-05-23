@@ -1,4 +1,7 @@
 var cartItem = " <div class=\"cart-items-item\">\n" +
+
+    " <span style=\"display: none;\" id=\"iitem<%= @item_id%>_price_total\"><%= @item_price%></span>\n"+
+
     "                  <a href=\"#\" class=\"cart-img mr-2 float-left\">\n" +
     "                    <img class=\"img-fluid\" src=\"/images/items/<%= @item_id%>/<%= @item_image%>\" alt=\"Интернет магазин Lakshmi88 предлагает купить <%= @item_name%>\">\n" +
     "                  </a>\n" +
@@ -6,14 +9,57 @@ var cartItem = " <div class=\"cart-items-item\">\n" +
     "                    <h5 class=\"mb-0\">\n" +
     "                      <%= @item_name%>\n" +
     "                    </h5>\n" +
-    "                    <p class=\"mb-0 cart_item\"><%= @item_price%> &#8381;</p>\n" +
+    "                    <p class=\"mb-0 cart_item\"><span id=\"item<%= @item_id%>_cur_price\"><%= @item_price%></span> &#8381; x <span id=\"item<%= @item_id%>count\">1</span></p>\n" +
 
     "                  </div>\n" +
     "                </div>";
 
-$(".cart-items").append(cartItem);
-var cur_count = parseInt( $('#cart_count').html());
-$('#cart_count').html(cur_count + 1);
-var cur_total = parseInt( $('#total').html());
-$('#total').html(cur_total + <%= @item_price%>);
-$('#item-<%=@item_id%>').attr("href", "");javascript:void(0)
+if ('<%=@dup %>' == 'true')
+{
+    if ('<%=@opt_price %>' == 'true'){
+
+        $('#item<%= @item_id%>count').html(<%= @item_count%>);
+        $('#iitem<%= @item_id%>_price_total').html(<%=  @item_total_price%>);
+        $('#item<%= @item_id%>_cur_price').addClass('text-primary');
+
+
+        $('#total').html(total('#cart-items-item'));
+
+    }else{
+        $('#item<%= @item_id%>count').html(<%= @item_count%>);
+        var cur_total = parseInt( $('#total').html());
+        $('#total').html(cur_total + <%= @item_price%>);
+        var cart_total = parseInt( $('#cart_count').html());
+        $('#cart_count').html(cart_total + 1);
+    }
+
+
+
+}
+else
+{
+
+    $(".cart-items").append(cartItem);
+    var cur_total = parseInt( $('#total').html());
+    $('#total').html(cur_total + <%= @item_price%>);
+    var cart_total = parseInt( $('#cart_count').html());
+    $('#cart_count').html(cart_total + 1);
+
+}
+
+
+
+function total(selector) {
+    var sum = 0;
+    $("span[id^='iitem']").each(function() {
+
+            sum += parseInt($(this).html());
+        });
+
+    return sum;
+}
+
+
+
+
+

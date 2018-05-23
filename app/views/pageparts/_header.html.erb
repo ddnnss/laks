@@ -66,7 +66,15 @@
           <!--Shopping cart-->
           <div  class="dropdown dropdowns-no-carets dropdown-effect-fadeup float-right">
             <a href="#" class="btn btn-icon btn-dark btn-link float-right dropdown-toggle cart-link" data-toggle="dropdown">
-              <span class="cart-link-icon"> <i class="fa fa-shopping-cart"></i> <span class="sr-only">Cart</span> <span id="cart_count" class="cart-link-count bg-primary text-white"><%=@cart.count%></span></span>
+              <span class="cart-link-icon"> <i class="fa fa-shopping-cart"></i> <span class="sr-only">Cart</span> <span id="cart_count" class="cart-link-count bg-primary text-white">
+               <%if cart.nil?%>
+                0
+                    <%else%>
+                <%=session[:cart].values.count%>
+                    <%end%>
+
+
+              </span></span>
             </a>
 
             <!--Shopping cart dropdown -->
@@ -77,28 +85,51 @@
               <hr class="mt-0 mb-3" />
               <!--Shopping cart items-->
               <div class="cart-items">
-                <%cart.each do |cc|%>
-                    <div class="cart-items-item">
-                      <a href="#" class="cart-img mr-2 float-left">
-                        <img class="img-fluid" src="/images/items/<%= cc.id%>/<%=cc.item_image1%>" alt="Интернет магазин Lakshmi88 предлагает купить <%= cc.item_name%>">
-                      </a>
-                      <div class="float-left">
-                        <h5 class="mb-0">
-                          <%= cc.item_name%>
-                        </h5>
-                        <p class="mb-0">
-                          <%if cc.item_discount > 0%>
-                              <%=cc.item_price - (cc.item_price * cc.item_discount / 100)%> &#8381;
-                              <%session[:total] = session[:total] + cc.item_price - (cc.item_price * cc.item_discount / 100)%>
-                          <%else%>
-                              <%= cc.item_price%> &#8381;
-                              <%session[:total] = session[:total] + cc.item_price%>
-                              <%end%>
-                        </p>
+                <%if cart.nil?%>
 
-                      </div>
-                    </div>
+                <%else%>
+                    <%cart.each do |cc|%>
+                        <div class="cart-items-item">
+
+
+                          <a href="#" class="cart-img mr-2 float-left">
+                            <img class="img-fluid" src="/images/items/<%= cc.id%>/<%=cc.item_image1%>" alt="Интернет магазин Lakshmi888 предлагает купить <%= cc.item_name%>">
+                          </a>
+                          <div class="float-left">
+                            <h5 class="mb-0">
+                              <%= cc.item_name%>
+                            </h5>
+                            <p class="mb-0">
+                              <%if session[:cart][cc.id.to_s] >= cc.item_opt_price_count  %>
+
+                                <span class="text-primary"> <%= cc.item_opt_price%> </span> &#8381;
+                                  <%session[:total] = session[:total] + (cc.item_opt_price* session[:cart][cc.id.to_s])%> x <span id="item<%= cc.id%>count"><%=session[:cart][cc.id.to_s]%></span>
+                                  <span style="display: none;" id="iitem<%=cc.id%>_price_total"><%=cc.item_opt_price* session[:cart][cc.id.to_s]%></span>
+
+                              <%else%>
+                                  <%if cc.item_discount > 0%>
+                                      <span id="item<%=cc.id%>_cur_price">
+                                      <%=cc.item_price - (cc.item_price * cc.item_discount / 100)%></span> &#8381; x <span id="item_count"><%=session[:cart][cc.id.to_s]%></span>
+                                      <%session[:total] = session[:total] + (cc.item_price - (cc.item_price * cc.item_discount / 100))* session[:cart][cc.id.to_s]%>
+                                      <span style="display: none;" id="iitem<%=cc.id%>_price_total"><%=(cc.item_price - (cc.item_price * cc.item_discount / 100))* session[:cart][cc.id.to_s]%></span>
+
+                                  <%else%>
+                                      <span id="item<%=cc.id%>_cur_price">
+                                      <%= cc.item_price%></span> &#8381;
+                                      <%session[:total] = session[:total] + (cc.item_price* session[:cart][cc.id.to_s])%> x <span id="item<%= cc.id%>count"><%=session[:cart][cc.id.to_s]%></span>
+                                      <span style="display: none;" id="iitem<%=cc.id%>_price_total"><%=cc.item_price* session[:cart][cc.id.to_s]%></span>
+
+                                  <%end%>
+                              <%end%>
+
+                            </p>
+
+                          </div>
+                        </div>
+                    <%end%>
                 <%end%>
+
+
 
 
               </div>

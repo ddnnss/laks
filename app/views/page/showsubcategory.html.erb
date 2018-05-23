@@ -71,11 +71,19 @@
               <div class="card-body text-center ">
                 <a href=""> <%=item.item_name%></a>
                 <hr/>
-                <%if session[:cart].include? item.id%>
-                    <a href="javascript:void(0)" id="item-<%=item.id%>" data-remote="true"><span class="fa fa-cart-plus"></span></a>
-                    <%else%>
+                <%if session[:cart].nil?%>
                     <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" data-remote="true"><span class="fa fa-cart-plus"></span></a>
+
+              <%else%>
+                    <%if session[:cart].keys.include? item.id%>
+                        в корзине
+                        <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" data-remote="true"><span class="fa fa-cart-plus"></span></a>
+
+                    <%else%>
+                        <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" data-remote="true"><span class="fa fa-cart-plus"></span></a>
                     <%end%>
+                <%end%>
+
 
 
 
