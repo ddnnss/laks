@@ -11,7 +11,7 @@ class AdminController < ApplicationController
         session[:total] = 0
       else
         session[:total] = 0
-        @cart= Item.find(session[:cart])
+        @cart= Item.find(session[:cart].keys)
       end
 
     end

@@ -71,27 +71,28 @@
               <div class="card-body text-center ">
                 <a href=""> <%=item.item_name%></a>
                 <hr/>
+                <div id="spinner_<%=item.id%>" ></div>
+                <div id="cart_buttons_<%=item.id%>">
                 <%if session[:cart].nil?%>
-                    <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" data-remote="true"><span class="fa fa-cart-plus"></span></a>
+                    <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fa fa-cart-plus"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ</span></a>
 
               <%else%>
-                    <%if session[:cart].keys.include? item.id%>
-                        в корзине
-                        <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" data-remote="true"><span class="fa fa-cart-plus"></span></a>
+                    <%if session[:cart].keys.include? item.id.to_s%>
+
+                        <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fas fa-cart-arrow-down"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ ЕЩЕ</span></a>
 
                     <%else%>
-                        <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" data-remote="true"><span class="fa fa-cart-plus"></span></a>
+                        <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fa fa-cart-plus"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ</span></a>
                     <%end%>
                 <%end%>
 
-
-
-
                 |
-                <a href="#"><span class="fa fa-heart"></span></a>
-
+                <a href="#"><span class="far fa-heart"></span></a>
 
               </div>
+
+              </div>
+
               <div class="card-footer text-center">
                Цена :
                 <%if item.item_discount > 0 %>
@@ -170,5 +171,12 @@
     $( document ).ready(function() {
         $('#<%=@parent_cat.cat_name_translit %>').addClass('show');
         $('#<%=@subcat.subcat_name_translit %>').addClass('text-primary');
+
     });
+    function theFunction (id) {
+        $("#cart_buttons_"+id).css('display','none');
+        $("#spinner_"+id).addClass('spinner');
+    return true;
+    }
+
 </script>

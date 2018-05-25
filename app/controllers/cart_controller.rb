@@ -37,7 +37,7 @@ class CartController < ApplicationController
           @dup = @duplicate
           @item_id = item.id
           @item_count = session[:cart][item.id.to_s]
-          if @item_count >= item.item_opt_price_count
+          if @item_count >= item.item_opt_price_count #оптовая цена
             @item_price = item.item_opt_price
             @item_total_price = item.item_opt_price * @item_count
             @opt_price = true

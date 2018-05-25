@@ -5,7 +5,7 @@ var cartItem = " <div class=\"cart-items-item\">\n" +
     "                  <a href=\"#\" class=\"cart-img mr-2 float-left\">\n" +
     "                    <img class=\"img-fluid\" src=\"/images/items/<%= @item_id%>/<%= @item_image%>\" alt=\"Интернет магазин Lakshmi88 предлагает купить <%= @item_name%>\">\n" +
     "                  </a>\n" +
-    "                  <div class=\"float-left\">\n" +
+    "                  <div class=\"float-left cart_items\">\n" +
     "                    <h5 class=\"mb-0\">\n" +
     "                      <%= @item_name%>\n" +
     "                    </h5>\n" +
@@ -21,9 +21,13 @@ if ('<%=@dup %>' == 'true')
         $('#item<%= @item_id%>count').html(<%= @item_count%>);
         $('#iitem<%= @item_id%>_price_total').html(<%=  @item_total_price%>);
         $('#item<%= @item_id%>_cur_price').addClass('text-primary');
-
+        $('#item<%= @item_id%>_cur_price').addClass('cart_item_bold');
+        $('#item<%= @item_id%>_cur_price').html(<%= @item_price%>);
 
         $('#total').html(total('#cart-items-item'));
+
+        $("#cart_buttons_<%= @item_id%>").css('display','block');
+        $("#spinner_<%= @item_id%>").removeClass('spinner');
 
     }else{
         $('#item<%= @item_id%>count').html(<%= @item_count%>);
@@ -31,6 +35,9 @@ if ('<%=@dup %>' == 'true')
         $('#total').html(cur_total + <%= @item_price%>);
         var cart_total = parseInt( $('#cart_count').html());
         $('#cart_count').html(cart_total + 1);
+
+        $("#cart_buttons_<%= @item_id%>").css('display','block');
+        $("#spinner_<%= @item_id%>").removeClass('spinner');
     }
 
 
@@ -44,6 +51,16 @@ else
     $('#total').html(cur_total + <%= @item_price%>);
     var cart_total = parseInt( $('#cart_count').html());
     $('#cart_count').html(cart_total + 1);
+    $('#cart_state_txt_<%= @item_id%>').html(' ДОБАВИТЬ ЕЩЕ');
+    $('#cart_state_<%= @item_id%>').removeClass('fa');
+    $('#cart_state_<%= @item_id%>').removeClass('fa-cart-plus');
+    $('#cart_state_<%= @item_id%>').addClass('fas');
+    $('#cart_state_<%= @item_id%>').addClass('fa-cart-arrow-down');
+
+    $("#cart_buttons_<%= @item_id%>").css('display','block');
+    $("#spinner_<%= @item_id%>").removeClass('spinner');
+
+
 
 }
 
