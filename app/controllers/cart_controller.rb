@@ -3,25 +3,26 @@ class CartController < ApplicationController
     item = Item.find(params[:item_id])
 
     if session[:active]
-                          #корзина usera
+      logger.info('[INFO] : Авторизованный режим корзины. ')
+
     else
+      logger.info('[INFO] : Гостевой режим корзины. ')
       if session[:cart].nil?  #корзина существует?
-        logger.info('cart empty-----------------------------------')
+        logger.info('[INFO] : Инициализация корзины. Обработка ......')
         session[:cart]=Hash.new
         session[:cart][item.id] = 1
         @duplicate = false
 
       else
             if session[:cart].key? item.id.to_s #проверка дублирования товара в корзине
-              logger.info('dup-----------------------------------')
-              logger.info(session[:cart].inspect)
-              logger.info(session[:cart][item.id.to_s])
+              logger.info('[INFO] : Существующий товар. Обработка ......')
+
                 session[:cart][item.id.to_s] = session[:cart][item.id.to_s].to_i + 1
-              logger.info(session[:cart][item.id.to_s])
+
                 @duplicate = true
             else
-              logger.info('new-----------------------------------')
-              logger.info(session[:cart].inspect)
+              logger.info('[INFO] : Новый товар. Обработка ......')
+
                 session[:cart][item.id] = 1
                 @duplicate = false
             end
@@ -41,8 +42,7 @@ class CartController < ApplicationController
             @item_price = item.item_opt_price
             @item_total_price = item.item_opt_price * @item_count
             @opt_price = true
-            logger.info('send opt price-----------------------------------')
-            logger.info(@item_total_price)
+            logger.info('[INFO] : Существующий товар обновлен по оптовой цене.')
            else
              if item.item_discount > 0
                @item_price = item.item_price - (item.item_price * item.item_discount / 100)
@@ -55,8 +55,7 @@ class CartController < ApplicationController
              end
           end
 
-          logger.info('send dup-----------------------------------')
-          logger.info(@dup)
+          logger.info('[INFO] : Существующий товар обновлен.')
         format.js
         end
 
@@ -71,6 +70,7 @@ class CartController < ApplicationController
           else
             @item_price = item.item_price
           end
+          logger.info('[INFO] : Новый товар добавлен в корзину.')
           format.js
         end
 
@@ -78,6 +78,18 @@ class CartController < ApplicationController
 
 
 
+
+  end
+
+  def removeitem
+    if params[:id].present?
+      session[:cart].delete(params[:id])
+      redirect_to checkout_path
+      logger.info('[INFO] : Товар удален из корзины.')
+    else
+      logger.info('[ERROR] : Нет ID товара для удаления.')
+      redirect_to checkout_path
+    end
 
   end
 end

@@ -1,0 +1,11 @@
+<div id="page-header">
+  <div class="container clearfix">
+
+    <nav class="breadcrumb float-md-left"> <a class="breadcrumb-item" href="/">ГЛАВНАЯ</a> <span class="breadcrumb-item active">ОФОРМЛЕНИЕ ЗАКАЗА</span> </nav>
+  </div>
+</div>
+<%if session[:active]%>
+  <%else%>
+
+<%=render 'checkout_guest'%>
+<%end%>

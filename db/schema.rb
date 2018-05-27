@@ -10,10 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180508065125) do
+ActiveRecord::Schema.define(version: 20180527141514) do
 
   create_table "carts", force: :cascade do |t|
     t.integer "client_id"
+    t.text "cart_items"
+    t.string "cart_status", default: ""
+    t.index ["cart_status"], name: "index_carts_on_cart_status"
     t.index ["client_id"], name: "index_carts_on_client_id"
   end
 
@@ -38,9 +41,11 @@ ActiveRecord::Schema.define(version: 20180508065125) do
     t.string "client_phone", default: ""
     t.string "client_country", default: ""
     t.string "client_city", default: ""
+    t.string "client_post_code", default: ""
     t.string "client_address", default: ""
     t.string "client_password"
     t.string "client_view_history", default: ""
+    t.string "client_personal_discount", default: ""
     t.date "client_last_login"
     t.boolean "client_vip", default: false
     t.boolean "client_mail_subscribe", default: true
@@ -106,6 +111,21 @@ ActiveRecord::Schema.define(version: 20180508065125) do
     t.index ["item_name_translit"], name: "index_items_on_item_name_translit"
     t.index ["item_new"], name: "index_items_on_item_new"
     t.index ["subcategory_id"], name: "index_items_on_subcategory_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "client_id"
+    t.text "order_items"
+    t.string "order_status"
+    t.string "order_summ"
+    t.string "order_discount_code"
+    t.text "order_guest_data"
+    t.string "order_dostavka"
+    t.string "order_oplata"
+    t.string "order_tracking"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_orders_on_client_id"
   end
 
   create_table "sliders", force: :cascade do |t|

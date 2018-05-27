@@ -7,4 +7,15 @@ class MailerMailer < ApplicationMailer
     mail(to: @user.client_email,subject: "Регистрация на сайте")
   end
 
+  def neworder(mail,items,code)
+    @mail=mail
+
+    @cart_items = items
+    @cart_total = 0
+    @item_total = 0
+    @code=code
+    @cart_itemss = Item.find(@cart_items.keys)
+    mail(to: @mail,subject: "Ваш заказ успешно размещен")
+    logger.info('[INFO] : Письмо на ' + @mail + 'отправлено')
+  end
 end

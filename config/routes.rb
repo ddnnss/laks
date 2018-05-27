@@ -21,10 +21,13 @@ Rails.application.routes.draw do
   get '/activate', to: 'client#activate'
 
   match '/addtocart(/:item_id)'  => 'cart#addtocart', via: [:get]
-
+  get '/remove(/:id)', to: 'cart#removeitem'
 
   get '/category(/:name)', to: 'page#showcategory'
   get '/subcategory(/:name)', to: 'page#showsubcategory'
+  get '/order', to: 'page#order_info'
+  match '/checkout'  => 'page#checkout', via: [:post, :get]
+  match '/placeorder'  => 'page#placeorder', via: [:post, :get]
 
 
 end

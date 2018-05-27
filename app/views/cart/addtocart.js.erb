@@ -25,9 +25,12 @@ if ('<%=@dup %>' == 'true')
         $('#item<%= @item_id%>_cur_price').html(<%= @item_price%>);
 
         $('#total').html(total('#cart-items-item'));
+        var cart_total = parseInt( $('#cart_count').html());
+        $('#cart_count').html(cart_total + 1);
 
         $("#cart_buttons_<%= @item_id%>").css('display','block');
         $("#spinner_<%= @item_id%>").removeClass('spinner');
+        notify();
 
     }else{
         $('#item<%= @item_id%>count').html(<%= @item_count%>);
@@ -38,6 +41,7 @@ if ('<%=@dup %>' == 'true')
 
         $("#cart_buttons_<%= @item_id%>").css('display','block');
         $("#spinner_<%= @item_id%>").removeClass('spinner');
+        notify();
     }
 
 
@@ -59,12 +63,20 @@ else
 
     $("#cart_buttons_<%= @item_id%>").css('display','block');
     $("#spinner_<%= @item_id%>").removeClass('spinner');
+   notify();
 
 
 
 }
 
-
+function notify() {
+    $.amaran({
+        'message'           :'Товар добавлен в корзину',
+        'cssanimationIn'    :'bounceInRight',
+        'cssanimationOut'   :'rollOut',
+        'position'          :'top right'
+    });
+}
 
 function total(selector) {
     var sum = 0;

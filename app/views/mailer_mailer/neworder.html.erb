@@ -1,0 +1,52 @@
+<table>
+  <thead>
+  <tr>
+
+    <th>Название</th>
+    <th>Цена</th>
+    <th>Количество</th>
+    <th>Всего</th>
+  </tr>
+  </thead>
+  <tbody>
+
+
+    <%@cart_itemss.each do |cc|%>
+
+    <tr>
+      <td><%=cc.item_name%></td>
+      <td>
+        <%if @cart_items[cc.id.to_s] >= cc.item_opt_price_count  %>
+
+          <%= cc.item_opt_price%> &#8381;
+          <%@item_total = cc.item_opt_price* @cart_items[cc.id.to_s]%>
+          <%@cart_total = @cart_total + (cc.item_opt_price* @cart_items[cc.id.to_s])%>
+
+
+        <%else%>
+          <%if cc.item_discount > 0%>
+            <%@item_total = (cc.item_price - (cc.item_price * cc.item_discount / 100)) * @cart_items[cc.id.to_s]%>
+            <%=cc.item_price - (cc.item_price * cc.item_discount / 100)%> &#8381;
+            <%@cart_total = @cart_total + (cc.item_price - (cc.item_price * cc.item_discount / 100))* @cart_items[cc.id.to_s]%>
+
+
+          <%else%>
+
+            <%= cc.item_price%> &#8381;
+            <%@item_total = cc.item_price* @cart_items[cc.id.to_s]%>
+            <%@cart_total = @cart_total + (cc.item_price* @cart_items[cc.id.to_s])%>
+
+
+          <%end%>
+        <%end%>
+      </td>
+      <td><%=@cart_items[cc.id.to_s]%></td>
+      <td><%=@item_total%></td>
+    </tr>
+
+
+
+    <%end%>
+  </tbody>
+</table>
+

@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-</head>
-<body>
 <p>Спасибо за регистрацию, для продолжения работы на сайте необходимо подтвердить адрес эл. почты</p>
 <p>Пожалуста перейдите по <a href="http://185.231.70.25:3000/activate/?id=<%= @user.id %>">ссылке</a> для активации аккаунта.</p>
 
 <p>Ваш логин : <%= @user.client_email %></p>
 <p>Ваш пароль : <%= @user.client_password %></p>
-
-</body>
-</html>

@@ -7,6 +7,7 @@ class CreateClients < ActiveRecord::Migration[5.1]
       t.string  :client_phone, :default => ''
       t.string  :client_country, :default => ''
       t.string  :client_city, :default => ''
+      t.string  :client_post_code, :default => ''
       t.string  :client_address, :default => ''
       t.string  :client_password
       t.string  :client_view_history, :default => ''
