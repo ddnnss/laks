@@ -1,3 +1,4 @@
+<div id="content">
 <div class="container">
   <h4> Список сгенерированных одноразовых промо-кодов :</h4>
   <table class="table table-striped">
@@ -22,6 +23,7 @@
         </tbody>
         </table>
   <br/>
+  <div class="mb-4 bg-light p-3 rounded mb-4">
   <h4>Генерация одноразовых промо-кодов</h4>
   <%=form_for :discount, url: admin_discount_path do |f|%>
       <div class="col-sm-3">
@@ -35,6 +37,7 @@
       <input  name="action_type" value="generate_one" type="hidden" />
       <%= submit_tag 'Генерация купонов' , class:'btn btn-primary'%>
   <%end%>
+</div>
   <hr/>
 
   <h4> Список многоразовах промо-кодов :</h4>
@@ -62,6 +65,7 @@
     </tbody>
   </table>
   <br/>
+  <div class="mb-4 bg-light p-3 rounded mb-4">
   <h4>Создание многоразовых промо-кодов</h4>
   <%=form_for :discount, url: admin_discount_path do |f|%>
       <div class="col-sm-3">
@@ -79,5 +83,6 @@
       <input  name="action_type" value="generate_notone" type="hidden" />
       <%= submit_tag 'Сохранить промо-код' , class:'btn btn-primary'%>
   <%end%>
-
+  </div>
+</div>
 </div>

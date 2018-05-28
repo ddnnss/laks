@@ -5,6 +5,7 @@
   </div>
 </div>
 <%if session[:active]%>
+  <%=render 'checkout_members'%>
   <%else%>
 
 <%=render 'checkout_guest'%>

@@ -18,6 +18,12 @@ class ClientController < ApplicationController
           session[:client_id] = client.id
           session[:client_vip] = client.client_vip
           session[:admin] = client.client_admin
+          session[:cart] = client.client_cart_items
+
+          if client.client_address == '' || client.client_country == '' || client.client_post_code == '' || client.client_country == ''
+            session[:client_data_bad] = true
+          end
+
 
 
           respond_to do |format|
@@ -122,6 +128,8 @@ class ClientController < ApplicationController
       redirect_to root_path and return
     end
   end
+
+
 
   private
   def client_data

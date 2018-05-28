@@ -2,8 +2,34 @@ class CartController < ApplicationController
   def addtocart
     item = Item.find(params[:item_id])
 
+
     if session[:active]
       logger.info('[INFO] : Авторизованный режим корзины. ')
+      client = Client.find(session[:client_id])
+
+      if session[:cart].nil?  #корзина существует?
+        logger.info('[INFO] : Инициализация корзины. Обработка ......')
+        session[:cart]=Hash.new
+        session[:cart][item.id] = 1
+        @duplicate = false
+        client.update_column(:client_cart_items , session[:cart])
+
+      else
+        if session[:cart].key? item.id.to_s #проверка дублирования товара в корзине
+          logger.info('[INFO] : Существующий товар. Обработка ......')
+
+          session[:cart][item.id.to_s] = session[:cart][item.id.to_s].to_i + 1
+          client.update_column(:client_cart_items , session[:cart])
+          @duplicate = true
+        else
+          logger.info('[INFO] : Новый товар. Обработка ......')
+
+          session[:cart][item.id] = 1
+          client.update_column(:client_cart_items , session[:cart])
+          @duplicate = false
+        end
+
+      end
 
     else
       logger.info('[INFO] : Гостевой режим корзины. ')
@@ -83,9 +109,18 @@ class CartController < ApplicationController
 
   def removeitem
     if params[:id].present?
-      session[:cart].delete(params[:id])
-      redirect_to checkout_path
-      logger.info('[INFO] : Товар удален из корзины.')
+      if session[:active]
+        client = Client.find(session[:client_id])
+        session[:cart].delete(params[:id])
+        client.update_column(:client_cart_items , session[:cart])
+        redirect_to checkout_path
+        logger.info('[INFO] : Товар удален из корзины.')
+      else
+        session[:cart].delete(params[:id])
+        redirect_to checkout_path
+        logger.info('[INFO] : Товар удален из корзины.')
+      end
+
     else
       logger.info('[ERROR] : Нет ID товара для удаления.')
       redirect_to checkout_path

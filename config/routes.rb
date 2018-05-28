@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get '/remove(/:id)', to: 'cart#removeitem'
   match '/discount'  => 'cart#applydiscount', via: [:post , :get]
 
+  get '/profile', to: 'page#profile'
 
   get '/category(/:name)', to: 'page#showcategory'
   get '/subcategory(/:name)', to: 'page#showsubcategory'

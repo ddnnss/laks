@@ -40,22 +40,44 @@ class PageController < ApplicationController
     @description = 'Оригинальные и необычные сувениры и подарки в интернет-магазине lakshmi888.ru мелким и крупным оптом в Москве.'
     @keywords=@description.gsub(' и ',' ').gsub(' в ',' ').split(' ').join(',')
 
+
     if session[:cart].empty?
-      redirect_to '/'
+
       logger.info('[ERROR] : Корзина пуста. Переход на главную страницу.')
+      redirect_to '/'
+
     else
-      session[:cart_total] = 0
+      if session[:active]
+        client = Client.find(session[:client_id])
+        session[:cart_total] = 0
 
-      if params[:editcart].present?
-        params.except(:utf8,:authenticity_token,:editcart,:controller,:action).each do |key,val|
-          session[:cart][key.to_i]=val.to_i
+        if params[:editcart].present?
+          params.except(:utf8,:authenticity_token,:editcart,:controller,:action).each do |key,val|
+            session[:cart][key.to_i]=val.to_i
+
+          end
+          client.update_column(:client_cart_items , session[:cart])
+          logger.info('[INFO] : Корзина обновлена. Переход на страницу заказа.')
+          redirect_to checkout_path
+        else
+
+
         end
-        logger.info('[INFO] : Корзина обновлена. Переход на страницу заказа.')
-        redirect_to checkout_path
-      else
+        else
+          session[:cart_total] = 0
+
+          if params[:editcart].present?
+            params.except(:utf8,:authenticity_token,:editcart,:controller,:action).each do |key,val|
+              session[:cart][key.to_i]=val.to_i
+            end
+            logger.info('[INFO] : Корзина обновлена. Переход на страницу заказа.')
+            redirect_to checkout_path
+          else
 
 
+          end
       end
+
     end
 
 
@@ -63,6 +85,40 @@ class PageController < ApplicationController
 
   def placeorder
     if session[:active]
+      logger.info('[INFO] : Инициализация сохранения заказа в основном режиме.....')
+
+      neworder = Order.new
+      session[:order]= ([*('a'..'z'),*('0'..'9')].shuffle[0,2].join + '-' +[*('a'..'z'),*('0'..'9')].shuffle[0,4].join + '-' +[*('a'..'z'),*('0'..'9')].shuffle[0,2].join).upcase
+      if session[:discount_value] == '0'
+        discount_summ = 0
+      else
+        discount_summ = 0
+        discount_summ = session[:cart_total].to_i * session[:discount_value].to_i / 100;
+      end
+      neworder.client_id = session[:client_id]
+      neworder.order_status = 'Заказ принят'
+      neworder.order_items = session[:cart]
+      neworder.order_summ = session[:cart_total].to_i - discount_summ
+
+
+      neworder.order_dostavka = params[:member_dostavka]
+      neworder.order_oplata = params[:member_oplata]
+      neworder.order_number = session[:order]
+      neworder.save
+
+      logger.info('[INFO] : Заказ сохранен в БД в основном режиме.')
+      logger.info('[INFO] : Отправка письма пользователю.....' +  session[:client_email])
+
+      MailerMailer.neworder(session[:client_email],session[:cart],session[:order]).deliver_later
+      a=session[:cart].keys
+      a.each do |k|
+        session[:cart].delete(k)
+      end
+      session[:discount_value] = '0'
+
+      logger.info('[INFO] : Корзина очищена, переход на страницу успешного размещения заказа')
+      redirect_to order_path
+
 
     else
       if params[:guest_register] == 'on' #guest register
@@ -131,10 +187,23 @@ class PageController < ApplicationController
 
   end
 
+  def profile
+    @client_info = Client.find(session[:client_id])
+
+  end
+
 
   def getcart
 
     if session[:active]
+      if session[:cart].nil?
+        session[:total] = 0
+        logger.info('[INFO] : Корзина пуста.')
+      else
+        session[:total] = 0
+        @cart= Item.find(session[:cart].keys)
+        logger.info('[INFO] : Корзина получена.')
+      end
     else
       if session[:cart].nil?
         session[:total] = 0

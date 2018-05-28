@@ -12,16 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20180528063548) do
 
-  create_table "carts", force: :cascade do |t|
-    t.integer "client_id"
-    t.text "cart_items"
-    t.string "cart_status", default: ""
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cart_status"], name: "index_carts_on_cart_status"
-    t.index ["client_id"], name: "index_carts_on_client_id"
-  end
-
   create_table "categories", force: :cascade do |t|
     t.string "cat_name", default: ""
     t.string "cat_name_translit", default: ""
@@ -47,8 +37,10 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.string "client_address", default: ""
     t.string "client_password"
     t.string "client_view_history", default: ""
+    t.string "client_wishlist", default: ""
     t.string "client_personal_discount", default: ""
     t.date "client_last_login"
+    t.text "client_cart_items"
     t.boolean "client_vip", default: false
     t.boolean "client_mail_subscribe", default: true
     t.boolean "client_activated", default: false
@@ -159,14 +151,6 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.index ["category_id"], name: "index_subcategories_on_category_id"
     t.index ["subcat_name"], name: "index_subcategories_on_subcat_name"
     t.index ["subcat_name_translit"], name: "index_subcategories_on_subcat_name_translit"
-  end
-
-  create_table "wishlists", force: :cascade do |t|
-    t.integer "client_id"
-    t.string "wishlist_items", default: ""
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_wishlists_on_client_id"
   end
 
 end

@@ -1,7 +1,7 @@
 class Client < ApplicationRecord
-  has_one :cart, :dependent => :destroy
+  serialize :client_cart_items, JSON
   has_many :orders
-  has_one :wishlist
+
 
   validates :client_email,
             format: { with:/.+@.+\..+/i,message: 'Неправильный формат почты'},
