@@ -16,6 +16,35 @@ class AdminController < ApplicationController
 
     end
   end
+
+  def discount
+    @oneusediscounts = Discount.where(discount_for_one_use: true)
+    @notoneusediscounts = Discount.where(discount_for_one_use: false)
+    if params[:action_type] == 'generate_one'
+      params[:discount][:discount_number].to_i.times do
+        discount_new = Discount.new
+        discount_new.discount_discount_value =  params[:discount][:discount_value]
+        discount_new.discount_code = ('LA' + '-' + [*('a'..'z'),*('0'..'9')].shuffle[0,4].join + '-' + [*('a'..'z'),*('0'..'9')].shuffle[0,4].join).upcase
+        discount_new.discount_for_one_use = true
+        discount_new.save
+      end
+      redirect_to admin_discount_path
+    end
+
+    if params[:action_type] == 'generate_notone'
+
+        discount_new = Discount.new
+        discount_new.discount_discount_value =  params[:discount][:discount_value]
+        discount_new.discount_code = params[:discount][:discount_code]
+        discount_new.discount_expiry = params[:discount_expiry]
+        discount_new.discount_for_one_use = false
+        discount_new.save
+
+      redirect_to admin_discount_path
+    end
+
+
+  end
   def items
     @maincat = Category.where(cat_main: true)
 

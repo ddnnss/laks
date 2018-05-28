@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get '/admin/categories', to: 'admin#categories'
   get '/admin/collections', to: 'admin#collections'
   get '/admin/add2collection', to: 'admin#add2collection'
+
+  match '/admin/discount'  => 'admin#discount',    via: [:post,:get]
   match '/addnewcategory'  => 'admin#addnewcategory',    via: [:post]
   match '/addnewsubcategory'  => 'admin#addnewsubcategory',    via: [:post]
   match '/admin/deletecategory'  => 'admin#deletecategory',    via: [:get]
@@ -21,7 +23,10 @@ Rails.application.routes.draw do
   get '/activate', to: 'client#activate'
 
   match '/addtocart(/:item_id)'  => 'cart#addtocart', via: [:get]
+  match '/wishlist(/:item_id)'  => 'cart#add_to_wishlist', via: [:get]
   get '/remove(/:id)', to: 'cart#removeitem'
+  match '/discount'  => 'cart#applydiscount', via: [:post , :get]
+
 
   get '/category(/:name)', to: 'page#showcategory'
   get '/subcategory(/:name)', to: 'page#showsubcategory'

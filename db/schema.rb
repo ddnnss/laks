@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180527141514) do
+ActiveRecord::Schema.define(version: 20180528063548) do
 
   create_table "carts", force: :cascade do |t|
     t.integer "client_id"
     t.text "cart_items"
     t.string "cart_status", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["cart_status"], name: "index_carts_on_cart_status"
     t.index ["client_id"], name: "index_carts_on_client_id"
   end
@@ -68,9 +70,14 @@ ActiveRecord::Schema.define(version: 20180527141514) do
     t.index ["collection_name_translit"], name: "index_collections_on_collection_name_translit"
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.integer "item_id"
-    t.index ["item_id"], name: "index_comments_on_item_id"
+  create_table "discounts", force: :cascade do |t|
+    t.string "discount_code"
+    t.string "discount_discount_value"
+    t.boolean "discount_for_one_use"
+    t.date "discount_expiry"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discount_code"], name: "index_discounts_on_discount_code"
   end
 
   create_table "homepages", force: :cascade do |t|
@@ -123,9 +130,13 @@ ActiveRecord::Schema.define(version: 20180527141514) do
     t.string "order_dostavka"
     t.string "order_oplata"
     t.string "order_tracking"
+    t.string "order_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_orders_on_client_id"
+    t.index ["order_number"], name: "index_orders_on_order_number"
+    t.index ["order_status"], name: "index_orders_on_order_status"
+    t.index ["order_tracking"], name: "index_orders_on_order_tracking"
   end
 
   create_table "sliders", force: :cascade do |t|
@@ -152,6 +163,9 @@ ActiveRecord::Schema.define(version: 20180527141514) do
 
   create_table "wishlists", force: :cascade do |t|
     t.integer "client_id"
+    t.string "wishlist_items", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_wishlists_on_client_id"
   end
 

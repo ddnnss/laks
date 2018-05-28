@@ -37,7 +37,7 @@
         <td>
           <%if session[:cart][cc.id.to_s] >= cc.item_opt_price_count  %>
 
-            <span class="text-primary cart_item_bold"> <%= cc.item_opt_price%> </span> &#8381;
+              <span style="font-size: 10px;" class="badge badge-primary">ОПТОВАЯ ЦЕНА</span> <span class="text-primary cart_item_bold"> <%= cc.item_opt_price%> </span> &#8381;
             <%session[:cart_total] = session[:cart_total] + (cc.item_opt_price* session[:cart][cc.id.to_s])%>
             <span style="display: none;" id="iiitem<%=cc.id%>_price_total"><%= @item_total=cc.item_opt_price* session[:cart][cc.id.to_s]%></span>
 
@@ -63,7 +63,7 @@
                   <span class="input-group-append">
                     <input type="button" value="-" onclick="return show_butt();" class="btn btn-secondary quantity-down" field="quantity">
                   </span>
-            <input type="text" name="<%=cc.id%>" min="1" value="<%= session[:cart][cc.id.to_s] %>" class="quantity form-control">
+            <input type="text" name="<%=cc.id%>" onchange="return show_butt();" min="1" value="<%= session[:cart][cc.id.to_s] %>" class="quantity form-control">
             <span class="input-group-append">
                     <input type="button" value="+" onclick="return show_butt();" class="btn btn-secondary quantity-up" field="quantity">
                   </span>
@@ -84,32 +84,32 @@
       <div class="row">
         <div class="col-md-4">
           <h6 class="text-muted mb-3">
-
+            Введите промо-код, для получения дополнительной скидки
           </h6>
           <!-- Discount form -->
-          <form action="#" role="form">
+         <%= form_for :discount,url: discount_path, remote: true do |f|%>
             <div class="input-group">
               <label class="sr-only" for="discount">Купон на скидку</label>
-              <input type="tel" class="form-control" id="discount" placeholder="Купон на скидку">
+              <input  class="form-control" name="discount_code" required="required" placeholder="Купон на скидку">
               <span class="input-group-append">
-                    <button class="btn btn-dark" type="button">Применить</button>
+                    <button type="submit" id="discount-button" class="btn btn-dark" type="button">Применить</button>
                   </span>
             </div>
-          </form>
+         <%end%>
         </div>
 
         <div class="col-md-8 text-md-right mt-3 mt-md-0">
 
           <div class="cart-content-totals">
             <h4 class="font-weight-light">
-              Всего:  <%=session[:cart_total]%> &#8381;
+              Всего:<span id="vsego"> <%=session[:cart_total]%></span> &#8381;
             </h4>
-            <h4 class="font-weight-light">
-              Скидка по купону (0%): <span class="text-danger">0 &#8381;</span>
+            <h4 id="discount-container" class="font-weight-light" style="display: none;">
+             <span id="discount-value"> Скидка по промо-коду (0%)</span>: <span id="discount-result" class="text-danger">0 </span> &#8381;
             </h4>
             <hr class="my-3 w-50 ml-0 ml-md-auto mr-md-0">
             <h3>
-              ИТОГО: <span class="text-primary"><%=session[:cart_total]%> &#8381;</span>
+              ИТОГО: <span id="cart-total" class="text-primary"><%=session[:cart_total]%> </span> &#8381;
             </h3>
             <hr class="my-3 w-50 ml-0 ml-md-auto mr-md-0">
           </div>
@@ -173,7 +173,7 @@
           </div>
           <div class="form-check form-check-inline">
             <label class="form-check-label">
-              <input type="checkbox" class="form-check-input" name="guest_register"   value="on">
+              <input type="checkbox" class="form-check-input" name="guest_register" checked   value="on">
               Создать учетную запись на сайте ?
             </label>
           </div>

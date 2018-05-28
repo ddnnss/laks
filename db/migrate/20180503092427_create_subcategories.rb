@@ -10,7 +10,7 @@ class CreateSubcategories < ActiveRecord::Migration[5.1]
 
       t.text :subcat_page_title, :default => ''
       t.text :subcat_page_description, :default => ''
-      t.text   :subcat_description, :default => ''
+      t.text :subcat_description, :default => ''
 
     end
   end

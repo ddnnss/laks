@@ -1,0 +1,29 @@
+if ('<%=@status %>' == 'ok')
+{
+    $.amaran({
+        'message'           :'Товар добавлен в закладки',
+        'cssanimationIn'    :'bounceInRight',
+        'cssanimationOut'   :'rollOut',
+        'position'          :'top right'
+    });
+    $("#cart_buttons_<%= @item_id%>").css('display','block');
+    $("#spinner_<%= @item_id%>").removeClass('spinner');
+}
+if ('<%=@status %>' == 'err')
+    {
+        $.amaran({
+            'theme'     :'colorful',
+            'content'   :{
+                bgcolor:'#CC164D',
+                color:'#fff',
+                message:'Эта фукция доступна для зарегистрированных пользователей'
+            },
+
+            'cssanimationIn'    :'bounceInRight',
+            'cssanimationOut'   :'rollOut',
+            'position'          :'top right'
+        });
+
+        $("#cart_buttons_<%= @item_id%>").css('display','block');
+        $("#spinner_<%= @item_id%>").removeClass('spinner');
+    }

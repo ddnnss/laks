@@ -16,6 +16,6 @@ class MailerMailer < ApplicationMailer
     @code=code
     @cart_itemss = Item.find(@cart_items.keys)
     mail(to: @mail,subject: "Ваш заказ успешно размещен")
-    logger.info('[INFO] : Письмо на ' + @mail + 'отправлено')
+    logger.info('[INFO] : Письмо на ' + @mail + ' отправлено')
   end
 end

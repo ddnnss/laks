@@ -4,6 +4,7 @@ class CreateCarts < ActiveRecord::Migration[5.1]
       t.belongs_to :client
       t.text :cart_items
       t.string :cart_status, :default => '', index: true
+      t.timestamps
 
 
     end

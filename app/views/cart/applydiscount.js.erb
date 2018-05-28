@@ -1,0 +1,41 @@
+if ('<%=@res %>' == 'true')
+{
+    $.amaran({
+        'theme'     :'colorful',
+        'content'   :{
+            bgcolor:'#5cb85c',
+            color:'#fff',
+            message:'Промо-код успешно применен.'
+        },
+
+        'cssanimationIn'    :'bounceInRight',
+        'cssanimationOut'   :'rollOut',
+        'position'          :'top right'
+    });
+
+    $('#discount-button').attr('disabled','disabled');
+    var vsego = parseInt( $('#vsego').html());
+    var dis_val = <%= @dis_value.to_i%>;
+    var dis_res = vsego * dis_val / 100;
+
+    $('#discount-value').html('Скидка по промо-коду (<%= @dis_value%> %)');
+    $('#discount-result').html(dis_res);
+    $('#discount-container').css('display','block');
+    $('#cart-total').html(vsego-dis_res);
+
+}
+else
+{
+    $.amaran({
+        'theme'     :'colorful',
+        'content'   :{
+            bgcolor:'#CC164D',
+            color:'#fff',
+            message:'Промо-код не найден, был использован ранее иил закончен срок действия.'
+        },
+
+        'cssanimationIn'    :'bounceInRight',
+        'cssanimationOut'   :'rollOut',
+        'position'          :'top right'
+    });
+}

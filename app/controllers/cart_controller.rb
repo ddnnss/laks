@@ -92,4 +92,78 @@ class CartController < ApplicationController
     end
 
   end
+
+  def add_to_wishlist
+    if session[:active]
+      logger.info('[INFO] :Сессия доступна, добавление в закладки товара.....')
+      respond_to do |format|
+        logger.info('[INFO] : Товар добавлен в закладки.')
+        @status='ok'
+        format.js
+      end
+    else
+      logger.info('[ERROR] :Нет сессии, добавление в закладки невозможно.')
+      respond_to do |format|
+
+        @status='err'
+        @item_id = params[:item_id]
+        format.js
+      end
+    end
+
+  end
+
+  def applydiscount
+    logger.info('[INFO] :Запрос на применение купона на скидку.....')
+
+              discount = Discount.find_by_discount_code(params[:discount_code])
+    session[:discount_value]='0'
+              if discount.nil?
+                  logger.info('[ERROR] :Скидочный купон не найден.')
+                  @discout_result = false
+                else
+                  logger.info('[INFO] :Скидочный купон найден.')
+                  if discount.discount_for_one_use
+                    logger.info('[INFO] :Купон одноразовый.')
+                    @discout_result = true
+                    discount_value = discount.discount_discount_value
+                    session[:discount_value] = discount_value
+                    discount.destroy!
+                    logger.info('[INFO] :Скидочный купон удален из базы.')
+                  else
+                    logger.info('[INFO] :Купон многоразовый. Проверка срока действия.')
+                    if Date.today >= discount.discount_expiry
+                      logger.info('[ERROR] :Срока действия купона закончен.')
+                      @discout_result = false
+                    else
+                      logger.info('[INFO] :Срока действия купона актуален.')
+                      discount_value = discount.discount_discount_value
+                      session[:discount_value] = discount_value
+                      @discout_result = true
+                    end
+
+                  end
+
+
+              end
+
+              if @discout_result
+                logger.info('[INFO] :Применение купона.')
+                respond_to do |format|
+                  @res = @discout_result
+                  @dis_value = discount_value
+                  format.js
+                end
+              else
+                respond_to do |format|
+                  @res = @discout_result
+                  format.js
+               end
+          end
+
+
+
+
+  end
+
 end
