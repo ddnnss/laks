@@ -49,7 +49,7 @@
               <%= @item.item_name%>
             </h2>
 
-            <h4 class="font-weight-bold text-primary">
+            <h5 class="font-weight-bold ">
 
               Цена :
               <%if @item.item_discount > 0 %>
@@ -59,40 +59,59 @@
               <%else %>
                   <%=@item.item_price%> &#8381;
               <%end%>
-              <br/>
+            </h5>
+            <h5 class="font-weight-bold text-primary">
 
               Оптовая цена :  <%=@item.item_opt_price%> &#8381; <a href="#" data-toggle="tooltip" title="" data-original-title="При заказе от :  <%=@item.item_opt_price_count%> штук"><i class="fa fa-info-circle fa-lg text-info"></i></a>
 
-
-
-            </h4>
+            </h5>
+            <%if @item.item_presents%>
+            <p class="text-muted text-uppercase text-xs mb-0"><span class="badge badge-success">товар в наличии</span> </p>
+              <% else %>
+              <p class="text-muted text-uppercase text-xs mb-0"><span class="badge badge-warning">временно нет в наличии</span> </p>
+            <% end %>
 
 
             <hr class="my-3">
             <%= @item.item_description.html_safe %>
-            <hr class="my-3 mb-5">
-            <!-- Cart options/links -->
+            <hr class="my-3 ">
+            <!-- Cart options/links fa fa-heart -->
             <div class="product-options row mb-4">
               <div class="col-md-4 text-sm text-uppercase">Артикул : <%=@item.item_article%></div>
 
               <div class="col-md-4 text-sm text-uppercase">Размеры : <%=@item.item_size%></div>
-              <div class="col-md-4 text-sm text-uppercase">Вес : <%=@item.item_weight%></div></div>
-
-              <div class="col-md-3 text-sm text-uppercase">Количество</div>
+              <div class="col-md-4 text-sm text-uppercase">Вес : <%=@item.item_weight%></div>
+            </div>
+            <div class="product-options row mb-4">
               <div class="col-md-4 mb-3">
                 <div class="input-group input-group-quantity input-group-sm" data-toggle="quantity">
                     <span class="input-group-append">
-                      <input type="button" value="-" class="btn btn-secondary quantity-down" field="quantity">
+                      <input type="button" value="-" onclick="return changehref();" class="btn btn-secondary quantity-down" field="quantity">
                     </span>
-                  <input type="text" name="quantity" value="2" class="quantity form-control">
+                  <input type="text" id="tocartvalue" name="quantity" onchange="return changehref();" value="1" class="quantity form-control">
                   <span class="input-group-append">
-                      <input type="button" value="+" class="btn btn-secondary quantity-up" field="quantity">
+                      <input type="button" value="+" onclick="return changehref();" class="btn btn-secondary quantity-up" field="quantity">
                     </span>
                 </div>
               </div>
+              <div class="col-md-4 mb-3">
+
+                <a href="/addtocart/<%=@item.id%>" id="item-<%=@item.id%>"  data-remote="true"><span id="cart_state_<%=@item.id%>" class="fa fa-cart-plus"></span><span id="cart_state_txt_<%=@item.id%>" style="font-size: 13px;"> Добавить в корзину</span></a>
+              </div>
+              <div class="col-md-4 mb-3">
+                <% if @wishlist.include?(@item.id.to_s) %>
+                  <a  href="javascript:void(0)" class="btn btn-link btn-sm" ><span  class="fa fa-heart"></span> В закладках</a>
+                <% else %>
+                  <a style="display: none;" id="wish<%=@item.id%>button_off" href="javascript:void(0)" class="btn btn-link btn-sm" ><span  class="fa fa-heart"></span> В закладках</a>
+                  <a id="wish<%=@item.id%>button" href="/wishlist/<%=@item.id%>" class="btn btn-link btn-sm"   data-remote="true"><span id="wish<%=@item.id%>icon" class="far fa-heart"></span> Добавить в закладки</a>
+                  <% end %>
+              </div>
             </div>
-            <a href="shop-cart.html" class="btn btn-primary"><i class="fa fa-cart-plus mr-2"></i> Добавить в корзину</a>
-            <a href="#" class="btn btn-link btn-sm"><i class="fa fa-heart"></i> Добавить в закладки</a>
+
+
+            </div>
+
+
 
           </div>
         </div>
@@ -211,3 +230,12 @@
 
   </div>
 </div>
+
+<script language="JavaScript">
+
+    function changehref() {
+        v = $('#tocartvalue').val();
+       $('#item-<%=@item.id%>').attr('href','/addtocart/<%=@item.id%>?val='+(v+1));
+        return true;
+    }
+</script>

@@ -135,8 +135,10 @@ class CartController < ApplicationController
       client = Client.find(session[:client_id])
       if client.client_wishlist != ''
         req = client.client_wishlist.split (',')
+        unless req.include?(params[:item_id])
         req.append(params[:item_id])
         client.update_column( :client_wishlist , req.join(','))
+        end
       else
         client.update_column( :client_wishlist , params[:item_id])
       end
@@ -144,6 +146,7 @@ class CartController < ApplicationController
         logger.info('[INFO] : Товар добавлен в закладки.')
         @status='ok'
         @item_id = params[:item_id]
+
         format.js
       end
     else

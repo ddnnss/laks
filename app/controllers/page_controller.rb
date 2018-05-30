@@ -26,6 +26,10 @@ class PageController < ApplicationController
     @title = @subcat.subcat_page_title
     @description = @subcat.subcat_page_description
     @keywords=@description.gsub(' и ',' ').gsub(' в ',' ').split(' ').join(',')
+    if session[:active]
+      client = Client.find(session[:client_id])
+      @wishlist = client.client_wishlist.split(',')
+    end
   end
 
   def showitem
@@ -39,11 +43,15 @@ class PageController < ApplicationController
             client = Client.find(session[:client_id])
                 if client.client_view_history != ''
                   req = client.client_view_history.split (',')
+                  unless req.include?(@item.id.to_s)
                   req.append(@item.id)
                   client.update_column( :client_view_history , req.join(','))
+                  end
+
                 else
                   client.update_column( :client_view_history , @item.id)
                 end
+            @wishlist = client.client_wishlist
           end
 
       @title = @item.item_page_title

@@ -88,7 +88,13 @@
                 <%end%>
 
                 |
-                <a id="wish_button" href="/wishlist/<%=item.id%>" id="wish<%=item.id%>button" onclick="return theFunction(<%=item.id%>); " data-remote="true"><span id="wish_icon" class="far fa-heart"></span></a>
+                  <% if @wishlist.include?(item.id.to_s) %>
+                    <span class="fa fa-heart text-primary"></span>
+                    <% else %>
+                    <span id="wish<%=item.id%>button_off" style="display: none;" class="fa fa-heart text-primary"></span>
+                    <a  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button" onclick="return theFunction(<%=item.id%>); " data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span></a>
+
+                <% end %>
 
               </div>
 

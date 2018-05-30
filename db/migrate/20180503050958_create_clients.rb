@@ -14,10 +14,11 @@ class CreateClients < ActiveRecord::Migration[5.1]
       t.string  :client_password                      #пароль клиента
       t.string  :client_view_history, :default => ''  #история просмотров товаров клиента
       t.string  :client_wishlist, :default => ''      #закладки клиента
-      t.string  :client_ot4estvo, :default => ''
+
       t.date    :client_last_login                    #дата последнкго входа клиента
       t.text    :client_cart_items                    #корзина клиента
       t.text    :client_comment, :default => ''
+
       t.boolean :client_vip, :default => false           # клиент вип ? (0\1)
       t.boolean :client_mail_subscribe,:default => true  # клиент подписан на рассылку рекламных сообщений ? (0\1)
       t.boolean :client_activated, :default => false     # клиент подтвердил адрес почты после регистрации ? (0\1)

@@ -61,7 +61,7 @@ class ClientController < ApplicationController
     nn3=params.permit(:n3).to_h[:n3].to_i
     nn4=nn1+nn2
     if  nn3 == nn4    ##check captcha
-
+      logger.info('[INFO] : Инициализация процедуры регистрации.')
       @client=Client.new(client_data)
 
       if @client.valid? ##check client
@@ -70,7 +70,7 @@ class ClientController < ApplicationController
         @client.client_family = params[:registration][:client_family]
         @client.client_phone = params[:registration][:client_phone]
         @client.save
-
+        logger.info('[INFO] : Новый позьзователь успешно зарегистрирован.')
         MailerMailer.activation(@client).deliver_later
 
         respond_to do |format|

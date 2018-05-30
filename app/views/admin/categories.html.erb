@@ -270,6 +270,14 @@
             </div>
             <div class="modal-body">
               <%= form_for  :addnewitem, url: addnewitem_path   do |f|%>
+                <div class="form-group row">
+                  <label class="col-sm-4">Товар в наличии ?</label>
+                  <div class="col-sm-1">
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" name="item_presents" id="item_presents" value="1" checked >
+                    </div>
+                  </div>
+                </div>
                   <div class="form-group row">
                     <label for="item_name" class="col-sm-2 col-form-label">Название товара :</label>
                     <div class="col-sm-10">
@@ -339,7 +347,7 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-4">Размер</label>
+                          <label class="col-sm-4">Размер (см)</label>
                           <div class="col-sm-6">
                             <div class="form-group ">
                               <%=f.text_field  :item_size, class:'form-control', id:'item_size'%>
@@ -386,10 +394,7 @@
                     <p>Тег DESCRIPTION для товара :
                       <%=f.text_field  :item_page_description, :required => true , class:'form-control', id:'item_page_description'%></p>
                   </div>
-                  <div class="col-sm-12">
-                    <p>Тэги товара (через запятую):
-                      <%=f.text_field  :item_tags,  class:'form-control', id:'item_tags'%></p>
-                  </div>
+
                   <div class="col-sm-12">
                     <p>Описание товара:
                       <textarea class="summernote-5"  id="summernote-addnewitrm" name="item_description" rows="18" required></textarea></p>
@@ -435,6 +440,7 @@
               $('.summernote-3').summernote();
               $('.summernote-5').summernote();
               $('.note-popover').css('display', 'none');
+              $("#item_size").mask("99x99x99", {placeholder: "ВВхДДхШШ" });
 
 
 

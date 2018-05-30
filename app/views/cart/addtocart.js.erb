@@ -71,7 +71,13 @@ else
 
 function notify() {
     $.amaran({
-        'message'           :'Товар:  <%= @item_name%> добавлен в корзину',
+        'theme'     :'colorful',
+        'content'   :{
+            bgcolor:'#5cb85c',
+            color:'#fff',
+            message:'Товар: <%= @item_name%> добавлен в корзину.'
+        },
+
         'cssanimationIn'    :'bounceInRight',
         'cssanimationOut'   :'rollOut',
         'position'          :'top right'

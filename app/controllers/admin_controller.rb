@@ -84,7 +84,10 @@ end
     newitem.item_price = params[:item_price].to_i
     newitem.item_opt_price = params[:item_opt_price].to_i
     newitem.item_opt_price_count = params[:item_opt_price_count].to_i
-    newitem.item_tags = params[:item_tags]
+
+    unless params[:item_presents].present?
+      newitem.item_presents = false
+    end
 
     if params[:addnewitem][:item_weight] != ''
       newitem.item_weight = params[:addnewitem][:item_weight]
@@ -109,7 +112,9 @@ end
 
     end
     newitem.save
-
+    if Dir.exists?('public/images/items/' + newitem.id.to_s)
+      FileUtils.rm_rf('public/images/items/' + newitem.id.to_s)
+    end
     Dir.mkdir('public/images/items/' + newitem.id.to_s)
     uploadedFile1 = params[:addnewitem][:item_image1]
     File.open(Rails.root.join('public','images','items', newitem.id.to_s, uploadedFile1.original_filename), 'wb' ) do |f|

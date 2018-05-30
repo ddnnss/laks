@@ -15,7 +15,7 @@ if ('<%=@res %>' == 'true')
 
     $('#discount-button').attr('disabled','disabled');
     var vsego = parseInt( $('#vsego').html());
-    var dis_val = <%= @dis_value.to_i%>;
+    var dis_val = <%= @dis_value.to_i %>;
     var dis_res = vsego * dis_val / 100;
 
     $('#discount-value').html('Скидка по промо-коду (<%= @dis_value%> %)');

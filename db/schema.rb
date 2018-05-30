@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.string "client_email"
     t.string "client_name", default: ""
     t.string "client_family", default: ""
+    t.string "client_ot4estvo", default: ""
+    t.string "client_passport", default: ""
     t.string "client_phone", default: ""
     t.string "client_country", default: ""
     t.string "client_city", default: ""
@@ -40,6 +42,7 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.string "client_wishlist", default: ""
     t.date "client_last_login"
     t.text "client_cart_items"
+    t.text "client_comment", default: ""
     t.boolean "client_vip", default: false
     t.boolean "client_mail_subscribe", default: true
     t.boolean "client_activated", default: false
@@ -88,7 +91,6 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.string "item_article", default: "не указано"
     t.string "item_weight", default: "не указано"
     t.string "item_color", default: "не указано"
-    t.string "item_tags", default: ""
     t.text "item_description", default: ""
     t.string "item_page_title", default: ""
     t.string "item_page_description", default: ""
@@ -100,6 +102,7 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.boolean "item_in_sale", default: false
     t.boolean "item_in_collection", default: false
     t.boolean "item_new", default: false
+    t.boolean "item_presents", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["collection_id"], name: "index_items_on_collection_id"

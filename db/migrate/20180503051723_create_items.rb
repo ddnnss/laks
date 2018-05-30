@@ -13,8 +13,7 @@ class CreateItems < ActiveRecord::Migration[5.1]
       t.string     :item_size, :default => 'не указано'                   #размер товара
       t.string     :item_article, :default => 'не указано'                #артикул товара
       t.string     :item_weight, :default => 'не указано'                 #вес товара
-      t.string     :item_color, :default => 'не указано'                  #цвет товара
-      t.string     :item_tags, :default => ''                             #тэги товара (нужны ли?)
+
       t.text       :item_description, :default => ''                      #описание товара
       t.string     :item_page_title, :default => ''                       #название страницы с  товаром
       t.string     :item_page_description, :default => ''                 #описание страницы товара(МЕТА ТЭГ)
