@@ -63,6 +63,7 @@ class CartController < ApplicationController
         respond_to do |format| # дупликат товара
           @dup = @duplicate
           @item_id = item.id
+          @item_name = item.item_name
           @item_count = session[:cart][item.id.to_s]
           if @item_count >= item.item_opt_price_count #оптовая цена
             @item_price = item.item_opt_price
@@ -131,9 +132,18 @@ class CartController < ApplicationController
   def add_to_wishlist
     if session[:active]
       logger.info('[INFO] :Сессия доступна, добавление в закладки товара.....')
+      client = Client.find(session[:client_id])
+      if client.client_wishlist != ''
+        req = client.client_wishlist.split (',')
+        req.append(params[:item_id])
+        client.update_column( :client_wishlist , req.join(','))
+      else
+        client.update_column( :client_wishlist , params[:item_id])
+      end
       respond_to do |format|
         logger.info('[INFO] : Товар добавлен в закладки.')
         @status='ok'
+        @item_id = params[:item_id]
         format.js
       end
     else

@@ -28,6 +28,32 @@ class PageController < ApplicationController
     @keywords=@description.gsub(' и ',' ').gsub(' в ',' ').split(' ').join(',')
   end
 
+  def showitem
+    @item = Item.find_by_item_name_translit(params[:item_name])
+    if @item.nil?
+      redirect request.referer
+      return
+    else
+      @item.update_column(:item_views_count,@item.item_views_count + 1)
+          if session[:active]
+            client = Client.find(session[:client_id])
+                if client.client_view_history != ''
+                  req = client.client_view_history.split (',')
+                  req.append(@item.id)
+                  client.update_column( :client_view_history , req.join(','))
+                else
+                  client.update_column( :client_view_history , @item.id)
+                end
+          end
+
+      @title = @item.item_page_title
+      @description = @item.item_page_description
+      @keywords=@description.gsub(' и ',' ').gsub(' в ',' ').split(' ').join(',')
+      @subcat = Subcategory.find(@item.subcategory_id)
+      @maincat = Category.find(@subcat.category_id)
+    end
+  end
+
   def getmenu
     @cat_all = Category.all
     @menu_cat = Category.where(show_in_menu: true)

@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.string "client_password"
     t.string "client_view_history", default: ""
     t.string "client_wishlist", default: ""
-    t.string "client_personal_discount", default: ""
     t.date "client_last_login"
     t.text "client_cart_items"
     t.boolean "client_vip", default: false
@@ -88,10 +87,11 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.string "item_size", default: "не указано"
     t.string "item_article", default: "не указано"
     t.string "item_weight", default: "не указано"
+    t.string "item_color", default: "не указано"
     t.string "item_tags", default: ""
     t.text "item_description", default: ""
-    t.text "item_page_title", default: ""
-    t.text "item_page_description", default: ""
+    t.string "item_page_title", default: ""
+    t.string "item_page_description", default: ""
     t.integer "item_price"
     t.integer "item_opt_price"
     t.integer "item_opt_price_count"
@@ -100,7 +100,6 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.boolean "item_in_sale", default: false
     t.boolean "item_in_collection", default: false
     t.boolean "item_new", default: false
-    t.boolean "item_presents", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["collection_id"], name: "index_items_on_collection_id"
@@ -109,6 +108,7 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.index ["item_name_caps"], name: "index_items_on_item_name_caps"
     t.index ["item_name_translit"], name: "index_items_on_item_name_translit"
     t.index ["item_new"], name: "index_items_on_item_new"
+    t.index ["item_price"], name: "index_items_on_item_price"
     t.index ["subcategory_id"], name: "index_items_on_subcategory_id"
   end
 

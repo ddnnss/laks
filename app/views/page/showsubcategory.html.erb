@@ -56,8 +56,9 @@
               </div>-->
               <!-- Image & price content -->
               <div class="pos-relative">
+                <a href="/product/<%=item.item_name_translit%>">
                 <img class="card-img-top img-fluid" src="/images/items/<%=item.id%>/<%=item.item_image1%>" alt="Купить <%=item.item_name%> в Москве по оптовым ценам">
-
+                </a>
                 <%if item.item_discount > 0 %>
                     <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-r mt-2 mr-2 persist">
                  - <%=item.item_discount%> %
@@ -69,7 +70,7 @@
               </div>
               <!-- Content -->
               <div class="card-body text-center ">
-                <a href=""> <%=item.item_name%></a>
+                <a href="/product/<%=item.item_name_translit%>"> <%=item.item_name%></a>
                 <hr/>
                 <div id="spinner_<%=item.id%>" ></div>
                 <div id="cart_buttons_<%=item.id%>">
@@ -87,7 +88,7 @@
                 <%end%>
 
                 |
-                <a href="/wishlist/<%=item.id%>" id="wish<%=item.id%>button" onclick="return theFunction(<%=item.id%>); " data-remote="true"><span class="far fa-heart"></span></a>
+                <a id="wish_button" href="/wishlist/<%=item.id%>" id="wish<%=item.id%>button" onclick="return theFunction(<%=item.id%>); " data-remote="true"><span id="wish_icon" class="far fa-heart"></span></a>
 
               </div>
 

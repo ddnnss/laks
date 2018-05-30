@@ -16,7 +16,9 @@ class AdminController < ApplicationController
 
     end
   end
+def index
 
+end
   def discount
     @oneusediscounts = Discount.where(discount_for_one_use: true)
     @notoneusediscounts = Discount.where(discount_for_one_use: false)
@@ -100,6 +102,7 @@ class AdminController < ApplicationController
     end
     if params[:item_discount] == '1'
       newitem.item_discount = params[:item_discount_val].to_i
+      newitem.item_in_sale = true
     end
     if params[:add_coll] == 'on'
       newitem.collection_id = params[:collections_select]

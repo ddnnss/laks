@@ -1,88 +1,102 @@
 <div id="content">
-<div class="container">
-  <h4> Список сгенерированных одноразовых промо-кодов :</h4>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-
-      <th>КОД</th>
-      <th>СКИДКА %</th>
-
-    </tr>
-    </thead>
-    <tbody>
+  <div class="container">
+    <h2 class="title-divider">
+      Административный раздел | Промо-коды
+    </h2>
 
 
-    <%@oneusediscounts.each do |d|%>
+    <div class="row">
 
-        <tr>
-          <td><%=d.discount_code%></td>
-          <td><%=d.discount_discount_value%></td>
-        </tr>
-    <%end%>
-        </tbody>
+      <%=render 'admin/menu'%>
+
+
+      <div class="col-md-9">
+
+        <h4> Список сгенерированных одноразовых промо-кодов :</h4>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+
+            <th>КОД</th>
+            <th>СКИДКА %</th>
+
+          </tr>
+          </thead>
+          <tbody>
+
+
+          <%@oneusediscounts.each do |d|%>
+
+              <tr>
+                <td><%=d.discount_code%></td>
+                <td><%=d.discount_discount_value%></td>
+              </tr>
+          <%end%>
+          </tbody>
         </table>
-  <br/>
-  <div class="mb-4 bg-light p-3 rounded mb-4">
-  <h4>Генерация одноразовых промо-кодов</h4>
-  <%=form_for :discount, url: admin_discount_path do |f|%>
-      <div class="col-sm-3">
-        <p>Количество промо-кодов:
-          <%=f.text_field  :discount_number, :required => true , class:'form-control'%></p>
+        <br/>
+        <div class="mb-4 bg-light p-3 rounded mb-4">
+          <h4>Генерация одноразовых промо-кодов</h4>
+          <%=form_for :discount, url: admin_discount_path do |f|%>
+              <div class="col-sm-6">
+                <p>Количество промо-кодов:
+                  <%=f.text_field  :discount_number, :required => true , class:'form-control'%></p>
+              </div>
+              <div class="col-sm-6">
+                <p>% скидки:
+                  <%=f.text_field  :discount_value, :required => true , class:'form-control'%></p>
+              </div>
+              <input  name="action_type" value="generate_one" type="hidden" />
+              <%= submit_tag 'Генерация купонов' , class:'btn btn-primary'%>
+          <%end%>
+        </div>
+        <hr/>
+
+        <h4> Список многоразовах промо-кодов :</h4>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+
+            <th>КОД</th>
+            <th>СКИДКА %</th>
+            <th>СРОК ДЕЙСТВИЯ (не включительно)</th>
+
+          </tr>
+          </thead>
+          <tbody>
+
+
+          <%@notoneusediscounts.each do |d|%>
+
+              <tr>
+                <td><%=d.discount_code%></td>
+                <td><%=d.discount_discount_value%></td>
+                <td><%=d.discount_expiry.strftime("%d.%m.%Y")%></td>
+              </tr>
+          <%end%>
+          </tbody>
+        </table>
+        <br/>
+        <div class="mb-4 bg-light p-3 rounded mb-4">
+          <h4>Создание многоразовых промо-кодов</h4>
+          <%=form_for :discount, url: admin_discount_path do |f|%>
+              <div class="col-sm-6">
+                <p>Код промо-кода:
+                  <%=f.text_field  :discount_code, :required => true , class:'form-control'%></p>
+              </div>
+              <div class="col-sm-6">
+                <p>% скидки:
+                  <%=f.text_field  :discount_value, :required => true , class:'form-control'%></p>
+              </div>
+              <div class="col-sm-6">
+                <p>Срок действия (не включительно) :
+                  <input class="form-control" type="date" value="<%=  Date.today %>" name="discount_expiry"></p>
+              </div>
+              <input  name="action_type" value="generate_notone" type="hidden" />
+              <%= submit_tag 'Сохранить промо-код' , class:'btn btn-primary'%>
+          <%end%>
+        </div>
       </div>
-      <div class="col-sm-3">
-        <p>% скидки:
-          <%=f.text_field  :discount_value, :required => true , class:'form-control'%></p>
-      </div>
-      <input  name="action_type" value="generate_one" type="hidden" />
-      <%= submit_tag 'Генерация купонов' , class:'btn btn-primary'%>
-  <%end%>
-</div>
-  <hr/>
-
-  <h4> Список многоразовах промо-кодов :</h4>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-
-      <th>КОД</th>
-      <th>СКИДКА %</th>
-      <th>СРОК ДЕЙСТВИЯ (не включительно)</th>
-
-    </tr>
-    </thead>
-    <tbody>
-
-
-    <%@notoneusediscounts.each do |d|%>
-
-        <tr>
-          <td><%=d.discount_code%></td>
-          <td><%=d.discount_discount_value%></td>
-          <td><%=d.discount_expiry.strftime("%d.%m.%Y")%></td>
-        </tr>
-    <%end%>
-    </tbody>
-  </table>
-  <br/>
-  <div class="mb-4 bg-light p-3 rounded mb-4">
-  <h4>Создание многоразовых промо-кодов</h4>
-  <%=form_for :discount, url: admin_discount_path do |f|%>
-      <div class="col-sm-3">
-        <p>Код промо-кода:
-          <%=f.text_field  :discount_code, :required => true , class:'form-control'%></p>
-      </div>
-      <div class="col-sm-3">
-        <p>% скидки:
-          <%=f.text_field  :discount_value, :required => true , class:'form-control'%></p>
-      </div>
-      <div class="col-sm-3">
-        <p>Срок действия (не включительно) :
-          <input class="form-control" type="date" value="<%=  Date.today %>" name="discount_expiry"></p>
-      </div>
-      <input  name="action_type" value="generate_notone" type="hidden" />
-      <%= submit_tag 'Сохранить промо-код' , class:'btn btn-primary'%>
-  <%end%>
+    </div>
   </div>
-</div>
 </div>

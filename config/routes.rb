@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'page#index'
 
-
+  get '/admin', to: 'admin#index'
   get '/admin/items', to: 'admin#items'
   get '/admin/categories', to: 'admin#categories'
   get '/admin/collections', to: 'admin#collections'
@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   get '/category(/:name)', to: 'page#showcategory'
   get '/subcategory(/:name)', to: 'page#showsubcategory'
+  get '/product(/:item_name)', to: 'page#showitem'
   get '/order', to: 'page#order_info'
   match '/checkout'  => 'page#checkout', via: [:post, :get]
   match '/placeorder'  => 'page#placeorder', via: [:post, :get]

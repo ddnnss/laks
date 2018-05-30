@@ -1,14 +1,14 @@
 <div id="content" class="py-5">
-  <div class="container">
+  <div id="cart"class="container">
     <% if flash[:email_error]%>
     <div class="login_result alert alert-pink" role="alert">  <%= flash[:email_error]%></div>
     <%end%>
 
     <h4 class="mt-5">
-      Ваш заказ
+      Ваша корзина
     </h4>
     <!--Shopping cart items-->
-    <table class="table table-responsive mb-0 cart-table">
+    <table  class="table table-responsive mb-0 cart-table">
       <thead>
       <tr>
         <th class="w-5"></th>
@@ -80,7 +80,7 @@
     </table>
     <!--End of Shopping cart items-->
     <hr class="my-4 hr-lg">
-    <div class="cart-content-footer">
+    <div id="checkout" class="cart-content-footer">
       <div class="row">
         <div class="col-md-4">
           <h6 class="text-muted mb-3">
@@ -120,7 +120,7 @@
     <h4>
       Почтовый адрес (Адрес доставки)
     </h4>
-    <div class="mb-4 bg-light p-3 rounded mb-4" id="billing">
+    <div  class="mb-4 bg-light p-3 rounded mb-4" id="billing">
       <div class="row">
         <%= form_for  :placeorder, url: placeorder_path, :html => { :class => 'guest_form'}   do |f|%>
           <div class="form-group row">
@@ -174,7 +174,7 @@
           <div class="form-check form-check-inline">
             <label class="form-check-label">
               <input type="checkbox" class="form-check-input" name="guest_register" checked   value="on">
-              Создать учетную запись на сайте ?
+              Зарегистрироваться на сайте ?
             </label>
           </div>
 
