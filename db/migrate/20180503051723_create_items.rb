@@ -28,7 +28,7 @@ class CreateItems < ActiveRecord::Migration[5.1]
       t.boolean    :item_in_sale, :default => false, index: true          #отметка что на этот товар есть скидка
       t.boolean    :item_in_collection, :default => false, index: true    #отметка что этот товар в коллекции
       t.boolean    :item_new, :default => false, index: true              #отметка что этот товар в новинка
-
+      t.boolean    :item_presents, :default => true
       t.timestamps
     end
   end
