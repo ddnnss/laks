@@ -13,7 +13,7 @@
   <div class="container">
     <!-- Product view -->
     <div class="row">
-      <div class="col-lg-5">
+      <div class="col-lg-6">
         <!-- Shop product carousel Uses Owl Carousel plugin All options here are customisable from the data-owl-carousel-settings="{OBJECT}" item via data- attributes: http://www.owlgraphic.com/owlcarousel/#customizing ie. data-settings="{"items": "4", "lazyLoad":"true", "navigation":"true"}" -->
         <div class="product-gallery pos-relative">
           <%if @item.item_discount > 0 %>
@@ -25,20 +25,54 @@
               <img src="/images/items/<%= @item.id%>/<%= @item.item_image1%>" alt="Приобрести оптом в Москве <%= @item.item_name%>" class="lazyOwl img-fluid" width="200" />
             </a>
 
+            <%unless @item.item_image2 == 'none'%>
+                <a href="#" data-img-zoom="/images/items/<%= @item.id%>/<%= @item.item_image2%>">
+                  <img src="/images/items/<%= @item.id%>/<%= @item.item_image2%>" alt="Большой ассортимент <%= @item.item_name%>" class="lazyOwl img-fluid" width="200" />
+                </a>
+            <%end%>
+
+            <%unless @item.item_image3 == 'none'%>
+                <a href="#" data-img-zoom="/images/items/<%= @item.id%>/<%= @item.item_image3%>">
+                  <img src="/images/items/<%= @item.id%>/<%= @item.item_image3%>" alt="Купить <%= @item.item_name%> со скидкой" class="lazyOwl img-fluid" width="200" />
+                </a>
+            <%end%>
+
+            <%unless @item.item_image4 == 'none'%>
+                <a href="#" data-img-zoom="/images/items/<%= @item.id%>/<%= @item.item_image4%>">
+                  <img src="/images/items/<%= @item.id%>/<%= @item.item_image4%>" alt="Оптовая цена на <%= @item.item_name%>" class="lazyOwl img-fluid" width="200" />
+                </a>
+            <%end%>
+
           </div>
           <div class="owl-thumbs" data-toggle="owl-carousel" data-owl-carousel-thumbs="#product-gallery" data-owl-carousel-settings='{"nav":false, "dots":false, "margin":5}'>
-            <a class="owl-thumb">
-              <img class="img-fluid" src="/images/items/<%= @item.id%>/<%= @item.item_image1%>" alt="Большой ассортимент <%= @item.item_name%>">
-            </a>
+
+            <%unless @item.item_image2 == 'none'%>
+                <a class="owl-thumb">
+                  <img class="img-fluid" src="/images/items/<%= @item.id%>/<%= @item.item_image1%>" alt="Всегда ассортимент <%= @item.item_name%>">
+                </a>
+                <a class="owl-thumb">
+                  <img class="img-fluid" src="/images/items/<%= @item.id%>/<%= @item.item_image2%>" alt="Большой выбор <%= @item.item_name%>">
+                </a>
+            <%end%>
+            <%unless @item.item_image3 == 'none'%>
+                <a class="owl-thumb">
+                  <img class="img-fluid" src="/images/items/<%= @item.id%>/<%= @item.item_image3%>" alt="Всгда в наличии <%= @item.item_name%>">
+                </a>
+            <%end%>
+            <%unless @item.item_image4 == 'none'%>
+                <a class="owl-thumb">
+                  <img class="img-fluid" src="/images/items/<%= @item.id%>/<%= @item.item_image4%>" alt="Низкие цены <%= @item.item_name%>">
+                </a>
+            <%end%>
 
           </div>
         </div>
       </div>
-      <div class="col-lg-7">
+      <div class="col-lg-6">
         <div class="card product-card mb-4">
           <!-- Ribbon -->
-          <%if @item.item_discount > 0 %>
-              <div class="card-ribbon card-ribbon-bottom card-ribbon-right bg-primary text-white"> - <%=@item.item_discount%> %</div>
+          <%if @item.item_new %>
+              <div class="card-ribbon card-ribbon-top card-ribbon-right bg-warning text-white"> НОВИНКА %</div>
           <%end%>
 
           <!-- Content -->
@@ -77,34 +111,54 @@
             <hr class="my-3 ">
             <!-- Cart options/links fa fa-heart -->
             <div class="product-options row mb-4">
-              <div class="col-md-4 text-sm text-uppercase">Артикул : <%=@item.item_article%></div>
+              <div class="col-md-12 text-sm text-uppercase">Артикул : <%=@item.item_article%></div>
 
-              <div class="col-md-4 text-sm text-uppercase">Размеры : <%=@item.item_size%></div>
-              <div class="col-md-4 text-sm text-uppercase">Вес : <%=@item.item_weight%></div>
+              <div class="col-md-12 text-sm text-uppercase">Размеры (Д х В х Ш) : <%=@item.item_size%></div>
+              <div class="col-md-12 text-sm text-uppercase">Вес : <%=@item.item_weight%></div>
             </div>
-            <div class="product-options row mb-4">
+            <hr class="my-3">
+            <div  class="product-options row mt-3">
+              <%if @item.item_presents%>
               <div class="col-md-4 mb-3">
                 <div class="input-group input-group-quantity input-group-sm" data-toggle="quantity">
                     <span class="input-group-append">
-                      <input type="button" value="-" onclick="return changehref();" class="btn btn-secondary quantity-down" field="quantity">
+                      <input type="button" value="-"  class="btn btn-secondary quantity-down" field="quantity">
                     </span>
-                  <input type="text" id="tocartvalue" name="quantity" onchange="return changehref();" value="1" class="quantity form-control">
+                  <input type="number" id="tocartvalue" name="quantity"   value="1" class="quantity form-control">
                   <span class="input-group-append">
-                      <input type="button" value="+" onclick="return changehref();" class="btn btn-secondary quantity-up" field="quantity">
+                      <input type="button" value="+"  class="btn btn-secondary quantity-up" field="quantity">
                     </span>
                 </div>
               </div>
+
               <div class="col-md-4 mb-3">
 
-                <a href="/addtocart/<%=@item.id%>" id="item-<%=@item.id%>"  data-remote="true"><span id="cart_state_<%=@item.id%>" class="fa fa-cart-plus"></span><span id="cart_state_txt_<%=@item.id%>" style="font-size: 13px;"> Добавить в корзину</span></a>
+                    <%if session[:cart].nil?%>
+                        <a style="width: 100%;" href="#" id="addbutton" onclick="return sethref();" class="btn btn-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> Добавить в корзину</span></a>
+                    <% else %>
+                        <%if session[:cart].keys.include? @item.id.to_s%>
+                            <a style="width: 100%;" href="#" id="addbutton" onclick="return sethref();" class="btn btn-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> Добавить еще</span></a>
+
+                            <p align="center" class="text-muted text-xs d-inline d-none d-lg-block"> В КОРЗИНЕ <%=session[:cart][@item.id.to_s]%> ЕДИНИЦ</span> </p>
+                        <% else %>
+                            <a style="width: 100%;" href="#" id="addbutton" onclick="return sethref();" class="btn btn-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> Добавить в корзину</span></a>
+                        <% end %>
+                    <% end %>
+
               </div>
+              <% end %>
               <div class="col-md-4 mb-3">
-                <% if @wishlist.include?(@item.id.to_s) %>
-                  <a  href="javascript:void(0)" class="btn btn-link btn-sm" ><span  class="fa fa-heart"></span> В закладках</a>
+                <% if @wishlist.nil? %>
+                    <a id="wish<%=@item.id%>button" href="/wishlist/<%=@item.id%>" class="btn btn-link btn-sm"   data-remote="true"><span id="wish<%=@item.id%>icon" class="far fa-heart"></span> Добавить в закладки</a>
                 <% else %>
-                  <a style="display: none;" id="wish<%=@item.id%>button_off" href="javascript:void(0)" class="btn btn-link btn-sm" ><span  class="fa fa-heart"></span> В закладках</a>
-                  <a id="wish<%=@item.id%>button" href="/wishlist/<%=@item.id%>" class="btn btn-link btn-sm"   data-remote="true"><span id="wish<%=@item.id%>icon" class="far fa-heart"></span> Добавить в закладки</a>
-                  <% end %>
+                    <% if @wishlist.include?(@item.id.to_s) %>
+                        <a  href="javascript:void(0)" class="btn btn-link btn-sm" ><span  class="fa fa-heart"></span> В закладках</a>
+                    <% else %>
+                        <a style="display: none;" id="wish<%=@item.id%>button_off" href="javascript:void(0)" class="btn btn-link btn-sm" ><span  class="fa fa-heart"></span> В закладках</a>
+                        <a id="wish<%=@item.id%>button" href="/wishlist/<%=@item.id%>" class="btn btn-link btn-sm"   data-remote="true"><span id="wish<%=@item.id%>icon" class="far fa-heart"></span> Добавить в закладки</a>
+                    <% end %>
+                <% end %>
+
               </div>
             </div>
 
@@ -130,102 +184,7 @@
       </h2>
       <hr class="mb-3 w-50 mx-auto">
       <div class="mt-4 owl-nav-over owl-nav-over-lg owl-carousel owl-loaded owl-drag" data-toggle="owl-carousel" data-owl-carousel-settings="{&quot;responsive&quot;:{&quot;0&quot;:{&quot;items&quot;:1}, &quot;600&quot;:{&quot;items&quot;:2}, &quot;980&quot;:{&quot;items&quot;:4}}, &quot;margin&quot;:10, &quot;nav&quot;:true, &quot;dots&quot;:false}">
-        <!-- Product 1 -->
 
-        <!-- Product 2 -->
-
-        <!-- Product 3 -->
-
-        <!-- Product 4 -->
-
-        <!-- Product 5 -->
-
-        <!-- Product 6 -->
-
-        <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: 0s; width: 1410px;"><div class="owl-item active" style="width: 225px; margin-right: 10px;"><div class="card product-card overlay-hover">
-          <!-- Hover content -->
-          <div class="overlay-hover-content overlay-op-7 product-card-hover-tools">
-            <h4 class="text-white">
-              New Balance
-            </h4>
-            <a href="shop-cart.html" class="btn btn-primary text-uppercase font-weight-bold mb-2"><i class="fa fa-cart-plus mr-2"></i> Add to Cart</a>
-          </div>
-          <!-- Image & price content -->
-          <div class="pos-relative">
-            <img class="card-img-top img-fluid" src="assets/img/shop/shoes-2.jpg" alt="Card image cap">
-            <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-l mt-2 ml-2">
-                <del class="op-5">$24.99</del>
-                / $19.99
-              </span>
-          </div>
-        </div></div><div class="owl-item active" style="width: 225px; margin-right: 10px;"><div class="card product-card overlay-hover">
-          <!-- Hover content -->
-          <div class="overlay-hover-content overlay-op-7 product-card-hover-tools">
-            <h4 class="text-white">
-              Nike Training Top
-            </h4>
-            <a href="shop-cart.html" class="btn btn-primary text-uppercase font-weight-bold mb-3"><i class="fa fa-cart-plus mr-2"></i> Add to Cart</a>
-          </div>
-          <!-- Image & price content -->
-          <div class="pos-relative">
-            <img class="card-img-top img-fluid" src="assets/img/shop/mens-sports-2.jpg" alt="Card image cap">
-            <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-l mt-2 ml-2">$39.99</span>
-          </div>
-        </div></div><div class="owl-item active" style="width: 225px; margin-right: 10px;"><div class="card product-card overlay-hover">
-          <!-- Hover content -->
-          <div class="overlay-hover-content overlay-op-7 product-card-hover-tools">
-            <h4 class="text-white">
-              Kids Wollys
-            </h4>
-            <a href="shop-cart.html" class="btn btn-primary text-uppercase font-weight-bold mb-3"><i class="fa fa-cart-plus mr-2"></i> Add to Cart</a>
-          </div>
-          <!-- Image & price content -->
-          <div class="pos-relative">
-            <img class="card-img-top img-fluid" src="assets/img/shop/promo-kids.jpg" alt="Card image cap">
-            <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-l mt-2 ml-2">$9.99</span>
-          </div>
-        </div></div><div class="owl-item active" style="width: 225px; margin-right: 10px;"><div class="card product-card overlay-hover">
-          <!-- Hover content -->
-          <div class="overlay-hover-content overlay-op-7 product-card-hover-tools">
-            <h4 class="text-white">
-              Kids Hoodies
-            </h4>
-            <a href="shop-cart.html" class="btn btn-primary text-uppercase font-weight-bold mb-3"><i class="fa fa-cart-plus mr-2"></i> Add to Cart</a>
-          </div>
-          <!-- Ribbon -->
-          <div class="card-ribbon card-ribbon-top card-ribbon-right bg-primary text-white">Eco Friendly</div>
-          <!-- Image & price content -->
-          <div class="pos-relative">
-            <img class="card-img-top img-fluid" src="assets/img/shop/promo-kids-hoodies.jpg" alt="Card image cap">
-            <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-l mt-2 ml-2">$29.99</span>
-          </div>
-        </div></div><div class="owl-item" style="width: 225px; margin-right: 10px;"><div class="card product-card overlay-hover">
-          <!-- Hover content -->
-          <div class="overlay-hover-content overlay-op-7 product-card-hover-tools">
-            <h4 class="text-white">
-              Shirts
-            </h4>
-            <a href="shop-cart.html" class="btn btn-primary text-uppercase font-weight-bold mb-3"><i class="fa fa-cart-plus mr-2"></i> Add to Cart</a>
-          </div>
-          <!-- Image & price content -->
-          <div class="pos-relative">
-            <img class="card-img-top img-fluid" src="assets/img/shop/promo-mens.jpg" alt="Card image cap">
-            <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-l mt-2 ml-2">$69.99</span>
-          </div>
-        </div></div><div class="owl-item" style="width: 225px; margin-right: 10px;"><div class="card product-card overlay-hover">
-          <!-- Hover content -->
-          <div class="overlay-hover-content overlay-op-7 product-card-hover-tools">
-            <h4 class="text-white">
-              Jacket
-            </h4>
-            <a href="shop-cart.html" class="btn btn-primary text-uppercase font-weight-bold mb-3"><i class="fa fa-cart-plus mr-2"></i> Add to Cart</a>
-          </div>
-          <!-- Image & price content -->
-          <div class="pos-relative">
-            <img class="card-img-top img-fluid" src="assets/img/shop/promo-mens-2.jpg" alt="Card image cap">
-            <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-l mt-2 ml-2">$199.99</span>
-          </div>
-        </div></div></div></div><div class="owl-nav"><div class="owl-prev disabled">prev</div><div class="owl-next">next</div></div><div class="owl-dots disabled"></div></div>
     </div>
 
   </div>
@@ -233,9 +192,9 @@
 
 <script language="JavaScript">
 
-    function changehref() {
-        v = $('#tocartvalue').val();
-       $('#item-<%=@item.id%>').attr('href','/addtocart/<%=@item.id%>?val='+(v+1));
+    function sethref() {
+        tocartvalue = $('#tocartvalue').val();
+       $('#addbutton').attr('href','/addtocartalt/<%=@item.id%>/' + tocartvalue);
         return true;
     }
 </script>

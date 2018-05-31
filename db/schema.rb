@@ -90,7 +90,6 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.string "item_size", default: "не указано"
     t.string "item_article", default: "не указано"
     t.string "item_weight", default: "не указано"
-    t.string "item_color", default: "не указано"
     t.text "item_description", default: ""
     t.string "item_page_title", default: ""
     t.string "item_page_description", default: ""

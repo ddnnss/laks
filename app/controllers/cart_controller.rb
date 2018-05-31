@@ -1,4 +1,25 @@
 class CartController < ApplicationController
+  def addtocartalt
+    item = Item.find(params[:item_id])
+
+      if session[:cart].nil?
+        session[:cart]=Hash.new
+        session[:cart][params[:item_id]] = params[:val].to_i
+      # client.update_column(:client_cart_items , session[:cart])
+
+      else
+        if session[:cart].key? params[:item_id]
+          session[:cart][params[:item_id]] = session[:cart][params[:item_id]].to_i + params[:val].to_i
+
+        else
+          session[:cart][params[:item_id]] = params[:val].to_i
+        end
+
+     #   client.update_column(:client_cart_items , session[:cart])
+
+      end
+      redirect_to '/product/' + item.item_name_translit
+  end
   def addtocart
     item = Item.find(params[:item_id])
 
@@ -6,6 +27,7 @@ class CartController < ApplicationController
     if session[:active]
       logger.info('[INFO] : Авторизованный режим корзины. ')
       client = Client.find(session[:client_id])
+
 
       if session[:cart].nil?  #корзина существует?
         logger.info('[INFO] : Инициализация корзины. Обработка ......')

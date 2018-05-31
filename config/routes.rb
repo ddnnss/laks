@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get '/activate', to: 'client#activate'
 
   match '/addtocart(/:item_id)'  => 'cart#addtocart', via: [:get]
+  match '/addtocartalt(/:item_id)(/:val)'  => 'cart#addtocartalt', via: [:get]
   match '/wishlist(/:item_id)'  => 'cart#add_to_wishlist', via: [:get]
   get '/remove(/:id)', to: 'cart#removeitem'
   match '/discount'  => 'cart#applydiscount', via: [:post , :get]
