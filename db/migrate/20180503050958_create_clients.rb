@@ -4,8 +4,8 @@ class CreateClients < ActiveRecord::Migration[5.1]
       t.string  :client_email, index: true            #мыло клиента
       t.string  :client_name, :default => ''          #имя клиента
       t.string  :client_family, :default => ''        #фамилия клиента
-      t.string  :client_ot4estvo, :default => ''
-      t.string  :client_passport, :default => ''
+      t.string  :client_ot4estvo, :default => ''      #отчество клиента (вводит админ)
+      t.string  :client_passport, :default => ''      #паспортные данные клиента (вводит админ)
       t.string  :client_phone, :default => ''         #телефон клиента
       t.string  :client_country, :default => ''       #страна клиента
       t.string  :client_city, :default => ''          #город клиента
@@ -17,7 +17,7 @@ class CreateClients < ActiveRecord::Migration[5.1]
 
       t.date    :client_last_login                    #дата последнкго входа клиента
       t.text    :client_cart_items                    #корзина клиента
-      t.text    :client_comment, :default => ''
+      t.text    :client_comment, :default => ''       #комментарий для клиента(вводит админ)
 
       t.boolean :client_vip, :default => false           # клиент вип ? (0\1)
       t.boolean :client_mail_subscribe,:default => true  # клиент подписан на рассылку рекламных сообщений ? (0\1)
