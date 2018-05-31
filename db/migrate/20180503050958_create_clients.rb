@@ -17,7 +17,7 @@ class CreateClients < ActiveRecord::Migration[5.1]
 
       t.date    :client_last_login                    #дата последнкго входа клиента
       t.text    :client_cart_items                    #корзина клиента
-      t.text    :client_comment, :default => ''       #комментарий для клиента(вводит админ)
+      t.text    :client_comment, :default => ''       #комментарий для клиента (вводит админ)
 
       t.boolean :client_vip, :default => false           # клиент вип ? (0\1)
       t.boolean :client_mail_subscribe,:default => true  # клиент подписан на рассылку рекламных сообщений ? (0\1)
