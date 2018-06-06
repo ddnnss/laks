@@ -12,7 +12,10 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.string :order_tracking,index: true
       t.string :order_number,index: true
 
-
+      t.string :order_temp1
+      t.string :order_temp2
+      t.string :order_temp3
+      t.string :order_temp4
       t.timestamps
     end
   end

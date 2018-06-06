@@ -24,6 +24,11 @@ class CreateClients < ActiveRecord::Migration[5.1]
       t.boolean :client_activated, :default => false     # клиент подтвердил адрес почты после регистрации ? (0\1)
       t.boolean :client_admin, :default => false         # админ аккаунт ? (0\1)
 
+      t.string :client_temp1
+      t.string :client_temp2
+      t.string :client_temp3
+      t.string :client_temp4
+
       t.timestamps
     end
   end
