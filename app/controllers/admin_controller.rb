@@ -19,7 +19,66 @@ class AdminController < ApplicationController
 def index
 
 end
+  def items
+    @items_active = 'active'
+    @items = Item.all
+    @cat_main = Category.all
+    @cat_sub = Subcategory.where(category_id: @cat_main.first.id)
+
+
+  end
+
+  def getsubcat
+    subcats = Hash.new
+    subcat = Subcategory.where(category_id: params[:cat_id])
+
+
+    subcat.each do |mm|
+      subcats[mm.id] = mm.subcat_name
+    end
+
+    respond_to do |format|
+
+      @subcat_sel = subcats
+
+      format.js
+    end
+  end
+
+
+
+  def homepage
+    @homepage_active = 'active'
+    @slides = Slider.all
+  end
+  def addslide
+    if params[:id].present?
+      s = Slider.find(params[:id])
+      s.destroy!
+    else
+      s= Slider.new
+      s.slider_text1 = params[:addslide][:slide_text1]
+      s.slider_text2 = params[:addslide][:slide_text2]
+      s.slider_text3 = params[:addslide][:slide_text3]
+      s.slider_url =   params[:addslide][:slide_url]
+      uploadedFile = params[:addslide][:slide_image]
+      if File.file?(Rails.root.join('public','images','slider', uploadedFile.original_filename))
+        uploadedFile.original_filename = [*('a'..'z'),*('0'..'9')].shuffle[0,4].join + uploadedFile.original_filename
+      end
+      File.open(Rails.root.join('public','images','slider', uploadedFile.original_filename), 'wb' ) do |f|
+        f.write(uploadedFile.read)
+      end
+      s.slider_image = uploadedFile.original_filename
+      s.save
+    end
+
+
+    redirect_to request.referer
+
+
+  end
   def discount
+    @discount_active = 'active'
     @oneusediscounts = Discount.where(discount_for_one_use: true)
     @notoneusediscounts = Discount.where(discount_for_one_use: false)
     if params[:action_type] == 'generate_one'
@@ -47,11 +106,9 @@ end
 
 
   end
-  def items
-    @maincat = Category.where(cat_main: true)
 
-  end
   def categories
+    @category_active = 'active'
     @maincat = Category.all
 
   end
@@ -64,6 +121,7 @@ end
       end
 
       respond_to do |format|
+        @action = 'getcoll'
 
         @coll_sel = colls
         @subcat_id = params[:id]
@@ -84,6 +142,8 @@ end
     newitem.item_price = params[:item_price].to_i
     newitem.item_opt_price = params[:item_opt_price].to_i
     newitem.item_opt_price_count = params[:item_opt_price_count].to_i
+    newitem.item_postavshik = params[:item_postavshik]
+    newitem.item_comment = params[:item_comment]
 
     unless params[:item_presents].present?
       newitem.item_presents = false
@@ -97,6 +157,9 @@ end
     end
     if params[:addnewitem][:item_article] != ''
       newitem.item_article = params[:addnewitem][:item_article]
+    end
+    if params[:addnewitem][:item_color] != ''
+      newitem.item_color = params[:addnewitem][:item_color]
     end
 
 
@@ -144,7 +207,12 @@ end
       end
       newitem.update_column(:item_image4,uploadedFile4.original_filename)
     end
-    redirect_to :controller => 'admin', :action => 'categories'
+    if params[:act] == 'ajax'
+      redirect_to :controller => 'admin', :action => 'items'
+    else
+      redirect_to :controller => 'admin', :action => 'categories'
+    end
+
   end
 
   end
@@ -296,6 +364,7 @@ end
   end
 
   def collections
+    @collection_active = 'active'
     @collections = Collection.all
   end
   def addcollection

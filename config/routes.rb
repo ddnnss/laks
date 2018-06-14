@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   get '/admin', to: 'admin#index'
   get '/admin/items', to: 'admin#items'
+  get '/admin/getsubcat', to: 'admin#getsubcat'
   get '/admin/categories', to: 'admin#categories'
+  get '/admin/homepage', to: 'admin#homepage'
   get '/admin/collections', to: 'admin#collections'
   get '/admin/add2collection', to: 'admin#add2collection'
 
@@ -16,6 +18,7 @@ Rails.application.routes.draw do
   match '/addnewitem'  => 'admin#addnewitem', via: [:post]
   match '/addcollection'  => 'admin#addcollection',    via: [:post]
   match '/editcollection'  => 'admin#editcollection', via: [:post]
+  match '/addslide'  => 'admin#addslide', via: [:post, :get]
 
   match '/login'  => 'client#login', via: [:post]
   match '/registration'  => 'client#registration', via: [:post]

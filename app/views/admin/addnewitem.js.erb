@@ -1,10 +1,28 @@
-temp = <%= raw @coll_sel.to_json %>;
-var $select = $('#collections_select');
-$select.find('option').remove();
-$.each(temp,function(key, value)
-{
-    $select.append('<option value=' + key + '>' + value + '</option>');
-});
-$('#sub_cat_id').val(<%= raw @subcat_id%>);
-$('.add-item').modal('show');
-$('input#item_name').focus();
+if('<%= @action %>' == 'getcoll') {
+    temp = <%= raw @coll_sel.to_json %>;
+    var $select = $('#collections_select');
+    $select.find('option').remove();
+    $.each(temp,function(key, value)
+    {
+        $select.append('<option value=' + key + '>' + value + '</option>');
+    });
+    $('#sub_cat_id').val(<%= raw @subcat_id%>);
+    $('.add-item').modal('show');
+    $('input#item_name').focus();
+};
+
+if('<%= @action %>' == 'additem') {
+
+    $.amaran({
+        'theme'     :'colorful',
+        'content'   :{
+            bgcolor:'#5cb85c',
+            color:'#fff',
+            message:'Товар успешно добавлен в БД.'
+        },
+
+        'cssanimationIn'    :'bounceInRight',
+        'cssanimationOut'   :'rollOut',
+        'position'          :'top right'
+    });
+};

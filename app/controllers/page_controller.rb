@@ -4,7 +4,7 @@ class PageController < ApplicationController
     @title = 'Купить сувениры оптом дешево в Москве. Интернет-магазин оригинальных и необычных подарков оптом Лакшми'
     @description = 'Оригинальные и необычные сувениры и подарки в интернет-магазине lakshmi888.ru мелким и крупным оптом в Москве.'
     @keywords=@description.gsub(' и ',' ').gsub(' в ',' ').split(' ').join(',')
-
+    @slides = Slider.all
 
   end
 

@@ -4,12 +4,11 @@ class MailerMailer < ApplicationMailer
 
   def activation(mail)
     @user=mail
-    mail(to: @user.client_email,subject: "Регистрация на сайте")
+    mail(to: @user.client_email,subject: "Регистрация на сайте LAKSHMI888.RU")
   end
 
   def neworder(mail,items,code)
     @mail=mail
-
     @cart_items = items
     @cart_total = 0
     @item_total = 0

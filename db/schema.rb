@@ -16,11 +16,13 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.string "cat_name", default: ""
     t.string "cat_name_translit", default: ""
     t.string "cat_image", default: ""
-    t.text "cat_page_title", default: ""
-    t.text "cat_page_description", default: ""
+    t.string "cat_comment", default: ""
+    t.string "cat_page_title", default: ""
+    t.string "cat_page_description", default: ""
     t.text "cat_description", default: ""
     t.integer "cat_views", default: 0
     t.boolean "show_in_menu", default: false
+    t.string "cat_temp1"
     t.index ["cat_name"], name: "index_categories_on_cat_name"
     t.index ["cat_name_translit"], name: "index_categories_on_cat_name_translit"
     t.index ["show_in_menu"], name: "index_categories_on_show_in_menu"
@@ -47,6 +49,10 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.boolean "client_mail_subscribe", default: true
     t.boolean "client_activated", default: false
     t.boolean "client_admin", default: false
+    t.string "client_temp1"
+    t.string "client_temp2"
+    t.string "client_temp3"
+    t.string "client_temp4"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_email"], name: "index_clients_on_client_email"
@@ -56,10 +62,12 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.string "collection_name", default: ""
     t.string "collection_name_translit", default: ""
     t.string "collection_image", default: ""
+    t.string "collection_comment", default: ""
     t.integer "collection_views", default: 0
-    t.text "collection_page_title", default: ""
-    t.text "collection_page_description", default: ""
+    t.string "collection_page_title", default: ""
+    t.string "collection_page_description", default: ""
     t.text "collection_description", default: ""
+    t.string "collection_temp1"
     t.index ["collection_name"], name: "index_collections_on_collection_name"
     t.index ["collection_name_translit"], name: "index_collections_on_collection_name_translit"
   end
@@ -72,9 +80,6 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discount_code"], name: "index_discounts_on_discount_code"
-  end
-
-  create_table "homepages", force: :cascade do |t|
   end
 
   create_table "items", force: :cascade do |t|
@@ -90,7 +95,10 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.string "item_size", default: "не указано"
     t.string "item_article", default: "не указано"
     t.string "item_weight", default: "не указано"
+    t.string "item_color", default: "не указано"
+    t.string "item_postavshik", default: ""
     t.text "item_description", default: ""
+    t.text "item_comment", default: ""
     t.string "item_page_title", default: ""
     t.string "item_page_description", default: ""
     t.integer "item_price"
@@ -102,6 +110,10 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.boolean "item_in_collection", default: false
     t.boolean "item_new", default: false
     t.boolean "item_presents", default: true
+    t.string "item_temp1"
+    t.string "item_temp2"
+    t.string "item_temp3"
+    t.string "item_temp4"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["collection_id"], name: "index_items_on_collection_id"
@@ -125,6 +137,10 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.string "order_oplata"
     t.string "order_tracking"
     t.string "order_number"
+    t.string "order_temp1"
+    t.string "order_temp2"
+    t.string "order_temp3"
+    t.string "order_temp4"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_orders_on_client_id"
@@ -146,10 +162,12 @@ ActiveRecord::Schema.define(version: 20180528063548) do
     t.string "subcat_name", default: ""
     t.string "subcat_name_translit", default: ""
     t.string "subcat_image", default: ""
+    t.string "subcat_comment", default: ""
     t.integer "subcat_views", default: 0
-    t.text "subcat_page_title", default: ""
-    t.text "subcat_page_description", default: ""
+    t.string "subcat_page_title", default: ""
+    t.string "subcat_page_description", default: ""
     t.text "subcat_description", default: ""
+    t.string "subcat_temp1"
     t.index ["category_id"], name: "index_subcategories_on_category_id"
     t.index ["subcat_name"], name: "index_subcategories_on_subcat_name"
     t.index ["subcat_name_translit"], name: "index_subcategories_on_subcat_name_translit"

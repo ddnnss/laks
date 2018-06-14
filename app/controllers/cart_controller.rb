@@ -113,6 +113,7 @@ class CartController < ApplicationController
           @dup = @duplicate
           @item_id = item.id
           @item_name = item.item_name
+          @item_name_translit = item.item_name_translit
           @item_image = item.item_image1
           if item.item_discount > 0
             @item_price = item.item_price - (item.item_price * item.item_discount / 100)

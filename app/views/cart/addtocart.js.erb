@@ -2,7 +2,7 @@ var cartItem = " <div class=\"cart-items-item\">\n" +
 
     " <span style=\"display: none;\" id=\"iitem<%= @item_id%>_price_total\"><%= @item_price%></span>\n"+
 
-    "                  <a href=\"#\" class=\"cart-img mr-2 float-left\">\n" +
+    "                  <a href=\"/product/<%= @item_name_translit%>\" class=\"cart-img mr-2 float-left\">\n" +
     "                    <img class=\"img-fluid\" src=\"/images/items/<%= @item_id%>/<%= @item_image%>\" alt=\"Интернет магазин Lakshmi88 предлагает купить <%= @item_name%>\">\n" +
     "                  </a>\n" +
     "                  <div class=\"float-left cart_items\">\n" +
