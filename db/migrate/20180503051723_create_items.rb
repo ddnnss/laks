@@ -3,6 +3,7 @@ class CreateItems < ActiveRecord::Migration[5.1]
     create_table :items do |t|
       t.belongs_to :subcategory
       t.belongs_to :collection
+      t.belongs_to :aktion
       t.string     :item_name                                             #название товара
       t.string     :item_name_caps, index:true                            #поле для тех. нужд
       t.string     :item_name_translit, :default => '', index: true       #поле для тех. нужд
@@ -28,10 +29,10 @@ class CreateItems < ActiveRecord::Migration[5.1]
       t.integer    :item_discount, :default => 0                          #скидка на товар в %
       t.integer    :item_views_count, :default => 0                       #кол-во просмотров товара
 
-      t.boolean    :item_in_sale, :default => false, index: true          #отметка что на этот товар есть скидка
-      t.boolean    :item_in_collection, :default => false, index: true    #отметка что этот товар в коллекции
-      t.boolean    :item_new, :default => false, index: true              #отметка что этот товар в новинка
-      t.boolean    :item_presents, :default => true
+      t.boolean     :item_in_sale, :default => false, index: true          #отметка что на этот товар есть скидка
+      t.boolean     :item_in_collection, :default => false, index: true    #отметка что этот товар в коллекции
+      t.boolean     :item_new, :default => false, index: true              #отметка что этот товар в новинка
+      t.boolean     :item_presents, :default => true
 
       t.string      :item_temp1
       t.string      :item_temp2
