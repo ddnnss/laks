@@ -20,6 +20,7 @@ class PageController < ApplicationController
   def showsubcategory
     logger.info('[INFO] : Получение подкатегорий товаров....')
     @subcat = Subcategory.find_by_subcat_name_translit(params[:name])
+    @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).where(subcategory_id: @subcat.id ).order(params[:sort].present? ? params[:sort]+' desc' : 'item_new desc')
     @subcat.update_column(:subcat_views, @subcat.subcat_views + 1)
     @parent_cat = Category.find(@subcat.category_id)
     logger.info('[INFO] : Подкатегорий получены.')
@@ -30,12 +31,14 @@ class PageController < ApplicationController
       client = Client.find(session[:client_id])
       @wishlist = client.client_wishlist.split(',')
     end
+
+
   end
 
   def showitem
     @item = Item.find_by_item_name_translit(params[:item_name])
     if @item.nil?
-      redirect request.referer
+      redirect_to request.referer
       return
     else
       @item.update_column(:item_views_count,@item.item_views_count + 1)

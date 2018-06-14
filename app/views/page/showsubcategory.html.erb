@@ -16,26 +16,26 @@
         <div class="row">
 
           <div class="col-lg-12">
-            <form class="form-inline  text-sm">
+            <form class="form-inline  text-sm" method="get">
               <label class="control-label mr-2">Сортировать:</label>
-              <select class="form-control form-control-sm">
-                <option value="#">Cо скидкой</option>
-                <option value="#">Новинки</option>
-                <option value="#">Цена (Ниже &gt; Выше)</option>
-                <option value="#" >Цена (Выше &gt; Ниже)</option>
+              <select class="form-control form-control-sm" name="sort">
+                <option selected>Способ сортировки</option>
+                <option value="item_in_sale" >Cо скидкой</option>
+                <option value="item_new" >Новинки</option>
+                <option value="item_price">Цена</option>
+
                              </select>
               <label class="control-label mr-2 ml-lg-3">Показывать:</label>
-              <select class="form-control form-control-sm">
-                <option value="#">15</option>
-                <option value="#">20</option>
-                <option value="#">25</option>
-                <option value="#">30</option>
-                <option value="#">35</option>
-                <option value="#">40</option>
-                <option value="#">45</option>
-                <option value="#">50</option>
+              <select class="form-control form-control-sm" id="pp_select" name="pp">
+                <option value="12">12</option>
+                <option value="15">15</option>
+                <option value="21">21</option>
+                <option value="28">28</option>
+                <option value="34">34</option>
+                <option value="41">41</option>
+
               </select>
-              <button style="margin-left: 15px;" type="submit" class="btn btn-primary ">Применить</button>
+          <button style="margin-left: 20px;"  type="submit" class="mb-1 btn btn-primary">Применить</button>
             </form>
           </div>
 
@@ -44,7 +44,7 @@
 
 
         <div class="row">
-          <%@subcat.items.each do |item|%>
+          <%@items.each do |item|%>
           <div class="col-lg-4">
             <!-- Product 2 -->
             <div class="card mb-4 product-card">
@@ -129,22 +129,13 @@
         </div>
 
         <!-- Pagination -->
-        <nav aria-label="Page navigation">
-          <ul class="pagination pagination-lg justify-content-center">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">«</span> <span class="sr-only">Previous</span> </a>
-            </li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">»</span> <span class="sr-only">Next</span> </a>
-            </li>
-          </ul>
-        </nav>
+       <div class="digg_pagination">
+
+          <%= will_paginate @items,:previous_label => t("<<"), :next_label => t(">>"), :container => false %>
+        </div>
       </div>
+
+
       <!-- Products sidebar -->
       <div class="col-lg-3 order-lg-1">
 
@@ -194,5 +185,7 @@
         $("#spinner_"+id).addClass('spinner');
     return true;
     }
+
+
 
 </script>
