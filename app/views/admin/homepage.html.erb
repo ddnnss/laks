@@ -1,9 +1,9 @@
 <div id="content">
   <div class="container">
-    <h4 class="title-divider">
+    <h4 >
       Административный раздел | Главная страница
     </h4>
-
+<br/>
 
     <div class="row">
 
@@ -11,19 +11,9 @@
 
 
       <div class="col-md-9">
-        <h4> Отображаемые слайды</h4>
+        <h4>Отображаемые баннеры</h4>
         <table class="table table-striped">
-          <thead>
-          <tr>
 
-            <th>Картинка</th>
-            <th>Заголовлок - Текст1</th>
-            <th>Заголовлок - Текст2</th>
-            <th>Текст ссылки</th>
-            <th>Ссылка</th>
-            <th>Действие</th>
-          </tr>
-          </thead>
           <tbody>
 
 
@@ -42,8 +32,8 @@
         </table>
 
         <hr>
-        <h4 class="title-divider">
-          Добавить новый слайд
+        <h4 >
+          Добавить новый баннер
         </h4>
         <%= form_for  :addslide, url: addslide_path   do |f|%>
             <div class="col-sm-12">

@@ -1,9 +1,9 @@
 <div id="content">
   <div class="container">
-    <h4 class="title-divider">
+    <h4 >
       Административный раздел | Категории товаров
     </h4>
-
+<br/>
 
     <div class="row">
 
@@ -29,7 +29,7 @@
               <% cat.subcategories.each do |sc|%>
                   <tr>
 
-                    <td width="70"%><%= sc.subcat_name%></td>
+                    <td width="70"%><a href="/admin/showsubcategory?subcat_id=<%= sc.id%>"><%= sc.subcat_name%></a> </td>
                     <td>Товаров : <span class="badge badge-primary"><%= sc.items.count%></span>  </td>
 
                     <td><%= link_to '<i class="fas fa-cart-plus" ></i>'.html_safe, {:controller => 'admin', :action => 'addnewitem', :id => sc.id, :type => 'getcoll' },method: :post, :remote => true  %></td>

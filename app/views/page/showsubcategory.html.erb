@@ -19,10 +19,10 @@
             <form class="form-inline  text-sm" method="get">
               <label class="control-label mr-2">Сортировать:</label>
               <select class="form-control form-control-sm" name="sort">
-                <option selected>Способ сортировки</option>
+                <option value="item_price" selected>Цена</option>
                 <option value="item_in_sale" >Cо скидкой</option>
                 <option value="item_new" >Новинки</option>
-                <option value="item_price">Цена</option>
+
 
                              </select>
               <label class="control-label mr-2 ml-lg-3">Показывать:</label>
@@ -141,10 +141,12 @@
 
         <!-- Sections Menu-->
         <ul class="nav nav-section-menu mb-4 py-3">
-          <li class="nav-header"><i class="fas fa-bars mr-2" style="font-size: 15px;"></i>КАТАЛОГ ТОВАРОВ</li>
+          <li class="nav-header"><i class="fas fa-bars mr-2" style="font-size: 15px;"></i>АССОРТИМЕНТ ТОВАРОВ</li>
           <%@cat_all.each do |cat|%>
               <li>
-                <a href="#<%=cat.cat_name_translit%>" data-toggle="collapse" class="nav-link text-uppercase text-slab active show">
+                <a style="font-size: 15px;
+                    font-family:
+                        'Open Sans', Arial, serif !important;" href="#<%=cat.cat_name_translit%>" data-toggle="collapse" class="nav-link text-uppercase text-slab active show">
                   <%=cat.cat_name.mb_chars.upcase%>
 
                   <i class="fa fa-angle-right"></i>
@@ -157,12 +159,7 @@
               </li>
           <% end %>
         </ul>
-        <div class="p-3 overlay overlay-op-5 rounded flex-valign mb-4 clickable-element bg-img blazy-bg b-loaded" data-css="" data-url="shop-product.html" style="height: 500px;
-            background-size: contain;
-            background-position: top;
-            background-image: url(http://lakshmi888.ru/image/amulet.png);">
 
-        </div>
 
 
       </div>

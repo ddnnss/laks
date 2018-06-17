@@ -168,9 +168,26 @@
                 </div>
 
                 <select class="form-control" id="collections_select" name="collections_select" disabled>
-                  <option></option>
+                  <%@collections.each do |c|%>
+                  <option value="<%= c.id%>"><%= c.collection_name%></option>
+                    <% end %>
                 </select>
               </div>
+            <div class="col-sm-12">
+
+              <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                  <input type="checkbox" class="form-check-input" name="add_aktion"  id="add_aktion" value="on">
+                  Добавить товар в акцию ?:
+                </label>
+              </div>
+
+              <select class="form-control" id="aktion_select" name="aktion_select" disabled>
+                <%@aktion.each do |c|%>
+                  <option value="<%= c.id%>"><%= c.aktion_name%></option>
+                <% end %>
+              </select>
+            </div>
 
               <div class="col-sm-12">
                 <p>Тег TITLE для товара :
@@ -345,6 +362,15 @@
             $('#collections_select').removeAttr('disabled');
         } else {
             $("#collections_select").attr("disabled","disabled")
+        }
+    });
+    const checkbox3 = $("#add_aktion");
+    checkbox3.change(function(event) {
+        var checkbox3 = event.target;
+        if (checkbox3.checked) {
+            $('#aktion_select').removeAttr('disabled');
+        } else {
+            $("#aktion_select").attr("disabled","disabled")
         }
     });
 </script>

@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'popper_js', '~> 1.12.9'
 gem 'jquery-turbolinks'
 gem 'translit'
+gem 'quick_random_records'
 
 gem 'will_paginate', '~> 3.1.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

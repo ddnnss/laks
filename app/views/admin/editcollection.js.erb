@@ -3,5 +3,12 @@ $('#collection_page_title').val('<%= j @collection_page_title %>');
 $('#collection_page_description').val('<%= j @collection_page_description %>');
 $("#collection_image").attr("src", "/images/collections/<%= j  @collection_image %>");
 $('#collection_id').val(<%= j  @collection_id %>);
+if('<%= j @collection_show_homepage %>' == '1'){
+    $('#homepage')[0].checked = true;
+}
+else
+{
+    $('#homepage')[0].checked = false;
+}
 $(".summernote-2").summernote('code',"<%= j @collection_description %>");
 $('.edit-collection').modal('show');

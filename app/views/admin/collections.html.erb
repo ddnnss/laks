@@ -1,10 +1,10 @@
 <div id="content">
   <div class="container">
-    <h2 class="title-divider">
+    <h2>
       Административный раздел | Коллекции
     </h2>
 
-
+<br/>
     <div class="row">
 
       <%=render 'admin/menu'%>
@@ -23,10 +23,14 @@
                 <td>Товаров : <span class="badge badge-primary"><%= c.items.count%></span>  </td>
                 <td><a href="#" id="<%= c.id%>" ><i class="far fa-plus-square" ></i></a></td>
                 <td> <%= link_to '<i class="far fa-edit" ></i>'.html_safe, {:controller => 'admin', :action => 'editcollection', :collection_id => c.id },method: :post, :remote => true  %></td>
-                <td><a href="/admin/deletecategory?id=<%= c.id%>&type=main"><i class="fas fa-trash-alt" ></i></a></td>
-
+                <td><a href="/admin/deletecollection?id=<%= c.id%>&type=main"><i class="fas fa-trash-alt" ></i></a></td>
               </tr>
-
+            <%c.items.each do |i|%>
+              <tr>
+               <td><%=i.item_name %></td>
+                <td><a href="/admin/collremove?item_id=<%= i.id%>" ><i class="far fa-minus-square" ></i></a></td>
+              </tr>
+            <% end %>
 
           <% end %>
 
@@ -45,6 +49,12 @@
               </div>
               <div class="modal-body">
                 <%= form_for  :addcollection, url: addcollection_path   do |f|%>
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input" name="collection_show_homepage"   value="on">
+                      Отображать на главной странице ?:
+                    </label>
+                  </div>
                     <div class="col-sm-12">
                       <p>Название коллекции :
                         <%=f.text_field  :collection_name, :required => true , class:'form-control'%></p>
@@ -90,6 +100,17 @@
               </div>
               <div class="modal-body">
                 <%= form_for  :addcollection, url: addcollection_path   do |f|%>
+
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+
+                        <input id="homepage" type="checkbox" class="form-check-input" name="collection_show_homepage"    value="on">
+
+                      Отображать на главной странице ?:
+                    </label>
+                  </div>
+
+
                     <div class="col-sm-12">
                       <p>Новое название коллекции :
                         <%=f.text_field  :collection_name, :required => true , class:'form-control', id:'collection_name'%></p>

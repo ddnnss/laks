@@ -89,6 +89,8 @@ GEM
       mini_portile2 (~> 2.3.0)
     popper_js (1.12.9)
     puma (3.11.4)
+    quick_random_records (0.3.1)
+      activerecord (>= 3)
     rack (2.0.5)
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
@@ -173,6 +175,7 @@ DEPENDENCIES
   jquery-turbolinks
   popper_js (~> 1.12.9)
   puma (~> 3.7)
+  quick_random_records
   rails (~> 5.1.5)
   sass-rails (~> 5.0)
   sqlite3

@@ -5,7 +5,7 @@
     <!--Header search region - hidden by default -->
     <div class="header-search collapse" id="search">
       <form class="search-form container">
-        <input type="text" name="search" class="form-control search" value="" placeholder="Search">
+        <input type="text" name="search" class="form-control search" value="" placeholder="Что ищем?">
         <button type="button" class="btn btn-link"><span class="sr-only">Search </span><i class="fa fa-search fa-flip-horizontal search-icon"></i></button>
         <button type="button" class="btn btn-link close-btn" data-toggle="search-form-close"><span class="sr-only">Close </span><i class="fa fa-times search-icon"></i></button>
       </form>
@@ -57,7 +57,7 @@
           </div>
 
           <!--Search trigger -->
-          <a href="" data-toggle="modal" data-target=".login-modal-lg" class="d-lg-none btn btn-icon btn-link header-btn float-right " ><i class="fa fa-user "></i></a>
+          <a href="/login"  class="d-lg-none btn btn-icon btn-link header-btn float-right " ><i class="fa fa-user "></i></a>
           <a href="#search" class="btn btn-icon btn-link header-btn float-right order-11" data-toggle="search-form" data-target=".header-search"><i class="fa fa-search fa-flip-horizontal search-icon"></i></a>
 
           <!-- mobile collapse menu button - data-toggle="collapse" = default BS menu - data-toggle="jpanel-menu" = jPanel Menu - data-toggle="overlay" = Overlay Menu -->
@@ -199,9 +199,9 @@
             <%end%>
             <li class="nav-item ">
               <%if session[:active]%>
-                  <a href="/logout"  class="btn btn-primary btn-sm btn-rounded text-uppercase font-weight-bold px-3 ml-3">выход</a>
+                  <a href="/logout"  class="btn btn-primary btn-sm btn-rounded text-uppercase font-weight-bold px-3 ml-3 d-none d-lg-block">выход</a>
                   <%else%>
-              <a href="#" data-toggle="modal" data-target=".login-modal-lg" class="btn btn-primary btn-sm btn-rounded text-uppercase font-weight-bold px-3 ml-3">вход/регистрация</a>
+              <a href="#" data-toggle="modal" data-target=".login-modal-lg" class="btn btn-primary btn-sm btn-rounded text-uppercase font-weight-bold px-3 ml-3 d-none d-lg-block">вход/регистрация</a>
             <%end%>
             </li>
           </ul>

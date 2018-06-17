@@ -1,0 +1,170 @@
+<div id="content">
+  <div class="container">
+    <h2>
+      Административный раздел | Акции
+    </h2>
+
+    <br/>
+    <div class="row">
+
+      <%=render 'admin/menu'%>
+
+
+      <div class="col-md-9">
+
+        <button class="btn btn-primary" data-toggle="modal" data-target=".new-aktion">Добавить новую акцию</button>
+        <hr/>
+        <table class="table">
+          <tbody>
+
+          <% @aktions.each do |c| %>
+            <tr class="table-dark">
+              <td width="70%"><%= c.aktion_name%></td>
+              <td>Товаров : <span class="badge badge-primary"><%= c.items.count%></span>  </td>
+              <td><a href="#" id="<%= c.id%>" ><i class="far fa-plus-square" ></i></a></td>
+              <td> <%= link_to '<i class="far fa-edit" ></i>'.html_safe, {:controller => 'admin', :action => 'editaktion', :aktion_id => c.id },method: :post, :remote => true  %></td>
+              <td><a href="/admin/deleteaktion?id=<%= c.id%>&type=main"><i class="fas fa-trash-alt" ></i></a></td>
+            </tr>
+            <%c.items.each do |i|%>
+            <tr>
+              <td><%=i.item_name %></td>
+              <td><a href="/admin/actremove?item_id=<%= i.id%>" ><i class="far fa-minus-square" ></i></a></td>
+            </tr>
+            <% end %>
+          <% end %>
+
+          </tbody>
+        </table>
+
+        <!-- modal add new cat -->
+        <div class="modal fade new-aktion" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">
+                  Новая коллекция товаров
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+              </div>
+              <div class="modal-body">
+                <%= form_for  :addaktion, url: addaktion_path   do |f|%>
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input" name="aktion_show_homepage"   value="on">
+                      Отображать на главной странице ?:
+                    </label>
+                  </div>
+                  <div class="col-sm-12">
+                    <p>Название акции :
+                      <%=f.text_field  :aktion_name, :required => true , class:'form-control'%></p>
+                  </div>
+                  <div class="col-sm-12">
+                    <p>Тег TITLE для данной акции :
+                      <%=f.text_field  :aktion_page_title, :required => true , class:'form-control'%></p>
+                  </div>
+                  <div class="col-sm-12">
+                    <p>Тег DESCRIPTION для данной акции :
+                      <%=f.text_field  :aktion_page_description, :required => true , class:'form-control'%></p>
+                  </div>
+                  <div class="col-sm-12">
+                    <p>Описание данной акции товара:
+                      <textarea class="summernote-1"  id="summernote-aktion" name="aktion_description" rows="18" required></textarea></p>
+                  </div>
+                  <div class="col-sm-12">
+                    <p>Картинка для акции  :
+                      <%= f.file_field :aktion_image, :required => true %>
+                  </div>
+                  <input id="action_type" name="action_type" value="new" type="hidden" />
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                    <%= submit_tag 'Создать акцию' , class:'btn btn-primary'%>
+                <% end %>
+                </div>
+                </div>
+          </div>
+        </div>
+        <!-- modal add new cat -->
+
+
+        <!-- modal edit maincat -->
+        <div class="modal fade edit-aktion" tabindex="-1" role="dialog" aria-labelledby="myCenteredModalLabel" aria-hidden="true" style="display: none;">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">
+                  Редактирование акции товаров
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+              </div>
+              <div class="modal-body">
+                <%= form_for  :addaktion, url: addaktion_path   do |f|%>
+
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+
+                      <input id="homepage" type="checkbox" class="form-check-input" name="aktion_show_homepage"    value="on">
+
+                      Отображать на главной странице ?:
+                    </label>
+                  </div>
+
+
+                  <div class="col-sm-12">
+                    <p>Новое название акции :
+                      <%=f.text_field  :aktion_name, :required => true , class:'form-control', id:'aktion_name'%></p>
+                  </div>
+                  <div class="col-sm-12">
+                    <p>Тег TITLE для данной акции :
+                      <%=f.text_field  :aktion_page_title, :required => true , class:'form-control', id:'aktion_page_title'%></p>
+                  </div>
+                  <div class="col-sm-12">
+                    <p>Тег DESCRIPTION для данной акции :
+                      <%=f.text_field  :aktion_page_description, :required => true , class:'form-control', id:'aktion_page_description'%></p>
+                  </div>
+                  <div class="col-sm-12">
+                    <p>Описание данной акции товара:
+                      <textarea class="summernote-2"  id="summernote-editaktion" name="aktion_description" rows="18" ></textarea></p>
+                  </div>
+
+                  <div class="col-sm-12" >
+                    <p align="center"> Текущая картинка</p>
+                    <img style="margin: 0 auto; display: block;" id='aktion_image' src="" width="200px"/>
+                  </div>
+                  <div class="col-sm-12">
+                    <p>Новая картинка для акции  :
+                      <%= f.file_field :aktion_image %></p>
+                  </div>
+                  <input id="action_type" name="action_type" value="edit" type="hidden" />
+                  <input id="aktion_id" name="aktion_id" value="" type="hidden" />
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                    <%= submit_tag 'Внести изменения' , class:'btn btn-primary'%>
+                <% end %>
+                </div>
+                </div>
+          </div>
+        </div>
+
+
+        <script language="JavaScript">
+            $(document).ready(function() {
+                $('.summernote-1').summernote();
+
+                $('.note-popover').css('display', 'none');
+
+
+
+
+
+
+
+
+
+            });
+        </script>
+      </div>
+    </div>
+  </div>
+</div>

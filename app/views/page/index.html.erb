@@ -52,8 +52,8 @@
 </div>
 
 <!-- ======== @Region: #content ======== -->
-<div class="container py-4 d-none d-sm-block">
-  <div class="row text-center ">
+<div class="container py-4 d-none d-lg-block">
+    <div class="row text-center ">
     <div class="col-lg-4 py-2">
       <table class="">
         <tbody>
@@ -126,7 +126,7 @@
         <!-- Hover content -->
 
         <div class="overlay-hover-content overlay-op-9 overlay-gradient overlay-dark">
-          <h3  style="font-size:2vw;">
+          <h3  style="font-size:1vw;">
           <a  href="/category/<%=cat.cat_name_translit%>"> <%=cat.cat_name%></a>
           </h3>
 
@@ -147,33 +147,17 @@
 
   <hr class="mb-5 w-50 mx-auto">
   <div class="row">
+    <% @collections.each do |coll| %>
     <div class="col-lg-4 d-flex">
-      <div class="p-5 py-lg-6 overlay overlay-op-5 rounded flex-ew mb-3 mb-lg-0 flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="shop-product.html" style="background-image: url(&quot;assets/img/shop/promo-mens.jpg&quot;);">
+      <div class="p-5 py-lg-6 overlay overlay-op-5 rounded flex-ew mb-3 mb-lg-0 flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/collection/<%= coll.collection_name_translit %>" style="background-image: url('/images/collections/<%= coll.collection_image %>');">
         <hr class="w-50 mx-auto hr-primary">
         <h2 class="text-white text-uppercase mb-0">
-          Mens
+          <%= coll.collection_name %>
         </h2>
         <hr class="w-50 mx-auto hr-primary">
       </div>
     </div>
-    <div class="col-lg-4 d-flex">
-      <div class="p-5 overlay overlay-op-5 rounded flex-ew mb-3 mb-lg-0 flex-valign clickable-element bg-img blazy-bg b-loaded" data-css="{&quot;background-position&quot;:&quot;center bottom&quot;}" data-url="shop-product.html" style="background-position: center bottom; background-image: url(&quot;assets/img/shop/promo-summer.jpg&quot;);">
-        <hr class="w-50 mx-auto hr-primary">
-        <h2 class="text-white text-uppercase mb-0">
-          Womens
-        </h2>
-        <hr class="w-50 mx-auto hr-primary">
-      </div>
-    </div>
-    <div class="col-lg-4 d-flex">
-      <div class="p-5 overlay overlay-op-4 rounded flex-ew mb-3 mb-lg-0 flex-valign clickable-element bg-img blazy-bg b-loaded" data-css="{&quot;background-position&quot;:&quot;center bottom&quot;}" data-url="shop-product.html" style="background-position: center bottom; background-image: url(&quot;assets/img/shop/promo-kids.jpg&quot;);">
-        <hr class="w-50 mx-auto hr-primary">
-        <h2 class="text-white text-uppercase mb-0">
-          Childrens
-        </h2>
-        <hr class="w-50 mx-auto hr-primary">
-      </div>
-    </div>
+    <% end %>
   </div>
 </div>
   <!-- Featured Products -->
@@ -187,88 +171,47 @@
     <!-- Products cards -->
     <div class="card-deck-wrapper">
       <div class="card-deck">
-        <!-- Product 1 -->
+        <!-- Product -->
+        <%@action_items.each do |item|%>
         <div class="card product-card overlay-hover">
           <!-- Hover content -->
+          <%if item.item_new %>
+            <div class="card-ribbon card-ribbon-top card-ribbon-left bg-warning text-white"> НОВИНКА </div>
+          <%end%>
+          <%if item.collection_id > 0 %>
+            <div class="card-ribbon card-ribbon-bottom card-ribbon-right bg-success text-white"> В КОЛЛЕКЦИИ </div>
+          <%end%>
           <div class="overlay-hover-content overlay-op-7 product-card-hover-tools">
-            <a href="shop-cart.html" class="btn btn-primary btn-block text-uppercase font-weight-bold mb-3 btn-lg"><i class="fa fa-cart-plus mr-2"></i> Add to Cart</a>
-            <a href="#" class="text-white">Add to Wishlist</a>
+            <a href="/product/<%=item.item_name_translit%>" class="btn btn-primary btn-block text-uppercase font-weight-bold mb-3 btn-lg"><i class="fa fa-cart-plus mr-2"></i> Открыть</a>
+            <!--   <a href="#" class="text-white">Add to Wishlist</a>-->
           </div>
           <!-- Image & price content -->
           <div class="pos-relative">
-            <img class="card-img-top img-fluid" src="" alt="Card image cap">
+            <img class="card-img-top img-fluid" src="/images/items/<%=item.id%>/<%=item.item_image1%>" alt="Купить <%=item.item_name%> в Москве по оптовым ценам">
             <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-r mt-2 mr-2 persist">
-                  <del class="op-5">$24.99</del>
-                  / $19.99
-                </span>
+              - <%=item.item_discount%> %</span>
           </div>
           <!-- Content -->
           <div class="card-body">
-            <small class="text-muted text-uppercase"><span class="text-primary">Womens</span> / Shoes</small>
+            <small class="text-muted text-uppercase"><span class="text-primary"><%= item.subcategory.category.cat_name%></span> / <%= item.subcategory.subcat_name%></small>
             <h4 class="card-title">
-              New Balance Shoes
+            <%= item.item_name%>
             </h4>
-            <p class="card-text"> <i class="fa fa-star text-primary"></i> <i class="fa fa-star text-primary"></i> <i class="fa fa-star text-primary"></i> <i class="fa fa-star text-primary"></i> <i class="fa fa-star-o text-primary"></i>
-            </p>
+
           </div>
           <div class="card-footer">
-            <small class="text-muted">15 in Stock</small>
+            Цена : <del class="op-5">&#8381; <%=item.item_price%></del>
+            /
+            <%=item.item_price - (item.item_price * item.item_discount / 100)%> &#8381;
+            <%if item.item_presents%>
+              <p class="text-muted text-uppercase text-xs mb-0"><span class="badge badge-success">товар в наличии</span> </p>
+            <% else %>
+              <p class="text-muted text-uppercase text-xs mb-0"><span class="badge badge-warning">временно нет в наличии</span> </p>
+            <% end %>
           </div>
         </div>
-        <!-- Product 2 -->
-        <div class="card product-card overlay-hover">
-          <!-- Hover content -->
-          <div class="overlay-hover-content overlay-op-7 product-card-hover-tools">
-            <a href="shop-cart.html" class="btn btn-primary btn-block text-uppercase font-weight-bold mb-3 btn-lg"><i class="fa fa-cart-plus mr-2"></i> Add to Cart</a>
-            <a href="#" class="text-white">Add to Wishlist</a>
-          </div>
-          <!-- Ribbon -->
-          <div class="card-ribbon card-ribbon-top card-ribbon-left bg-danger text-white">Low Stock</div>
-          <!-- Image & price content -->
-          <div class="pos-relative">
-            <img class="card-img-top img-fluid" src="" alt="Card image cap">
-            <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-r mt-2 mr-2 persist">$39.99</span>
-          </div>
-          <!-- Content -->
-          <div class="card-body">
-            <small class="text-muted text-uppercase"><span class="text-primary">Mens</span> / Sports</small>
-            <h4 class="card-title">
-              Nike Training Top
-            </h4>
-            <p class="card-text"> <i class="fa fa-star text-primary"></i> <i class="fa fa-star text-primary"></i> <i class="fa fa-star text-primary"></i> <i class="fa fa-star-o text-primary"></i> <i class="fa fa-star-o text-primary"></i>
-            </p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted"><strong class="text-danger">4 in stock</strong></small>
-          </div>
-        </div>
-        <!-- Product 3 -->
-        <div class="card product-card overlay-hover">
-          <!-- Hover content -->
-          <div class="overlay-hover-content overlay-op-7 product-card-hover-tools">
-            <a href="shop-cart.html" class="btn btn-primary btn-block text-uppercase font-weight-bold mb-3 btn-lg"><i class="fa fa-cart-plus mr-2"></i> Add to Cart</a>
-            <a href="#" class="text-white">Add to Wishlist</a>
-          </div>
-          <!-- Ribbon -->
-          <div class="card-ribbon card-ribbon-top card-ribbon-left bg-primary text-white">Eco Friendly</div>
-          <!-- Image & price content -->
-          <div class="pos-relative">
-            <img class="card-img-top img-fluid" src="" alt="Card image cap">
-            <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-r mt-2 mr-2 persist">$9.99</span>
-          </div>
-          <!-- Content -->
-          <div class="card-body">
-            <small class="text-muted text-uppercase"><span class="text-primary">Kids</span> / Jumpers</small>
-            <h4 class="card-title">
-              Kids Wolly Jumper
-            </h4>
-            <p class="card-text"> <i class="fa fa-star text-primary"></i> <i class="fa fa-star text-primary"></i> <i class="fa fa-star text-primary"></i> <i class="fa fa-star text-primary"></i> <i class="fa fa-star text-primary"></i>
-            </p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">105 in Stock</small>
-          </div>
-        </div>
+        <!-- Product -->
+       <% end %>
       </div>
     </div>
   </div>

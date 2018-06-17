@@ -19,11 +19,26 @@ class AdminController < ApplicationController
 def index
 
 end
+  def showsubcategory
+    @subcat = Subcategory.find(params[:subcat_id])
+    @items_active = 'active'
+    @items = @subcat.items
+
+    @collections = Collection.all
+    @aktion = Aktion.all
+  end
+
+  def aktions
+    @aktions_active = 'active'
+    @aktions = Aktion.all
+  end
   def items
     @items_active = 'active'
     @items = Item.all
     @cat_main = Category.all
     @cat_sub = Subcategory.where(category_id: @cat_main.first.id)
+    @collections = Collection.all
+    @aktion = Aktion.all
 
 
   end
@@ -144,7 +159,8 @@ end
     newitem.item_opt_price_count = params[:item_opt_price_count].to_i
     newitem.item_postavshik = params[:item_postavshik]
     newitem.item_comment = params[:item_comment]
-
+    newitem.aktion_id = 0
+    newitem.collection_id = 0
     unless params[:item_presents].present?
       newitem.item_presents = false
     end
@@ -172,9 +188,12 @@ end
     end
     if params[:add_coll] == 'on'
       newitem.collection_id = params[:collections_select]
-
+    end
+    if params[:add_aktion] == 'on'
+      newitem.aktion_id = params[:aktion_select]
     end
     newitem.save
+
     if Dir.exists?('public/images/items/' + newitem.id.to_s)
       FileUtils.rm_rf('public/images/items/' + newitem.id.to_s)
     end
@@ -207,11 +226,18 @@ end
       end
       newitem.update_column(:item_image4,uploadedFile4.original_filename)
     end
+
+    if params[:act] == 'sub'
+      redirect_to request.referer
+      return
+    end
+
     if params[:act] == 'ajax'
       redirect_to :controller => 'admin', :action => 'items'
     else
       redirect_to :controller => 'admin', :action => 'categories'
     end
+
 
   end
 
@@ -367,6 +393,18 @@ end
     @collection_active = 'active'
     @collections = Collection.all
   end
+  def removefromcollection
+    i= Item.find(params[:item_id])
+    i.update_column(:collection_id, 0)
+    redirect_to request.referer
+
+  end
+  def removefromaktion
+    i= Item.find(params[:item_id])
+    i.update_column(:aktion_id, 0)
+    redirect_to request.referer
+
+  end
   def addcollection
     if params[:action_type] == 'new'
       newcoll = Collection.new
@@ -384,6 +422,9 @@ end
         f.write(uploadedFile.read)
       end
       newcoll.collection_image = uploadedFile.original_filename
+      if params[:collection_show_homepage] == 'on'
+        newcoll.collection_show_homepage = true
+      end
       newcoll.save
       redirect_to :controller => 'admin', :action => 'collections'
     end
@@ -394,6 +435,13 @@ end
       newcoll.update_column(:collection_page_title , params[:addcollection][:collection_page_title])
       newcoll.update_column(:collection_page_description , params[:addcollection][:collection_page_description])
       newcoll.update_column(:collection_description , params[:collection_description])
+
+      if params[:collection_show_homepage] == 'on'
+        newcoll.update_column(:collection_show_homepage,true)
+      else
+        newcoll.update_column(:collection_show_homepage,false)
+      end
+    if params[:addcollection][:collection_image].present?
       uploadedFile = params[:addcollection][:collection_image]
       if File.file?(Rails.root.join('public','images','collections', uploadedFile.original_filename))
         uploadedFile.original_filename = [*('a'..'z'),*('0'..'9')].shuffle[0,4].join + uploadedFile.original_filename
@@ -403,7 +451,7 @@ end
         f.write(uploadedFile.read)
       end
       newcoll.update_column(:collection_image , uploadedFile.original_filename)
-
+    end
       redirect_to :controller => 'admin', :action => 'collections'
     end
 
@@ -417,9 +465,97 @@ end
       @collection_page_description = coll.collection_page_description
       @collection_description = coll.collection_description.html_safe
       @collection_id = params[:collection_id]
+      if coll.collection_show_homepage
+      @collection_show_homepage = '1'
+
+        end
 
       format.js
     end
+  end
+  def editaktion
+    coll =Aktion.find(params[:aktion_id])
+    respond_to do |format|
+      @aktion_name = coll.aktion_name
+      @aktion_image = coll.aktion_image
+      @aktion_page_title = coll.aktion_page_title
+      @aktion_page_description = coll.aktion_page_description
+      @aktion_description = coll.aktion_description.html_safe
+      @aktion_id = params[:aktion_id]
+      if coll.aktion_show_homepage
+        @aktion_show_homepage = '1'
+
+      end
+
+      format.js
+    end
+  end
+  def addaktion
+    if params[:action_type] == 'new'
+      newcoll = Aktion.new
+      newcoll.aktion_name = params[:addaktion][:aktion_name]
+      newcoll.aktion_name_translit = Translit.convert(params[:addaktion][:aktion_name]).gsub(' ','-')
+      newcoll.aktion_page_title = params[:addaktion][:aktion_page_title]
+      newcoll.aktion_page_description = params[:addaktion][:aktion_page_description]
+      newcoll.aktion_description = params[:aktion_description]
+      uploadedFile = params[:addaktion][:aktion_image]
+      if File.file?(Rails.root.join('public','images','aktions', uploadedFile.original_filename))
+        uploadedFile.original_filename = [*('a'..'z'),*('0'..'9')].shuffle[0,4].join + uploadedFile.original_filename
+      end
+
+      File.open(Rails.root.join('public','images','aktions', uploadedFile.original_filename), 'wb' ) do |f|
+        f.write(uploadedFile.read)
+      end
+      newcoll.aktion_image = uploadedFile.original_filename
+      if params[:aktion_show_homepage] == 'on'
+        newcoll.aktion_show_homepage = true
+      end
+      newcoll.save
+      redirect_to :controller => 'admin', :action => 'aktions'
+    end
+    if params[:action_type] == 'edit'
+      newcoll = Aktion.find(params[:aktion_id])
+      newcoll.update_column(:aktion_name , params[:addaktion][:aktion_name])
+      newcoll.update_column(:aktion_name_translit , Translit.convert(params[:addaktion][:aktion_name]).gsub(' ','-'))
+      newcoll.update_column(:aktion_page_title , params[:addaktion][:aktion_page_title])
+      newcoll.update_column(:aktion_page_description , params[:addaktion][:aktion_page_description])
+      newcoll.update_column(:aktion_description , params[:aktion_description])
+
+      if params[:aktion_show_homepage] == 'on'
+        newcoll.update_column(:aktion_show_homepage,true)
+      else
+        newcoll.update_column(:aktion_show_homepage,false)
+      end
+      if params[:addaktion][:aktion_image].present?
+        uploadedFile = params[:addaktion][:aktion_image]
+        if File.file?(Rails.root.join('public','images','aktions', uploadedFile.original_filename))
+          uploadedFile.original_filename = [*('a'..'z'),*('0'..'9')].shuffle[0,4].join + uploadedFile.original_filename
+        end
+
+        File.open(Rails.root.join('public','images','aktions', uploadedFile.original_filename), 'wb' ) do |f|
+          f.write(uploadedFile.read)
+        end
+        newcoll.update_column(:aktion_image , uploadedFile.original_filename)
+      end
+      redirect_to :controller => 'admin', :action => 'aktions'
+    end
+
+  end
+  def deleteaktion
+       Aktion.destroy(params[:id])
+       i = Item.where(aktion_id: params[:id])
+       i.each do |item|
+         item.update_column(:aktion_id,0)
+       end
+      redirect_to :controller => 'admin', :action => 'aktions'
+  end
+  def deletecollection
+    Collection.destroy(params[:id])
+    i = Item.where(collection_id: params[:id])
+    i.each do |item|
+      item.update_column(:collection_id,0)
+    end
+    redirect_to :controller => 'admin', :action => 'collections'
   end
   def add2collection
 

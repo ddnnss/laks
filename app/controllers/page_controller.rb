@@ -5,6 +5,13 @@ class PageController < ApplicationController
     @description = 'Оригинальные и необычные сувениры и подарки в интернет-магазине lakshmi888.ru мелким и крупным оптом в Москве.'
     @keywords=@description.gsub(' и ',' ').gsub(' в ',' ').split(' ').join(',')
     @slides = Slider.all
+    @collections = Collection.where(collection_show_homepage: true)
+    if Item.where(item_in_sale: true).count < 3
+      @action_items=[]
+    else
+      @action_items = Item.where(item_in_sale: true).random_records(3)
+    end
+
 
   end
 

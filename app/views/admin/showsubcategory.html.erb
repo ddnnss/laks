@@ -1,0 +1,314 @@
+<div id="content">
+  <div class="container">
+    <h4 >
+      Административный раздел | Список товаров в подкатегории <%=@subcat.subcat_name %>
+    </h4>
+
+<br/>
+    <div class="row">
+
+      <%=render 'admin/menu'%>
+
+
+      <div class="col-md-9">
+        <a href="#newitem" data-toggle="collapse" class="text-sm">Новый товар в подкатегорию <%=@subcat.subcat_name %></a>
+        <div class="col-lg-12 collapse" id="newitem">
+          <hr/>
+          <%= form_for  :addnewitem, url: addnewitem_path do |f|%>
+
+            <div class="form-group row">
+              <label class="col-sm-4">Товар в наличии ?</label>
+              <div class="col-sm-1">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" name="item_presents" id="item_presents" value="1" checked >
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="item_name" class="col-sm-2 col-form-label">Название товара :</label>
+              <div class="col-sm-10">
+                <%=f.text_field  :item_name, :required => true , class:'form-control', id:'item_name'%>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="item_postavshik" class="col-sm-2 col-form-label">Поставщик товара :</label>
+              <div class="col-sm-10">
+                <select class="form-control"  name="item_postavshik" id="item_postavshik" >
+                  <option>Поставщик1</option>
+                  <option>Поставщик2</option>
+                  <option>Поставщик3</option>
+                </select>
+              </div>
+            </div>
+
+
+
+            <table class="table">
+              <tbody>
+              <tr >
+                <td >
+                  <div class="form-group row">
+                    <label class="col-sm-4">Розничная цена :</label>
+                    <div class="col-sm-1">
+
+                      <input style="width: 90px;" required="required" class="form-control" type="number" value="" id="item_price" name="item_price" >
+
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4">Оптовая  цена :</label>
+                    <div class="col-sm-1">
+
+                      <input style="width: 90px;" required="required" class="form-control" type="number" value="" id="item_opt_price" name="item_opt_price" >
+
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4">Кол-во товара для опт. цены</label>
+                    <div class="col-sm-1">
+
+                      <input style="width: 90px;" required="required" class="form-control" type="number" value="" id="item_opt_price_count" name="item_opt_price_count" >
+
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group row">
+                    <label class="col-sm-6">Товар новинка ?</label>
+                    <div class="col-sm-2">
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="item_new" id="item_new" value="1"  >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-6">Есть скидка ?</label>
+                    <div class="col-sm-2">
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="item_discount" id="item_discount" value="1" >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-6">% скидки</label>
+                    <div class="col-sm-2">
+                      <div class="form-check">
+                        <input style="width: 60px;" class="form-control" type="number" value="0" id="item_discount_val" name="item_discount_val" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group row">
+                    <label class="col-sm-3">Вес</label>
+                    <div class="col-sm-7">
+                      <div class="form-group ">
+                        <%=f.text_field  :item_weight, class:'form-control', id:'item_weight'%>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3">Размер (ДхВхШ см)</label>
+                    <div class="col-sm-7">
+                      <div class="form-group ">
+                        <%=f.text_field  :item_size, class:'form-control', id:'item_size'%>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3">Артикул</label>
+                    <div class="col-sm-7">
+                      <div class="form-group ">
+                        <%=f.text_field  :item_article, class:'form-control', id:'item_article'%>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3">Цвет</label>
+                    <div class="col-sm-7">
+                      <div class="form-group ">
+                        <%=f.text_field  :item_color, class:'form-control', id:'item_color'%>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+
+
+
+            <hr/>
+            <div class="col-sm-12">
+
+              <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                  <input type="checkbox" class="form-check-input" name="add_coll"  id="add_coll" value="on">
+                  Добавить товар в коллекцию ?:
+                </label>
+              </div>
+
+              <select class="form-control" id="collections_select" name="collections_select" disabled>
+                <%@collections.each do |c|%>
+                  <option value="<%= c.id%>"><%= c.collection_name%></option>
+                <% end %>
+              </select>
+            </div>
+            <div class="col-sm-12">
+
+              <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                  <input type="checkbox" class="form-check-input" name="add_aktion"  id="add_aktion" value="on">
+                  Добавить товар в акцию ?:
+                </label>
+              </div>
+
+              <select class="form-control" id="aktion_select" name="aktion_select" disabled>
+                <%@aktion.each do |c|%>
+                  <option value="<%= c.id%>"><%= c.aktion_name%></option>
+                <% end %>
+              </select>
+            </div>
+
+            <div class="col-sm-12">
+              <p>Тег TITLE для товара :
+                <%=f.text_field  :item_page_title, :required => true , class:'form-control', id:'item_page_title'%></p>
+            </div>
+            <div class="col-sm-12">
+              <p>Тег DESCRIPTION для товара :
+                <%=f.text_field  :item_page_description, :required => true , class:'form-control', id:'item_page_description'%></p>
+            </div>
+
+            <div class="col-sm-12">
+              <p>Описание товара:
+                <textarea class="summernote-5"  id="summernote-addnewitrm" name="item_description" rows="18" required></textarea></p>
+            </div>
+
+
+
+            <div class="col-sm-12">
+              <p>Картинка №1 для товара  :
+                <%= f.file_field :item_image1, :required => true %></p>
+            </div>
+            <div class="col-sm-12">
+              <p>Картинка №2 для товара  :
+                <%= f.file_field :item_image2 %></p>
+            </div>
+            <div class="col-sm-12">
+              <p>Картинка №3 для товара  :
+                <%= f.file_field :item_image3 %></p>
+            </div>
+            <div class="col-sm-12">
+              <p>Картинка №4 для товара  :
+                <%= f.file_field :item_image4 %></p>
+            </div>
+            <div class="form-group row">
+              <label for="item_comment" class="col-sm-2 col-form-label">Комментарий  к товару :</label>
+              <div class="col-sm-10">
+                <textarea style="width: 100%;" id="item_comment" name="item_comment" ></textarea>
+              </div>
+            </div>
+            <input name="act" value="sub" type="hidden" />
+            <input name="type" value="save" type="hidden" />
+            <input name="subcat_id" value="<%=@subcat.id%>" type="hidden" />
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+              <%= submit_tag 'Создать товар' , class:'btn btn-primary'%>
+            </div>
+          <% end %>
+
+
+        </div>
+        <hr/>
+
+        <div class="row">
+          <div class="col-lg-6 mb-3 mb-lg-0">
+            <form class="form-inline justify-content-lg-start text-sm">
+              <label class="control-label mr-2">Поиск:</label>
+              <input type="text" class="form-control form-control-sm mr-lg-2" placeholder="часть названия товара">
+
+            </form>
+          </div>
+          <div class="col-lg-6">
+            <form class="form-inline justify-content-lg-end text-sm">
+              <label class="control-label mr-2">Сортировка:</label>
+              <select class="form-control form-control-sm">
+                <option value="#"></option>
+
+              </select>
+              <label class="control-label mr-2 ml-lg-3">Отображать:</label>
+              <select class="form-control form-control-sm">
+                <option value="#">15</option>
+                <option value="#">20</option>
+                <option value="#">25</option>
+                <option value="#">30</option>
+                <option value="#">35</option>
+                <option value="#">40</option>
+                <option value="#">45</option>
+                <option value="#">50</option>
+              </select>
+            </form>
+          </div>
+
+        </div>
+        <hr>
+        <table class="table">
+          <tbody>
+          <tr>
+          <td>Название</td>
+          <td>Цена роз.</td>
+            <td>Цена опт.</td>
+            <td>Скидка %</td>
+          </tr>
+        <%@items.each do |i|%>
+        <tr>
+          <td><%=i.item_name%></td>
+          <td><%=i.item_price%></td>
+          <td><%=i.item_opt_price%></td>
+          <td><%=i.item_discount%></td>
+        </tr>
+        <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script language="JavaScript">
+
+
+    $('.summernote-5').summernote();
+    $('.note-popover').css('display', 'none');
+    $("#item_size").mask("99.99x99.99x99.99", {placeholder: "00.00х00.00х00.00" });
+    const checkbox1 = $("#item_discount");
+
+    checkbox1.change(function(event) {
+        var checkbox1 = event.target;
+        if (checkbox1.checked) {
+            $('#item_discount_val').removeAttr('disabled');
+        } else {
+            $("#item_discount_val").attr("disabled","disabled").focus();
+        }
+    });
+    const checkbox2 = $("#add_coll");
+    checkbox2.change(function(event) {
+        var checkbox2 = event.target;
+        if (checkbox2.checked) {
+            $('#collections_select').removeAttr('disabled');
+        } else {
+            $("#collections_select").attr("disabled","disabled")
+        }
+    });
+    const checkbox3 = $("#add_aktion");
+    checkbox3.change(function(event) {
+        var checkbox3 = event.target;
+        if (checkbox3.checked) {
+            $('#aktion_select').removeAttr('disabled');
+        } else {
+            $("#aktion_select").attr("disabled","disabled")
+        }
+    });
+</script>

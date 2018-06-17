@@ -72,7 +72,7 @@
         <div class="card product-card mb-4">
           <!-- Ribbon -->
           <%if @item.item_new %>
-              <div class="card-ribbon card-ribbon-top card-ribbon-right bg-warning text-white"> НОВИНКА %</div>
+              <div class="card-ribbon card-ribbon-top card-ribbon-right bg-warning text-white"> НОВИНКА </div>
           <%end%>
 
           <!-- Content -->
@@ -134,14 +134,14 @@
               <div class="col-md-4 mb-3">
 
                     <%if session[:cart].nil?%>
-                        <a style="width: 100%;" href="#" id="addbutton" onclick="return sethref();" class="btn btn-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> Добавить в корзину</span></a>
+                        <a  href="#" id="addbutton" onclick="return sethref();" class="btn btn-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> Добавить в корзину</span></a>
                     <% else %>
                         <%if session[:cart].keys.include? @item.id.to_s%>
-                            <a style="width: 100%;" href="#" id="addbutton" onclick="return sethref();" class="btn btn-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> Добавить еще</span></a>
+                            <a  href="#" id="addbutton" onclick="return sethref();" class="btn btn-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> Добавить еще</span></a>
 
                             <p align="center" class="text-muted text-xs d-inline d-none d-lg-block"> В КОРЗИНЕ <%=session[:cart][@item.id.to_s]%> ЕДИНИЦ</span> </p>
                         <% else %>
-                            <a style="width: 100%;" href="#" id="addbutton" onclick="return sethref();" class="btn btn-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> Добавить в корзину</span></a>
+                            <a href="#" id="addbutton" onclick="return sethref();" class="btn btn-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> Добавить в корзину</span></a>
                         <% end %>
                     <% end %>
 

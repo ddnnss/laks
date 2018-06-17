@@ -1,0 +1,14 @@
+$('#aktion_name').val('<%= j @aktion_name %>');
+$('#aktion_page_title').val('<%= j @aktion_page_title %>');
+$('#aktion_page_description').val('<%= j @aktion_page_description %>');
+$("#aktion_image").attr("src", "/images/aktions/<%= j  @aktion_image %>");
+$('#aktion_id').val(<%= j  @aktion_id %>);
+if('<%= j @aktion_show_homepage %>' == '1'){
+    $('#homepage')[0].checked = true;
+}
+else
+{
+    $('#homepage')[0].checked = false;
+}
+$(".summernote-2").summernote('code',"<%= j @aktion_description %>");
+$('.edit-aktion').modal('show');
