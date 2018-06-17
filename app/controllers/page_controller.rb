@@ -11,7 +11,7 @@ class PageController < ApplicationController
     else
       @action_items = Item.where(item_in_sale: true).random_records(3)
     end
-
+    session[:newclient]=false
 
   end
 
@@ -158,9 +158,11 @@ class PageController < ApplicationController
       a.each do |k|
         session[:cart].delete(k)
       end
+      logger.info('[INFO] : Корзина очищена в сессии.')
       session[:discount_value] = '0'
-
-      logger.info('[INFO] : Корзина очищена, переход на страницу успешного размещения заказа')
+      c = Client.find(session[:client_id])
+      c.update_column(:client_cart_items,'')
+      logger.info('[INFO] : Корзина очищена в БД, переход на страницу успешного размещения заказа')
       redirect_to order_path
 
 
@@ -169,6 +171,18 @@ class PageController < ApplicationController
         logger.info('[INFO] : Инициализация сохранения заказа с регистрацией.....')
         @client =Client.new(client_data)
             if @client.valid?                  #guest email check
+              @client.client_password = [*('a'..'z'),*('0'..'9')].shuffle[0,8].join
+              @client.client_name = params[:placeorder][:guest_name]
+              @client.client_family = params[:placeorder][:guest_family]
+              @client.client_phone = params[:placeorder][:guest_phone]
+              @client.client_country= params[:placeorder][:guest_country]
+              @client.client_city= params[:placeorder][:guest_city]
+              @client.client_post_code= params[:placeorder][:guest_post_code]
+              @client.client_address= params[:placeorder][:guest_address]
+              @client.save
+              session[:newclient]=true
+              logger.info('[INFO] : Новый позьзователь успешно зарегистрирован.')
+              MailerMailer.activation(@client).deliver_later
             else                               #guest email bad
               flash[:email_error] = @client.errors[:client_email][0].to_s
               logger.info('[ERROR] : Юзер ввел не верный EMAIL')
@@ -184,7 +198,7 @@ class PageController < ApplicationController
         discount_summ = 0
       else
         discount_summ = 0
-      discount_summ = session[:cart_total].to_i * session[:discount_value].to_i / 100;
+      discount_summ = session[:cart_total].to_i * session[:discount_value].to_i / 100
       end
       neworder.client_id = 0
       neworder.order_status = 'Заказ принят'
@@ -194,7 +208,12 @@ class PageController < ApplicationController
       params[:placeorder].each do |key,val|
         guest_data[key]=val
       end
-      neworder.order_guest_data = guest_data
+      if params[:guest_register] == 'on'
+        neworder.client_id = @client.id
+      else
+        neworder.order_guest_data = guest_data
+      end
+
       neworder.order_dostavka = params[:guest_dostavka]
       neworder.order_oplata = params[:guest_oplata]
       neworder.order_number = session[:order]
@@ -228,6 +247,9 @@ class PageController < ApplicationController
     @keywords=@description.gsub(' и ',' ').gsub(' в ',' ').split(' ').join(',')
     session[:cart_total] = 0
     session[:total] = 0
+  end
+
+  def orderstatus
 
   end
 

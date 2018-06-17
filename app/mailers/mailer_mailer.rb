@@ -1,6 +1,6 @@
 class MailerMailer < ApplicationMailer
 
-  default from: 'LAKSHMI888.RU'
+
 
   def activation(mail)
     @user=mail

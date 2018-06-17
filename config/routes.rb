@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   match '/addtocart(/:item_id)'  => 'cart#addtocart', via: [:get]
   match '/addtocartalt(/:item_id)(/:val)'  => 'cart#addtocartalt', via: [:get]
   match '/wishlist(/:item_id)'  => 'cart#add_to_wishlist', via: [:get]
+  match '/order(/:order_code)'  => 'page#orderstatus', via: [:get]
   get '/remove(/:id)', to: 'cart#removeitem'
   match '/discount'  => 'cart#applydiscount', via: [:post , :get]
 
