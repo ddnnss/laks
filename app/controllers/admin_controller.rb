@@ -409,7 +409,7 @@ end
     if params[:action_type] == 'new'
       newcoll = Collection.new
       newcoll.collection_name = params[:addcollection][:collection_name]
-      newcoll.collection_name_translit = Translit.convert(params[:addcollection][:collection_name]).gsub(' ','-')
+      newcoll.collection_name_translit = Translit.convert(params[:addcollection][:collection_name].gsub(' ','-'), :english)
       newcoll.collection_page_title = params[:addcollection][:collection_page_title]
       newcoll.collection_page_description = params[:addcollection][:collection_page_description]
       newcoll.collection_description = params[:collection_description]
@@ -431,7 +431,7 @@ end
     if params[:action_type] == 'edit'
       newcoll = Collection.find(params[:collection_id])
       newcoll.update_column(:collection_name , params[:addcollection][:collection_name])
-      newcoll.update_column(:collection_name_translit , Translit.convert(params[:addcollection][:collection_name]).gsub(' ','-'))
+      newcoll.update_column(:collection_name_translit , Translit.convert(params[:addcollection][:collection_name].gsub(' ','-'), :english))
       newcoll.update_column(:collection_page_title , params[:addcollection][:collection_page_title])
       newcoll.update_column(:collection_page_description , params[:addcollection][:collection_page_description])
       newcoll.update_column(:collection_description , params[:collection_description])
@@ -494,7 +494,7 @@ end
     if params[:action_type] == 'new'
       newcoll = Aktion.new
       newcoll.aktion_name = params[:addaktion][:aktion_name]
-      newcoll.aktion_name_translit = Translit.convert(params[:addaktion][:aktion_name]).gsub(' ','-')
+      newcoll.aktion_name_translit = Translit.convert(params[:addaktion][:aktion_name].gsub(' ','-'), :english)
       newcoll.aktion_page_title = params[:addaktion][:aktion_page_title]
       newcoll.aktion_page_description = params[:addaktion][:aktion_page_description]
       newcoll.aktion_description = params[:aktion_description]
@@ -516,7 +516,7 @@ end
     if params[:action_type] == 'edit'
       newcoll = Aktion.find(params[:aktion_id])
       newcoll.update_column(:aktion_name , params[:addaktion][:aktion_name])
-      newcoll.update_column(:aktion_name_translit , Translit.convert(params[:addaktion][:aktion_name]).gsub(' ','-'))
+      newcoll.update_column(:aktion_name_translit , Translit.convert(params[:addaktion][:aktion_name].gsub(' ','-'), :english))
       newcoll.update_column(:aktion_page_title , params[:addaktion][:aktion_page_title])
       newcoll.update_column(:aktion_page_description , params[:addaktion][:aktion_page_description])
       newcoll.update_column(:aktion_description , params[:aktion_description])
