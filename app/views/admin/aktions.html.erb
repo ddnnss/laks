@@ -28,7 +28,11 @@
             <%c.items.each do |i|%>
             <tr>
               <td><%=i.item_name %></td>
+              <td></td>
+              <td></td>
               <td><a href="/admin/actremove?item_id=<%= i.id%>" ><i class="far fa-minus-square" ></i></a></td>
+              <td><a href="/admin/edititem?item_id=<%=i.id%>"><i class="far fa-edit" ></i></a> </td>
+
             </tr>
             <% end %>
           <% end %>

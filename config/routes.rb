@@ -9,9 +9,11 @@ Rails.application.routes.draw do
   get '/admin/collections', to: 'admin#collections'
   get '/admin/aktions', to: 'admin#aktions'
   get '/admin/add2collection', to: 'admin#add2collection'
-  get   '/admin/collremove', to: 'admin#removefromcollection'
-  get   '/admin/actremove', to: 'admin#removefromaktion'
-  get   '/admin/showsubcategory', to: 'admin#showsubcategory'
+  get '/admin/collremove', to: 'admin#removefromcollection'
+  get '/admin/actremove', to: 'admin#removefromaktion'
+  get '/admin/showsubcategory', to: 'admin#showsubcategory'
+
+  match '/admin/edititem'  => 'admin#edititem', via: [:post, :get]
   match '/admin/deleteaktion'  => 'admin#deleteaktion',    via: [:get]
   match '/admin/deletecollection'  => 'admin#deletecollection',    via: [:get]
   match '/addaktion'  => 'admin#addaktion',    via: [:post]

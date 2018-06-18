@@ -19,7 +19,100 @@ class AdminController < ApplicationController
 def index
 
 end
-  def itemedit
+  def edititem
+    if params[:type].present? && params[:type] == 'save'
+      i = Item.find(params[:item_id])
+
+      i.update_column(:item_name, params[:item_name])
+      i.update_column(:item_name_translit, Translit.convert(params[:item_name].gsub(' ','-'), :english))
+      i.update_column(:item_name_caps, params[:item_name].mb_chars.upcase)
+      i.update_column(:item_page_title, params[:item_page_title])
+      i.update_column(:item_page_description, params[:item_page_description])
+      i.update_column(:item_description, params[:item_description])
+      i.update_column(:item_price, params[:item_price].to_i)
+      i.update_column(:item_opt_price, params[:item_opt_price].to_i)
+      i.update_column(:item_opt_price_count, params[:item_opt_price_count].to_i)
+      i.update_column(:item_postavshik, params[:item_postavshik])
+      i.update_column(:item_comment, params[:item_comment])
+      i.update_column(:aktion_id, 0)
+      i.update_column(:collection_id, 0)
+      i.update_column(:item_new , false)
+      i.update_column(:item_discount, 0)
+      i.update_column(:item_in_sale, false)
+
+      unless params[:item_presents].present?
+        i.update_column(:item_presents , false)
+      end
+
+      if params[:item_weight] != ''
+        i.update_column(:item_weight, params[:item_weight])
+      end
+      if params[:item_size] != ''
+        i.update_column(:item_size, params[:item_size])
+      end
+      if params[:item_article] != ''
+        i.update_column(:item_article, params[:item_article])
+      end
+      if params[:item_color] != ''
+        i.update_column(:item_color, params[:item_color])
+      end
+
+
+      if params[:item_new] == '1'
+        i.update_column(:item_new , true)
+      end
+      if params[:item_discount] == '1'
+        i.update_column(:item_discount, params[:item_discount_val].to_i)
+        i.update_column(:item_in_sale, true)
+      end
+      if params[:add_coll] == 'on'
+        i.update_column(:collection_id, params[:collections_select])
+      end
+      if params[:add_aktion] == 'on'
+        i.update_column(:aktion_id, params[:aktion_select])
+      end
+
+      unless params[:edititem][:item_image1].blank?
+      uploadedFile1 = params[:edititem][:item_image1]
+      File.open(Rails.root.join('public','images','items', i.id.to_s, uploadedFile1.original_filename), 'wb' ) do |f|
+        f.write(uploadedFile1.read)
+      end
+
+      i.update_column(:item_image1,uploadedFile1.original_filename)
+    end
+      unless params[:edititem][:item_image2].blank?
+        uploadedFile2 = params[:edititem][:item_image2]
+        File.open(Rails.root.join('public','images','items', i.id.to_s, uploadedFile2.original_filename), 'wb' ) do |f|
+          f.write(uploadedFile2.read)
+        end
+        i.update_column(:item_image2,uploadedFile2.original_filename)
+      end
+
+      unless params[:edititem][:item_image3].blank?
+        uploadedFile3 = params[:edititem][:item_image3]
+        File.open(Rails.root.join('public','images','items', i.id.to_s, uploadedFile3.original_filename), 'wb' ) do |f|
+          f.write(uploadedFile3.read)
+        end
+        i.update_column(:item_image3,uploadedFile3.original_filename)
+      end
+
+      unless params[:edititem][:item_image4].blank?
+        uploadedFile4 = params[:edititem][:item_image4]
+        File.open(Rails.root.join('public','images','items', i.id.to_s, uploadedFile4.original_filename), 'wb' ) do |f|
+          f.write(uploadedFile4.read)
+        end
+        i.update_column(:item_image4,uploadedFile4.original_filename)
+      end
+
+
+redirect_to '/admin/items'
+    else
+      @items_active = 'active'
+      @item = Item.find(params[:item_id])
+      @collections = Collection.all
+      @aktion = Aktion.all
+end
+
 
   end
   def showsubcategory

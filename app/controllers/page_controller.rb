@@ -137,7 +137,7 @@ class PageController < ApplicationController
         discount_summ = 0
       else
         discount_summ = 0
-        discount_summ = session[:cart_total].to_i * session[:discount_value].to_i / 100;
+        discount_summ = session[:cart_total].to_i * session[:discount_value].to_i / 100
       end
       neworder.client_id = session[:client_id]
       neworder.order_status = 'Заказ принят'
@@ -153,7 +153,7 @@ class PageController < ApplicationController
       logger.info('[INFO] : Заказ сохранен в БД в основном режиме.')
       logger.info('[INFO] : Отправка письма пользователю.....' +  session[:client_email])
 
-      MailerMailer.neworder(session[:client_email],session[:cart],session[:order]).deliver_later
+      MailerMailer.neworder(session[:client_email],session[:cart],session[:order],session[:discount_value]).deliver_later
       a=session[:cart].keys
       a.each do |k|
         session[:cart].delete(k)
@@ -222,7 +222,7 @@ class PageController < ApplicationController
       logger.info('[INFO] : Заказ сохранен в БД в гостевом режиме.')
       logger.info('[INFO] : Отправка письма пользователю.....' + params[:placeorder][:client_email])
 
-      MailerMailer.neworder(params[:placeorder][:client_email],session[:cart],session[:order]).deliver_later
+      MailerMailer.neworder(params[:placeorder][:client_email],session[:cart],session[:order],session[:discount_value]).deliver_later
       a=session[:cart].keys
        a.each do |k|
         session[:cart].delete(k)

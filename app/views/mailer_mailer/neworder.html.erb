@@ -1,4 +1,9 @@
-<table>
+<p>Ваш заказ был успешно размещен.</p>
+<p> Код заказа: <%=@code%></p>
+<p>Для просмотра статуса заказа Вы можете воспользоваться ссылкой</p>
+<hr>
+<p>Ваш заказ :</p>
+<table border="1" width="600">
   <thead>
   <tr>
 
@@ -40,13 +45,33 @@
           <%end%>
         <%end%>
       </td>
-      <td><%=@cart_items[cc.id.to_s]%></td>
-      <td><%=@item_total%></td>
+      <td><%=@cart_items[cc.id.to_s]%> ед.</td>
+      <td><%=@item_total%> &#8381;</td>
     </tr>
 
 
 
     <%end%>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Всего : <%=@cart_total%> &#8381;</td>
+    </tr>
+   <%unless @discount == '0' %>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Скидка по промо-коду : <%=@discount%> %</td>
+  </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Итого со скидкой : <%= @cart_total.to_i - (@cart_total.to_i * @discount.to_i) /100 %> &#8381;</td>
+    </tr>
+  <% end %>
   </tbody>
-</table>
+  </table>
 
