@@ -224,31 +224,36 @@
         <hr/>
 
         <div class="row">
-          <div class="col-lg-6 mb-3 mb-lg-0">
-            <form class="form-inline justify-content-lg-start text-sm">
+          <div class="col-lg-12 mb-3 mb-lg-0">
+            <form action="/admin/showsubcategory" class="form-inline justify-content-lg-start text-sm" method="get">
               <label class="control-label mr-2">Поиск:</label>
-              <input type="text" class="form-control form-control-sm mr-lg-2" placeholder="часть названия товара">
+              <input id="searchtxt" type="text" class="form-control form-control-sm mr-lg-2" name="search" placeholder="часть названия товара">
+              <input name="subcat_id" value="<%=@subcat.id%>" type="hidden" />
 
-            </form>
-          </div>
-          <div class="col-lg-6">
-            <form class="form-inline justify-content-lg-end text-sm">
               <label class="control-label mr-2">Сортировка:</label>
-              <select class="form-control form-control-sm">
-                <option value="#"></option>
+              <select id="sort_select" name='sort_type' class="form-control form-control-sm">
+                <option value="1">Название A-Я</option>
+                <option value="2">Название Я-А</option>
+                <option value="3">Цена +</option>
+                <option value="4">Цена -</option>
+                <option value="5">Скидка +</option>
+                <option value="6">Скидка -</option>
+                <option value="7">Дата добавления</option>
 
               </select>
               <label class="control-label mr-2 ml-lg-3">Отображать:</label>
-              <select class="form-control form-control-sm">
-                <option value="#">15</option>
-                <option value="#">20</option>
-                <option value="#">25</option>
-                <option value="#">30</option>
-                <option value="#">35</option>
-                <option value="#">40</option>
-                <option value="#">45</option>
-                <option value="#">50</option>
+              <select name="pp" class="form-control form-control-sm">
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="30">30</option>
+                <option value="35">35</option>
+                <option value="40">40</option>
+                <option value="45">45</option>
+                <option value="50">50</option>
               </select>
+
+              <button type="submit">Применить</button>
             </form>
           </div>
 
@@ -272,6 +277,10 @@
         <% end %>
           </tbody>
         </table>
+        <div class="digg_pagination">
+
+          <%= will_paginate @items,:previous_label => t("<<"), :next_label => t(">>"), :container => false %>
+        </div>
       </div>
     </div>
   </div>
@@ -311,4 +320,16 @@
             $("#aktion_select").attr("disabled","disabled")
         }
     });
+
+    function getSearchParams(k){
+        var p={};
+        location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
+        return k?p[k]:p;
+    }
+    if (getSearchParams('sort_type')!== undefined){
+        $('#sort_select').val(getSearchParams('sort_type')).attr("selected", "selected");
+    }
+    if (getSearchParams('search')!== undefined){
+        $('#searchtxt').val(decodeURIComponent(getSearchParams('search')));
+    }
 </script>

@@ -19,10 +19,40 @@ class AdminController < ApplicationController
 def index
 
 end
+  def itemedit
+
+  end
   def showsubcategory
     @subcat = Subcategory.find(params[:subcat_id])
     @items_active = 'active'
-    @items = @subcat.items
+    if params[:sort_type].present?
+      case params[:sort_type]
+        when '1'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_name desc')
+        when '2'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_name asc')
+        when '3'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_price desc')
+        when '4'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_price asc')
+        when '5'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_discount desc')
+        when '6'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_discount asc')
+        when '7'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('created_at desc')
+      end
+    else
+      @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_name desc')
+    end
+
+    if params[:search]!='' && params[:search].present?
+
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).where('item_name_caps LIKE ?','%'+params[:search].mb_chars.upcase+'%')
+
+    else
+
+    end
 
     @collections = Collection.all
     @aktion = Aktion.all
@@ -39,6 +69,35 @@ end
     @cat_sub = Subcategory.where(category_id: @cat_main.first.id)
     @collections = Collection.all
     @aktion = Aktion.all
+
+    if params[:sort_type].present?
+      case params[:sort_type]
+        when '1'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_name desc')
+        when '2'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_name asc')
+        when '3'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_price desc')
+        when '4'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_price asc')
+        when '5'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_discount desc')
+        when '6'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_discount asc')
+        when '7'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('created_at desc')
+      end
+    else
+      @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_name desc')
+    end
+
+    if params[:search]!='' && params[:search].present?
+
+      @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).where('item_name_caps LIKE ?','%'+params[:search].mb_chars.upcase+'%')
+
+    else
+
+    end
 
 
   end
@@ -125,6 +184,7 @@ end
   def categories
     @category_active = 'active'
     @maincat = Category.all
+    @aktion = Aktion.all
 
   end
   def addnewitem

@@ -110,7 +110,7 @@
                       <label class="col-sm-6">% скидки</label>
                       <div class="col-sm-2">
                         <div class="form-check">
-                          <input style="width: 60px;" class="form-control" type="number" value="0" id="item_discount_val" name="item_discount_val" disabled>
+                          <input style="width: 60px;" class="form-control" type="number" value="" id="item_discount_val" name="item_discount_val" disabled>
                         </div>
                       </div>
                     </div>
@@ -241,86 +241,67 @@
         <hr/>
 
         <div class="row">
-          <div class="col-lg-6 mb-3 mb-lg-0">
-            <form class="form-inline justify-content-lg-start text-sm">
+          <div class="col-lg-12 mb-3 mb-lg-0">
+            <form action="/admin/items" class="form-inline justify-content-lg-start text-sm" method="get">
               <label class="control-label mr-2">Поиск:</label>
-              <input type="text" class="form-control form-control-sm mr-lg-2" placeholder="часть названия товара">
-              <a href="#adv-search" data-toggle="collapse" class="text-sm">расширеный поиск</a>
-            </form>
-          </div>
-          <div class="col-lg-6">
-            <form class="form-inline justify-content-lg-end text-sm">
+              <input id="searchtxt" type="text" class="form-control form-control-sm mr-lg-2" name="search" placeholder="часть названия товара">
+
+
+
               <label class="control-label mr-2">Сортировка:</label>
-              <select class="form-control form-control-sm">
-                <option value="#">Name (A - Z)</option>
-                <option value="#">Name (Z - A)</option>
-                <option value="#">Price (Low &gt; High)</option>
-                <option value="#" selected="">Price (High &gt; Low)</option>
-                <option value="#">Rating (Highest)</option>
-                <option value="#">Rating (Lowest)</option>
+              <select id="sort_select" name='sort_type' class="form-control form-control-sm">
+                <option value="1">Название A-Я</option>
+                <option value="2">Название Я-А</option>
+                <option value="3">Цена +</option>
+                <option value="4">Цена -</option>
+                <option value="5">Скидка +</option>
+                <option value="6">Скидка -</option>
+                <option value="7">Дата добавления</option>
+
               </select>
               <label class="control-label mr-2 ml-lg-3">Отображать:</label>
-              <select class="form-control form-control-sm">
-                <option value="#">15</option>
-                <option value="#">20</option>
-                <option value="#">25</option>
-                <option value="#">30</option>
-                <option value="#">35</option>
-                <option value="#">40</option>
-                <option value="#">45</option>
-                <option value="#">50</option>
+              <select name="pp" class="form-control form-control-sm">
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="30">30</option>
+                <option value="35">35</option>
+                <option value="40">40</option>
+                <option value="45">45</option>
+                <option value="50">50</option>
               </select>
-            </form>
-          </div>
-          <div class="col-lg-12 collapse" id="adv-search">
-            <!-- Advanced search form -->
 
-            <form class="mt-3 bg-light p-3 rounded mb-4 text-sm">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label>Категория</label>
-                  <select id="mancatselect" class="form-control">
-                    <%@cat_main.each do |c|%>
-                    <option value="<%=c.id%>"><%=c.cat_name%></option>
-                   <%end%>
-                  </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label>Подкатегория</label>
-                  <select id="subcatselect" class="form-control">
-
-                  </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label>Price</label>
-                  <div class="row">
-                    <div class="input-group col-md-6">
-                      <span class="input-group-prepend">$</span>
-                      <input type="text" class="form-control" placeholder="from">
-                    </div>
-                    <div class="input-group col-md-6">
-                      <span class="input-group-prepend">$</span>
-                      <input type="text" class="form-control" placeholder="to">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label>Поставщик</label>
-                  <select class="form-control">
-                    <option value="#">Small</option>
-                    <option value="#">Medium</option>
-                    <option value="#">Large</option>
-                    <option value="#">Extra Large</option>
-                  </select>
-                </div>
-                <div class="col-md-12">
-                  <button type="submit" class="btn btn-primary"> <i class="fa fa-search"></i> ПОИСК </button>
-                </div>
-              </div>
+              <button type="submit">Применить</button>
             </form>
+
           </div>
+
         </div>
+        <hr>
+        <table class="table">
+          <tbody>
+          <tr>
+            <td>Категория/Подкатегория</td>
+            <td>Название</td>
+            <td>Цена роз.</td>
+            <td>Цена опт.</td>
+            <td>Скидка %</td>
+          </tr>
+          <%@items.each do |i|%>
+              <tr>
+                <td><%=i.subcategory.category.cat_name%> / <a href="/admin/showsubcategory?subcat_id=<%= i.subcategory.id%>"><%=i.subcategory.subcat_name%></a></td>
+                <td><%=i.item_name%></td>
+                <td><%=i.item_price%></td>
+                <td><%=i.item_opt_price%></td>
+                <td><%=i.item_discount%></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+        <div class="digg_pagination">
 
+          <%= will_paginate @items,:previous_label => t("<<"), :next_label => t(">>"), :container => false %>
+        </div>
       </div>
     </div>
   </div>
@@ -373,4 +354,15 @@
             $("#aktion_select").attr("disabled","disabled")
         }
     });
+    function getSearchParams(k){
+        var p={};
+        location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
+        return k?p[k]:p;
+    }
+    if (getSearchParams('sort_type')!== undefined){
+        $('#sort_select').val(getSearchParams('sort_type')).attr("selected", "selected");
+    }
+    if (getSearchParams('search')!== undefined){
+    $('#searchtxt').val(decodeURIComponent(getSearchParams('search')));
+    }
 </script>
