@@ -5,7 +5,7 @@ class CartController < ApplicationController
       if session[:cart].nil?
         session[:cart]=Hash.new
         session[:cart][params[:item_id]] = params[:val].to_i
-      # client.update_column(:client_cart_items , session[:cart])
+
 
       else
         if session[:cart].key? params[:item_id]
@@ -18,6 +18,10 @@ class CartController < ApplicationController
      #   client.update_column(:client_cart_items , session[:cart])
 
       end
+    if session[:active]
+      client = Client.find(session[:client_id])
+      client.update_column(:client_cart_items , session[:cart])
+    end
       redirect_to '/product/' + item.item_name_translit
   end
   def addtocart

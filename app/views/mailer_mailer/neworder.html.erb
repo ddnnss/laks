@@ -1,16 +1,16 @@
 <p>Ваш заказ был успешно размещен.</p>
-<p> Код заказа: <%=@code%></p>
+<p> Код заказа: <strong><%=@code%></strong> </p>
 <p>Для просмотра статуса заказа Вы можете воспользоваться ссылкой</p>
 <hr>
 <p>Ваш заказ :</p>
-<table border="1" width="600">
+<table style="border-collapse: collapse; width: 600px;" >
   <thead>
   <tr>
 
-    <th>Название</th>
-    <th>Цена</th>
-    <th>Количество</th>
-    <th>Всего</th>
+    <th style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5;">Название</th>
+    <th style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5; ">Цена</th>
+    <th style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5; ">Количество</th>
+    <th style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5;">Итог</th>
   </tr>
   </thead>
   <tbody>
@@ -19,8 +19,8 @@
     <%@cart_itemss.each do |cc|%>
 
     <tr>
-      <td><%=cc.item_name%></td>
-      <td>
+      <td style="padding: 3px; border: 1px solid #999; text-align: center; "><%= cc.item_name%></td>
+      <td style="padding: 3px; border: 1px solid #999; text-align: center; ">
         <%if @cart_items[cc.id.to_s] >= cc.item_opt_price_count  %>
 
           <%= cc.item_opt_price%> &#8381;
@@ -45,8 +45,8 @@
           <%end%>
         <%end%>
       </td>
-      <td><%=@cart_items[cc.id.to_s]%> ед.</td>
-      <td><%=@item_total%> &#8381;</td>
+      <td style="padding: 3px; border: 1px solid #999; text-align: center; "><%=@cart_items[cc.id.to_s]%> ед.</td>
+      <td style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5;"><%=@item_total%> &#8381;</td>
     </tr>
 
 
@@ -56,20 +56,20 @@
       <td></td>
       <td></td>
       <td></td>
-      <td>Всего : <%=@cart_total%> &#8381;</td>
+      <td style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5;">Всего : <%=@cart_total%> &#8381;</td>
     </tr>
-   <%unless @discount == '0' %>
+   <%unless @discount == '0' || @discount.nil?%>
   <tr>
     <td></td>
     <td></td>
     <td></td>
-    <td>Скидка по промо-коду : <%=@discount%> %</td>
+    <td style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5;">Скидка по промо-коду : <%=@discount%> %</td>
   </tr>
     <tr>
       <td></td>
       <td></td>
       <td></td>
-      <td>Итого со скидкой : <%= @cart_total.to_i - (@cart_total.to_i * @discount.to_i) /100 %> &#8381;</td>
+      <td style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5;">Итого со скидкой : <%= @cart_total.to_i - (@cart_total.to_i * @discount.to_i) /100 %> &#8381;</td>
     </tr>
   <% end %>
   </tbody>

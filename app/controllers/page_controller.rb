@@ -85,6 +85,7 @@ class PageController < ApplicationController
             client = Client.find(session[:client_id])
                 if client.client_view_history != ''
                   req = client.client_view_history.split (',')
+                  @vieweditems = Item.where(id: req - [@item.id.to_s] )
                   unless req.include?(@item.id.to_s)
                   req.append(@item.id)
                   client.update_column( :client_view_history , req.join(','))
@@ -92,6 +93,7 @@ class PageController < ApplicationController
 
                 else
                   client.update_column( :client_view_history , @item.id)
+                  @vieweditems = []
                 end
             @wishlist = client.client_wishlist
           else
@@ -301,6 +303,20 @@ class PageController < ApplicationController
 
   def profile
     @client_info = Client.find(session[:client_id])
+    if params[:client_action]=='update'
+      @client_info.update_column(:client_name,params[:client_name])
+      @client_info.update_column(:client_family,params[:client_family])
+      @client_info.update_column(:client_phone,params[:client_phone])
+      @client_info.update_column(:client_email,params[:client_email])
+      @client_info.update_column(:client_country,params[:client_country])
+      @client_info.update_column(:client_city,params[:client_city])
+      @client_info.update_column(:client_post_code,params[:client_post_code])
+      @client_info.update_column(:client_address,params[:client_address])
+      session[:client_data_bad] = false
+      redirect_to request.referer
+
+
+    end
 
   end
 

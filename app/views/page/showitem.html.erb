@@ -184,8 +184,7 @@
       </h2>
       <hr class="mb-3 w-50 mx-auto">
       <div class="mt-4 owl-nav-over owl-nav-over-lg" data-toggle="owl-carousel" data-owl-carousel-settings='{"responsive":{"0":{"items":1}, "600":{"items":2}, "980":{"items":4}}, "margin":10, "nav":true, "dots":false}'>
-      <% if session[:active] %>
-            <%else%>
+
             <%@vieweditems.each do |item|%>
             <div class="card product-card overlay-hover">
               <%if item.item_new %>
@@ -223,7 +222,7 @@
                 <% end %>
               </div>
             </div>
-            <% end %>
+
         <% end %>
 
 

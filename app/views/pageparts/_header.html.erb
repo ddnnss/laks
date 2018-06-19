@@ -139,12 +139,17 @@
               <!--End of Shopping cart items-->
               <hr class="mt-3 mb-0" />
               <div class="dropdown-footer text-center">
+                <%if session[:total].nil? || session[:total]==0%>
+                  <h5 class="font-weight-bold">
+                   КОРЗИНА ПУСТА
+                  </h5>
+                <% else %>
                 <h5 class="font-weight-bold">
                   Итого (без учета стоимости доставки):<br/> <span id="total" class="text-primary"><%= session[:total]%></span> &#8381;
                 </h5>
                 <a href="/checkout#cart" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2">Перейти в корзину</a>
                 <a href="/checkout#checkout" tabindex="-1" class="btn btn-primary btn-sm btn-rounded mx-2">Оформить заказ</a>
-
+                <% end %>
               </div>
 
             </div>
@@ -190,9 +195,9 @@
               <a href="#" class="nav-link dropdown-toggle" id="account-drop" data-toggle="dropdown" data-hover="dropdown"><i class="fa fa-user mr-2"></i>личный кабинет</a>
 
               <div class="dropdown-menu dropdown-menu-right">
-                <a href="#" class="dropdown-item">Корзина</a>
-                <a href="#" class="dropdown-item">Закладки</a>
-                <a href="#" class="dropdown-item">Заказы</a>
+                <a href="/checkout#cart" class="dropdown-item">Корзина</a>
+                <a href="/wishlist" class="dropdown-item">Закладки</a>
+                <a href="/orders" class="dropdown-item">Заказы</a>
                 <a href="/profile" class="dropdown-item">Профиль</a>
               </div>
             </li>
