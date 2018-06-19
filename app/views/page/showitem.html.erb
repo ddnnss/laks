@@ -200,8 +200,10 @@
               <!-- Image & price content -->
               <div class="pos-relative">
                 <img class="card-img-top img-fluid" src="/images/items/<%=item.id%>/<%=item.item_image1%>" alt="Купить <%=item.item_name%> в Москве по оптовым ценам">
+                <% if item.item_discount > 0%>
                 <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-r mt-2 mr-2 persist">
               - <%=item.item_discount%> %</span>
+                  <% end %>
               </div>
               <!-- Content -->
               <div class="card-body">

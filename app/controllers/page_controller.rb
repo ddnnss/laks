@@ -1,7 +1,7 @@
 class PageController < ApplicationController
   before_action :getmenu, :getcart
   def index
-    @title = 'Купить сувениры оптом дешево в Москве. Интернет-магазин оригинальных и необычных подарков оптом Лакшми'
+    @title = 'Купить сувениры оптом дешево в Москве.'
     @description = 'Оригинальные и необычные сувениры и подарки в интернет-магазине lakshmi888.ru мелким и крупным оптом в Москве.'
     @keywords=@description.gsub(' и ',' ').gsub(' в ',' ').split(' ').join(',')
     @slides = Slider.all
@@ -12,6 +12,57 @@ class PageController < ApplicationController
       @action_items = Item.where(item_in_sale: true).random_records(3)
     end
     session[:newclient]=false
+
+  end
+
+  def showcollection
+    logger.info('[INFO] : Получение товаров из коллекции....')
+    @coll = Collection.find_by_collection_name_translit(params[:name])
+    if params[:sort_type].present?
+      case params[:sort_type]
+      when '1'
+        @items = @coll.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name desc')
+      when '2'
+        @items = @coll.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name asc')
+      when '3'
+        @items = @coll.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_price desc')
+      when '4'
+        @items = @coll.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_price asc')
+      when '5'
+        @items = @coll.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount desc')
+      when '6'
+        @items = @coll.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount asc')
+
+      end
+    else
+      @items = @coll.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name desc')
+    end
+
+    if params[:search]!='' && params[:search].present?
+
+      @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).where('item_name_caps LIKE ?','%'+params[:search].mb_chars.upcase+'%')
+
+    else
+
+    end
+
+
+
+
+
+
+    @coll.update_column(:collection_views, @coll.collection_views + 1)
+
+    logger.info('[INFO] : Товары получены.')
+    @title = @coll.collection_page_title
+    @description = @coll.collection_page_description
+    @keywords=@description.gsub(' и ',' ').gsub(' в ',' ').split(' ').join(',')
+    if session[:active]
+      client = Client.find(session[:client_id])
+      @wishlist = client.client_wishlist.split(',')
+    end
+
+
 
   end
 

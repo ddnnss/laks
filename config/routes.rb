@@ -46,6 +46,7 @@ Rails.application.routes.draw do
 
   get '/category(/:name)', to: 'page#showcategory'
   get '/subcategory(/:name)', to: 'page#showsubcategory'
+  get '/collection(/:name)', to: 'page#showcollection'
   get '/product(/:item_name)', to: 'page#showitem'
   get '/order', to: 'page#order_info'
   match '/checkout'  => 'page#checkout', via: [:post, :get]
