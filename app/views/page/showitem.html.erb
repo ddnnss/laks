@@ -180,12 +180,54 @@
     <div class="container py-4">
       <hr class="hr-lg mt-0 mb-3 w-10 mx-auto hr-primary">
       <h2 class="text-center text-uppercase font-weight-bold my-0">
-        Related Products
+        Вы смотрели
       </h2>
       <hr class="mb-3 w-50 mx-auto">
-      <div class="mt-4 owl-nav-over owl-nav-over-lg owl-carousel owl-loaded owl-drag" data-toggle="owl-carousel" data-owl-carousel-settings="{&quot;responsive&quot;:{&quot;0&quot;:{&quot;items&quot;:1}, &quot;600&quot;:{&quot;items&quot;:2}, &quot;980&quot;:{&quot;items&quot;:4}}, &quot;margin&quot;:10, &quot;nav&quot;:true, &quot;dots&quot;:false}">
+      <div class="mt-4 owl-nav-over owl-nav-over-lg" data-toggle="owl-carousel" data-owl-carousel-settings='{"responsive":{"0":{"items":1}, "600":{"items":2}, "980":{"items":4}}, "margin":10, "nav":true, "dots":false}'>
+      <% if session[:active] %>
+            <%else%>
+            <%@vieweditems.each do |item|%>
+            <div class="card product-card overlay-hover">
+              <%if item.item_new %>
+                  <div class="card-ribbon card-ribbon-top card-ribbon-left bg-warning text-white"> НОВИНКА </div>
+              <%end%>
+              <%if item.collection_id > 0 %>
+                  <div class="card-ribbon card-ribbon-bottom card-ribbon-right bg-success text-white"> В КОЛЛЕКЦИИ </div>
+              <%end%>
+              <div class="overlay-hover-content overlay-op-7 product-card-hover-tools">
+                <a href="/product/<%=item.item_name_translit%>" class="btn btn-primary btn-block text-uppercase font-weight-bold mb-3 btn-lg"><i class="fa fa-cart-plus mr-2"></i> Открыть</a>
+                <!--   <a href="#" class="text-white">Add to Wishlist</a>-->
+              </div>
+              <!-- Image & price content -->
+              <div class="pos-relative">
+                <img class="card-img-top img-fluid" src="/images/items/<%=item.id%>/<%=item.item_image1%>" alt="Купить <%=item.item_name%> в Москве по оптовым ценам">
+                <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-r mt-2 mr-2 persist">
+              - <%=item.item_discount%> %</span>
+              </div>
+              <!-- Content -->
+              <div class="card-body">
+                <small class="text-muted text-uppercase"><span class="text-primary"><%= item.subcategory.category.cat_name%></span> / <%= item.subcategory.subcat_name%></small>
+                <h4 class="card-title">
+                  <%= item.item_name%>
+                </h4>
 
-    </div>
+              </div>
+              <div class="card-footer">
+                Цена : <del class="op-5">&#8381; <%=item.item_price%></del>
+                /
+                <%=item.item_price - (item.item_price * item.item_discount / 100)%> &#8381;
+                <%if item.item_presents%>
+                    <p class="text-muted text-uppercase text-xs mb-0"><span class="badge badge-success">товар в наличии</span> </p>
+                <% else %>
+                    <p class="text-muted text-uppercase text-xs mb-0"><span class="badge badge-warning">временно нет в наличии</span> </p>
+                <% end %>
+              </div>
+            </div>
+            <% end %>
+        <% end %>
+
+
+      </div>
 
   </div>
 </div>

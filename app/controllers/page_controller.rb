@@ -27,7 +27,39 @@ class PageController < ApplicationController
   def showsubcategory
     logger.info('[INFO] : Получение подкатегорий товаров....')
     @subcat = Subcategory.find_by_subcat_name_translit(params[:name])
-    @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).where(subcategory_id: @subcat.id ).order(params[:sort].present? ? params[:sort]+' desc' : 'item_new desc')
+    if params[:sort_type].present?
+      case params[:sort_type]
+        when '1'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name desc')
+        when '2'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name asc')
+        when '3'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_price desc')
+        when '4'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_price asc')
+        when '5'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount desc')
+        when '6'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount asc')
+
+      end
+    else
+      @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name desc')
+    end
+
+    if params[:search]!='' && params[:search].present?
+
+      @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).where('item_name_caps LIKE ?','%'+params[:search].mb_chars.upcase+'%')
+
+    else
+
+    end
+
+
+
+
+
+
     @subcat.update_column(:subcat_views, @subcat.subcat_views + 1)
     @parent_cat = Category.find(@subcat.category_id)
     logger.info('[INFO] : Подкатегорий получены.')
@@ -62,6 +94,20 @@ class PageController < ApplicationController
                   client.update_column( :client_view_history , @item.id)
                 end
             @wishlist = client.client_wishlist
+          else
+
+            logger.info('История просмотров гостя: ' +  session[:view_history].inspect)
+            if session[:view_history].nil? || session[:view_history] ==''
+              session[:view_history] = []
+              session[:view_history] << @item.id
+              @vieweditems = []
+            else
+              @vieweditems = Item.where(id: session[:view_history] - [@item.id] )
+              unless session[:view_history].include?(@item.id)
+                session[:view_history].append @item.id
+              end
+            end
+
           end
 
       @title = @item.item_page_title

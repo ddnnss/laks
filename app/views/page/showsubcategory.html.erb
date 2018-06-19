@@ -17,14 +17,17 @@
 
           <div class="col-lg-12">
             <form class="form-inline  text-sm" method="get">
+              <label class="control-label mr-2">Поиск:</label>
+              <input id="searchtxt" type="text" class="form-control form-control-sm mr-lg-2" name="search" placeholder="часть названия товара">
               <label class="control-label mr-2">Сортировать:</label>
-              <select class="form-control form-control-sm" name="sort">
-                <option value="item_price" selected>Цена</option>
-                <option value="item_in_sale" >Cо скидкой</option>
-                <option value="item_new" >Новинки</option>
-
-
-                             </select>
+              <select class="form-control form-control-sm" id="sort_select" name="sort_type">
+                <option value="1">Название A-Я</option>
+                <option value="2">Название Я-А</option>
+                <option value="3">Цена (больше)</option>
+                <option value="4">Цена (меньше)</option>
+                <option value="5">Скидка (больше)</option>
+                <option value="6">Скидка (меньше)</option>
+              </select>
               <label class="control-label mr-2 ml-lg-3">Показывать:</label>
               <select class="form-control form-control-sm" id="pp_select" name="pp">
                 <option value="12">12</option>
@@ -47,7 +50,7 @@
           <%@items.each do |item|%>
           <div class="col-lg-4">
             <!-- Product 2 -->
-            <div class="card mb-4 product-card">
+            <div class="card mb-4 product-card hover-shadow hover-grow ">
               <!-- Hover content
               <div class="overlay-hover-content overlay-op-7">
                 <a href="shop-cart.html" class="btn btn-primary btn-block text-uppercase font-weight-bold mb-3 btn-lg"><i class="fa fa-cart-plus mr-2"></i> В корзину</a>
@@ -183,6 +186,16 @@
     return true;
     }
 
-
+    function getSearchParams(k){
+        var p={};
+        location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
+        return k?p[k]:p;
+    }
+    if (getSearchParams('sort_type')!== undefined){
+        $('#sort_select').val(getSearchParams('sort_type')).attr("selected", "selected");
+    }
+    if (getSearchParams('search')!== undefined){
+        $('#searchtxt').val(decodeURIComponent(getSearchParams('search')));
+    }
 
 </script>
