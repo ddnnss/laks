@@ -15,7 +15,8 @@
  * scss files
  *******************************************************/
 .hover-shadow {
-  transition: 0.3s
+  transition: 0.3s;
+  border : none !important;
 }
 
 .hover-shadow:hover {
