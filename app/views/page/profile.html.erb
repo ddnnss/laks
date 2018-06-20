@@ -6,7 +6,8 @@
 </div>
 <div id="content" class="py-5">
 <div class="container">
-
+  <hr  style="margin-top: 20px" class="hr-lg mb-3 w-10 mx-auto hr-primary " />
+  <h2  style="margin-bottom: 30px;" class="text-center">Ваши персональные данные</h2>
   <%= form_for  :profile, url: profile_path   do |f|%>
       <div class="form-group row">
         <label  for="client_name" class="col-sm-2 col-form-label form_label">Ваше имя</label>
@@ -50,7 +51,7 @@
           <%=text_field_tag  :client_post_code,@client_info.client_post_code, :required => true , class:'form-control', id:'client_post_code'%>
         </div>
       </div>
-      <div class="form-group row">
+      <div id="orders" class="form-group row">
         <label for="client_address" class="col-sm-2 col-form-label form_label">Адрес</label>
         <div class="col-sm-10">
           <%=text_field_tag  :client_address,@client_info.client_address, :required => true , class:'form-control', id:'client_address'%>
@@ -64,5 +65,125 @@
     </div>
 
 <%end%>
+  <hr  style="margin-top: 50px" class="hr-lg mb-3 w-10 mx-auto hr-primary " />
+  <h2  style="margin-bottom: 30px;" class="text-center">Ваши заказы</h2>
+  <% if @client_wishlist.blank? %>
+    Вы ничего пока не заказывали .
+  <% else %>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Статус</th>
+        <th>Дата</th>
+        <th>Номер</th>
+        <th>Трек-код</th>
+        <th>Сумма</th>
+      </tr>
+      </thead>
+      <tbody>
+      <%@client_orders.each do |order|%>
+        <tr>
+          <th scope="row"><%= order.id %></th>
+          <td><%= order.order_status %></td>
+          <td><%= order.created_at.strftime("%d.%m.%Y | %H:%M:%S") %></td>
+          <td><a href="/order/<%= order.order_number %>"><%= order.order_number %></a></td>
+          <td><%= order.order_tracking.nil? ? '-' : order.order_tracking %></td>
+          <td><%= order.order_summ %> &#8381;</td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+
+  <hr id="wishlist"  style="margin-top: 50px" class="hr-lg mb-3 w-10 mx-auto hr-primary " />
+  <h2  style="margin-bottom: 30px;" class="text-center">Ваши закладки</h2>
+
+
+    <% if @client_wishlist.blank? %>
+    Вы ничего пока не добавили .
+      <% else %>
+    <div class="row">
+    <%@client_wishlist.each do |item|%>
+
+      <div class="col-lg-3">
+        <!-- Product 2 -->
+        <div class="card mb-4 product-card hover-shadow hover-grow ">
+
+          <div class="pos-relative">
+            <a href="/product/<%=item.item_name_translit%>">
+              <img class="card-img-top img-fluid" src="/images/items/<%=item.id%>/<%=item.item_image1%>" alt="Купить <%=item.item_name%> в Москве по оптовым ценам">
+            </a>
+            <%if item.item_discount > 0 %>
+                    <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-r mt-2 mr-2 persist">
+                 - <%=item.item_discount%> %
+                </span>
+            <%else %>
+
+            <%end%>
+
+          </div>
+          <!-- Content -->
+          <div class="card-body text-center ">
+            <a href="/product/<%=item.item_name_translit%>"> <%=item.item_name%></a>
+            <hr/>
+            <div id="spinner_<%=item.id%>" ></div>
+            <div id="cart_buttons_<%=item.id%>">
+              <%if item.item_presents%>
+                <%if session[:cart].nil?%>
+                  <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fa fa-cart-plus"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ</span></a>
+
+                <%else%>
+                  <%if session[:cart].keys.include? item.id.to_s%>
+
+                    <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fas fa-cart-arrow-down"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ ЕЩЕ</span></a>
+
+                  <%else%>
+                    <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fa fa-cart-plus"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ</span></a>
+                  <%end%>
+                <%end%>
+              <%else%>
+                <a href="javascript:void(0)" ><span class="fas fa-lock"></span><span style="font-size: 13px;"> НЕТ В НАЛИЧИИ</span></a>
+              <%end%>
+
+
+
+
+            </div>
+
+          </div>
+
+          <div class="card-footer text-center">
+            Цена :
+            <%if item.item_discount > 0 %>
+              <del class="op-5">&#8381; <%=item.item_price%></del>
+              /
+              <%=item.item_price - (item.item_price * item.item_discount / 100)%> &#8381;
+            <%else %>
+              <%=item.item_price%> &#8381;
+            <%end%>
+            <br/>
+
+            Оптовая цена :  <%=item.item_opt_price%> &#8381; <a href="#" data-toggle="tooltip" title="" data-original-title="При заказе от :  <%=item.item_opt_price_count%> штук"><i class="fa fa-info-circle fa-lg text-info"></i></a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    </div>
+      <% end %>
+
+
+
+
+
 </div>
 </div>
+<script language="JavaScript">
+
+    function theFunction (id) {
+        $("#cart_buttons_"+id).css('display','none');
+        $("#spinner_"+id).addClass('spinner');
+        return true;
+    }
+</script>

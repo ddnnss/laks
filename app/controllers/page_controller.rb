@@ -14,7 +14,12 @@ class PageController < ApplicationController
     session[:newclient]=false
 
   end
+  def login_mobile
+    if session[:active]
+      redirect_to root_path
+    end
 
+  end
   def showcollection
     logger.info('[INFO] : Получение товаров из коллекции....')
     @coll = Collection.find_by_collection_name_translit(params[:name])
@@ -260,7 +265,7 @@ class PageController < ApplicationController
       logger.info('[INFO] : Корзина очищена в сессии.')
       session[:discount_value] = '0'
       c = Client.find(session[:client_id])
-      c.update_column(:client_cart_items,'')
+      c.update_column(:client_cart_items,nil)
       logger.info('[INFO] : Корзина очищена в БД, переход на страницу успешного размещения заказа')
       redirect_to order_path
 
@@ -354,6 +359,8 @@ class PageController < ApplicationController
 
   def profile
     @client_info = Client.find(session[:client_id])
+    @client_orders = Order.where(client_id: @client_info.id )
+    @client_wishlist = Item.where(id: @client_info.client_wishlist.split(','))
     if params[:client_action]=='update'
       @client_info.update_column(:client_name,params[:client_name])
       @client_info.update_column(:client_family,params[:client_family])

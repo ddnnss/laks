@@ -19,6 +19,7 @@ if ('<%=@dup %>' == 'true')
     if ('<%=@opt_price %>' == 'true'){
 
         $('#item<%= @item_id%>count').html(<%= @item_count%>);
+
         $('#iitem<%= @item_id%>_price_total').html(<%=  @item_total_price%>);
         $('#item<%= @item_id%>_cur_price').addClass('text-primary');
         $('#item<%= @item_id%>_cur_price').addClass('cart_item_bold');
@@ -51,6 +52,7 @@ else
 {
 
     $(".cart-items").append(cartItem);
+
     var cur_total = parseInt( $('#total').html());
     $('#total').html(cur_total + <%= @item_price%>);
     var cart_total = parseInt( $('#cart_count').html());
@@ -63,6 +65,7 @@ else
 
     $("#cart_buttons_<%= @item_id%>").css('display','block');
     $("#spinner_<%= @item_id%>").removeClass('spinner');
+
    notify();
 
 

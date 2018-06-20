@@ -114,30 +114,33 @@
       ЧТО ТУТ НАПИСАТЬ???????????
     </h5> -->
     <hr class="mb-5 w-50 mx-auto" />
+    <div class="row text-center d-lg-none">
+      <%  @cat_all.each do |cat|%>
+      <div class="col-lg-4 ">
+        <div class="p-5 py-lg-6 overlay overlay-gradient overlay-op-5 rounded mb-4 mb-lg-0 flex-ew flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/category/<%=cat.cat_name_translit%>" style="background-image: url('/images/maincategory/<%=cat.cat_image%>');">
+          <h2 class="text-white mb-0">
+            <%=cat.cat_name%>
+          </h2>
 
-    <div class="grid">
+          <hr class="hr-lg my-2 w-20 mx-auto hr-primary">
+        </div>
+      </div>
+      <%end%>
+    </div>
+    <div class="grid d-none d-lg-block">
       <div class="grid-sizer"></div>
       <%  @cat_all.each do |cat|%>
-
-
-
-
       <div class="grid-item overlay-hover hover-shadow ">
-        <!-- Hover content -->
-
         <div class="overlay-hover-content overlay-op-9 overlay-gradient overlay-dark">
           <h3  style="font-size:1vw;">
           <a  href="/category/<%=cat.cat_name_translit%>"> <%=cat.cat_name%></a>
           </h3>
-
         </div>
-        <!-- Image -->
-
-        <a  href="/category/<%=cat.cat_name_translit%>">    <img class="card-img-top img-fluid w-100 w-md-auto"  src="/images/maincategory/<%=cat.cat_image%>" alt="Купить отпром в Москве <%=cat.cat_image%>"></a>
-
+       <a  href="/category/<%=cat.cat_name_translit%>">    <img class="card-img-top img-fluid w-100 w-md-auto"  src="/images/maincategory/<%=cat.cat_image%>" alt="Купить отпром в Москве <%=cat.cat_image%>"></a>
       </div>
       <%end%>
     </div>
+
   </div>
 <div class="container  text-center">
   <hr class="hr-lg mt-0 mb-3 w-10 mx-auto hr-primary">
@@ -149,7 +152,7 @@
   <div class="row">
     <% @collections.each do |coll| %>
     <div class="col-lg-4 d-flex">
-      <div class="p-5 py-lg-6 overlay overlay-op-5 rounded flex-ew mb-3 mb-lg-0 flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/collection/<%= coll.collection_name_translit %>" style="background-image: url('/images/collections/<%= coll.collection_image %>');">
+      <div class="p-5 py-lg-6 overlay overlay-op-7 rounded flex-ew mb-3 mb-lg-0 flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/collection/<%= coll.collection_name_translit %>" style="background-image: url('/images/collections/<%= coll.collection_image %>');">
         <hr class="w-50 mx-auto hr-primary">
         <h2 class="text-white text-uppercase mb-0">
           <%= coll.collection_name %>
