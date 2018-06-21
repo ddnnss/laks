@@ -112,15 +112,17 @@ class ClientController < ApplicationController
   end
 
   def activate
-    u=Client.find(params[:id])
-    if u.client_activated == false
-      u.update_column(:client_activated, true)
+    client=Client.find(params[:id])
+    if client.client_activated == false
+      client.update_column(:client_activated, true)
 
       flash[:activatesuccess] = 'Аккаунт активирован.'
 
       session[:active] = true
-      session[:client_email] = u.client_email
-      session[:client_id] = u.id
+      session[:client_email] = client.client_email
+      session[:client_id] = client.id
+      session[:client_data_bad] = true
+
 
       redirect_to root_path and return
     else
