@@ -114,19 +114,36 @@
       ЧТО ТУТ НАПИСАТЬ???????????
     </h5> -->
     <hr class="mb-5 w-50 mx-auto" />
-    <div class="row text-center ">
+    <div class="cbp " data-toggle="cbp" data-settings='{ "layoutMode":"grid", "sortToPreventGaps": false, "gapHorizontal": 10, "gapVertical": 10, "mediaQueries": [ { "width": "900", "cols": "3" }, { "width": "480", "cols": "2" }, { "width": 0, "cols": 1 } ]
+}'>
+
+
+
+
       <%  @cat_all.each do |cat|%>
+      <div class="cbp-item d-lg-flex mb-3 hover-shadow" data-animate="fadeIn" data-animate-delay="0.2">
+        <div class="flex-ew ">
+          <!-- singlePage content is loaded via ajax by adding a URL to the file containing the content in the href="FILE-WITH-CONTENT.htm -->
+          <a href="/category/<%=cat.cat_name_translit%>" class="cbp-caption " data-title="" rel="nofollow">
+            <div class=" cbp-caption-defaultWrap text-center px-3 py-7 overlay overlay-gradient overlay-op-6 flex-valign" data-bg-img="/images/maincategory/<%=cat.cat_image%>">
 
-
-        <div class="col-lg-4 d-flex ">
-          <div class="hover-shadow p-5 py-lg-6 overlay   overlay-op-5  rounded flex-ew mb-3 mb-lg-0 flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/category/<%=cat.cat_name_translit%>" style="background-image: url('/images/maincategory/<%=cat.cat_image%>');">
-            <hr class="w-50 mx-auto hr-primary">
-            <h2 class="text-white text-uppercase mb-0">
-              <%=cat.cat_name%>
-            </h2>
-            <hr class="w-50 mx-auto hr-primary">
-          </div>
+              <h2 class="text-white text-uppercase mb-0 ">
+                <%=cat.cat_name%>
+              </h2>
+              <hr class="hr-lg mt-2 mb-0 w-20 mx-auto hr-primary" />
+            </div>
+            <div class="cbp-caption-activeWrap ">
+              <div class="cbp-l-caption-alignCenter">
+                <div class="cbp-l-caption-body">
+                  <div class="cbp-l-caption-title"><h2 class="text-uppercase"><%=cat.cat_name%></h2>  </div>
+                  <hr class="hr-lg mt-2 mb-0 w-20 mx-auto hr-primary" />
+                  <div class="cbp-l-caption-desc"></div>
+                </div>
+              </div>
+            </div>
+          </a>
         </div>
+      </div>
       <%end%>
     </div>
 
@@ -139,19 +156,35 @@
   </h2>
 
   <hr class="mb-5 w-50 mx-auto">
-  <div class="row">
+  <div class="cbp " data-toggle="cbp" data-settings='{ "layoutMode":"grid", "sortToPreventGaps": false, "gapHorizontal": 15, "gapVertical": 15, "mediaQueries": [ { "width": "800", "cols": "3" }, { "width": "480", "cols": "2" }, { "width": 0, "cols": 1 } ]
+}'>
     <% @collections.each do |coll| %>
-    <div class="col-lg-4 d-flex">
-      <div class="p-5 py-lg-6 overlay overlay-op-7 rounded flex-ew mb-3 mb-lg-0 flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/collection/<%= coll.collection_name_translit %>" style="background-image: url('/images/collections/<%= coll.collection_image %>');">
-        <hr class="w-50 mx-auto hr-primary">
-        <h2 class="text-white text-uppercase mb-0">
-          <%= coll.collection_name %>
-        </h2>
-        <hr class="w-50 mx-auto hr-primary">
-      </div>
-    </div>
+        <div class="cbp-item d-lg-flex mb-3 hover-shadow" data-animate="fadeIn" data-animate-delay="0.2">
+          <div class="flex-ew ">
+            <!-- singlePage content is loaded via ajax by adding a URL to the file containing the content in the href="FILE-WITH-CONTENT.htm -->
+            <a href="/collection/<%= coll.collection_name_translit %>" class="cbp-caption" data-title="" rel="nofollow">
+              <div class=" cbp-caption-defaultWrap text-center px-3 py-7 overlay overlay-gradient overlay-op-6 flex-valign" data-bg-img="/images/collections/<%= coll.collection_image %>">
+
+                <h2 class="text-white text-uppercase mb-0 ">
+                  <%= coll.collection_name %>
+                </h2>
+                <hr class="hr-lg mt-2 mb-0 w-20 mx-auto hr-primary" />
+              </div>
+              <div class="cbp-caption-activeWrap ">
+                <div class="cbp-l-caption-alignCenter">
+                  <div class="cbp-l-caption-body">
+                    <div class="cbp-l-caption-title"><h2 class="text-uppercase"> <%= coll.collection_name %></h2>  </div>
+                    <hr class="hr-lg mt-2 mb-0 w-20 mx-auto hr-primary" />
+                    <div class="cbp-l-caption-desc"></div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
     <% end %>
   </div>
+
 </div>
   <!-- Featured Products -->
   <div id="features" class="container py-4 py-lg-6">
@@ -166,29 +199,34 @@
       <div class="card-deck">
         <!-- Product -->
         <%@action_items.each do |item|%>
-        <div class="card product-card overlay-hover hover-shadow">
+        <div class="card product-card hover-shadow">
           <!-- Hover content -->
+
           <%if item.item_new %>
             <div class="card-ribbon card-ribbon-top card-ribbon-left bg-warning text-white"> НОВИНКА </div>
           <%end%>
           <%if item.collection_id > 0 %>
             <div class="card-ribbon card-ribbon-bottom card-ribbon-right bg-success text-white"> В КОЛЛЕКЦИИ </div>
           <%end%>
-          <div class="overlay-hover-content overlay-op-7 product-card-hover-tools">
-            <a href="/product/<%=item.item_name_translit%>" class="btn btn-primary btn-block text-uppercase font-weight-bold mb-3 btn-lg"><i class="fa fa-cart-plus mr-2"></i> Открыть</a>
 
-          </div>
+
+
+
           <!-- Image & price content -->
           <div class="pos-relative">
+            <a href="/product/<%=item.item_name_translit%>">
             <img class="card-img-top img-fluid" src="/images/items/<%=item.id%>/<%=item.item_image1%>" alt="Купить <%=item.item_name%> в Москве по оптовым ценам">
+            </a>
             <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-r mt-2 mr-2 persist">
               - <%=item.item_discount%> %</span>
+
           </div>
+
           <!-- Content -->
           <div class="card-body">
-            <small class="text-muted text-uppercase"><span class="text-primary"><%= item.subcategory.category.cat_name%></span> / <%= item.subcategory.subcat_name%></small>
+            <small class="text-muted text-uppercase"><span class="text-primary"> <a href="/category/<%=item.subcategory.category.cat_name_translit%>"><%= item.subcategory.category.cat_name%></a></span> / <a class="text-muted" href="/subcategory/<%=item.subcategory.subcat_name_translit%>"><%= item.subcategory.subcat_name%></a> </small>
             <h4 class="card-title">
-            <%= item.item_name%>
+              <a href="/product/<%=item.item_name_translit%>" class="text-uppercase text-black" style="text-decoration: none;"><%= item.item_name%></a>
             </h4>
           </div>
           <div class="card-footer">

@@ -14,8 +14,83 @@
  * Includes the base variables & mixins needed for all
  * scss files
  *******************************************************/
-
-
+section {
+  font-family: 'Open Sans', sans-serif;
+  height: 350px;
+  position: relative;
+  background-clip: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  overflow: hidden;
+  width: 94%;
+  margin: 0 auto 30px;
+}
+section a {
+  text-transform: uppercase;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  font-size: 4.875em;
+}
+section.p6 {
+  background-image: url(//caraujo_pens.surge.sh/images/c5PTClN.jpg);
+  overflow: hidden;
+}
+section.p6 a {
+  width: 474px;
+  height: 58px;
+  line-height: 58px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -237px;
+  margin-top: -29px;
+  -webkit-transition: all 0.6s cubic-bezier(0, 0.28, 0, 1);
+  -moz-transition: all 0.6s cubic-bezier(0, 0.28, 0, 1);
+  -ms-transition: all 0.6s cubic-bezier(0, 0.28, 0, 1);
+  -o-transition: all 0.6s cubic-bezier(0, 0.28, 0, 1);
+  transition: all 0.6s cubic-bezier(0, 0.28, 0, 1);
+}
+section.p6 a:before,
+section.p6 a:after {
+  content: '';
+  background-color: #fff;
+  height: 4px;
+  position: absolute;
+  -webkit-transform: scale(1) rotate(0deg);
+  -moz-transform: scale(1) rotate(0deg);
+  -ms-transform: scale(1) rotate(0deg);
+  -o-transform: scale(1) rotate(0deg);
+  transform: scale(1) rotate(0deg);
+  -webkit-transition: all 0.7s cubic-bezier(0.2, 0.02, 0, 1.01) 0.1s;
+  -moz-transition: all 0.7s cubic-bezier(0.2, 0.02, 0, 1.01) 0.1s;
+  -ms-transition: all 0.7s cubic-bezier(0.2, 0.02, 0, 1.01) 0.1s;
+  -o-transition: all 0.7s cubic-bezier(0.2, 0.02, 0, 1.01) 0.1s;
+  transition: all 0.7s cubic-bezier(0.2, 0.02, 0, 1.01) 0.1s;
+  width: 474px;
+}
+section.p6 a:before {
+  right: 0;
+  top: -10px;
+}
+section.p6 a:after {
+  left: 0;
+  bottom: -13px;
+}
+section.p6:hover a {
+  -webkit-transform: scale(0.8) rotate(-40deg);
+  -moz-transform: scale(0.8) rotate(-40deg);
+  -ms-transform: scale(0.8) rotate(-40deg);
+  -o-transform: scale(0.8) rotate(-40deg);
+  transform: scale(0.8) rotate(-40deg);
+}
+section.p6:hover a:before,
+section.p6:hover a:after {
+  width: 1000px;
+}
 
 .hover-shadow {
   transition: 0.3s;

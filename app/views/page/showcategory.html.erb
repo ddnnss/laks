@@ -11,35 +11,36 @@
       <!-- Products grid -->
       <div class="col-lg-9 order-lg-2">
 
-
-
-        <div class="row">
+        <div class="cbp " data-toggle="cbp" data-settings='{ "layoutMode":"grid", "sortToPreventGaps": false, "gapHorizontal": 10, "gapVertical": 10, "mediaQueries": [ { "width": "900", "cols": "3" }, { "width": "480", "cols": "2" }, { "width": 0, "cols": 1 } ]
+}'>
           <%@cat.subcategories.each do |subcat|%>
-           <div class="col-lg-4">
-            <!-- Product 2 -->
-            <div class="card mb-4 product-card overlay-hover">
-              <!-- Hover content -->
-              <div class="overlay-hover-content overlay-op-7">
-                <a href="/subcategory/<%=subcat.subcat_name_translit%>" class="btn btn-primary btn-block text-uppercase font-weight-bold mb-3 btn-lg"><i class="fa fa-search mr-2"></i> Открыть</a>
+              <div class="cbp-item d-lg-flex mb-3 hover-shadow" data-animate="fadeIn" data-animate-delay="0.2">
+                <div class="flex-ew ">
+                  <!-- singlePage content is loaded via ajax by adding a URL to the file containing the content in the href="FILE-WITH-CONTENT.htm -->
+                  <a href="/subcategory/<%=subcat.subcat_name_translit%>" class="cbp-caption " data-title="" rel="nofollow">
+                    <div class=" cbp-caption-defaultWrap text-center px-3 py-7 overlay overlay-gradient overlay-op-6 flex-valign" data-bg-img="/images/subcategory/<%=subcat.subcat_image%>">
 
+                      <h2 class="text-white text-uppercase mb-0 ">
+                        <%=subcat.subcat_name%>
+                      </h2>
+                      <hr class="hr-lg mt-2 mb-0 w-20 mx-auto hr-primary" />
+                    </div>
+                    <div class="cbp-caption-activeWrap ">
+                      <div class="cbp-l-caption-alignCenter">
+                        <div class="cbp-l-caption-body">
+                          <div class="cbp-l-caption-title"><h2 class="text-uppercase">   <%=subcat.subcat_name%></h2>  </div>
+                          <hr class="hr-lg mt-2 mb-0 w-20 mx-auto hr-primary" />
+                          <div class="cbp-l-caption-desc"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
               </div>
-              <!-- Image & price content -->
-              <div class="pos-relative">
-                <img class="card-img-top img-fluid" src="/images/subcategory/<%=subcat.subcat_image%>" alt="Купить оптом<%=subcat.subcat_name%>">
-
-              </div>
-              <!-- Content -->
-              <div class="card-body">
-
-                <h4 class="card-title">
-                  <%=subcat.subcat_name.mb_chars.upcase%>
-                </h4>
-              </div>
-
-            </div>
-          </div>
           <% end %>
         </div>
+
+
 
 
 
