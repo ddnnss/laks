@@ -114,28 +114,31 @@
       ЧТО ТУТ НАПИСАТЬ???????????
     </h5> -->
     <hr class="mb-5 w-50 mx-auto" />
-    <div class="cbp " data-toggle="cbp" data-settings='{ "layoutMode":"grid", "sortToPreventGaps": false, "gapHorizontal": 10, "gapVertical": 10, "mediaQueries": [ { "width": "900", "cols": "3" }, { "width": "380", "cols": "1" }, { "width": 0, "cols": 1 } ]
+    <div class="cbp " data-toggle="cbp" data-settings='{ "layoutMode":"grid", "sortToPreventGaps": true, "gapHorizontal": 10, "gapVertical": 10, "mediaQueries": [ { "width": "900", "cols": "3" }, { "width": "380", "cols": "1" }, { "width": 0, "cols": 1 } ]
 }'>
 
 
 
 
       <%  @cat_all.each do |cat|%>
-      <div class="cbp-item d-lg-flex mb-3 hover-shadow" data-animate="fadeIn" data-animate-delay="0.2">
+      <div class="cbp-item d-lg-flex mb-3 " data-animate="fadeIn" data-animate-delay="0.2">
         <div class="flex-ew ">
           <!-- singlePage content is loaded via ajax by adding a URL to the file containing the content in the href="FILE-WITH-CONTENT.htm -->
           <a href="/category/<%=cat.cat_name_translit%>" class="cbp-caption " data-title="" rel="nofollow">
             <div class=" cbp-caption-defaultWrap text-center px-3 py-7 overlay overlay-gradient overlay-op-6 flex-valign" data-bg-img="/images/maincategory/<%=cat.cat_image%>">
 
-
+              <h2 class="text-white text-uppercase mb-0 ">
+                <%=cat.cat_name%>
+              </h2>
 
             </div>
             <div class="cbp-caption-activeWrap ">
               <div class="cbp-l-caption-alignCenter">
                 <div class="cbp-l-caption-body">
-                  <div class="cbp-l-caption-title"><h2 class="text-uppercase"><%=cat.cat_name%></h2>  </div>
+                  <div class="cbp-l-caption-title"><h2 class="text-uppercase"></h2>  </div>
+
+                  <div class="cbp-l-caption-desc">ОТКРЫТЬ</div>
                   <hr class="hr-lg mt-2 mb-0 w-20 mx-auto hr-primary" />
-                  <div class="cbp-l-caption-desc"></div>
                 </div>
               </div>
             </div>
