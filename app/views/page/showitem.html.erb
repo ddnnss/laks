@@ -69,7 +69,7 @@
         </div>
       </div>
       <div class="col-lg-6">
-        <div class="card product-card mb-4">
+        <div class="card product-card mb-4" style="border: none !important;">
           <!-- Ribbon -->
           <%if @item.item_new %>
               <div class="card-ribbon card-ribbon-top card-ribbon-right bg-warning text-white"> НОВИНКА </div>
@@ -186,7 +186,7 @@
       <div class="mt-4 owl-nav-over owl-nav-over-lg" data-toggle="owl-carousel" data-owl-carousel-settings='{"responsive":{"0":{"items":1}, "600":{"items":2}, "980":{"items":4}}, "margin":10, "nav":true, "dots":false}'>
 
             <%@vieweditems.each do |item|%>
-            <div class="card product-card hover-shadow">
+            <div class="card product-card hover-shadow" >
               <!-- Hover content -->
 
               <%if item.item_new %>

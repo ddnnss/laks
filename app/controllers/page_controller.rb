@@ -20,6 +20,14 @@ class PageController < ApplicationController
     end
 
   end
+  def search
+    @q = params[:q].mb_chars.upcase
+    @items = Item.paginate(:page => params[:page],:per_page => 12).where('item_name_caps LIKE ?','%'+params[:q].mb_chars.upcase+'%')
+    if @items.blank?
+      @items = Item.paginate(:page => params[:page],:per_page => 12).where('item_article LIKE ?','%'+params[:q]+'%')
+    end
+
+  end
   def showcollection
     logger.info('[INFO] : Получение товаров из коллекции....')
     @coll = Collection.find_by_collection_name_translit(params[:name])

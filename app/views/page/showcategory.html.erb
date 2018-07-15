@@ -8,70 +8,17 @@
 <div id="content" class="py-3 py-lg-6">
   <div class="container">
     <div class="row">
-      <!-- Products grid -->
-      <div class="col-lg-9 order-lg-2">
-
-        <div class="cbp " data-toggle="cbp" data-settings='{ "layoutMode":"grid", "sortToPreventGaps": false, "gapHorizontal": 10, "gapVertical": 10, "mediaQueries": [ { "width": "900", "cols": "3" }, { "width": "480", "cols": "2" }, { "width": 0, "cols": 1 } ]
-}'>
-          <%@cat.subcategories.each do |subcat|%>
-              <div class="cbp-item d-lg-flex mb-3 hover-shadow" data-animate="fadeIn" data-animate-delay="0.2">
-                <div class="flex-ew ">
-                  <!-- singlePage content is loaded via ajax by adding a URL to the file containing the content in the href="FILE-WITH-CONTENT.htm -->
-                  <a href="/subcategory/<%=subcat.subcat_name_translit%>" class="cbp-caption " data-title="" rel="nofollow">
-                    <div class=" cbp-caption-defaultWrap text-center px-3 py-7 overlay overlay-gradient overlay-op-6 flex-valign" data-bg-img="/images/subcategory/<%=subcat.subcat_image%>">
-
-                      <h2 class="text-white text-uppercase mb-0 ">
-                        <%=subcat.subcat_name%>
-                      </h2>
-                      <hr class="hr-lg mt-2 mb-0 w-20 mx-auto hr-primary" />
-                    </div>
-                    <div class="cbp-caption-activeWrap ">
-                      <div class="cbp-l-caption-alignCenter">
-                        <div class="cbp-l-caption-body">
-                          <div class="cbp-l-caption-title"><h2 class="text-uppercase">   <%=subcat.subcat_name%></h2>  </div>
-                          <hr class="hr-lg mt-2 mb-0 w-20 mx-auto hr-primary" />
-                          <div class="cbp-l-caption-desc"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-          <% end %>
-        </div>
-
-
-
-
-
-      </div>
-      <!-- Products sidebar -->
-      <div class="col-lg-3 order-lg-1">
-
-        <!-- Sections Menu-->
-        <ul class="nav nav-section-menu mb-4 py-3">
-          <li class="nav-header"><i class="fas fa-bars mr-2" style="font-size: 15px;"></i>АССОРТИМЕНТ ТОВАРОВ</li>
-          <%@cat_all.each do |cat|%>
-          <li>
-            <a style="font-size: 15px;
-                font-family:
-            'Open Sans', Arial, serif !important;" href="#<%=cat.cat_name_translit%>" data-toggle="collapse" class="nav-link text-uppercase text-slab active show">
-              <%=cat.cat_name.mb_chars.upcase%>
-
-              <i class="fa fa-angle-right"></i>
-            </a>
-            <ul class="nav nav-section-menu collapse " id="<%=cat.cat_name_translit%>">
-              <%cat.subcategories.each do |cs|%>
-              <li><a href="/subcategory/<%=cs.subcat_name_translit%>" class="nav-link"><%=cs.subcat_name.mb_chars.upcase%></a></li>
-              <% end %>
-            </ul>
-          </li>
-        <% end %>
-        </ul>
-
-
-
-      </div>
+      <%@cat.subcategories.each do |subcat|%>
+          <div class="col-lg-4 d-flex">
+            <div class="p-5 py-lg-6 overlay overlay-op-5  flex-ew mb-3 mb-lg-0 flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/subcategory/<%=subcat.subcat_name_translit%>" style="background-image: url('/images/subcategory/<%=subcat.subcat_image%>');">
+              <hr class="w-50 mx-auto hr-primary" style="border-top: 3px solid rgba(0, 0, 0, 0.1);">
+              <h2 class="text-white text-uppercase mb-0">
+                <%=subcat.subcat_name%>
+              </h2>
+              <hr class="w-50 mx-auto hr-primary" style="border-top: 3px solid rgba(0, 0, 0, 0.1);">
+            </div>
+          </div>
+      <%end%>
     </div>
   </div>
   <hr class="my-5">
@@ -80,10 +27,5 @@
 
   </div>
 </div>
-<script language="JavaScript">
-    $( document ).ready(function() {
-        $('#<%=@cat.cat_name_translit %>').addClass('show');
 
-    });
-</script>
 

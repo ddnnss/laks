@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   match '/addslide'  => 'admin#addslide', via: [:post, :get]
 
   match '/login'  => 'client#login', via: [:post]
+  match '/search'  => 'page#search', via: [:post , :get]
   match '/login'  => 'page#login_mobile', via: [:get]
   match '/registration'  => 'client#registration', via: [:post]
   match '/logout'  => 'client#logout', via: [:get]

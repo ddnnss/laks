@@ -58,11 +58,11 @@
       <table class="">
         <tbody>
         <tr>
-          <td style="text-align: right;"><i class="fas fa-boxes" style="font-size: 25px;"></i></td>
+          <td style="text-align: right;"><img src="/images/1.png" width="64px"></td>
           <td style="    padding-left: 20px;
               border-right: 1px solid #e5e5e5;
-              padding-right: 35px;"><strong>АССОРТИМЕНТ</strong><br/>
-            Наш ассортимент начинается с 1000000 товаров
+              padding-right: 35px;"><strong>ПРОВЕРЕНО ЛЮДЬМИ</strong><br/>
+            Нам доверяю более 11 тысяч клиентов!
 
           </td>
         </tr>
@@ -74,11 +74,11 @@
       <table class="">
         <tbody>
         <tr>
-          <td style="text-align: right;"><i class="fa fa-truck" style="font-size: 25px;"></i></td>
+          <td style="text-align: right;"><img src="/images/2.png" width="64px"></td>
           <td style="    padding-left: 20px;
               border-right: 1px solid #e5e5e5;
               padding-right: 35px;"><strong>ДОСТАВКА</strong><br/>
-            Мы осуществляем доставку во все регионы России
+            Доставляем товар в любые регионы и страны!
           </td>
         </tr>
         </tbody>
@@ -89,9 +89,9 @@
       <table class="">
         <tbody>
         <tr>
-          <td style="text-align: right;"><i class="fa fa-truck" style="font-size: 25px;"></i></td>
-          <td style="padding-left: 20px;"><strong>ТЕКСТ</strong><br/>
-            текст
+          <td style="text-align: right;"><img src="/images/3.png" width="64px"></td>
+          <td style="padding-left: 20px;"><strong>АССОРТИМЕНТ</strong><br/>
+            В нашем ассортименте тысячи уникальных позиций!
           </td>
         </tr>
         </tbody>
@@ -114,75 +114,43 @@
       ЧТО ТУТ НАПИСАТЬ???????????
     </h5> -->
     <hr class="mb-5 w-50 mx-auto" />
-    <div class="cbp " data-toggle="cbp" data-settings='{ "layoutMode":"grid", "sortToPreventGaps": true, "gapHorizontal": 10, "gapVertical": 10, "mediaQueries": [ { "width": "900", "cols": "3" }, { "width": "380", "cols": "1" }, { "width": 0, "cols": 1 } ]
-}'>
 
-
-
-
+    <div class="row">
       <%  @cat_all.each do |cat|%>
-      <div class="cbp-item d-lg-flex mb-3 " data-animate="fadeIn" data-animate-delay="0.2">
-        <div class="flex-ew ">
-          <!-- singlePage content is loaded via ajax by adding a URL to the file containing the content in the href="FILE-WITH-CONTENT.htm -->
-          <a href="/category/<%=cat.cat_name_translit%>" class="cbp-caption " data-title="" rel="nofollow">
-            <div class=" cbp-caption-defaultWrap text-center px-3 py-7 overlay overlay-gradient overlay-op-6 flex-valign" data-bg-img="/images/maincategory/<%=cat.cat_image%>">
-
-              <h2 class="text-white text-uppercase mb-0 ">
-                <%=cat.cat_name%>
-              </h2>
-
-            </div>
-            <div class="cbp-caption-activeWrap ">
-              <div class="cbp-l-caption-alignCenter">
-                <div class="cbp-l-caption-body">
-                  <div class="cbp-l-caption-title"><h2 class="text-uppercase"></h2>  </div>
-
-                  <div class="cbp-l-caption-desc">ОТКРЫТЬ</div>
-                  <hr class="hr-lg mt-2 mb-0 w-20 mx-auto hr-primary" />
-                </div>
-              </div>
-            </div>
-          </a>
+      <div class="col-lg-4 d-flex">
+        <div class="p-5 py-lg-6 overlay overlay-op-5  flex-ew mb-3 mb-lg-0 flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/category/<%=cat.cat_name_translit%>" style="background-image: url('/images/maincategory/<%=cat.cat_image%>');">
+          <hr class="w-50 mx-auto hr-primary" style="border-top: 3px solid rgba(0, 0, 0, 0.1);">
+          <h2 class="text-white text-uppercase mb-0">
+            <%=cat.cat_name%>
+          </h2>
+          <hr class="w-50 mx-auto hr-primary" style="border-top: 3px solid rgba(0, 0, 0, 0.1);">
         </div>
       </div>
       <%end%>
     </div>
-
-
   </div>
+
 <div class="container  text-center">
   <hr class="hr-lg mt-0 mb-3 w-10 mx-auto hr-primary">
   <h2 class="text-center text-uppercase font-weight-bold my-0">
    КОЛЛЕКЦИИ
   </h2>
 
+
   <hr class="mb-5 w-50 mx-auto">
-  <div class="cbp " data-toggle="cbp" data-settings='{ "layoutMode":"grid", "sortToPreventGaps": false, "gapHorizontal": 15, "gapVertical": 15, "mediaQueries": [ { "width": "800", "cols": "3" }, { "width": "480", "cols": "2" }, { "width": 0, "cols": 1 } ]
-}'>
+
+  <div class="row">
     <% @collections.each do |coll| %>
-        <div class="cbp-item d-lg-flex mb-3 hover-shadow" data-animate="fadeIn" data-animate-delay="0.2">
-          <div class="flex-ew ">
-            <!-- singlePage content is loaded via ajax by adding a URL to the file containing the content in the href="FILE-WITH-CONTENT.htm -->
-            <a href="/collection/<%= coll.collection_name_translit %>" class="cbp-caption" data-title="" rel="nofollow">
-              <div class=" cbp-caption-defaultWrap text-center px-3 py-7 overlay overlay-gradient overlay-op-6 flex-valign" data-bg-img="/images/collections/<%= coll.collection_image %>">
+        <div class="col-lg-4 d-flex" style="height: 300px;">
+          <div class="p-5 py-lg-6 overlay overlay-op-5  flex-ew mb-3 mb-lg-0 flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/collection/<%= coll.collection_name_translit %>" style="background-image: url('/images/collections/<%= coll.collection_image %>');">
 
-
-
-              </div>
-              <div class="cbp-caption-activeWrap ">
-                <div class="cbp-l-caption-alignCenter">
-                  <div class="cbp-l-caption-body">
-                    <div class="cbp-l-caption-title"><h2 class="text-uppercase"> <%= coll.collection_name %></h2>  </div>
-                    <hr class="hr-lg mt-2 mb-0 w-20 mx-auto hr-primary" />
-                    <div class="cbp-l-caption-desc"></div>
-                  </div>
-                </div>
-              </div>
-            </a>
           </div>
         </div>
-    <% end %>
+    <%end%>
   </div>
+
+
+
 
 </div>
   <!-- Featured Products -->
@@ -202,10 +170,12 @@
           <!-- Hover content -->
 
           <%if item.item_new %>
-            <div class="card-ribbon card-ribbon-top card-ribbon-left bg-warning text-white"> НОВИНКА </div>
+            <div class="card-ribbon card-ribbon-top card-ribbon-left bg-success text-white"> НОВИНКА </div>
           <%end%>
           <%if item.collection_id > 0 %>
-            <div class="card-ribbon card-ribbon-bottom card-ribbon-right bg-success text-white"> В КОЛЛЕКЦИИ </div>
+            <div class="card-ribbon card-ribbon-top card-ribbon-left bg-primary text-white" style="    left: -95px !important;
+                width: 300px;
+                top: 36px;"> В КОЛЛЕКЦИИ </div>
           <%end%>
 
 

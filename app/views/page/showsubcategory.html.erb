@@ -10,9 +10,9 @@
 </div>
 <div id="content" class="py-3 py-lg-6">
   <div class="container">
-    <div class="row">
+
       <!-- Products grid -->
-      <div class="col-lg-9 order-lg-2">
+
         <div class="row">
 
           <div class="col-lg-12">
@@ -48,9 +48,9 @@
 
         <div class="row">
           <%@items.each do |item|%>
-          <div class="col-lg-4">
+          <div class="col-lg-3">
             <!-- Product 2 -->
-            <div class="card mb-4 product-card hover-shadow hover-grow ">
+            <div class="card mb-4 product-card hover-shadow ">
               <!-- Hover content
               <div class="overlay-hover-content overlay-op-7">
                 <a href="shop-cart.html" class="btn btn-primary btn-block text-uppercase font-weight-bold mb-3 btn-lg"><i class="fa fa-cart-plus mr-2"></i> В корзину</a>
@@ -73,7 +73,9 @@
               </div>
               <!-- Content -->
               <div class="card-body text-center ">
-                <a href="/product/<%=item.item_name_translit%>"> <%=item.item_name%></a>
+                <div style="height: 60px; padding-bottom: 10px;">
+                <a style="text-decoration: none;" href="/product/<%=item.item_name_translit%>"> <%=item.item_name%></a>
+              </div>
                 <hr/>
                 <div id="spinner_<%=item.id%>" ></div>
                 <div id="cart_buttons_<%=item.id%>">
@@ -140,34 +142,9 @@
 
 
       <!-- Products sidebar -->
-      <div class="col-lg-3 order-lg-1">
-
-        <!-- Sections Menu-->
-        <ul class="nav nav-section-menu mb-4 py-3">
-          <li class="nav-header"><i class="fas fa-bars mr-2" style="font-size: 15px;"></i>АССОРТИМЕНТ ТОВАРОВ</li>
-          <%@cat_all.each do |cat|%>
-              <li>
-                <a style="font-size: 15px;
-                    font-family:
-                        'Open Sans', Arial, serif !important;" href="#<%=cat.cat_name_translit%>" data-toggle="collapse" class="nav-link text-uppercase text-slab active show">
-                  <%=cat.cat_name.mb_chars.upcase%>
-
-                  <i class="fa fa-angle-right"></i>
-                </a>
-                <ul class="nav nav-section-menu collapse " id="<%=cat.cat_name_translit%>">
-                  <%cat.subcategories.each do |cs|%>
-                      <li><a href="/subcategory/<%=cs.subcat_name_translit%>" id="<%=cs.subcat_name_translit%>" class="nav-link"><%=cs.subcat_name.mb_chars.upcase%></a></li>
-                  <% end %>
-                </ul>
-              </li>
-          <% end %>
-        </ul>
 
 
 
-      </div>
-    </div>
-  </div>
   <hr class="my-5">
   <div class="container">
     <%=@subcat.subcat_description.html_safe %>
@@ -196,6 +173,9 @@
     }
     if (getSearchParams('search')!== undefined){
         $('#searchtxt').val(decodeURIComponent(getSearchParams('search')));
+    }
+    if (getSearchParams('pp')!== undefined){
+        $('#pp_select').val(decodeURIComponent(getSearchParams('pp')));
     }
 
 </script>
