@@ -71,8 +71,14 @@
       <div class="col-lg-6">
         <div class="card product-card mb-4" style="border: none !important;">
           <!-- Ribbon -->
+
           <%if @item.item_new %>
-              <div class="card-ribbon card-ribbon-top card-ribbon-right bg-warning text-white"> НОВИНКА </div>
+              <div class="card-ribbon card-ribbon-top card-ribbon-right bg-success text-white"> НОВИНКА </div>
+          <%end%>
+          <%if @item.collection_id > 0 %>
+              <div class="card-ribbon card-ribbon-top card-ribbon-right bg-primary text-white" style="    left: 340px !important;
+                  width: 300px;
+                  top: 36px;"> В КОЛЛЕКЦИИ </div>
           <%end%>
 
           <!-- Content -->
@@ -168,7 +174,30 @@
 
 
           </div>
-        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6"></div>
+      <div class="col-lg-6">
+        <div style="background-color: #fff; padding: 20px;">
+          <table style="margin-left: 20px;">
+            <tbody>
+            <tr>
+              <td style="text-align: right;"><img src="/images/4.png"></td>
+              <td style="padding-left: 15px;"> <h4>Доставка заказов</h4>
+
+              </td>
+            </tr>
+            </tbody>
+          </table>
+            <hr>
+          <ul>
+            <li><div>Самовывоз из нашего <a target="_blank" href="https://npravdina.ru/o-tsentre/show-room/">шоу-рума</a></div></li>
+            <li><div>Доставка по Москве 300 руб, при покупке <span class="text-primary">от 10 000 руб - бесплатно</span></div></li>
+            <li><div>Доставка по России 300 руб, при покупке <span class="text-primary">от 10 000 руб - бесплатно</span></div></li>
+            <li><div>Доставка зарубеж - по индивидуальному просчету</div></li>
+          </ul>
+          <a href="/dostavka/" style="margin-left: 20px;">Подробнее про доставку</a>				</div>
       </div>
 
     </div>
@@ -180,7 +209,7 @@
     <div class="container py-4">
       <hr class="hr-lg mt-0 mb-3 w-10 mx-auto hr-primary">
       <h2 class="text-center text-uppercase font-weight-bold my-0">
-        Вы смотрели
+        Просмотренные товары
       </h2>
       <hr class="mb-3 w-50 mx-auto">
       <div class="mt-4 owl-nav-over owl-nav-over-lg" data-toggle="owl-carousel" data-owl-carousel-settings='{"responsive":{"0":{"items":1}, "600":{"items":2}, "980":{"items":4}}, "margin":10, "nav":true, "dots":false}'>
@@ -190,10 +219,12 @@
               <!-- Hover content -->
 
               <%if item.item_new %>
-                  <div class="card-ribbon card-ribbon-top card-ribbon-left bg-warning text-white"> НОВИНКА </div>
+                  <div class="card-ribbon card-ribbon-top card-ribbon-left bg-success text-white"> НОВИНКА </div>
               <%end%>
               <%if item.collection_id > 0 %>
-                  <div class="card-ribbon card-ribbon-bottom card-ribbon-right bg-success text-white"> В КОЛЛЕКЦИИ </div>
+                  <div class="card-ribbon card-ribbon-top card-ribbon-left bg-primary text-white" style="    left: -95px !important;
+                      width: 300px;
+                      top: 36px;"> В КОЛЛЕКЦИИ </div>
               <%end%>
 
 
