@@ -109,8 +109,15 @@
 
       <div class="col-lg-3">
         <!-- Product 2 -->
-        <div class="card mb-4 product-card hover-shadow hover-grow ">
-
+        <div class="card mb-4 product-card hover-shadow  ">
+          <%if item.item_new %>
+              <div class="card-ribbon card-ribbon-top card-ribbon-left bg-success text-white"> НОВИНКА </div>
+          <%end%>
+          <%if item.collection_id > 0 %>
+              <div class="card-ribbon card-ribbon-top card-ribbon-left bg-primary text-white" style="    left: -95px !important;
+                  width: 300px;
+                  top: 36px;"> В КОЛЛЕКЦИИ </div>
+          <%end%>
           <div class="pos-relative">
             <a href="/product/<%=item.item_name_translit%>">
               <img class="card-img-top img-fluid" src="/images/items/<%=item.id%>/<%=item.item_image1%>" alt="Купить <%=item.item_name%> в Москве по оптовым ценам">
@@ -127,6 +134,8 @@
           <!-- Content -->
           <div class="card-body text-center ">
             <a href="/product/<%=item.item_name_translit%>"> <%=item.item_name%></a>
+            <hr/>
+            <small class="text-muted text-uppercase"><span class="text-primary"> Артикул :<span class="text-muted"> <%= item.item_article%></span></span></small>
             <hr/>
             <div id="spinner_<%=item.id%>" ></div>
             <div id="cart_buttons_<%=item.id%>">
@@ -155,7 +164,7 @@
           </div>
 
           <div class="card-footer text-center">
-            Цена :
+            <small class="text-muted text-uppercase"><span class="text-primary"> Цена :</span></small>
             <%if item.item_discount > 0 %>
               <del class="op-5">&#8381; <%=item.item_price%></del>
               /
@@ -164,8 +173,9 @@
               <%=item.item_price%> &#8381;
             <%end%>
             <br/>
+            <small class="text-muted text-uppercase"><span class="text-primary">  Оптовая цена :</span></small>
 
-            Оптовая цена :  <%=item.item_opt_price%> &#8381; <a href="#" data-toggle="tooltip" title="" data-original-title="При заказе от :  <%=item.item_opt_price_count%> штук"><i class="fa fa-info-circle fa-lg text-info"></i></a>
+            <%=item.item_opt_price%> &#8381; <a href="#" data-toggle="tooltip" title="" data-original-title="При заказе от :  <%=item.item_opt_price_count%> штук"><i class="fa fa-info-circle fa-lg text-primary"></i></a>
           </div>
         </div>
       </div>

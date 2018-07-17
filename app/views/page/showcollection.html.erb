@@ -48,86 +48,101 @@
 
         <div class="row">
           <%@items.each do |item|%>
-            <div class="col-lg-3">
-              <!-- Product 2 -->
-              <div class="card mb-4 product-card hover-shadow ">
-                <!-- Hover content
-                <div class="overlay-hover-content overlay-op-7">
-                  <a href="shop-cart.html" class="btn btn-primary btn-block text-uppercase font-weight-bold mb-3 btn-lg"><i class="fa fa-cart-plus mr-2"></i> В корзину</a>
-                  <a href="shop-product.html" class="text-white text-sm">Подробнее о товаре</a> <a href="#" class="text-white text-sm">Добавить в закладки</a>
+              <div class="col-lg-3">
+                <!-- Product 2 -->
+                <div class="card mb-4 product-card hover-shadow ">
+                  <%if item.item_new %>
+                      <div class="card-ribbon card-ribbon-top card-ribbon-left bg-success text-white"> НОВИНКА </div>
+                  <%end%>
+                  <%if item.collection_id > 0 %>
+                      <div class="card-ribbon card-ribbon-top card-ribbon-left bg-primary text-white" style="    left: -95px !important;
+                          width: 300px;
+                          top: 36px;"> В КОЛЛЕКЦИИ </div>
+                  <%end%>
+                  <!-- Hover content
+                  <div class="overlay-hover-content overlay-op-7">
+                    <a href="shop-cart.html" class="btn btn-primary btn-block text-uppercase font-weight-bold mb-3 btn-lg"><i class="fa fa-cart-plus mr-2"></i> В корзину</a>
+                    <a href="shop-product.html" class="text-white text-sm">Подробнее о товаре</a> <a href="#" class="text-white text-sm">Добавить в закладки</a>
 
-                </div>-->
-                <!-- Image & price content -->
-                <div class="pos-relative">
-                  <a href="/product/<%=item.item_name_translit%>">
-                    <img class="card-img-top img-fluid" src="/images/items/<%=item.id%>/<%=item.item_image1%>" alt="Купить <%=item.item_name%> в Москве по оптовым ценам">
-                  </a>
-                  <%if item.item_discount > 0 %>
+                  </div>-->
+                  <!-- Image & price content -->
+                  <div class="pos-relative">
+                    <a href="/product/<%=item.item_name_translit%>">
+                      <img class="card-img-top img-fluid" src="/images/items/<%=item.id%>/<%=item.item_image1%>" alt="Купить <%=item.item_name%> в Москве по оптовым ценам">
+                    </a>
+                    <%if item.item_discount > 0 %>
                     <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-r mt-2 mr-2 persist">
                  - <%=item.item_discount%> %
                 </span>
-                  <%else %>
+                    <%else %>
 
-                  <%end%>
-
-                </div>
-                <!-- Content -->
-                <div class="card-body text-center ">
-                  <a href="/product/<%=item.item_name_translit%>"> <%=item.item_name%></a>
-                  <hr/>
-                  <div id="spinner_<%=item.id%>" ></div>
-                  <div id="cart_buttons_<%=item.id%>">
-                    <%if item.item_presents%>
-                      <%if session[:cart].nil?%>
-                        <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fa fa-cart-plus"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ</span></a>
-
-                      <%else%>
-                        <%if session[:cart].keys.include? item.id.to_s%>
-
-                          <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fas fa-cart-arrow-down"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ ЕЩЕ</span></a>
-
-                        <%else%>
-                          <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fa fa-cart-plus"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ</span></a>
-                        <%end%>
-                      <%end%>
-                    <%else%>
-                      <a href="javascript:void(0)" ><span class="fas fa-lock"></span><span style="font-size: 13px;"> НЕТ В НАЛИЧИИ</span></a>
                     <%end%>
 
+                  </div>
+                  <!-- Content -->
+                  <div class="card-body text-center ">
+                    <div style="height: 60px; padding-bottom: 10px;">
+                      <a style="text-decoration: none;" href="/product/<%=item.item_name_translit%>"> <%=item.item_name%></a>
+                    </div>
+                    <hr/>
+                    <small class="text-muted text-uppercase"><span class="text-primary"> Артикул :<span class="text-muted"> <%= item.item_article%></span></span></small>
+                    <hr/>
+                    <div id="spinner_<%=item.id%>" ></div>
+                    <div id="cart_buttons_<%=item.id%>">
+                      <%if item.item_presents%>
+                          <%if session[:cart].nil?%>
+                              <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fa fa-cart-plus"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ</span></a>
 
-                    |
+                          <%else%>
+                              <%if session[:cart].keys.include? item.id.to_s%>
 
-                    <% if @wishlist.nil? %>
-                      <a  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button" onclick="return theFunction(<%=item.id%>); " data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span></a>
+                                  <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fas fa-cart-arrow-down"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ ЕЩЕ</span></a>
 
-                    <%else%>
-                      <% if @wishlist.include?(item.id.to_s) %>
-                        <span class="fa fa-heart text-primary"></span>
-                      <% else %>
-                        <span id="wish<%=item.id%>button_off" style="display: none;" class="fa fa-heart text-primary"></span>
-                        <a  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button" onclick="return theFunction(<%=item.id%>); " data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span></a>
+                              <%else%>
+                                  <a href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fa fa-cart-plus"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ</span></a>
+                              <%end%>
+                          <%end%>
+                      <%else%>
+                          <a href="javascript:void(0)" ><span class="fas fa-lock"></span><span style="font-size: 13px;"> НЕТ В НАЛИЧИИ</span></a>
                       <%end%>
-                    <% end %>
+
+
+                      |
+
+                      <% if @wishlist.nil? %>
+                          <a  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button" onclick="return theFunction(<%=item.id%>); " data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span></a>
+
+                      <%else%>
+                          <% if @wishlist.include?(item.id.to_s) %>
+                              <span class="fa fa-heart text-primary"></span>
+                          <% else %>
+                              <span id="wish<%=item.id%>button_off" style="display: none;" class="fa fa-heart text-primary"></span>
+                              <a  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button" onclick="return theFunction(<%=item.id%>); " data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span></a>
+                          <%end%>
+                      <% end %>
+
+                    </div>
 
                   </div>
 
-                </div>
+                  <div class="card-footer text-center">
+                    <small class="text-muted text-uppercase"><span class="text-primary"> Цена :</span></small>
+                    <%if item.item_discount > 0 %>
+                        <del class="op-5">&#8381; <%=item.item_price%></del>
+                        /
+                        <strong> <%=item.item_price - (item.item_price * item.item_discount / 100)%> &#8381;</strong>
+                    <%else %>
+                        <strong> <%=item.item_price%> &#8381;</strong>
+                    <%end%>
+                    <br/>
 
-                <div class="card-footer text-center">
-                  Цена :
-                  <%if item.item_discount > 0 %>
-                    <del class="op-5">&#8381; <%=item.item_price%></del>
-                    /
-                    <%=item.item_price - (item.item_price * item.item_discount / 100)%> &#8381;
-                  <%else %>
-                    <%=item.item_price%> &#8381;
-                  <%end%>
-                  <br/>
+                    <small class="text-muted text-uppercase"><span class="text-primary">  Оптовая цена :</span></small>
+                    <strong><%=item.item_opt_price%> &#8381; </strong>
 
-                  Оптовая цена :  <%=item.item_opt_price%> &#8381; <a href="#" data-toggle="tooltip" title="" data-original-title="При заказе от :  <%=item.item_opt_price_count%> штук"><i class="fa fa-info-circle fa-lg text-info"></i></a>
+                    <a href="#" data-toggle="tooltip" title="" data-original-title="При заказе от :  <%=item.item_opt_price_count%> штук"><i class="fa fa-info-circle fa-lg text-primary"></i></a>
+                  </div>
                 </div>
               </div>
-            </div>
           <% end %>
         </div>
 
@@ -166,6 +181,9 @@
     }
     if (getSearchParams('search')!== undefined){
         $('#searchtxt').val(decodeURIComponent(getSearchParams('search')));
+    }
+    if (getSearchParams('pp')!== undefined){
+        $('#pp_select').val(decodeURIComponent(getSearchParams('pp')));
     }
 
 </script>
