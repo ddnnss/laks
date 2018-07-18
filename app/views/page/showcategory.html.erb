@@ -9,8 +9,8 @@
   <div class="container">
     <div class="row">
       <%@cat.subcategories.each do |subcat|%>
-          <div class="col-lg-4 d-flex">
-            <div class="p-5 py-lg-6 overlay overlay-op-5  flex-ew mb-3 mb-lg-0 flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/subcategory/<%=subcat.subcat_name_translit%>" style="background-image: url('/images/subcategory/<%=subcat.subcat_image%>');">
+          <div class="col-lg-4 d-flex" style="padding-bottom: 25px;">
+            <div class="p-5 py-lg-6 overlay overlay-op-5  flex-ew  flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/subcategory/<%=subcat.subcat_name_translit%>" style="background-image: url('/images/subcategory/<%=subcat.subcat_image%>');">
               <hr class="w-50 mx-auto hr-primary" style="border-top: 3px solid rgba(0, 0, 0, 0.1);">
               <h2 class="text-white text-center text-uppercase mb-0">
                 <%=subcat.subcat_name%>

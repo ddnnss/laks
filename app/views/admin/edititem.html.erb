@@ -186,7 +186,8 @@
 
 
           <div class="col-sm-12">
-            <p>Текущая картинка №1 для товара  :
+
+            <p><strong>Для удаления картинки 2-4 клик на миниатюре</strong><br>Текущая картинка №1 для товара  :
               <img src="/images/items/<%=@item.id%>/<%=@item.item_image1%>" width="100px"> |
               Заменить:
               <%=f.text_field  :item_image1,  type:'hidden'%>
@@ -200,7 +201,9 @@
               <% if @item.item_image2 == 'none'%>
               НЕТ |
                 <% else %>
-                <img src="/images/items/<%=@item.id%>/<%=@item.item_image2 %>" width="100px"> |
+                  <a href="/admin/delimg?item_id=<%=@item.id%>&img=2" data-remote="true">
+                    <span style="display: none;" id="img2_span">НЕТ |</span>
+                <img id="img2" src="/images/items/<%=@item.id%>/<%=@item.item_image2 %>" width="100px"></a> |
                 <% end %>
 
               Заменить:
@@ -212,7 +215,9 @@
               <% if @item.item_image3 == 'none'%>
                 НЕТ |
               <% else %>
-                <img src="/images/items/<%=@item.id%>/<%=@item.item_image3 %>" width="100px"> |
+                  <a href="/admin/delimg?item_id=<%=@item.id%>&img=3" data-remote="true">
+                    <span style="display: none;" id="img3_span">НЕТ |</span>
+                    <img id="img3" src="/images/items/<%=@item.id%>/<%=@item.item_image3 %>" width="100px"></a> |
               <% end %>
 
               Заменить:
@@ -223,7 +228,9 @@
               <% if @item.item_image4 == 'none'%>
                 НЕТ |
               <% else %>
-                <img src="/images/items/<%=@item.id%>/<%=@item.item_image4 %>" width="100px"> |
+                  <a href="/admin/delimg?item_id=<%=@item.id%>&img=4" data-remote="true">
+                    <span style="display: none;" id="img4_span">НЕТ |</span>
+                    <img id="img4" src="/images/items/<%=@item.id%>/<%=@item.item_image4 %>" width="100px"></a> |
               <% end %>
 
               Заменить:
@@ -241,7 +248,7 @@
           <input name="subcat_id" value="<%= @item.subcategory_id %>" type="hidden" />
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-            <%= submit_tag 'Создать товар' , class:'btn btn-primary'%>
+            <%= submit_tag 'Внести изменения' , class:'btn btn-primary'%>
           </div>
         <% end %>
 

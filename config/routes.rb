@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get '/admin/showsubcategory', to: 'admin#showsubcategory'
 
   match '/admin/edititem'  => 'admin#edititem', via: [:post, :get]
+  match '/admin/deleteitem'  => 'admin#deleteitem', via: [:post, :get]
+  match '/admin/delimg'  => 'admin#delimg', via: [:post, :get]
   match '/admin/deleteaktion'  => 'admin#deleteaktion',    via: [:get]
   match '/admin/deletecollection'  => 'admin#deletecollection',    via: [:get]
   match '/addaktion'  => 'admin#addaktion',    via: [:post]

@@ -287,6 +287,7 @@
             <td>Цена опт.</td>
             <td>Скидка %</td>
             <td></td>
+            <td></td>
           </tr>
           <%@items.each do |i|%>
               <tr>
@@ -296,6 +297,7 @@
                 <td><%=i.item_opt_price%></td>
                 <td><%=i.item_discount%></td>
                 <td><a href="/admin/edititem?item_id=<%=i.id%>"><i class="far fa-edit" ></i></a> </td>
+                <td><a href="/admin/deleteitem?item_id=<%=i.id%>"><i class="fas fa-trash-alt" ></i></a> </td>
               </tr>
           <% end %>
           </tbody>

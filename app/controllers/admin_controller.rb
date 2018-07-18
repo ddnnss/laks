@@ -19,6 +19,28 @@ class AdminController < ApplicationController
 def index
 
 end
+  def deleteitem
+    i = Item.find(params[:item_id])
+    i.destroy!
+    redirect_to '/admin/items'
+  end
+
+  def delimg
+    i = Item.find(params[:item_id])
+    case params[:img]
+      when '2'
+        i.update_column(:item_image2 ,'none')
+      when '3'
+        i.update_column(:item_image3 ,'none')
+      when '4'
+        i.update_column(:item_image4 ,'none')
+    end
+
+    respond_to do |format|
+      @img = params[:img]
+      format.js
+    end
+  end
   def edititem
     if params[:type].present? && params[:type] == 'save'
       i = Item.find(params[:item_id])
