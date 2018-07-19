@@ -26,7 +26,8 @@ else{
     {
         $select.append('<option value=' + key + '>' + value + '</option>');
     });
-
+    $('#subcat_order').val('<%= j @subcat_order %>');
+    $('#subcat_filter').val('<%= j @subcat_filter %>');
     $('#subcat_name').val('<%= j @subcat_name %>');
     $('#subcat_page_title').val('<%= j @subcat_page_title %>');
     $('#subcat_page_description').val('<%= j @subcat_page_description %>');

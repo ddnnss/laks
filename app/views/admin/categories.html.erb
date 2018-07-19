@@ -21,15 +21,18 @@
               <tr class="table-dark">
                 <td width="70%"><%= cat.cat_name%></td>
                 <td></td>
+
                 <td><a href="#" id="<%= cat.id%>" class="maincat"  data-toggle="modal" data-target=".new-subcategory"><i class="far fa-plus-square" ></i></a></td>
                 <td> <%= link_to '<i class="far fa-edit" ></i>'.html_safe, {:controller => 'admin', :action => 'editcategory', :cat_id => cat.id, :main => '1' },method: :post, :remote => true  %></td>
                 <td><a href="/admin/deletecategory?id=<%= cat.id%>&type=main"><i class="fas fa-trash-alt" ></i></a></td>
 
               </tr>
-              <% cat.subcategories.each do |sc|%>
+              <% cat.subcategories.order('subcat_order ASC').each do |sc|%>
                   <tr>
 
-                    <td width="70"%><a href="/admin/showsubcategory?subcat_id=<%= sc.id%>"><%= sc.subcat_name%></a> </td>
+
+                    <td width="70"%> <%= sc.subcat_order%> - <a href="/admin/showsubcategory?subcat_id=<%= sc.id%>"><%= sc.subcat_name%></a> </td>
+
                     <td>Товаров : <span class="badge badge-primary"><%= sc.items.count%></span>  </td>
 
                     <td><%= link_to '<i class="fas fa-cart-plus" ></i>'.html_safe, {:controller => 'admin', :action => 'addnewitem', :id => sc.id, :type => 'getcoll' },method: :post, :remote => true  %></td>
@@ -74,6 +77,7 @@
                       <p>Тег DESCRIPTION для данной категории :
                         <%=f.text_field  :maincat_page_description, :required => true , class:'form-control'%></p>
                     </div>
+
                     <div class="col-sm-12">
                       <p>Описание данной категории товара:
                         <textarea class="summernote-1"  id="summernote-newcat" name="maincat_description" rows="18" required></textarea></p>
@@ -106,6 +110,10 @@
               </div>
               <div class="modal-body">
                 <%= form_for  :addnewsubcategory, url: addnewsubcategory_path   do |f|%>
+                    <div class="col-sm-2">
+                      <p>Порядок :
+                        <%=f.text_field  :subcat_order,  class:'form-control'%></p>
+                    </div>
                     <div class="col-sm-12">
                       <p>Название подкатегории :
                         <%=f.text_field  :subcat_name, :required => true , class:'form-control'%></p>
@@ -117,6 +125,10 @@
                     <div class="col-sm-12">
                       <p>Тег DESCRIPTION для данной подкатегории :
                         <%=f.text_field  :subcat_page_description, :required => true , class:'form-control'%></p>
+                    </div>
+                    <div class="col-sm-12">
+                      <p>Фильтры для данной категории (через зарятую):
+                        <%=f.text_field  :subcat_filter,  class:'form-control'%></p>
                     </div>
                     <div class="col-sm-12">
                       <p>Описание данной подкатегории товара:
@@ -220,7 +232,10 @@
                       <option>1</option>
                     </select>
                   </div>
-
+                  <div class="col-sm-2">
+                    <p>Порядок :
+                      <%=f.text_field  :subcat_order,  class:'form-control', id:'subcat_order'%></p>
+                  </div>
                   <div class="col-sm-12">
                     <p>Новое название подкатегории :
                       <%=f.text_field  :subcat_name, :required => true , class:'form-control', id:'subcat_name'%></p>
@@ -232,6 +247,10 @@
                   <div class="col-sm-12">
                     <p>Тег DESCRIPTION для данной категории :
                       <%=f.text_field  :subcat_page_description, :required => true , class:'form-control', id:'subcat_page_description'%></p>
+                  </div>
+                  <div class="col-sm-12">
+                    <p>Фильтры для данной категории (через зарятую):
+                      <%=f.text_field  :subcat_filter,  class:'form-control', id:'subcat_filter'%></p>
                   </div>
                   <div class="col-sm-12">
                     <p>Описание данной подкатегории товара:
@@ -320,8 +339,7 @@
                             <input style="width: 90px;" required="required" class="form-control" type="number" value="" id="item_opt_price_count" name="item_opt_price_count" >
 
                           </div>
-                        </div></td>
-                      <td>
+                        </div>
                         <div class="form-group row">
                           <label class="col-sm-4">Товар новинка ?</label>
                           <div class="col-sm-1">
@@ -346,7 +364,16 @@
                             </div>
                           </div>
                         </div>
+                        <div class="form-group row">
+                          <label class="col-sm-4">Количество</label>
+                          <div class="col-sm-6">
+                            <div class="form-group ">
+                              <%=f.text_field  :item_kolvo, class:'form-control', id:'item_kolvo'%>
+                            </div>
+                          </div>
+                        </div>
                       </td>
+
                       <td>
                         <div class="form-group row">
                           <label class="col-sm-4">Вес</label>
@@ -357,10 +384,26 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-4">Размер (ДхВхШ см)</label>
+                          <label class="col-sm-4">Длина</label>
                           <div class="col-sm-6">
                             <div class="form-group ">
-                              <%=f.text_field  :item_size, class:'form-control', id:'item_size'%>
+                              <%=f.text_field  :item_size_d, class:'form-control', id:'item_size_d'%>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-4">Ширина</label>
+                          <div class="col-sm-6">
+                            <div class="form-group ">
+                              <%=f.text_field  :item_size_sh, class:'form-control', id:'item_size_sh'%>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-4">Высота</label>
+                          <div class="col-sm-6">
+                            <div class="form-group ">
+                              <%=f.text_field  :item_size_v, class:'form-control', id:'item_size_v'%>
                             </div>
                           </div>
                         </div>
@@ -377,6 +420,14 @@
                           <div class="col-sm-7">
                             <div class="form-group ">
                               <%=f.text_field  :item_color, class:'form-control', id:'item_color'%>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-3">Материал</label>
+                          <div class="col-sm-7">
+                            <div class="form-group ">
+                              <%=f.text_field  :item_material, class:'form-control', id:'item_color'%>
                             </div>
                           </div>
                         </div>
@@ -426,10 +477,14 @@
                     <p>Тег DESCRIPTION для товара :
                       <%=f.text_field  :item_page_description, :required => true , class:'form-control', id:'item_page_description'%></p>
                   </div>
+                  <div class="col-sm-12">
+                    <p>Фильтры для товара :
+                      <%=f.text_field  :item_filter , class:'form-control', id:'item_page_description'%></p>
+                  </div>
 
                   <div class="col-sm-12">
                     <p>Описание товара:
-                      <textarea class="summernote-5"  id="summernote-addnewitrm" name="item_description" rows="18" required></textarea></p>
+                      <textarea class="summernote-5"  id="summernote-addnewitrm" name="item_description" rows="18" ></textarea></p>
                   </div>
 
 

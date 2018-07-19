@@ -343,9 +343,26 @@ end
     if params[:addnewitem][:item_weight] != ''
       newitem.item_weight = params[:addnewitem][:item_weight]
     end
-    if params[:addnewitem][:item_size] != ''
-      newitem.item_size = params[:addnewitem][:item_size]
+
+    if params[:addnewitem][:item_size_d] != ''
+      newitem.item_size_d = params[:addnewitem][:item_size_d]
     end
+    if params[:addnewitem][:item_size] != ''
+      newitem.item_size_sh = params[:addnewitem][:item_size_sh]
+    end
+    if params[:addnewitem][:item_size_v] != ''
+      newitem.item_size_v = params[:addnewitem][:item_size_v]
+    end
+    if params[:addnewitem][:item_filter] != ''
+      newitem.item_filter = params[:addnewitem][:item_filter].mb_chars.upcase
+    end
+    if params[:addnewitem][:item_kolvo] != ''
+      newitem.item_kolvo = params[:addnewitem][:item_kolvo]
+    end
+    if params[:addnewitem][:item_material] != ''
+      newitem.item_material = params[:addnewitem][:item_material]
+    end
+
     if params[:addnewitem][:item_article] != ''
       newitem.item_article = params[:addnewitem][:item_article]
     end
@@ -471,6 +488,10 @@ end
   def addnewsubcategory
     if params[:action_type] == 'new'
     newcat = Subcategory.new
+    unless params[:addnewsubcategory][:subcat_order].blank?
+      newcat.subcat_order = params[:addnewsubcategory][:subcat_order].to_i
+    end
+    newcat.subcat_filter = params[:addnewsubcategory][:subcat_filter].mb_chars.upcase
     newcat.category_id = params[:cat_id]
     newcat.subcat_name = params[:addnewsubcategory][:subcat_name]
     newcat.subcat_name_translit = Translit.convert(params[:addnewsubcategory][:subcat_name].gsub(' ','-'), :english)
@@ -495,6 +516,8 @@ end
       if params[:cat_remove] == 'on'
         newcat.update_column(:category_id,params[:maincat_select])
       end
+      newcat.update_column(:subcat_order , params[:addnewsubcategory][:subcat_order])
+      newcat.update_column(:subcat_filter , params[:addnewsubcategory][:subcat_filter].mb_chars.upcase)
       newcat.update_column(:subcat_name , params[:addnewsubcategory][:subcat_name])
       newcat.update_column(:subcat_name_translit , Translit.convert(params[:addnewsubcategory][:subcat_name].gsub(' ','-'), :english))
       newcat.update_column(:subcat_page_title , params[:addnewsubcategory][:subcat_page_title])
@@ -551,6 +574,8 @@ end
       end
 
       respond_to do |format|
+        @subcat_order = cat.subcat_order.to_s
+        @subcat_filter = cat.subcat_filter
         @subcat_name = cat.subcat_name
         @subcat_image = cat.subcat_image
         @subcat_page_title = cat.subcat_page_title

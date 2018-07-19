@@ -102,21 +102,44 @@
             </h5>
             <h5 class="font-weight-bold text-primary">
 
-              Оптовая цена :  <%=@item.item_opt_price%> &#8381; <a href="#" data-toggle="tooltip" title="" data-original-title="При заказе от :  <%=@item.item_opt_price_count%> штук"><i class="fa fa-info-circle fa-lg text-info"></i></a>
+              Оптовая цена :  <%=@item.item_opt_price%> &#8381; <a href="#" data-toggle="tooltip" title="" data-original-title="При заказе от :  <%=@item.item_opt_price_count%> штук"><i class="fa fa-info-circle fa-lg "></i></a>
 
             </h5>
 
 
 
             <hr class="my-3">
+            <%if @item.item_description!=''%>
             <%= @item.item_description.html_safe %>
             <hr class="my-3 ">
+                <%end%>
             <!-- Cart options/links fa fa-heart -->
             <div class="product-options row mb-4">
-              <div class="col-md-12 text-sm text-uppercase">Артикул : <%=@item.item_article%></div>
+              <div class="col-md-12 text-sm text-uppercase"><strong>Артикул :</strong> <%=@item.item_article%></div>
+              <div class="col-md-12 text-sm text-uppercase"><strong>Вес : </strong><%=@item.item_weight%></div>
+              <div class="col-md-12 text-sm text-uppercase"><strong>Цвет : </strong><%=@item.item_color%></div>
+              <div class="col-md-12 text-sm text-uppercase"><strong>Материал : </strong><%=@item.item_material%></div>
 
-              <div class="col-md-12 text-sm text-uppercase">Размеры (Д х В х Ш) : <%=@item.item_size%></div>
-              <div class="col-md-12 text-sm text-uppercase">Вес : <%=@item.item_weight%></div>
+              <div class="col-md-12 text-sm text-uppercase">
+                <table>
+                  <tr>
+                    <td style="width: 70px;text-align: center;"><strong>Длина</strong></td>
+                    <td style="width: 85px;text-align: center;"><strong>Ширина</strong></td>
+                    <td style="width: 70px;text-align: center;"><strong>Высота</strong></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center;"><%=@item.item_size_d%></td>
+                    <td style="text-align: center;"><%=@item.item_size_sh%></td>
+                    <td style="text-align: center;"><%=@item.item_size_v%></td>
+                  </tr>
+                </table>
+              </div>
+
+
+              <div class="col-md-12 text-sm text-uppercase">
+
+              </div>
+
             </div>
             <hr class="my-3">
             <div  class="product-options row mt-3">

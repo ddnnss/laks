@@ -109,11 +109,15 @@ ActiveRecord::Schema.define(version: 20180614180809) do
     t.string "item_image2", default: "none"
     t.string "item_image3", default: "none"
     t.string "item_image4", default: "none"
-    t.string "item_size", default: "не указано"
+    t.string "item_size_d", default: "0"
+    t.string "item_size_sh", default: "0"
+    t.string "item_size_v", default: "0"
     t.string "item_article", default: "не указано"
     t.string "item_weight", default: "не указано"
     t.string "item_color", default: "не указано"
+    t.string "item_material", default: "не указано"
     t.string "item_postavshik", default: ""
+    t.string "item_filter", default: ""
     t.text "item_description", default: ""
     t.text "item_comment", default: ""
     t.string "item_page_title", default: ""
@@ -123,6 +127,7 @@ ActiveRecord::Schema.define(version: 20180614180809) do
     t.integer "item_opt_price_count"
     t.integer "item_discount", default: 0
     t.integer "item_views_count", default: 0
+    t.integer "item_kolvo", default: 0
     t.boolean "item_in_sale", default: false
     t.boolean "item_in_collection", default: false
     t.boolean "item_new", default: false
@@ -181,10 +186,12 @@ ActiveRecord::Schema.define(version: 20180614180809) do
     t.string "subcat_name_translit", default: ""
     t.string "subcat_image", default: ""
     t.string "subcat_comment", default: ""
-    t.integer "subcat_views", default: 0
     t.string "subcat_page_title", default: ""
     t.string "subcat_page_description", default: ""
+    t.string "subcat_filter", default: ""
     t.text "subcat_description", default: ""
+    t.integer "subcat_order", default: 1
+    t.integer "subcat_views", default: 0
     t.string "subcat_temp1"
     t.index ["category_id"], name: "index_subcategories_on_category_id"
     t.index ["subcat_name"], name: "index_subcategories_on_subcat_name"

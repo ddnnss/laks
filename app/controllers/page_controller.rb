@@ -91,6 +91,8 @@ class PageController < ApplicationController
   def showsubcategory
     logger.info('[INFO] : Получение подкатегорий товаров....')
     @subcat = Subcategory.find_by_subcat_name_translit(params[:name])
+    @filters = @subcat.subcat_filter.split(',')
+
     if params[:sort_type].present?
       case params[:sort_type]
         when '1'
@@ -119,7 +121,10 @@ class PageController < ApplicationController
 
     end
 
+    if params[:filter].present?
+      @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).where('item_filter LIKE ?','%'+params[:filter]+'%')
 
+    end
 
 
 

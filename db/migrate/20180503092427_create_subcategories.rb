@@ -6,11 +6,12 @@ class CreateSubcategories < ActiveRecord::Migration[5.1]
       t.string  :subcat_name_translit, :default => '', index: true
       t.string  :subcat_image, :default => ''
       t.string  :subcat_comment, :default => ''
-      t.integer :subcat_views, :default => 0
-
       t.string  :subcat_page_title, :default => ''
       t.string  :subcat_page_description, :default => ''
+      t.string  :subcat_filter, :default => ''
       t.text    :subcat_description, :default => ''
+      t.integer :subcat_order, :default => 1
+      t.integer :subcat_views, :default => 0
 
       t.string  :subcat_temp1
 

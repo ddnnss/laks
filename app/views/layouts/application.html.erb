@@ -46,6 +46,8 @@
   <%=render partial: 'pageparts/header' ,  locals: {mc: @menu_cat, md: @cat_all, cart: @cart}%>
     <%= yield %>
   <%=render 'pageparts/footer'%>
+ <%= javascript_include_tag 'custom-script.js' %>
+ <%= javascript_include_tag 'script.js' %>
   </body>
 
 </html>

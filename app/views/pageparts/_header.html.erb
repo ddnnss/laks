@@ -170,6 +170,7 @@
               <div class="dropdown-menu">
                 <% md.each do |menudrop|%>
 
+
                         <a href="/category/<%=menudrop.cat_name_translit%>" class="dropdown-item"><%=menudrop.cat_name%></a>
 
                 <%end%>
@@ -177,7 +178,9 @@
 
             </li>
             <% mc.each do |menucat|%>
-            <li  class="nav-item"> <a  style="color: #3A4A59;" href="/category/<%=menucat.cat_name_translit%>" class="nav-link"><%=menucat.cat_name%></a> </li>
+                <li  class="nav-item"><a  style="color: #3A4A59;" href="/category/<%=menucat.cat_name_translit%>" class="nav-link"><%=menucat.cat_name%></a> </li>
+                <li class="nav-item "><a  style="color: #CC164D;" href="/new" class="nav-link">НОВИНКИ</a></li>
+                <li class="nav-item "><a  style="color: #CC164D;" href="/discount" class="nav-link">СКИДКИ</a></li>
             <%end%>
 
 
