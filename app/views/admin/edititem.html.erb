@@ -68,8 +68,8 @@
 
                   </div>
                 </div>
-              </td>
-              <td>
+
+
                 <div class="form-group row">
                   <label class="col-sm-6">Товар новинка ?</label>
                   <div class="col-sm-2">
@@ -94,6 +94,14 @@
                     </div>
                   </div>
                 </div>
+                <div class="form-group row">
+                  <label class="col-sm-4">Количество</label>
+                  <div class="col-sm-6">
+                    <div class="form-group ">
+                      <%=text_field_tag  :item_kolvo, @item.item_kolvo, class:'form-control', id:'item_kolvo'%>
+                    </div>
+                  </div>
+                </div>
               </td>
               <td>
                 <div class="form-group row">
@@ -105,10 +113,26 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-3">Размер (ДхВхШ см)</label>
-                  <div class="col-sm-7">
+                  <label class="col-sm-4">Длина</label>
+                  <div class="col-sm-6">
                     <div class="form-group ">
-                      <%=text_field_tag  :item_size,@item.item_size, class:'form-control', id:'item_size'%>
+                      <%=text_field_tag  :item_size_d,@item.item_size_d, class:'form-control', id:'item_size_d'%>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4">Ширина</label>
+                  <div class="col-sm-6">
+                    <div class="form-group ">
+                      <%=text_field_tag  :item_size_sh,@item.item_size_sh, class:'form-control', id:'item_size_sh'%>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4">Высота</label>
+                  <div class="col-sm-6">
+                    <div class="form-group ">
+                      <%=text_field_tag  :item_size_v,@item.item_size_v, class:'form-control', id:'item_size_v'%>
                     </div>
                   </div>
                 </div>
@@ -128,7 +152,14 @@
                     </div>
                   </div>
                 </div>
-
+                <div class="form-group row">
+                  <label class="col-sm-3">Материал</label>
+                  <div class="col-sm-7">
+                    <div class="form-group ">
+                      <%=text_field_tag  :item_material,@item.item_material, class:'form-control', id:'item_color'%>
+                    </div>
+                  </div>
+                </div>
               </td>
             </tr>
             </tbody>
@@ -177,10 +208,13 @@
             <p>Тег DESCRIPTION для товара :
               <%=text_field_tag  :item_page_description,@item.item_page_description, :required => true , class:'form-control', id:'item_page_description'%></p>
           </div>
-
+            <div class="col-sm-12">
+              <p>Фильтры для товара :
+                <%=text_field_tag  :item_filter ,@item.item_filter, class:'form-control', id:'item_page_description'%></p>
+            </div>
           <div class="col-sm-12">
             <p>Описание товара:
-              <textarea class="summernote-5"  id="summernote-addnewitrm" name="item_description" rows="18" required></textarea></p>
+              <textarea class="summernote-5"  id="summernote-addnewitrm" name="item_description" rows="18" ></textarea></p>
           </div>
 
 

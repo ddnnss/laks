@@ -68,15 +68,48 @@ end
 
       if params[:item_weight] != ''
         i.update_column(:item_weight, params[:item_weight])
+      else
+        i.update_column(:item_weight, '')
+      end
+      if params[:item_size_d] != ''
+        i.update_column(:item_size_d , params[:item_size_d])
+      else
+        i.update_column(:item_size_d , '')
       end
       if params[:item_size] != ''
-        i.update_column(:item_size, params[:item_size])
+        i.update_column(:item_size_sh , params[:item_size_sh])
+      else
+        i.update_column(:item_size_sh , '')
+      end
+      if params[:item_size_v] != ''
+        i.update_column(:item_size_v , params[:item_size_v])
+      else
+        i.update_column(:item_size_v , '')
+      end
+      if params[:item_filter] != ''
+        i.update_column(:item_filter , params[:item_filter].mb_chars.upcase)
+      else
+        i.update_column(:item_filter , '')
+      end
+      if params[:item_kolvo] != ''
+        i.update_column(:item_kolvo , params[:item_kolvo])
+      else
+        i.update_column(:item_kolvo , '')
+      end
+      if params[:item_material] != ''
+        i.update_column(:item_material , params[:item_material])
+      else
+        i.update_column(:item_material , '')
       end
       if params[:item_article] != ''
         i.update_column(:item_article, params[:item_article])
+      else
+        i.update_column(:item_article, '')
       end
       if params[:item_color] != ''
         i.update_column(:item_color, params[:item_color])
+      else
+        i.update_column(:item_color, '')
       end
 
 
@@ -162,13 +195,11 @@ end
     end
 
     if params[:search]!='' && params[:search].present?
-
           @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).where('item_name_caps LIKE ?','%'+params[:search].mb_chars.upcase+'%')
-
-    else
-
     end
-
+    if params[:article]!='' && params[:article].present?
+      @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).where('item_article LIKE ?','%'+params[:article]+'%')
+    end
     @collections = Collection.all
     @aktion = Aktion.all
   end

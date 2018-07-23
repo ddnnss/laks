@@ -43,11 +43,10 @@
 
 
 
-            <table class="table">
-              <tbody>
-              <tr >
-                <td >
-                  <div class="form-group row">
+              <table class="table">
+                <tbody>
+                <tr >
+                  <td >  <div class="form-group row">
                     <label class="col-sm-4">Розничная цена :</label>
                     <div class="col-sm-1">
 
@@ -55,87 +54,117 @@
 
                     </div>
                   </div>
-                  <div class="form-group row">
-                    <label class="col-sm-4">Оптовая  цена :</label>
-                    <div class="col-sm-1">
+                    <div class="form-group row">
+                      <label class="col-sm-4">Оптовая  цена :</label>
+                      <div class="col-sm-1">
 
-                      <input style="width: 90px;" required="required" class="form-control" type="number" value="" id="item_opt_price" name="item_opt_price" >
+                        <input style="width: 90px;" required="required" class="form-control" type="number" value="" id="item_opt_price" name="item_opt_price" >
 
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-4">Кол-во товара для опт. цены</label>
-                    <div class="col-sm-1">
+                    <div class="form-group row">
+                      <label class="col-sm-4">Кол-во товара для опт. цены</label>
+                      <div class="col-sm-1">
 
-                      <input style="width: 90px;" required="required" class="form-control" type="number" value="" id="item_opt_price_count" name="item_opt_price_count" >
+                        <input style="width: 90px;" required="required" class="form-control" type="number" value="" id="item_opt_price_count" name="item_opt_price_count" >
 
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="form-group row">
-                    <label class="col-sm-6">Товар новинка ?</label>
-                    <div class="col-sm-2">
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="item_new" id="item_new" value="1"  >
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-6">Есть скидка ?</label>
-                    <div class="col-sm-2">
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="item_discount" id="item_discount" value="1" >
+                    <div class="form-group row">
+                      <label class="col-sm-4">Товар новинка ?</label>
+                      <div class="col-sm-1">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" name="item_new" id="item_new" value="1"  >
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-6">% скидки</label>
-                    <div class="col-sm-2">
-                      <div class="form-check">
-                        <input style="width: 60px;" class="form-control" type="number" value="0" id="item_discount_val" name="item_discount_val" disabled>
+                    <div class="form-group row">
+                      <label class="col-sm-4">Есть скидка ?</label>
+                      <div class="col-sm-1">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" name="item_discount" id="item_discount" value="1" >
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="form-group row">
-                    <label class="col-sm-3">Вес</label>
-                    <div class="col-sm-7">
-                      <div class="form-group ">
-                        <%=f.text_field  :item_weight, class:'form-control', id:'item_weight'%>
+                    <div class="form-group row">
+                      <label class="col-sm-4">% скидки</label>
+                      <div class="col-sm-1">
+                        <div class="form-check">
+                          <input style="width: 60px;" class="form-control" type="number" value="" id="item_discount_val" name="item_discount_val" disabled>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-3">Размер (ДхВхШ см)</label>
-                    <div class="col-sm-7">
-                      <div class="form-group ">
-                        <%=f.text_field  :item_size, class:'form-control', id:'item_size'%>
+                    <div class="form-group row">
+                      <label class="col-sm-4">Количество</label>
+                      <div class="col-sm-6">
+                        <div class="form-group ">
+                          <%=f.text_field  :item_kolvo, class:'form-control', id:'item_kolvo'%>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-3">Артикул</label>
-                    <div class="col-sm-7">
-                      <div class="form-group ">
-                        <%=f.text_field  :item_article, class:'form-control', id:'item_article'%>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-3">Цвет</label>
-                    <div class="col-sm-7">
-                      <div class="form-group ">
-                        <%=f.text_field  :item_color, class:'form-control', id:'item_color'%>
-                      </div>
-                    </div>
-                  </div>
+                  </td>
 
-                </td>
-              </tr>
-              </tbody>
-            </table>
+                  <td>
+                    <div class="form-group row">
+                      <label class="col-sm-4">Вес</label>
+                      <div class="col-sm-6">
+                        <div class="form-group ">
+                          <%=f.text_field  :item_weight, class:'form-control', id:'item_weight'%>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4">Длина</label>
+                      <div class="col-sm-6">
+                        <div class="form-group ">
+                          <%=f.text_field  :item_size_d, class:'form-control', id:'item_size_d'%>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4">Ширина</label>
+                      <div class="col-sm-6">
+                        <div class="form-group ">
+                          <%=f.text_field  :item_size_sh, class:'form-control', id:'item_size_sh'%>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4">Высота</label>
+                      <div class="col-sm-6">
+                        <div class="form-group ">
+                          <%=f.text_field  :item_size_v, class:'form-control', id:'item_size_v'%>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4">Артикул</label>
+                      <div class="col-sm-6">
+                        <div class="form-group ">
+                          <%=f.text_field  :item_article, class:'form-control', id:'item_article'%>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3">Цвет</label>
+                      <div class="col-sm-7">
+                        <div class="form-group ">
+                          <%=f.text_field  :item_color, class:'form-control', id:'item_color'%>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3">Материал</label>
+                      <div class="col-sm-7">
+                        <div class="form-group ">
+                          <%=f.text_field  :item_material, class:'form-control', id:'item_color'%>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
 
 
 
@@ -180,10 +209,13 @@
               <p>Тег DESCRIPTION для товара :
                 <%=f.text_field  :item_page_description, :required => true , class:'form-control', id:'item_page_description'%></p>
             </div>
-
+              <div class="col-sm-12">
+                <p>Фильтры для товара :
+                  <%=f.text_field  :item_filter , class:'form-control', id:'item_page_description'%></p>
+              </div>
             <div class="col-sm-12">
               <p>Описание товара:
-                <textarea class="summernote-5"  id="summernote-addnewitrm" name="item_description" rows="18" required></textarea></p>
+                <textarea class="summernote-5"  id="summernote-addnewitrm" name="item_description" rows="18" ></textarea></p>
             </div>
 
 
@@ -226,32 +258,64 @@
         <div class="row">
           <div class="col-lg-12 mb-3 mb-lg-0">
             <form action="/admin/showsubcategory" class="form-inline justify-content-lg-start text-sm" method="get">
-              <label class="control-label mr-2">Поиск:</label>
-              <input id="searchtxt" type="text" class="form-control form-control-sm mr-lg-2" name="search" placeholder="часть названия товара">
+              <table>
+                <tr>
+                  <td>
+                    <label class="control-label mr-2">Поиск по :</label>
+
+                  </td>
+                  <td>
+                    <input id="searchtxt" type="text" class="form-control form-control-sm mr-lg-2" name="search" placeholder="названию товара">
+                  </td>
+                  <td>
+                    <input id="searchtxtarticle" type="text" class="form-control form-control-sm mr-lg-2" name="article" placeholder="артиклу">
+                  </td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="control-label mr-2">Сортировка:</label>
+                  </td>
+                  <td>
+                    <select id="sort_select" name='sort_type' class="form-control form-control-sm">
+                      <option value="1">Название A-Я</option>
+                      <option value="2">Название Я-А</option>
+                      <option value="3">Цена +</option>
+                      <option value="4">Цена -</option>
+                      <option value="5">Скидка +</option>
+                      <option value="6">Скидка -</option>
+                      <option value="7">Дата добавления</option>
+
+                    </select>
+                  </td>
+                  <td>
+                    <label style="    position: absolute;
+                        top: 39px;
+                        right: 457px;" class="control-label mr-2 ml-lg-3">Отображать:</label>
+                  </td>
+                  <td>
+                    <select style="    position: absolute;
+                        top: 34px;
+                        right: 379px;" name="pp" class="form-control form-control-sm">
+                      <option value="15">15</option>
+                      <option value="20">20</option>
+                      <option value="25">25</option>
+                      <option value="30">30</option>
+                      <option value="35">35</option>
+                      <option value="40">40</option>
+                      <option value="45">45</option>
+                      <option value="50">50</option>
+                    </select>
+                  </td>
+                </tr>
+
+              </table>
+
+
+
               <input name="subcat_id" value="<%=@subcat.id%>" type="hidden" />
 
-              <label class="control-label mr-2">Сортировка:</label>
-              <select id="sort_select" name='sort_type' class="form-control form-control-sm">
-                <option value="1">Название A-Я</option>
-                <option value="2">Название Я-А</option>
-                <option value="3">Цена +</option>
-                <option value="4">Цена -</option>
-                <option value="5">Скидка +</option>
-                <option value="6">Скидка -</option>
-                <option value="7">Дата добавления</option>
 
-              </select>
-              <label class="control-label mr-2 ml-lg-3">Отображать:</label>
-              <select name="pp" class="form-control form-control-sm">
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="25">25</option>
-                <option value="30">30</option>
-                <option value="35">35</option>
-                <option value="40">40</option>
-                <option value="45">45</option>
-                <option value="50">50</option>
-              </select>
 
               <button type="submit">Применить</button>
             </form>
@@ -263,6 +327,7 @@
           <tbody>
           <tr>
           <td>Название</td>
+            <td>Артикул</td>
           <td>Цена роз.</td>
             <td>Цена опт.</td>
             <td>Скидка %</td>
@@ -271,6 +336,7 @@
         <%@items.each do |i|%>
         <tr>
           <td><%=i.item_name%></td>
+          <td><%=i.item_article%></td>
           <td><%=i.item_price%></td>
           <td><%=i.item_opt_price%></td>
           <td><%=i.item_discount%></td>
@@ -333,5 +399,8 @@
     }
     if (getSearchParams('search')!== undefined){
         $('#searchtxt').val(decodeURIComponent(getSearchParams('search')));
+    }
+    if (getSearchParams('article')!== undefined){
+        $('#searchtxtarticle').val(decodeURIComponent(getSearchParams('article')));
     }
 </script>

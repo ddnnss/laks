@@ -12,98 +12,39 @@
 
 
 <!-- ======== @Region: #highlighted ======== -->
-<div id="highlighted">
-  <!-- Showshow - Slider Revolution see: plugins/slider-revolution/examples&sources for help invoke using data-toggle="slider-rev" options can be passed to the slider via HTML5 data- ie. data-startwidth="960" -->
-  <div class="slider-wrapper rev_slider_wrapper bg-black" data-page-class="slider-appstrap-theme">
-    <div class="rev_slider" data-toggle="slider-rev" data-settings='{"startwidth":1100, "startheight":500, "delay":10000}'>
-      <ul>
-    <%@slides.each do |slide|%>
-        <li class="slide overlay overlay-op-2" data-transition="fadethroughdark" data-slotamount="7" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="1500" data-thumb="" data-rotate="0" data-saveperformance="off" data-title="Summer" data-mediafilter="earlybird">
-          <!-- MAIN IMAGE -->
-          <img src="/images/slider/<%=slide.slider_image%>" alt="Background image" data-bgposition="center center" data-bgfit="cover" data-bgparallax="10" class="rev-slidebg" data-no-retina />
-          <!-- LAYERS -->
-          <!-- SLIDE 1 Content-->
-          <div class="slide-content container">
-            <!--elements within .slide-content are pushed below navbar on "behind"-->
-            <!-- Layer 1 -->
-            <div class="tp-caption text-grey" data-x="['left','left','left','left']" data-hoffset="['0','0','0','40']" data-y="['bottom','bottom','bottom','bottom']" data-voffset="['140','140','140','140']" data-fontsize="['52','52','52','52']" data-lineheight="['52','52','52','52']" data-width="420" data-height="none" data-whitespace="normal" data-type="text" data-basealign="slide" data-responsive_offset="on" data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1200,"to":"o:1;","delay":1300,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"opacity:0;","ease":"nothing"}]' data-textAlign="left">
-                  <span class="font-weight-bold text-uppercase text-white">
-                    <%=slide.slider_text1%>
-                    <br />
-                    <%=slide.slider_text2%>
-                  </span>
-            </div>
-            <!-- Layer 3 -->
-            <div class="tp-caption text-grey" data-x="['left','left','left','left']" data-hoffset="['0','0','0','40']" data-y="['bottom','bottom','bottom','bottom']" data-voffset="['80','80','80','80']" data-fontsize="['20','20','20','30']" data-width="none" data-height="none" data-whitespace="nowrap" data-type="text" data-basealign="slide" data-responsive_offset="on" data-frames='[{"delay":0,"speed":1200,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","to":"o:1;","delay":1400},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]' data-textAlign="['center','center','center','center']"><a href="<%=slide.slider_url%>" class="btn btn-primary" ><%=slide.slider_text3%></a>
-            </div>
-            <!-- Layer 3
-            <div class="tp-caption rs-parallaxlevel-8" data-frames='[{"from":"o:0;sX:3;sY:3;","speed":1500,"to":"o:0.10;sX:3;sY:3;","delay":500,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1200,"to":"x:[100%];","ease":"Power3.easeInOut"}]' data-x="left" data-y="bottom" data-hoffset="0" data-voffset="0" data-width="none" data-height="none" data-type="image" data-basealign="slide"> <i class="fa fa-bullseye icon-25x icon-bg op-1 text-white"></i>
-            </div> -->
-            <!-- Layer 4-->
-            <div class="tp-caption tp-resizeme bg-primary-bright" data-frames='[{"from":"x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":500,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"x:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]' data-x="['left','left','left','left']" data-hoffset="['0','0','0','40']" data-y="bottom" data-voffset="120" data-width="355" data-height="4" data-basealign="slide"></div>
-          </div>
-        </li>
-    <%end%>
-     </ul>
-      <div class="tp-bannertimer tp-bottom"></div>
+<div class="container ">
+
+  <div class="row text-center  py-lg-6">
+    <div class="col-lg-7 d-lg-flex">
+      <div class="p-5 py-lg-6 overlay overlay-gradient overlay-op-5 rounded mb-4 mb-lg-0 flex-ew flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="shop-product.html" style="background-image: url('http://smartdestiny.ru/wp-content/uploads/2016/01/fen-sovety-dlya-deneg-dom.jpg');    background-position: center;">
+        <h2 class="text-white mb-0">
+          ТЕКСТ
+        </h2>
+        <p class="text-white mb-0">ТЕКСТТЕКСТТЕКСТТЕКСТТЕКСТТЕКСТТЕКСТТЕКСТ</p>
+        <hr class="hr-lg my-2 w-20 mx-auto hr-primary">
+      </div>
     </div>
-    <!--end of tp-banner-->
+    <div class="col-lg-5">
+      <div class="p-5 overlay overlay-op-5 rounded mb-4 flex-valign clickable-element bg-img blazy-bg b-loaded" data-css="{&quot;background-position&quot;:&quot;center bottom&quot;}" data-url="shop-product.html" style="background-position: center bottom; background-image: url('http://www.astroguide.ru/files/article/54064/main-image/1404_11.jpg');    background-position: center;">
+        <h3 class="text-white mb-0">
+          ТЕКСТ
+        </h3>
+        <p class="text-white mb-0">ТЕКСТТЕКСТТЕКСТТЕКСТТЕКСТТЕКСТТЕКСТТЕ</p>
+        <hr class="hr-lg my-2 w-20 mx-auto hr-primary">
+      </div>
+      <div class="p-5 overlay overlay-op-5 rounded flex-valign clickable-element bg-img blazy-bg b-loaded" data-css="{&quot;background-position&quot;:&quot;center bottom&quot;}" data-url="shop-product.html" style="background-position: center bottom; background-image: url('http://mechtayte.ru/wp-content/uploads/2017/03/fen-shuj-oboi-dlja-sten-komnaty.jpg');    background-position: center;">
+        <h3 class="text-white mb-0">
+          ТЕКСТ
+        </h3>
+        <p class="text-white mb-0">ТЕКСТТЕКСТТЕКСТТЕКСТТЕКСТТЕКСТТЕКСТТЕКСТ</p>
+        <hr class="hr-lg my-2 w-20 mx-auto hr-primary">
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- ======== @Region: #content ======== -->
-<div class="container py-4 d-none d-lg-block">
-    <div class="row text-center ">
-    <div class="col-lg-4 py-2">
-      <table class="">
-        <tbody>
-        <tr>
-          <td style="text-align: right;"><img src="/images/1.png" width="64px"></td>
-          <td style="    padding-left: 20px;
-              border-right: 1px solid #e5e5e5;
-              padding-right: 35px;"><strong>ПРОВЕРЕНО ЛЮДЬМИ</strong><br/>
-            Нам доверяю более 11 тысяч клиентов!
 
-          </td>
-        </tr>
-        </tbody>
-      </table>
-
-    </div>
-    <div class="col-lg-4 py-2">
-      <table class="">
-        <tbody>
-        <tr>
-          <td style="text-align: right;"><img src="/images/2.png" width="64px"></td>
-          <td style="    padding-left: 20px;
-              border-right: 1px solid #e5e5e5;
-              padding-right: 35px;"><strong>ДОСТАВКА</strong><br/>
-            Доставляем товар в любые регионы и страны!
-          </td>
-        </tr>
-        </tbody>
-      </table>
-
-    </div>
-    <div class="col-lg-4 py-2">
-      <table class="">
-        <tbody>
-        <tr>
-          <td style="text-align: right;"><img src="/images/3.png" width="64px"></td>
-          <td style="padding-left: 20px;"><strong>АССОРТИМЕНТ</strong><br/>
-            В нашем ассортименте тысячи уникальных позиций!
-          </td>
-        </tr>
-        </tbody>
-      </table>
-
-    </div>
-
-
-  </div>
-</div>
-<div style="border-bottom: solid 1px #e5e5e5; padding-bottom: 0px !important;">
-</div>
 
   <div class="container py-4 py-lg-6">
     <hr class="hr-lg mt-0 mb-3 w-10 mx-auto hr-primary" />
@@ -116,9 +57,18 @@
     <hr class="mb-5 w-50 mx-auto" />
 
     <div class="row">
+      <div class="col-lg-4 d-flex " style="padding-bottom: 25px;">
+        <div class="p-5 py-lg-6 overlay overlay-op-5  flex-ew hover-shadow  flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="#" style="background-image: url('https://i1.wp.com/ae01.alicdn.com/kf/HTB1QSfiNpXXXXbFaXXXq6xXFXXXP/%D0%9D%D0%BE%D0%B2%D0%B8%D0%BD%D0%BA%D0%B0-2017-%D0%B3%D0%BE%D0%B4%D0%B0-%D1%84%D1%8D%D0%BD-%D1%88%D1%83%D0%B9-%D0%9C%D1%83%D0%B4%D1%80%D0%B0%D1%8F-%D1%81%D0%BE%D0%B2%D0%B0-%D0%9A%D0%BE%D0%BC%D0%BF%D0%B0%D1%81%D1%8B-W-fengshuisale-%D0%BA%D1%80%D0%B0%D1%81%D0%BD%D0%B0%D1%8F-%D1%81%D1%82%D1%80%D0%BE%D0%BA%D0%B0-%D0%B1%D1%80%D0%B0%D1%81%D0%BB%D0%B5%D1%82.jpg?crop=5,2,900,500&quality=2880');background-position: center;">
+          <hr class="w-50 mx-auto hr-primary" style="border-top: 3px solid rgba(0, 0, 0, 0.1);">
+          <h2 class="text-white text-center text-uppercase mb-0">
+            НОВИНКИ
+          </h2>
+          <hr class="w-50 mx-auto hr-primary" style="border-top: 3px solid rgba(0, 0, 0, 0.1);">
+        </div>
+      </div>
       <%  @cat_all.each do |cat|%>
-      <div class="col-lg-4 d-flex" style="padding-bottom: 25px;">
-        <div class="p-5 py-lg-6 overlay overlay-op-5  flex-ew   flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/category/<%=cat.cat_name_translit%>" style="background-image: url('/images/maincategory/<%=cat.cat_image%>');">
+      <div class="col-lg-4 d-flex "  style="padding-bottom: 25px;">
+        <div class="p-5 py-lg-6 overlay overlay-op-5  flex-ew hover-shadow  flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/category/<%=cat.cat_name_translit%>" style="background-image: url('/images/maincategory/<%=cat.cat_image%>');">
           <hr class="w-50 mx-auto hr-primary" style="border-top: 3px solid rgba(0, 0, 0, 0.1);">
           <h2 class="text-white text-center text-uppercase mb-0">
             <%=cat.cat_name%>
@@ -142,7 +92,7 @@
   <div class="row">
     <% @collections.each do |coll| %>
         <div class="col-lg-4 d-flex" style="height: 200px;">
-          <div class="p-5 py-lg-6  flex-ew mb-3 mb-lg-0 flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/collection/<%= coll.collection_name_translit %>" style="background-image: url('/images/collections/<%= coll.collection_image %>');">
+          <div class="p-5 py-lg-6  flex-ew mb-3 mb-lg-0 flex-valign hover-shadow clickable-element bg-img blazy-bg b-loaded" data-url="/collection/<%= coll.collection_name_translit %>" style="background-image: url('/images/collections/<%= coll.collection_image %>');">
 
           </div>
         </div>
