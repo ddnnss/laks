@@ -1,4 +1,308 @@
+<div id="header" >
 
+  <div data-toggle="sticky">
+
+    <!--Header search region - hidden by default -->
+    <div class="header-search collapse" id="search">
+      <form action="/search" class="search-form container">
+        <input type="text" name="q" class="form-control search" value="" placeholder="Введите часть названия товара или артикул..." required>
+        <button type="submit" class="btn btn-link"><span class="sr-only">Search </span><i class="fa fa-search fa-flip-horizontal search-icon"></i></button>
+        <button type="button" class="btn btn-link close-btn" data-toggle="search-form-close"><span class="sr-only">Close </span><i class="fa fa-times search-icon"></i></button>
+      </form>
+    </div>
+
+    <!--Header & Branding region-->
+    <div class="header" style="border-bottom: none !important;">
+      <!-- all direct children of the .header-inner element will be vertically aligned with each other you can override all the behaviours using the flexbox utilities (flexbox.htm) All elements with .header-brand & .header-block-flex wrappers will automatically be aligned inline & vertically using flexbox, this can be overridden using the flexbox utilities (flexbox.htm) Use .header-block to stack elements within on small screen & "float" on larger screens use .order-first or/and .order-last classes to make an element show first or last within .header-inner or .headr-block elements -->
+      <div class="header-inner container">
+        <div class="header-brand">
+          <a href="/"><%= image_tag(asset_path('logo.png')) %></a>
+          <!--  <a href="/">
+            <svg width="325" height="50" xmlns="http://www.w3.org/2000/svg">;
+
+              <text style="cursor: hand;" dy="35" dx="1" dominant-baseline="auto" alignment-baseline="auto" font-family="Rambla" font-size="35px" fill="#495057" letter-spacing="0" font-weight="bold" font-style="normal" data-font-family="Raleway">LAKSHMI</text>
+              <text style="cursor: hand;" dy="49" dx="1" dominant-baseline="auto" alignment-baseline="auto" font-family="Open Sans" font-size="10px" fill="#495057" letter-spacing="0" font-weight="bold" font-style="normal" data-font-family="Raleway">Нам доверяют: 11086 клиента</text>
+              <text style="cursor: hand;" dy="35" dx="195" dominant-baseline="auto" alignment-baseline="auto" font-family="Rambla" font-size="35px" fill="#495057" letter-spacing="0" font-weight="bold" font-style="normal" data-font-family="Raleway">888</text>
+              <g transform="translate(127,60) scale(0.013,-0.013)" fill="#CC164D" stroke="none">
+                <path d="M2880 4523 c-223 -241 -365 -527 -421 -848 -33 -190 -33 -504 -1 -655 60 -277 158 -481 334 -697 56 -69 88 -90 88 -59 0 7 -20 53 -44 102 -77 155 -152 397 -175 564 -29 212 -26 260 15 260 14 0 30 -10 40 -25 17 -26 44 -34 44 -12 0 6 -14 37 -32 67 -79 139 -80 141 -73 202 10 93 61 285 106 401 23 60 76 166 118 235 70 117 79 127 108 130 31 3 36 -1 80 -70 116 -180 201 -386 243 -595 25 -124 25 -159 3 -199 -10 -17 -35 -61 -57 -98 -28 -48 -35 -71 -28 -78 8 -8 19 -2 41 21 56 59 78 21 67 -115 -19 -230 -88 -479 -191 -687 -25 -49 -45 -96 -45 -103 0 -73 187 161 285 356 70 140 107 248 138 405 46 233 45 337 -3 658 -23 156 -62 272 -145 442 -74 151 -159 275 -275 398 -66 70 -87 87 -110 87 -23 0 -44 -17 -110 -87z"/>
+              </g>
+              <g xmlns="http://www.w3.org/2000/svg"; transform="translate(127,60) scale(0.013,-0.013)" fill="#D300A2" stroke="none">
+                <path d="M1490 4045 c-5 -14 -20 -63 -32 -108 -21 -73 -23 -104 -23 -292 1 -194 3 -218 28 -318 33 -134 142 -382 218 -497 108 -165 223 -292 374 -415 183 -147 347 -238 569 -314 189 -65 192 -54 12 53 -166 99 -314 214 -451 351 -146 146 -217 238 -213 274 3 23 8 26 51 29 28 2 47 8 45 14 -2 6 -55 38 -117 71 l-113 61 -48 101 c-96 199 -143 396 -144 596 -1 141 6 159 58 159 72 0 356 -123 538 -233 42 -26 83 -47 91 -47 17 0 27 30 27 82 0 32 -7 43 -52 83 -170 149 -452 294 -690 355 -101 26 -116 26 -128 -5z"/>
+                <path d="M4368 4050 c-103 -27 -214 -68 -324 -121 -112 -53 -314 -184 -383 -248 -43 -39 -43 -41 -36 -88 4 -26 9 -51 12 -55 9 -16 34 -7 115 44 168 104 457 228 533 228 53 0 60 -18 59 -154 -1 -197 -48 -391 -147 -606 -41 -89 -58 -106 -157 -155 -130 -65 -157 -93 -84 -86 37 3 64 -12 64 -36 0 -21 -48 -87 -134 -183 -142 -159 -331 -311 -544 -439 -107 -64 -141 -91 -114 -91 30 0 249 81 347 129 316 155 563 374 744 658 77 121 176 352 207 480 56 236 45 531 -26 718 -11 30 -35 31 -132 5z"/>
+              </g>
+              <g xmlns="http://www.w3.org/2000/svg"; transform="translate(127,60) scale(0.013,-0.013)" fill="#7A005D" stroke="none">
+                <path d="M1100 3064 c-71 -7 -204 -35 -217 -46 -20 -16 -16 -49 18 -145 92 -265 263 -499 515 -702 184 -147 438 -271 681 -331 46 -12 65 -42 41 -66 -7 -8 -56 -31 -108 -53 -197 -80 -490 -247 -475 -271 4 -6 15 -6 31 0 13 5 89 28 167 51 857 248 1595 250 2462 5 88 -24 173 -49 187 -55 17 -6 29 -7 33 -1 15 24 -301 202 -488 276 -110 43 -134 66 -98 95 12 10 47 23 77 29 129 27 347 122 507 221 233 145 469 396 584 621 50 98 116 290 107 312 -6 16 -31 25 -139 47 -81 17 -402 17 -433 0 -23 -12 -72 -108 -72 -141 0 -16 16 -18 154 -22 161 -5 206 -17 206 -55 0 -46 -156 -266 -272 -385 -227 -231 -573 -431 -912 -529 -165 -48 -193 -50 -334 -34 -165 19 -499 19 -665 0 -150 -18 -187 -12 -402 57 -138 44 -400 170 -515 247 -247 167 -423 347 -552 564 -35 59 -37 102 -5 118 13 8 84 14 175 17 136 4 152 7 152 22 0 31 -49 129 -69 140 -21 11 -264 21 -341 14z"/>
+              </g>
+            </svg>
+            </a>-->
+        </div>
+
+        <!--branding/logo
+        <div class="header-brand">
+          <a class="header-brand-text" href="index.html" title="Home">
+            <h1 class="h2">
+              <span class="header-brand-text-alt">App</span>Strap<span class="header-brand-text-alt">.</span>
+            </h1>
+          </a>
+          <div class="header-divider d-none d-lg-block"></div>
+          <div class="header-slogan d-none d-lg-block">Shop UI</div>
+        </div> -->
+        <!-- other header content -->
+        <div class="header-block order-12">
+          <div class="flex-column text-right d-none d-lg-flex mr-2">
+            <h6 style="font-size: 20px;" class="my-0 text-muted font-weight-bold">
+              <i class="fa fa-phone text-primary"></i> 8 (800) 707-28-10<br/>
+              <i class="fa fa-phone text-primary"></i> 8 (495) 926-33-59
+            </h6>
+          </div>
+
+          <!--Search trigger -->
+
+          <a href="<%= session[:active] ? '/logout' : '/login' %>"  class="d-lg-none btn btn-icon btn-link header-btn float-right " ><i class="<%= session[:active] ? 'fas fa-sign-out-alt' : 'fas fa-sign-in-alt' %>" ></i></a>
+          <a href="#search" class="btn btn-icon btn-link header-btn float-right order-11" data-toggle="search-form" data-target=".header-search"><i class="fa fa-search fa-flip-horizontal search-icon"></i></a>
+
+          <!-- mobile collapse menu button - data-toggle="collapse" = default BS menu - data-toggle="jpanel-menu" = jPanel Menu - data-toggle="overlay" = Overlay Menu -->
+          <a href="#top" class="btn btn-link btn-icon header-btn float-right d-lg-none" data-toggle="jpanel-menu" data-target=".navbar-main" data-direction="right"> <i class="fa fa-bars"></i> </a>
+          <div class="header-divider d-none d-lg-block"></div>
+
+          <!--Shopping cart-->
+          <div  class="dropdown dropdowns-no-carets dropdown-effect-fadeup float-right">
+            <a href="#" class="btn btn-icon btn-dark btn-link float-right dropdown-toggle cart-link" data-toggle="dropdown">
+              <span class="cart-link-icon"> <i class="fa fa-shopping-cart"></i> <span class="sr-only">Cart</span> <span id="cart_count" class="cart-link-count bg-primary text-white">
+               <%if cart.nil?%>
+                0
+                    <%else%>
+                  <% c=0%>
+                    <%session[:cart].values.each {|v| c=c+v}%>
+                    <%=c%>
+                    <%end%>
+
+
+              </span></span>
+            </a>
+
+            <!--Shopping cart dropdown -->
+            <div style="width: 400px;" class="dropdown-menu dropdown-menu-right dropdown-menu-arrow cart-dropdown-menu" role="menu">
+              <h5 class="dropdown-header mb-0">
+                Ваш заказ:
+              </h5>
+              <hr class="mt-0 mb-3" />
+              <!--Shopping cart items-->
+              <div class="cart-items">
+                <%if cart.nil?%>
+
+                <%else%>
+                    <%cart.each do |cc|%>
+                        <div class="cart-items-item">
+
+
+                          <a href="/product/<%=cc.item_name_translit%>" class="cart-img mr-2 float-left">
+                            <img class="img-fluid" src="/images/items/<%= cc.id%>/<%=cc.item_image1%>" alt="Интернет магазин Lakshmi888 предлагает купить <%= cc.item_name%>">
+                          </a>
+                          <div class="float-left cart_items">
+                            <h5 class="mb-0">
+                              <%= cc.item_name%>
+                            </h5>
+                            <p class="mb-0">
+                              <%if session[:cart][cc.id.to_s] >= cc.item_opt_price_count  %>
+
+                                  <span class="text-primary cart_item_bold"> <%= cc.item_opt_price%> </span> &#8381;
+                                  <%session[:total] = session[:total] + (cc.item_opt_price* session[:cart][cc.id.to_s])%> x <span id="item<%= cc.id%>count"><%=session[:cart][cc.id.to_s]%></span>
+                                  <span style="display: none;" id="iitem<%=cc.id%>_price_total"><%=cc.item_opt_price* session[:cart][cc.id.to_s]%></span>
+
+                              <%else%>
+                                  <%if cc.item_discount > 0%>
+                                      <span id="item<%=cc.id%>_cur_price">
+                                      <%=cc.item_price - (cc.item_price * cc.item_discount / 100)%></span> &#8381; x <span id="item<%= cc.id%>count"><%=session[:cart][cc.id.to_s]%></span>
+                                      <%session[:total] = session[:total] + (cc.item_price - (cc.item_price * cc.item_discount / 100))* session[:cart][cc.id.to_s]%>
+                                      <span style="display: none;" id="iitem<%=cc.id%>_price_total"><%=(cc.item_price - (cc.item_price * cc.item_discount / 100))* session[:cart][cc.id.to_s]%></span>
+
+                                  <%else%>
+                                      <span id="item<%=cc.id%>_cur_price">
+                                      <%= cc.item_price%></span> &#8381;
+                                      <%session[:total] = session[:total] + (cc.item_price* session[:cart][cc.id.to_s])%> x <span id="item<%= cc.id%>count"><%=session[:cart][cc.id.to_s]%></span>
+                                      <span style="display: none;" id="iitem<%=cc.id%>_price_total"><%=cc.item_price* session[:cart][cc.id.to_s]%></span>
+
+                                  <%end%>
+                              <%end%>
+
+                            </p>
+
+                          </div>
+                        </div>
+                    <%end%>
+                <%end%>
+
+
+
+
+              </div>
+              <!--End of Shopping cart items-->
+              <hr class="mt-3 mb-0" />
+              <div id="cart_text" class="dropdown-footer text-center">
+
+                <h5 class="font-weight-bold">
+                  Итого (без учета стоимости доставки):<br/> <span id="total" class="text-primary"><%= session[:total]%></span> &#8381;
+                </h5>
+                <a href="/checkout#cart" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2">Перейти в корзину</a>
+                <a href="/checkout#checkout" tabindex="-1" class="btn btn-primary btn-sm btn-rounded mx-2">Оформить заказ</a>
+
+              </div>
+
+            </div>
+          </div>
+          <!-- end of shopping cart -->
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar navbar-expand-md">
+      <!--everything within this div is collapsed on mobile-->
+      <div style="border-bottom: 1px solid #dedede;border-top: 1px solid #dedede; background-color: #f7f7f7;" class="navbar-main collapse  navbar-dark">
+        <div class="container clearfix">
+          <!--main navigation-->
+          <ul class="nav navbar-nav float-lg-left navbar-nav-flush dropdown-effect-fadeup">
+            <!-- Shop Homepage -->
+
+            <li class="nav-item dropdown">
+              <a href="#" style="color: #3A4A59;" class="nav-link dropdown-toggle animated dropdown" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false"><i class="fas fa-bars mr-2" style="font-size: 15px;"></i>ВСЕ КАТЕГОРИИ</a>
+              <!-- Menu -->
+              <div class="dropdown-menu">
+                <% md.each do |menudrop|%>
+
+
+                    <a href="/category/<%=menudrop.cat_name_translit%>" class="dropdown-item"><%=menudrop.cat_name%></a>
+
+                <%end%>
+              </div>
+
+            </li>
+            <% mc.each do |menucat|%>
+                <li  class="nav-item"><a  style="color: #3A4A59;" href="/category/<%=menucat.cat_name_translit%>" class="nav-link"><%=menucat.cat_name%></a> </li>
+                <li class="nav-item "><a  style="color: #CC164D;" href="/new" class="nav-link">НОВИНКИ</a></li>
+                <li class="nav-item "><a  style="color: #CC164D;" href="/discount" class="nav-link">СКИДКИ</a></li>
+            <%end%>
+
+
+
+
+          </ul>
+          <!-- All Categories menu -->
+          <ul class="nav navbar-nav float-lg-right navbar-nav-flush-right dropdown-effect-fadeup">
+            <%if session[:active]%>
+
+                <li class="nav-item dropdown dropdowns-no-carets dropdown-persist">
+                  <a style="color: #3A4A59;" href="#" class="nav-link dropdown-toggle" id="account-drop" data-toggle="dropdown" data-hover="dropdown"><i class="fa fa-user mr-2"></i>личный кабинет</a>
+
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a href="/checkout#cart" class="dropdown-item">Корзина</a>
+                    <a href="/profile#wishlist" class="dropdown-item">Закладки</a>
+                    <a href="/profile#orders" class="dropdown-item">Заказы</a>
+                    <a href="/profile" class="dropdown-item">Профиль</a>
+                  </div>
+                </li>
+            <%end%>
+            <li class="nav-item ">
+              <%if session[:active]%>
+                  <a style="margin-top: 16px;" href="/logout"  class="btn btn-primary btn-sm  text-uppercase font-weight-bold px-3 ml-3 d-none d-lg-block">выход</a>
+              <%else%>
+                  <a style="margin-top: 16px;" href="#" data-toggle="modal" data-target=".login-modal-lg" class="btn btn-primary  text-uppercase font-weight-bold px-3 ml-3 d-none d-lg-block">вход/регистрация</a>
+              <%end%>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!--/.navbar-collapse -->
+    </div>
+  </div>
+</div>
+<footer id="footer">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-4">
+        <h3 class="text-white text-uppercase text-slab font-weight-bold">
+          LAKSHMI<span class="text-primary">888</span>
+        </h3>
+        <p class="text-sm">Режим работы офиса и склада:<br/>
+          понедельник - пятница с 10-00 до 18-00;<br/>
+          суббота, воскресенье - выходные дни.</p>
+        <address>
+          <ul class="list-unstyled text-sm">
+            <li>
+              <abbr title="Phone"><i class="fa fa-phone fa-fw text-white"></i></abbr>
+              8(495)926-33-59 (тел/факс)
+            </li>
+            <li>
+              <abbr title="Phone"><i class="fa fa-phone fa-fw text-white"></i></abbr>
+              8-800-707-28-10
+            </li>
+            <li>
+              <abbr title="Email"><i class="fa fa-envelope fa-fw text-white"></i></abbr>
+              info@lakshmi888.ru
+            </li>
+            <li>
+              <abbr title="Address"><i class="fa fa-home fa-fw text-white"></i></abbr>
+              г. Москва, м. Нагорная, Электролитный проезд, д. 10, 3-й этаж, офис № 305
+            </li>
+          </ul>
+        </address>
+        <!--social media icons-->
+        <div class="mt-3 mb-4 mb-lg-0">
+          <!--@todo: replace with company social media details-->
+          <a href="https://vk.com/lakshmi_888" class="btn btn-icon btn-dark btn-invert btn-rounded"> <i class="fab fa-vk"></i> <span class="sr-only">Fa vk</span> </a>
+          <a href="#" class="btn btn-icon btn-dark btn-invert btn-rounded"> <i class="fab fa-instagram"></i> <span class="sr-only">Fa inst f</span> </a>
+
+        </div>
+      </div>
+
+      <div class="col-lg-7 offset-lg-1">
+        <div class="row">
+          <div class="col-6 col-md-5">
+            <h4 class="mt-0 text-slab">
+              Информация
+            </h4>
+            <ul class="list-unstyled footer-links">
+              <li><a href="#">Новости</a></li>
+              <li><a href="#">Документы</a></li>
+              <li><a href="#">Оплата</a></li>
+              <li><a href="#">О магазине</a></li>
+              <li><a href="#">Информация о доставке</a></li>
+              <li><a href="#">Контакты</a></li>
+
+            </ul>
+          </div>
+          <div class="col-6 col-md-5">
+            <h4 class="mt-0 text-slab">
+              Служба поддержки
+            </h4>
+            <ul class="list-unstyled footer-links">
+              <li><a href="#">Обратная связь</a></li>
+              <li><a href="#">Возврат товара</a></li>
+              <li><a href="#">Карта сайта</a></li>
+
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-4 hr-white op-1" />
+
+    <div class="subfooter text-sm text-center">
+      <p> &copy; 2006-2018  <a href="appstraptheme.com" class="footer-link">Лакшми</a>. Все права защищены  </p>
+      <!--@todo: replace with company copyright details
+      <ul class="list-inline footer-links">
+        <li class="list-inline-item"><a href="#">Terms</a></li>
+        <li class="list-inline-item"><a href="#">Privacy</a></li>
+        <li class="list-inline-item"><a href="#">Contact Us</a></li>
+      </ul>-->
+    </div>
+  </div>
+  <a href="#top" class="btn btn-icon btn-dark pos-fixed pos-b pos-r mr-3 mb-3 scroll-state-hidden" title="НАВЕРХ" data-scroll="scroll-state"><i class="fa fa-chevron-up"></i></a>
+</footer>
 
 <!-- ======== @Region: body ======== -->
 
