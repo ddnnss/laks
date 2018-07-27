@@ -16,7 +16,8 @@
         <div class="row">
           <div class="col-lg-12">
 
-            <a href="/subcategory/<%=@subcat.subcat_name_translit%>?filter=all" class="mb-2 btn btn-outline-secondary " id="filter-all">ВСЕ ТОВАРЫ</a>
+            <a href="/subcategory/<%=@subcat.subcat_name_translit%>?filter=all" class="mb-2 btn btn-outline-primary " id="filter-all">ВСЕ ТОВАРЫ</a>
+            <a href="/subcategory/<%=@subcat.subcat_name_translit%>?filter=new" class="mb-2 btn btn-outline-success " id="filter-new">НОВИНКИ</a>
             <%@filters.each do |f| %>
                 <a href="/subcategory/<%=@subcat.subcat_name_translit%>?filter=<%=f%>" class="mb-2 btn btn-outline-secondary " id="filter-<%=f%>"><%=f%></a>
 
@@ -205,5 +206,6 @@
         $('#filter-'+decodeURIComponent(getSearchParams('filter'))).addClass('active');
 
     }
+
 
 </script>

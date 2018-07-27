@@ -123,18 +123,22 @@ class PageController < ApplicationController
     end
 
     if params[:search]!='' && params[:search].present?
-
       @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).where('item_name_caps LIKE ?','%'+params[:search].mb_chars.upcase+'%')
-
-    else
-
     end
 
-    if params[:filter].present? && params[:filter]!='all'
-      @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).where('item_filter LIKE ?','%'+params[:filter]+'%')
-    else
-      @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name desc')
+    if params[:filter].present?
+      case params[:filter]
+        when 'all'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name desc')
+        when 'new'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).where(:item_new => true )
+        else
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).where('item_filter LIKE ?','%'+params[:filter]+'%')
+      end
     end
+
+   
+
 
 
 

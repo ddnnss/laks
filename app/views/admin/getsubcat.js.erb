@@ -3,11 +3,13 @@
 temp = <%= raw @subcat_sel.to_json %>;
 var $select = $('#subcatselect');
 var $select1 = $('#new_subcatselect');
+
 $select.find('option').remove();
 $.each(temp,function(key, value)
 {
     $select.append('<option value=' + key + '>' + value + '</option>');
 });
+
 $select1.find('option').remove();
 $.each(temp,function(key, value)
 {

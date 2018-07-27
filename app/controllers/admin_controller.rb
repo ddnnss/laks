@@ -65,6 +65,11 @@ end
       unless params[:item_presents].present?
         i.update_column(:item_presents , false)
       end
+      if params[:item_replace].present?
+        i.update_column(:subcategory_id,params[:subcat_id])
+
+
+      end
 
       if params[:item_weight] != ''
         i.update_column(:item_weight, params[:item_weight])
@@ -167,6 +172,8 @@ redirect_to '/admin/items'
       @collections = Collection.all
       @tags = @item.subcategory.subcat_filter.split(",")
       @aktion = Aktion.all
+      @cat_main = Category.all
+      @cat_sub = Subcategory.where(category_id: @cat_main.first.id)
 end
 
 

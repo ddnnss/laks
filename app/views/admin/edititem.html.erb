@@ -12,7 +12,32 @@
 
       <div class="col-md-9">
         <%= form_for  :edititem, url: admin_edititem_path do |f|%>
-
+            <div style="background-color: #d0d0d0;" class="row" >
+              <div class="form-group row">
+                <label class="col-sm-10">Переместить товар ?</label>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="item_replace" id="item_replace"   >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <label>Категория товара</label>
+                <select id="new_mancatselect" class="form-control" disabled>
+                  <%@cat_main.each do |c|%>
+                      <option value="<%=c.id%>"><%=c.cat_name%></option>
+                  <%end%>
+                </select>
+              </div>
+              <div class="col-md-12 mb-3">
+                <label>Подкатегория товара</label>
+                <select id="new_subcatselect" name="subcat_id" class="form-control" disabled>
+                  <%@cat_sub.each do |c|%>
+                      <option value="<%=c.id%>"><%=c.subcat_name%></option>
+                  <%end%>
+                </select>
+              </div>
+            </div>
           <div class="form-group row">
             <label class="col-sm-4">Товар в наличии ?</label>
             <div class="col-sm-1">
@@ -282,7 +307,7 @@
 
           <input name="type" value="save" type="hidden" />
           <input name="item_id" value="<%= @item.id %>" type="hidden" />
-          <input name="subcat_id" value="<%= @item.subcategory_id %>" type="hidden" />
+
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
             <%= submit_tag 'Внести изменения' , class:'btn btn-primary'%>
@@ -300,7 +325,7 @@
 
     $('.summernote-5').summernote('code',"<%= j @item.item_description.html_safe %>");
     $('.note-popover').css('display', 'none');
-    $("#item_size").mask("99.99x99.99x99.99", {placeholder: "00.00х00.00х00.00" });
+
     const checkbox1 = $("#item_discount");
 
     checkbox1.change(function(event) {
@@ -329,6 +354,19 @@
             $("#aktion_select").attr("disabled","disabled")
         }
     });
+    const checkbox4 = $("#item_replace");
+    checkbox4.change(function(event) {
+        var checkbox4 = event.target;
+        if (checkbox4.checked) {
+            $('#new_mancatselect').removeAttr('disabled');
+            $('#new_subcatselect').removeAttr('disabled');
+        } else {
+            $("#new_mancatselect").attr("disabled","disabled");
+            $("#new_subcatselect").attr("disabled","disabled");
+        }
+    });
+
+
     if (<%=@item.collection_id %> !== 0){
         $('#collections_select').val(<%=@item.collection_id %>).attr("selected", "selected");
     }
@@ -336,4 +374,12 @@
     {
         $('#aktion_select').val(<%=@item.aktion_id %>).attr("selected", "selected");
     }
+    $('#new_mancatselect').change(function(){
+        $.ajax({
+            url: "/admin/getsubcat",
+            type: "GET",
+            data: {'cat_id' : $('#new_mancatselect option:selected').val() },
+        })
+    });
+
 </script>

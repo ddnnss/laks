@@ -5,23 +5,22 @@
 
 
   <!--Header upper region-->
-  <div class="header-upper">
+  <div class="header-upper" style="height: 40px;">
     <div class="header-inner container">
       <!--user menu-->
       <div class="header-block-flex order-1 mr-auto">
         <nav class="nav nav-sm header-block-flex">
+          <img style="margin-top: 2px;" src="/images/tel.png" width="30">
 
-          <a class="nav-link text-xs text-uppercase" href="callto:88007072810">8 (800) 707-28-10</a>
-          <div class="header-divider header-divider-sm"></div>
-          <a class="nav-link text-xs text-uppercase" href="callto:84959263359">8 (495) 926-33-59</a>
+          <a style="font-size: 15px;
+              font-weight: bold;" class="nav-link  text-uppercase" href="callto:+74959263359">8 (495) 926 33 59</a>
+          <img style="margin-top: 2px;" src="/images/up.png" width="30">
+          <a style="font-size: 15px;
+              font-weight: bold;" class="nav-link  text-uppercase" href="callto:+79646477676">8 (964) 647 76 76</a>
+          <a href="https://www.instagram.com/lakshmi.888/" class="nav-link"> <i class="fab fa-instagram icon-1x"></i> <span class="sr-only">Twitter</span> </a>
 
-          <%if session[:active]%>
-              <div class="header-divider header-divider-sm"></div>
-              <a href="/logout"  class="nav-link text-xs text-uppercase d-none d-sm-block">выход</a>
-          <%else%>
-              <div class="header-divider header-divider-sm"></div>
-              <a  href="#" data-toggle="modal" data-target=".login-modal-lg" class="nav-link text-xs text-uppercase d-none d-sm-block">вход/регистрация</a>
-          <%end%>
+          <a href="https://vk.com/lakshmi_888" class="nav-link"> <i class="fab fa-vk icon-1x"></i> <span class="sr-only">Facebook</span> </a>
+
 
         </nav>
 
@@ -30,10 +29,17 @@
       </div>
 
       <div class="nav nav-icons header-block order-12">
-        <!--@todo: replace with company social media details-->
-        <a href="https://www.instagram.com/lakshmi.888/" class="nav-link"> <i class="fab fa-instagram icon-1x"></i> <span class="sr-only">Twitter</span> </a>
-        <div class="header-divider header-divider-sm"></div>
-        <a href="https://vk.com/lakshmi_888" class="nav-link"> <i class="fab fa-vk icon-1x"></i> <span class="sr-only">Facebook</span> </a>
+        <%if session[:active]%>
+
+            <a style="font-size: 15px;
+                font-weight: bold;" href="/logout"  class="nav-link text-xs text-uppercase d-none d-sm-block">выход</a>
+        <%else%>
+
+            <a style="font-size: 15px;
+                font-weight: bold;" href="#" data-toggle="modal" data-target=".login-modal-lg" class="nav-link text-uppercase d-none d-sm-block">вход/регистрация</a>
+        <%end%>
+        <!--@todo: replace with company social media details <div class="header-divider header-divider-sm"></div>-->
+
 
       </div>
     </div>
@@ -55,7 +61,7 @@
     <div class="header-inner container">
       <!--branding/logo   <div class="header-divider d-none d-lg-block"></div>-->
       <div class="header-brand">
-        <a href="/"><%= image_tag(asset_path('logo.png')) %></a>
+        <a href="/"><%= image_tag(asset_path('logo.jpg')) %></a>
 
       </div>
       <!-- other header content -->
