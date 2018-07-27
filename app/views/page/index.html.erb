@@ -65,6 +65,15 @@
   <hr class="mb-5 w-50 mx-auto" />
 
   <div class="row">
+    <div class="col-lg-4 d-flex" style="padding-bottom: 25px;">
+      <div class="p-5 py-lg-6 overlay overlay-op-5  flex-ew hover-shadow  flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/search?new=1" style="background-image: url('/images/new.jpg');">
+        <hr class="w-50 mx-auto hr-primary" style="border-top: 3px solid rgba(0, 0, 0, 0.1);">
+        <h2 class="text-white text-center text-uppercase mb-0">
+          НОВИНКИ
+        </h2>
+        <hr class="w-50 mx-auto hr-primary" style="border-top: 3px solid rgba(0, 0, 0, 0.1);">
+      </div>
+    </div>
     <%  @cat_all.each do |cat|%>
         <div class="col-lg-4 d-flex" style="padding-bottom: 25px;">
           <div class="p-5 py-lg-6 overlay overlay-op-5  flex-ew hover-shadow  flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/category/<%=cat.cat_name_translit%>" style="background-image: url('/images/maincategory/<%=cat.cat_image%>');">
@@ -115,9 +124,7 @@
     <div class="card-deck">
       <!-- Product -->
       <%@action_items.each do |item|%>
-          <div class="card product-card hover-shadow">
-            <!-- Hover content -->
-
+          <div class="card mb-4 product-card hover-shadow ">
             <%if item.item_new %>
                 <div class="card-ribbon card-ribbon-top card-ribbon-left bg-success text-white"> НОВИНКА </div>
             <%end%>
@@ -126,40 +133,91 @@
                     width: 300px;
                     top: 36px;"> В КОЛЛЕКЦИИ </div>
             <%end%>
+            <!-- Hover content
+            <div class="overlay-hover-content overlay-op-7">
+              <a href="shop-cart.html" class="btn btn-primary btn-block text-uppercase font-weight-bold mb-3 btn-lg"><i class="fa fa-cart-plus mr-2"></i> В корзину</a>
+              <a href="shop-product.html" class="text-white text-sm">Подробнее о товаре</a> <a href="#" class="text-white text-sm">Добавить в закладки</a>
 
-
-
-
+            </div>-->
             <!-- Image & price content -->
             <div class="pos-relative">
               <a href="/product/<%=item.item_name_translit%>">
                 <img class="card-img-top img-fluid" src="/images/items/<%=item.id%>/<%=item.item_image1%>" alt="Купить <%=item.item_name%> в Москве по оптовым ценам">
               </a>
-              <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-r mt-2 mr-2 persist">
-              - <%=item.item_discount%> %</span>
+              <%if item.item_discount > 0 %>
+                    <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-r mt-2 mr-2 persist">
+                 - <%=item.item_discount%> %
+                </span>
+              <%else %>
+
+              <%end%>
 
             </div>
-
             <!-- Content -->
-            <div class="card-body">
-              <small class="text-muted text-uppercase"><span class="text-primary"> <a href="/category/<%=item.subcategory.category.cat_name_translit%>"><%= item.subcategory.category.cat_name%></a></span> / <a class="text-muted" href="/subcategory/<%=item.subcategory.subcat_name_translit%>"><%= item.subcategory.subcat_name%></a> </small>
-              <h4 class="card-title">
-                <a href="/product/<%=item.item_name_translit%>" class="text-uppercase text-black" style="text-decoration: none;"><%= item.item_name%></a>
-              </h4>
+            <div class="card-body text-center ">
+              <div style="height: 60px; padding-bottom: 10px;">
+                <a style="text-decoration: none; color: #3A4A59; font-weight: bold;" href="/product/<%=item.item_name_translit%>"> <%=item.item_name%></a>
+              </div>
               <hr/>
-              <small class="text-muted text-uppercase"><span class="text-primary"> Артикул : <%= item.item_article%></span></small>
+              <small class="text-muted text-uppercase"><span style="color: #3A4A59;"> Артикул :<span class="text-muted"> <%= item.item_article%></span></span></small>
+              <hr/>
+              <div id="spinner_<%=item.id%>" ></div>
+              <div id="cart_buttons_<%=item.id%>">
+                <%if item.item_presents%>
+                    <%if session[:cart].nil?%>
+                        <a style="color: #3A4A59;" href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fa fa-cart-plus"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ</span></a>
+
+                    <%else%>
+                        <%if session[:cart].keys.include? item.id.to_s%>
+
+                            <a style="color: #3A4A59;" href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fas fa-cart-arrow-down"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ ЕЩЕ</span></a>
+
+                        <%else%>
+                            <a style="color: #3A4A59;" href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fa fa-cart-plus"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ</span></a>
+                        <%end%>
+                    <%end%>
+                <%else%>
+                    <a href="javascript:void(0)" ><span class="fas fa-lock"></span><span style="font-size: 13px;"> НЕТ В НАЛИЧИИ</span></a>
+                <%end%>
+
+
+                |
+
+                <% if @wishlist.nil? %>
+                    <a style="color: #3A4A59;"  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button" onclick="return theFunction(<%=item.id%>); " data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span></a>
+
+                <%else%>
+                    <% if @wishlist.include?(item.id.to_s) %>
+                        <span class="fa fa-heart text-primary"></span>
+                    <% else %>
+                        <span id="wish<%=item.id%>button_off" style="display: none;" class="fa fa-heart text-primary"></span>
+                        <a style="color: #3A4A59;"  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button" onclick="return theFunction(<%=item.id%>); " data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span></a>
+                    <%end%>
+                <% end %>
+
+              </div>
 
             </div>
 
-            <div class="card-footer">
-              Цена : <del class="op-5">&#8381; <%=item.item_price%></del>
-              /
-              <%=item.item_price - (item.item_price * item.item_discount / 100)%> &#8381;
-              <%if item.item_presents%>
-                  <p class="text-muted text-uppercase text-xs mb-0"><span class="badge badge-success">товар в наличии</span> </p>
-              <% else %>
-                  <p class="text-muted text-uppercase text-xs mb-0"><span class="badge badge-warning">временно нет в наличии</span> </p>
-              <% end %>
+            <div class="card-footer text-center">
+              <small class="text-muted text-uppercase"><span style="color: #3A4A59;"> Цена :</span></small>
+              <%if item.item_discount > 0 %>
+                  <del class="op-5">&#8381; <%=item.item_price%></del>
+                  /
+                  <strong> <%=item.item_price - (item.item_price * item.item_discount / 100)%> &#8381;</strong>
+              <%else %>
+                  <strong> <%=item.item_price%> &#8381;</strong>
+              <%end%>
+              <br/>
+
+              <small class="text-muted text-uppercase"><span style="color: #3A4A59;">  Оптовая цена :</span></small>
+              <strong><%=item.item_opt_price%> &#8381; </strong>
+
+              <a href="#" data-toggle="tooltip" title="" data-original-title="При заказе от :  <%=item.item_opt_price_count%> штук"><i style="color: #3A4A59;" class="fa fa-info-circle fa-lg "></i></a>
+              <% if session[:admin]%>
+                  <hr>
+                  <a href="/admin/edititem?item_id=<%=item.id%>" class="btn btn-primary">Редактировать</a>
+              <%end%>
             </div>
           </div>
           <!-- Product -->

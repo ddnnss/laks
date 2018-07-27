@@ -21,7 +21,16 @@ class PageController < ApplicationController
 
   end
   def search
+    if params[:new].present?
+      @items = Item.paginate(:page => params[:page],:per_page => 12).where(:item_new => true)
+      return
+    end
+    if params[:discount].present?
+      @items = Item.paginate(:page => params[:page],:per_page => 12).where(:item_in_sale => true)
+      return
+    end
     @q = params[:q].mb_chars.upcase
+
     @items = Item.paginate(:page => params[:page],:per_page => 12).where('item_name_caps LIKE ?','%'+params[:q].mb_chars.upcase+'%')
     if @items.blank?
       @items = Item.paginate(:page => params[:page],:per_page => 12).where('item_article LIKE ?','%'+params[:q]+'%')
@@ -121,9 +130,10 @@ class PageController < ApplicationController
 
     end
 
-    if params[:filter].present?
+    if params[:filter].present? && params[:filter]!='all'
       @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).where('item_filter LIKE ?','%'+params[:filter]+'%')
-
+    else
+      @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name desc')
     end
 
 

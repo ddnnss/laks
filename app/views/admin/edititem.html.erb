@@ -210,7 +210,10 @@
           </div>
             <div class="col-sm-12">
               <p>Фильтры для товара :
-                <%=text_field_tag  :item_filter ,@item.item_filter, class:'form-control', id:'item_page_description'%></p>
+
+              <%= f.select(:item_filter, @tags.each {|k| [ k, k] },{ },
+                           { :multiple => true, :size => 5, id:'item_filter', class: 'form-control', required: true, style: 'height: 150px;' }
+                  ) %>
             </div>
           <div class="col-sm-12">
             <p>Описание товара:

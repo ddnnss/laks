@@ -1,5 +1,5 @@
 <div id="content">
-  <div class="container">
+  <div class="">
     <h4 >
       Административный раздел | Список товаров в подкатегории <%=@subcat.subcat_name %>
     </h4>
@@ -11,7 +11,7 @@
 
 
       <div class="col-md-9">
-        <a href="#newitem" data-toggle="collapse" class="text-sm">Новый товар в подкатегорию <%=@subcat.subcat_name %></a>
+        <a href="#newitem"  data-toggle="collapse" class="text-sm btn btn-warning">Новый товар в подкатегорию <%=@subcat.subcat_name %></a>
         <div class="col-lg-12 collapse" id="newitem">
           <hr/>
           <%= form_for  :addnewitem, url: addnewitem_path do |f|%>
@@ -211,7 +211,11 @@
             </div>
               <div class="col-sm-12">
                 <p>Фильтры для товара :
-                  <%=f.text_field  :item_filter , class:'form-control', id:'item_page_description'%></p>
+
+                  <%= f.select(:item_filter, @tags.each {|k| [ k, k] },{ },
+                               { :multiple => true, :size => 5, id:'item_filter', class: 'form-control', required: true, style: 'height: 150px;' }
+                      ) %>
+                </p>
               </div>
             <div class="col-sm-12">
               <p>Описание товара:
@@ -258,26 +262,11 @@
         <div class="row">
           <div class="col-lg-12 mb-3 mb-lg-0">
             <form action="/admin/showsubcategory" class="form-inline justify-content-lg-start text-sm" method="get">
-              <table>
-                <tr>
-                  <td>
-                    <label class="control-label mr-2">Поиск по :</label>
-
-                  </td>
-                  <td>
-                    <input id="searchtxt" type="text" class="form-control form-control-sm mr-lg-2" name="search" placeholder="названию товара">
-                  </td>
-                  <td>
-                    <input id="searchtxtarticle" type="text" class="form-control form-control-sm mr-lg-2" name="article" placeholder="артиклу">
-                  </td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>
-                    <label class="control-label mr-2">Сортировка:</label>
-                  </td>
-                  <td>
-                    <select id="sort_select" name='sort_type' class="form-control form-control-sm">
+              <label class="control-label mr-2">Поиск по :</label>
+              <input id="searchtxt" type="text" class="form-control form-control-sm mr-lg-2" name="search" placeholder="названию товара">
+              <input id="searchtxtarticle" type="text" class="form-control form-control-sm mr-lg-2" name="article" placeholder="артиклу">
+              <label class="control-label mr-2">Сортировка:</label>
+               <select id="sort_select" name='sort_type' class="form-control form-control-sm">
                       <option value="1">Название A-Я</option>
                       <option value="2">Название Я-А</option>
                       <option value="3">Цена +</option>
@@ -285,18 +274,9 @@
                       <option value="5">Скидка +</option>
                       <option value="6">Скидка -</option>
                       <option value="7">Дата добавления</option>
-
-                    </select>
-                  </td>
-                  <td>
-                    <label style="    position: absolute;
-                        top: 39px;
-                        right: 457px;" class="control-label mr-2 ml-lg-3">Отображать:</label>
-                  </td>
-                  <td>
-                    <select style="    position: absolute;
-                        top: 34px;
-                        right: 379px;" name="pp" class="form-control form-control-sm">
+               </select>
+               <label  class="control-label mr-2 ml-lg-3">Отображать:</label>
+               <select  name="pp" class="form-control form-control-sm">
                       <option value="15">15</option>
                       <option value="20">20</option>
                       <option value="25">25</option>
@@ -305,36 +285,29 @@
                       <option value="40">40</option>
                       <option value="45">45</option>
                       <option value="50">50</option>
-                    </select>
-                  </td>
-                </tr>
-
-              </table>
-
-
-
+                </select>
               <input name="subcat_id" value="<%=@subcat.id%>" type="hidden" />
-
-
-
               <button type="submit">Применить</button>
             </form>
           </div>
 
         </div>
         <hr>
-        <table class="table">
+        <table class="table" style="text-align: center;">
           <tbody>
           <tr>
-          <td>Название</td>
-            <td>Артикул</td>
-          <td>Цена роз.</td>
-            <td>Цена опт.</td>
-            <td>Скидка %</td>
-            <td></td>
+            <td style="width: 10%;"></td>
+            <td style="width: 50%;">Название</td>
+            <td style="width: 5%;">Артикул</td>
+            <td style="width: 5%;">Цена роз.</td>
+            <td style="width: 5%;">Цена опт.</td>
+            <td style="width: 5%;">Скидка %</td>
+            <td style="width: 2%;"></td>
+
           </tr>
         <%@items.each do |i|%>
         <tr>
+          <td><img src="/images/items/<%= i.id%>/<%= i.item_image1%>" width="100"></td>
           <td><%=i.item_name%></td>
           <td><%=i.item_article%></td>
           <td><%=i.item_price%></td>

@@ -15,10 +15,11 @@
 
         <div class="row">
           <div class="col-lg-12">
-            <% i=1%>
+
+            <a href="/subcategory/<%=@subcat.subcat_name_translit%>?filter=all" class="mb-2 btn btn-outline-secondary " id="filter-all">ВСЕ ТОВАРЫ</a>
             <%@filters.each do |f| %>
-                <a href="/subcategory/<%=@subcat.subcat_name_translit%>?filter=<%=f%>" class="mb-2 btn btn-outline-secondary " id="filter<%= i%>"><%=f%></a>
-                <%i=i+1%>
+                <a href="/subcategory/<%=@subcat.subcat_name_translit%>?filter=<%=f%>" class="mb-2 btn btn-outline-secondary " id="filter-<%=f%>"><%=f%></a>
+
             <%end%>
           </div>
 
@@ -88,7 +89,7 @@
               <!-- Content -->
               <div class="card-body text-center ">
                 <div style="height: 60px; padding-bottom: 10px;">
-                <a style="text-decoration: none; color: #3A4A59;" href="/product/<%=item.item_name_translit%>"> <%=item.item_name%></a>
+                <a style="text-decoration: none; color: #3A4A59; font-weight: bold;" href="/product/<%=item.item_name_translit%>"> <%=item.item_name%></a>
               </div>
                 <hr/>
                 <small class="text-muted text-uppercase"><span style="color: #3A4A59;"> Артикул :<span class="text-muted"> <%= item.item_article%></span></span></small>
@@ -199,6 +200,10 @@
     }
     if (getSearchParams('pp')!== undefined){
         $('#pp_select').val(decodeURIComponent(getSearchParams('pp')));
+    }
+    if (getSearchParams('filter')!== undefined){
+        $('#filter-'+decodeURIComponent(getSearchParams('filter'))).addClass('active');
+
     }
 
 </script>

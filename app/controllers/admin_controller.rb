@@ -86,8 +86,8 @@ end
       else
         i.update_column(:item_size_v , '')
       end
-      if params[:item_filter] != ''
-        i.update_column(:item_filter , params[:item_filter].mb_chars.upcase)
+      if params[:edititem][:item_filter] != ''
+        i.update_column(:item_filter , params[:edititem][:item_filter][1..-1].join(','))
       else
         i.update_column(:item_filter , '')
       end
@@ -165,6 +165,7 @@ redirect_to '/admin/items'
       @items_active = 'active'
       @item = Item.find(params[:item_id])
       @collections = Collection.all
+      @tags = @item.subcategory.subcat_filter.split(",")
       @aktion = Aktion.all
 end
 
@@ -172,6 +173,7 @@ end
   end
   def showsubcategory
     @subcat = Subcategory.find(params[:subcat_id])
+    @tags = @subcat.subcat_filter.strip.split(',')
     @items_active = 'active'
     if params[:sort_type].present?
       case params[:sort_type]
@@ -238,11 +240,10 @@ end
     end
 
     if params[:search]!='' && params[:search].present?
-
       @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).where('item_name_caps LIKE ?','%'+params[:search].mb_chars.upcase+'%')
-
-    else
-
+    end
+    if params[:article]!='' && params[:article].present?
+      @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).where('item_article LIKE ?','%'+params[:article]+'%')
     end
 
 
@@ -385,7 +386,7 @@ end
       newitem.item_size_v = params[:addnewitem][:item_size_v]
     end
     if params[:addnewitem][:item_filter] != ''
-      newitem.item_filter = params[:addnewitem][:item_filter].mb_chars.upcase
+      newitem.item_filter = params[:addnewitem][:item_filter]*","
     end
     if params[:addnewitem][:item_kolvo] != ''
       newitem.item_kolvo = params[:addnewitem][:item_kolvo]

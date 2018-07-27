@@ -4,49 +4,33 @@
       Административный раздел | Категории товаров
     </h4>
 <br/>
-
     <div class="row">
-
       <%=render 'admin/menu'%>
-
-
       <div class="col-md-9">
-
         <button class="btn btn-primary" data-toggle="modal" data-target=".new-category">Добавить новую категорию</button>
         <hr/>
         <table class="table">
           <tbody>
-
           <% @maincat.each do |cat| %>
               <tr class="table-dark">
                 <td width="70%"><%= cat.cat_name%></td>
                 <td></td>
-
                 <td><a href="#" id="<%= cat.id%>" class="maincat"  data-toggle="modal" data-target=".new-subcategory"><i class="far fa-plus-square" ></i></a></td>
                 <td> <%= link_to '<i class="far fa-edit" ></i>'.html_safe, {:controller => 'admin', :action => 'editcategory', :cat_id => cat.id, :main => '1' },method: :post, :remote => true  %></td>
                 <td><a href="/admin/deletecategory?id=<%= cat.id%>&type=main"><i class="fas fa-trash-alt" ></i></a></td>
-
               </tr>
               <% cat.subcategories.order('subcat_order ASC').each do |sc|%>
                   <tr>
-
-
                     <td width="70"%> <%= sc.subcat_order%> - <a href="/admin/showsubcategory?subcat_id=<%= sc.id%>"><%= sc.subcat_name%></a> </td>
-
                     <td>Товаров : <span class="badge badge-primary"><%= sc.items.count%></span>  </td>
-
-                    <td><%= link_to '<i class="fas fa-cart-plus" ></i>'.html_safe, {:controller => 'admin', :action => 'addnewitem', :id => sc.id, :type => 'getcoll' },method: :post, :remote => true  %></td>
+                    <td></td>
                     <td><%= link_to '<i class="far fa-edit" ></i>'.html_safe, {:controller => 'admin', :action => 'editcategory', :cat_id => sc.id, :main => '0' },method: :post, :remote => true  %></td>
                     <td><a href="/admin/deletecategory?id=<%= sc.id%>&maincat=<%= cat.id%>"><i class="fas fa-trash-alt" ></i></a></td>
-
                   </tr>
               <% end %>
-
           <% end %>
-
           </tbody>
         </table>
-
         <!-- modal add new cat -->
         <div class="modal fade new-category" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
           <div class="modal-dialog modal-lg">
