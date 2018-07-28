@@ -164,6 +164,9 @@ class PageController < ApplicationController
       return
     else
       @item.update_column(:item_views_count,@item.item_views_count + 1)
+      if @item.collection_id > 0
+        @collection = Collection.find(@item.collection_id)
+      end
           if session[:active]
             client = Client.find(session[:client_id])
                 if client.client_view_history != ''

@@ -75,11 +75,7 @@
           <%if @item.item_new %>
               <div class="card-ribbon card-ribbon-top card-ribbon-right bg-success text-white"> НОВИНКА </div>
           <%end%>
-          <%if @item.collection_id > 0 %>
-              <div class="card-ribbon card-ribbon-top card-ribbon-right bg-primary text-white" style="    left: 340px !important;
-                  width: 300px;
-                  top: 36px;"> В КОЛЛЕКЦИИ </div>
-          <%end%>
+
 
           <!-- Content -->
           <div class="card-body p-4 pos-relative">
@@ -89,6 +85,17 @@
               <%= @item.item_name%>
             </h2>
 
+
+            <%if @item.collection_id > 0 %>
+
+                  Товар в :
+
+
+                  <a href="/collection/<%= @collection.collection_name_translit %>" class="btn btn-outline-primary" > <%= @collection.collection_name %></a>
+
+            <%end%>
+
+            <hr>
             <h5 class="font-weight-bold ">
 
               Цена :
@@ -105,21 +112,27 @@
               Оптовая цена :  <%=@item.item_opt_price%> &#8381; <a href="#" data-toggle="tooltip" title="" data-original-title="При заказе от :  <%=@item.item_opt_price_count%> штук"><i class="fa fa-info-circle fa-lg "></i></a>
 
             </h5>
-
-
-
             <hr class="my-3">
             <%if @item.item_description!=''%>
             <%= @item.item_description.html_safe %>
             <hr class="my-3 ">
                 <%end%>
             <!-- Cart options/links fa fa-heart -->
-            <div class="product-options row mb-4">
-              <div class="col-md-12 text-sm text-uppercase"><strong>Артикул :</strong> <%=@item.item_article%></div>
-              <div class="col-md-12 text-sm text-uppercase"><strong>Вес : </strong><%=@item.item_weight%></div>
-              <div class="col-md-12 text-sm text-uppercase"><strong>Цвет : </strong><%=@item.item_color%></div>
-              <div class="col-md-12 text-sm text-uppercase"><strong>Материал : </strong><%=@item.item_material%></div>
 
+
+            <div class="product-options row mb-4">
+
+              <div class="col-md-12 text-sm text-uppercase"><strong>Артикул :</strong> <%=@item.item_article%></div>
+              <%unless @item.item_weight == '' || @item.item_weight == 'не указано' %>
+              <div class="col-md-12 text-sm text-uppercase"><strong>Вес : </strong><%=@item.item_weight%></div>
+              <%end%>
+              <%unless @item.item_color == '' || @item.item_color == 'не указано' %>
+              <div class="col-md-12 text-sm text-uppercase"><strong>Цвет : </strong><%=@item.item_color%></div>
+              <%end%>
+              <%unless @item.item_material == '' || @item.item_material == 'не указано' %>
+              <div class="col-md-12 text-sm text-uppercase"><strong>Материал : </strong><%=@item.item_material%></div>
+              <%end%>
+              <%unless @item.item_size_d == '' || @item.item_size_d == '0' || @item.item_size_sh == '' || @item.item_size_sh == '0' || @item.item_size_v == '' || @item.item_size_v == '0'  %>
               <div class="col-md-12 text-sm text-uppercase">
                 <table>
                   <tr>
@@ -134,7 +147,7 @@
                   </tr>
                 </table>
               </div>
-
+              <%end%>
 
               <div class="col-md-12 text-sm text-uppercase">
 
@@ -193,12 +206,8 @@
 
 
           </div>
-        <div style="background-color: #fff; padding: 20px;margin-bottom: 20px;">
 
-          <hr>
-        коллекция
-          <a href="#" style="margin-left: 20px;">Открыть коллекцию</a>
-        </div>
+
         <div style="background-color: #fff; padding: 20px;">
           <table style="margin-left: 20px;">
             <tbody>
