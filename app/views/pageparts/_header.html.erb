@@ -204,24 +204,24 @@
             <li class="nav-item "><a  style="color: #D24B6F;" href="/search?new=1" class="nav-link">НОВИНКИ</a></li>
             <li class="nav-item "><a  style="color: #D24B6F;" href="/search?discount=1" class="nav-link">СКИДКИ</a></li>
             <li class="nav-item "><a  style="color: #D24B6F;" href="/about" class="nav-link">О НАС</a></li>
+            <ul class="nav navbar-nav float-lg-right navbar-nav-flush-right dropdown-effect-fadeup">
+              <%if session[:active]%>
 
+                  <li class="nav-item dropdown dropdowns-no-carets dropdown-persist">
+                    <a style="color: #3A4A59;" href="#" class="nav-link dropdown-toggle" id="account-drop" data-toggle="dropdown" data-hover="dropdown"><i class="fa fa-user mr-2"></i> ЛК</a>
+
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <a href="/checkout#cart" class="dropdown-item">Корзина</a>
+                      <a href="/profile#wishlist" class="dropdown-item">Закладки</a>
+                      <a href="/profile#orders" class="dropdown-item">Заказы</a>
+                      <a href="/profile" class="dropdown-item">Профиль</a>
+                    </div>
+                  </li>
+              <%end%>
+
+            </ul>
           </ul>
-          <ul class="nav navbar-nav float-lg-right navbar-nav-flush-right dropdown-effect-fadeup">
-            <%if session[:active]%>
 
-                <li class="nav-item dropdown dropdowns-no-carets dropdown-persist">
-                  <a style="color: #3A4A59;" href="#" class="nav-link dropdown-toggle" id="account-drop" data-toggle="dropdown" data-hover="dropdown"><i class="fa fa-user mr-2"></i>личный кабинет</a>
-
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a href="/checkout#cart" class="dropdown-item">Корзина</a>
-                    <a href="/profile#wishlist" class="dropdown-item">Закладки</a>
-                    <a href="/profile#orders" class="dropdown-item">Заказы</a>
-                    <a href="/profile" class="dropdown-item">Профиль</a>
-                  </div>
-                </li>
-            <%end%>
-
-          </ul>
         </div>
         <!--/.navbar-collapse -->
       </div>

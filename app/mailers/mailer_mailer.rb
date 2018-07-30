@@ -8,7 +8,7 @@ class MailerMailer < ApplicationMailer
   end
   def newpass(mail)
     @user=mail
-    mail(to: @user.client_email,subject: "Регистрация на сайте LAKSHMI888.RU")
+    mail(to: @user.client_email,subject: "Восстановление пароля на сайте LAKSHMI888.RU")
   end
 
   def neworder(mail,items,code,discount)
