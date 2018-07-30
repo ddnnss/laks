@@ -32,7 +32,7 @@
         <%if session[:active]%>
 
             <a style="font-size: 15px;
-                font-weight: bold;" href="/logout"  class="nav-link text-xs text-uppercase d-none d-sm-block">выход</a>
+                font-weight: bold;" href="/logout"  class="btn btn-sm btn-primary text-uppercase d-none d-sm-block">выход</a>
         <%else%>
 
             <a  href="#" data-toggle="modal" data-target=".login-modal-lg" class="btn btn-sm btn-primary text-uppercase d-none d-sm-block">вход/регистрация</a>
@@ -198,6 +198,7 @@
             <li class="nav-item "><a  style="color: #D24B6F;" href="/search?discount=1" class="nav-link">СКИДКИ</a></li>
             <li class="nav-item "><a  style="color: #D24B6F;" href="/about" class="nav-link">О НАС</a></li>
             <%if session[:active]%>
+            <li class="nav-item "><a style="color: #D24B6F;" href="/about" class="nav-link"></a></li>
             <ul class="nav navbar-nav float-lg-right navbar-nav-flush-right dropdown-effect-fadeup">
 
 
@@ -385,6 +386,6 @@
         $('#passbutt').attr('disabled','disabled');
     });
 
-   
+
 </script>
 <%end%>
