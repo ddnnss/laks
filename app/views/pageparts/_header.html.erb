@@ -204,8 +204,9 @@
             <li class="nav-item "><a  style="color: #D24B6F;" href="/search?new=1" class="nav-link">НОВИНКИ</a></li>
             <li class="nav-item "><a  style="color: #D24B6F;" href="/search?discount=1" class="nav-link">СКИДКИ</a></li>
             <li class="nav-item "><a  style="color: #D24B6F;" href="/about" class="nav-link">О НАС</a></li>
+            <%if session[:active]%>
             <ul class="nav navbar-nav float-lg-right navbar-nav-flush-right dropdown-effect-fadeup">
-              <%if session[:active]%>
+
 
                   <li class="nav-item dropdown dropdowns-no-carets dropdown-persist">
                     <a style="color: #3A4A59;" href="#" class="nav-link dropdown-toggle" id="account-drop" data-toggle="dropdown" data-hover="dropdown"><i class="fa fa-user mr-2"></i> ЛК</a>
@@ -217,9 +218,10 @@
                       <a href="/profile" class="dropdown-item">Профиль</a>
                     </div>
                   </li>
-              <%end%>
+
 
             </ul>
+            <%end%>
           </ul>
 
         </div>
