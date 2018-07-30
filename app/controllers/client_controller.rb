@@ -1,4 +1,21 @@
 class ClientController < ApplicationController
+  def lostpass
+    @client = Client.find_by(client_email: params[:lostpass][:client_email].downcase)
+    if @client
+      @client.update_column(:client_password , [*('a'..'z'),*('0'..'9')].shuffle[0,8].join)
+      MailerMailer.newpass(@client).deliver_later
+      respond_to do |format|
+        @res='Новый пароль выслан на Вашу почту!'
+        @status = 'ok'
+        format.js
+      end           ##end respond
+    else
+      respond_to do |format|
+        @res = 'Аккаунт не зарегистрирован'
+        format.js
+      end
+    end
+  end
 
   def login
     client = Client.find_by(client_email: params[:login][:client_email].downcase)

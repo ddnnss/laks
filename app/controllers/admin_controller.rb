@@ -55,12 +55,16 @@ end
       i.update_column(:item_opt_price, params[:item_opt_price].to_i)
       i.update_column(:item_opt_price_count, params[:item_opt_price_count].to_i)
       i.update_column(:item_postavshik, params[:item_postavshik])
-      i.update_column(:item_comment, params[:item_comment])
+
       i.update_column(:aktion_id, 0)
       i.update_column(:collection_id, 0)
       i.update_column(:item_new , false)
       i.update_column(:item_discount, 0)
       i.update_column(:item_in_sale, false)
+
+      unless params[:item_comment]==''
+      i.update_column(:item_comment, params[:item_comment])
+      end
 
       unless params[:item_presents].present?
         i.update_column(:item_presents , false)

@@ -56,8 +56,8 @@
             <label for="item_postavshik" class="col-sm-2 col-form-label">Поставщик товара :</label>
             <div class="col-sm-10">
               <select class="form-control"  name="item_postavshik" id="item_postavshik" >
-                <option>Севастопольская</option>
-                <option>Китай</option>
+                <option <%= @item.item_postavshik=='Севастопольская' ? 'selected':''%>>Севастопольская</option>
+                <option <%= @item.item_postavshik=='Китай' ? 'selected':''%>>Китай</option>
 
               </select>
             </div>
@@ -240,6 +240,13 @@
                            { :multiple => true, :size => 5, id:'item_filter', class: 'form-control', required: true, style: 'height: 150px;' }
                   ) %>
             </div>
+
+            <div class="col-sm-12">
+              <p>Комментарий  к товару (видно только админам) :
+
+                <textarea style="width: 100%;" id="item_comment" name="item_comment" ><%= @item.item_comment %></textarea></p>
+
+            </div>
           <div class="col-sm-12">
             <p>Описание товара:
               <textarea class="summernote-5"  id="summernote-addnewitrm" name="item_description" rows="18" ></textarea></p>
@@ -298,12 +305,7 @@
               Заменить:
               <%= f.file_field :item_image4 %></p>
           </div>
-          <div class="form-group row">
-            <label for="item_comment" class="col-sm-2 col-form-label">Комментарий  к товару :</label>
-            <div class="col-sm-10">
-              <textarea style="width: 100%;" id="item_comment" name="item_comment" ><%= @item.item_comment %></textarea>
-            </div>
-          </div>
+
 
           <input name="type" value="save" type="hidden" />
           <input name="item_id" value="<%= @item.id %>" type="hidden" />
@@ -322,64 +324,69 @@
 
 <script language="JavaScript">
 
+    $(document).ready(function() {
+        $('.summernote-5').summernote('code', "<%= j @item.item_description.html_safe %>");
+        $('.note-popover').css('display', 'none');
 
-    $('.summernote-5').summernote('code',"<%= j @item.item_description.html_safe %>");
-    $('.note-popover').css('display', 'none');
+        const checkbox1 = $("#item_discount");
 
-    const checkbox1 = $("#item_discount");
+        checkbox1.change(function (event) {
+            var checkbox1 = event.target;
+            if (checkbox1.checked) {
+                $('#item_discount_val').removeAttr('disabled');
+            } else {
+                $("#item_discount_val").attr("disabled", "disabled").focus();
+            }
+        });
+        const checkbox2 = $("#add_coll");
+        checkbox2.change(function (event) {
+            var checkbox2 = event.target;
+            if (checkbox2.checked) {
+                $('#collections_select').removeAttr('disabled');
+            } else {
+                $("#collections_select").attr("disabled", "disabled")
+            }
+        });
+        const checkbox3 = $("#add_aktion");
+        checkbox3.change(function (event) {
+            var checkbox3 = event.target;
+            if (checkbox3.checked) {
+                $('#aktion_select').removeAttr('disabled');
+            } else {
+                $("#aktion_select").attr("disabled", "disabled")
+            }
+        });
+        const checkbox4 = $("#item_replace");
+        checkbox4.change(function (event) {
+            var checkbox4 = event.target;
+            if (checkbox4.checked) {
+                $('#new_mancatselect').removeAttr('disabled');
+                $('#new_subcatselect').removeAttr('disabled');
+            } else {
+                $("#new_mancatselect").attr("disabled", "disabled");
+                $("#new_subcatselect").attr("disabled", "disabled");
+            }
+        });
 
-    checkbox1.change(function(event) {
-        var checkbox1 = event.target;
-        if (checkbox1.checked) {
-            $('#item_discount_val').removeAttr('disabled');
-        } else {
-            $("#item_discount_val").attr("disabled","disabled").focus();
+
+        if (<%=@item.collection_id %> !==
+        0
+    )
+        {
+            $('#collections_select').val(<%=@item.collection_id %>).attr("selected", "selected");
         }
-    });
-    const checkbox2 = $("#add_coll");
-    checkbox2.change(function(event) {
-        var checkbox2 = event.target;
-        if (checkbox2.checked) {
-            $('#collections_select').removeAttr('disabled');
-        } else {
-            $("#collections_select").attr("disabled","disabled")
+        if (<%=@item.aktion_id %> !==
+        0
+    )
+        {
+            $('#aktion_select').val(<%=@item.aktion_id %>).attr("selected", "selected");
         }
+        $('#new_mancatselect').change(function () {
+            $.ajax({
+                url: "/admin/getsubcat",
+                type: "GET",
+                data: {'cat_id': $('#new_mancatselect option:selected').val()},
+            })
+        });
     });
-    const checkbox3 = $("#add_aktion");
-    checkbox3.change(function(event) {
-        var checkbox3 = event.target;
-        if (checkbox3.checked) {
-            $('#aktion_select').removeAttr('disabled');
-        } else {
-            $("#aktion_select").attr("disabled","disabled")
-        }
-    });
-    const checkbox4 = $("#item_replace");
-    checkbox4.change(function(event) {
-        var checkbox4 = event.target;
-        if (checkbox4.checked) {
-            $('#new_mancatselect').removeAttr('disabled');
-            $('#new_subcatselect').removeAttr('disabled');
-        } else {
-            $("#new_mancatselect").attr("disabled","disabled");
-            $("#new_subcatselect").attr("disabled","disabled");
-        }
-    });
-
-
-    if (<%=@item.collection_id %> !== 0){
-        $('#collections_select').val(<%=@item.collection_id %>).attr("selected", "selected");
-    }
-    if (<%=@item.aktion_id %> !== 0)
-    {
-        $('#aktion_select').val(<%=@item.aktion_id %>).attr("selected", "selected");
-    }
-    $('#new_mancatselect').change(function(){
-        $.ajax({
-            url: "/admin/getsubcat",
-            type: "GET",
-            data: {'cat_id' : $('#new_mancatselect option:selected').val() },
-        })
-    });
-
 </script>

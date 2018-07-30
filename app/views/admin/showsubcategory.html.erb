@@ -1,5 +1,5 @@
 <div id="content">
-  <div class="">
+  <div class="container">
     <h4 >
       Административный раздел | Список товаров в подкатегории <%=@subcat.subcat_name %>
     </h4>
@@ -10,7 +10,7 @@
       <%=render 'admin/menu'%>
 
 
-      <div class="col-md-9">
+      <div style="font-size: 13px;" class="col-md-9">
         <a href="#newitem"  data-toggle="collapse" class="text-sm btn btn-warning">Новый товар в подкатегорию <%=@subcat.subcat_name %></a>
         <div class="col-lg-12 collapse" id="newitem">
           <hr/>
@@ -217,6 +217,14 @@
                       ) %>
                 </p>
               </div>
+
+              <div class="col-sm-12">
+                <p>Комментарий  к товару (видно только админам) :
+
+                  <textarea style="width: 100%;" id="item_comment" name="item_comment" ></textarea></p>
+
+              </div>
+
             <div class="col-sm-12">
               <p>Описание товара:
                 <textarea class="summernote-5"  id="summernote-addnewitrm" name="item_description" rows="18" ></textarea></p>
@@ -240,12 +248,7 @@
               <p>Картинка №4 для товара  :
                 <%= f.file_field :item_image4 %></p>
             </div>
-            <div class="form-group row">
-              <label for="item_comment" class="col-sm-2 col-form-label">Комментарий  к товару :</label>
-              <div class="col-sm-10">
-                <textarea style="width: 100%;" id="item_comment" name="item_comment" ></textarea>
-              </div>
-            </div>
+
             <input name="act" value="sub" type="hidden" />
             <input name="type" value="save" type="hidden" />
             <input name="subcat_id" value="<%=@subcat.id%>" type="hidden" />
@@ -329,51 +332,55 @@
 
 <script language="JavaScript">
 
+    $(document).ready(function() {
+        $('.summernote-5').summernote();
+        $('.note-popover').css('display', 'none');
+        $("#item_size").mask("99.99x99.99x99.99", {placeholder: "00.00х00.00х00.00"});
+        const checkbox1 = $("#item_discount");
 
-    $('.summernote-5').summernote();
-    $('.note-popover').css('display', 'none');
-    $("#item_size").mask("99.99x99.99x99.99", {placeholder: "00.00х00.00х00.00" });
-    const checkbox1 = $("#item_discount");
+        checkbox1.change(function (event) {
+            var checkbox1 = event.target;
+            if (checkbox1.checked) {
+                $('#item_discount_val').removeAttr('disabled');
+            } else {
+                $("#item_discount_val").attr("disabled", "disabled").focus();
+            }
+        });
+        const checkbox2 = $("#add_coll");
+        checkbox2.change(function (event) {
+            var checkbox2 = event.target;
+            if (checkbox2.checked) {
+                $('#collections_select').removeAttr('disabled');
+            } else {
+                $("#collections_select").attr("disabled", "disabled")
+            }
+        });
+        const checkbox3 = $("#add_aktion");
+        checkbox3.change(function (event) {
+            var checkbox3 = event.target;
+            if (checkbox3.checked) {
+                $('#aktion_select').removeAttr('disabled');
+            } else {
+                $("#aktion_select").attr("disabled", "disabled")
+            }
+        });
 
-    checkbox1.change(function(event) {
-        var checkbox1 = event.target;
-        if (checkbox1.checked) {
-            $('#item_discount_val').removeAttr('disabled');
-        } else {
-            $("#item_discount_val").attr("disabled","disabled").focus();
+        function getSearchParams(k) {
+            var p = {};
+            location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (s, k, v) {
+                p[k] = v
+            })
+            return k ? p[k] : p;
+        }
+
+        if (getSearchParams('sort_type') !== undefined) {
+            $('#sort_select').val(getSearchParams('sort_type')).attr("selected", "selected");
+        }
+        if (getSearchParams('search') !== undefined) {
+            $('#searchtxt').val(decodeURIComponent(getSearchParams('search')));
+        }
+        if (getSearchParams('article') !== undefined) {
+            $('#searchtxtarticle').val(decodeURIComponent(getSearchParams('article')));
         }
     });
-    const checkbox2 = $("#add_coll");
-    checkbox2.change(function(event) {
-        var checkbox2 = event.target;
-        if (checkbox2.checked) {
-            $('#collections_select').removeAttr('disabled');
-        } else {
-            $("#collections_select").attr("disabled","disabled")
-        }
-    });
-    const checkbox3 = $("#add_aktion");
-    checkbox3.change(function(event) {
-        var checkbox3 = event.target;
-        if (checkbox3.checked) {
-            $('#aktion_select').removeAttr('disabled');
-        } else {
-            $("#aktion_select").attr("disabled","disabled")
-        }
-    });
-
-    function getSearchParams(k){
-        var p={};
-        location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
-        return k?p[k]:p;
-    }
-    if (getSearchParams('sort_type')!== undefined){
-        $('#sort_select').val(getSearchParams('sort_type')).attr("selected", "selected");
-    }
-    if (getSearchParams('search')!== undefined){
-        $('#searchtxt').val(decodeURIComponent(getSearchParams('search')));
-    }
-    if (getSearchParams('article')!== undefined){
-        $('#searchtxtarticle').val(decodeURIComponent(getSearchParams('article')));
-    }
 </script>

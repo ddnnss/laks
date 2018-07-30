@@ -311,10 +311,13 @@ var Config = {
                     var e = t(this),
                         a = e.find(".quantity-down"),
                         n = e.find(".quantity-up"),
-                        o = e.find(".quantity"),
+                        o = e.find(".quantity");
+                    var e = parseInt(o.val());
                         i = function(t) {
-                            var e = parseInt(o.val());
-                            "down" === t ? e -= 1 : "up" === t && (e += 1), e < 0 && (e = 0), o.val(e)
+
+                            console.log(e);
+                            "down" === t ? e = e - 1 : "up" === t && (e = e + 1), e < 1 && (e = 1), o.val(e);
+
                         };
                     o.length > 0 && (a.on("click", function() {
                         i("down")

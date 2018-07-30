@@ -23,18 +23,21 @@ class PageController < ApplicationController
   def search
     if params[:new].present?
       @items = Item.paginate(:page => params[:page],:per_page => 12).where(:item_new => true)
+      @page_type='НОВИНКИ'
       return
     end
     if params[:discount].present?
       @items = Item.paginate(:page => params[:page],:per_page => 12).where(:item_in_sale => true)
+      @page_type='СКИДКИ'
       return
     end
-    @q = params[:q].mb_chars.upcase
+    q = params[:q].mb_chars.upcase
 
     @items = Item.paginate(:page => params[:page],:per_page => 12).where('item_name_caps LIKE ?','%'+params[:q].mb_chars.upcase+'%')
     if @items.blank?
       @items = Item.paginate(:page => params[:page],:per_page => 12).where('item_article LIKE ?','%'+params[:q]+'%')
     end
+    @page_type='РЕЗУЛЬТАТ ПОИСКА ПО ЗАПРОСУ : ' + q
 
   end
   def showcollection

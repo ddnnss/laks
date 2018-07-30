@@ -13,7 +13,7 @@
     <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
     <!-- Iconset: Linearicons - https://linearicons.com/free -->
     <link href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -39,13 +39,14 @@
   </head>
 
   <body class="page page-shop header-compact-sticky page-shop navbar-layout-navbar-below" style="color: #3A4A59 !important;">
- <!---->  <div class="page-loader" data-toggle="page-loader"></div>
+ <!--  <div class="page-loader" data-toggle="page-loader"></div>
 
-  <a id="#top" href="#content" class="sr-only">Пропустить</a>
+  <a id="#top" href="#content" class="sr-only">Пропустить</a>-->
 
   <%=render partial: 'pageparts/header' ,  locals: {mc: @menu_cat, md: @cat_all, cart: @cart}%>
     <%= yield %>
   <%=render 'pageparts/footer'%>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
  <%= javascript_include_tag 'custom-script.js' %>
  <%= javascript_include_tag 'script.js' %>
   </body>

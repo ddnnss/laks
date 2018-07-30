@@ -184,7 +184,7 @@
             </fieldset>
           </div>
           <!-- Proceed to checkout -->
-          <a href="<%= request.referer%>" class="btn btn-outline-primary btn-rounded btn-lg">Продолжить покупки</a>
+          <a href="/search?discount=1" class="btn btn-outline-primary btn-rounded btn-lg">Продолжить покупки</a>
         <% if session[:client_data_bad]%>
           <button type="submit" class="btn btn-primary btn-rounded btn-lg" disabled>Оформить заказ</button>
         <% else %>
