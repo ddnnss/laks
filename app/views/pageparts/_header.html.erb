@@ -12,14 +12,11 @@
         <nav class="nav nav-sm header-block-flex">
           <img style="width: 20px;" src="/images/tel.png" >
 
-          <a style="font-size: 15px;
-              font-weight: bold;" class="nav-link  text-uppercase" href="callto:+74959263359">8 (495) 926 33 59</a>
+          <a style="font-size: 15px;"  class="nav-link  text-uppercase" href="tel:+74959263359" >8 (495) 926 33 59</a>
           <img style="width: 20px;" src="/images/up.png">
-          <a style="font-size: 15px;
-              font-weight: bold;" class="nav-link  text-uppercase" href="callto:+79646477676">8 (964) 647 76 76</a>
+          <a style="font-size: 15px;" class="nav-link  text-uppercase" href="tel:+79646477676" >8 (964) 647 76 76</a>
           <img style="width: 20px;" src="/images/m.png">
-          <a style="font-size: 15px;
-              font-weight: bold;" class="nav-link  text-uppercase" href="mailto: info@lakshmi888.ru">info@lakshmi888.ru</a>
+          <a style="font-size: 15px;" class="nav-link  text-uppercase" href="mailto:info@lakshmi888.ru" >info@lakshmi888.ru</a>
           <a href="https://www.instagram.com/lakshmi.888/" class="nav-link"> <i class="fab fa-instagram icon-1x"></i> <span class="sr-only">Twitter</span> </a>
 
           <a href="https://vk.com/lakshmi_888" class="nav-link"> <i class="fab fa-vk icon-1x"></i> <span class="sr-only">Facebook</span> </a>
@@ -38,11 +35,7 @@
                 font-weight: bold;" href="/logout"  class="nav-link text-xs text-uppercase d-none d-sm-block">выход</a>
         <%else%>
 
-            <a style="font-size: 15px;
-                font-weight: bold;
-                border: 1px solid #ffffff;
-                padding: 5px;
-                border-radius: 4px;" href="#" data-toggle="modal" data-target=".login-modal-lg" class="nav-link text-uppercase d-none d-sm-block">вход/регистрация</a>
+            <a  href="#" data-toggle="modal" data-target=".login-modal-lg" class="btn btn-sm btn-primary text-uppercase d-none d-sm-block">вход/регистрация</a>
         <%end%>
         <!--@todo: replace with company social media details <div class="header-divider header-divider-sm"></div>-->
 
@@ -167,7 +160,7 @@
         <a href="#top" class="btn btn-link btn-icon header-btn float-right d-lg-none" data-toggle="jpanel-menu" data-target=".navbar-main" data-direction="right"> <i style="font-size: 25px;" class="fa fa-bars"></i> </a>
       </div>
 
-      <div  class="navbar navbar-expand-md navbar-static-top">
+      <div  class="navbar navbar-expand-md navbar-static-top order-11">
         <!--everything within this div is collapsed on mobile-->
         <div class="navbar-main collapse">
           <!--main navigation-->
@@ -391,5 +384,7 @@
         $('#passbutt').html("Подождите...");
         $('#passbutt').attr('disabled','disabled');
     });
+
+   
 </script>
 <%end%>
