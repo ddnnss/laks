@@ -18,7 +18,10 @@
  * Includes the base variables & mixins needed for all
  * scss files
  *******************************************************/
-
+.nav-link{
+  font-size: 13px !important;
+  font-weight: normal !important;
+}
 .container{
   max-width: 1300px !important;
 }
