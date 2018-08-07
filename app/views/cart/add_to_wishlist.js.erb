@@ -16,8 +16,7 @@ if ('<%=@status %>' == 'ok')
     $("#wish<%= @item_id%>button_off").css("display", "block");
     $("#wish<%= @item_id%>icon").removeClass('far');
     $("#wish<%= @item_id%>icon").addClass('fas');
-    $("#cart_buttons_<%= @item_id%>").css('display','block');
-    $("#spinner_<%= @item_id%>").removeClass('spinner');
+
 }
 if ('<%=@status %>' == 'err')
     {
@@ -34,6 +33,5 @@ if ('<%=@status %>' == 'err')
             'position'          :'top right'
         });
 
-        $("#cart_buttons_<%= @item_id%>").css('display','block');
-        $("#spinner_<%= @item_id%>").removeClass('spinner');
+
     }

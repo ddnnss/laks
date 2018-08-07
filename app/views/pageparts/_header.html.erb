@@ -11,7 +11,7 @@
       <div class="header-block-flex order-1 mr-auto">
         <nav class="nav nav-sm header-block-flex">
           <img style="width: 20px;" src="/images/tel.png" >
-
+          <a style="font-size: 15px;"  class="nav-link  text-uppercase" href="tel:+74959263359" ><%=check_cart? ? 'опт' : 'не опт' %></a>
           <a style="font-size: 15px;"  class="nav-link  text-uppercase" href="tel:+74959263359" >8 (495) 926 33 59</a>
           <img style="width: 20px;" src="/images/up.png">
           <a style="font-size: 15px;" class="nav-link  text-uppercase" href="tel:+79646477676" >8 (964) 647 76 76</a>
@@ -73,30 +73,35 @@
           <a href="#" class="btn btn-icon btn-dark btn-link float-right dropdown-toggle cart-link" data-toggle="dropdown">
               <span class="cart-link-icon">
                 <i style="font-size: 25px;" class="fa fa-shopping-cart "></i>
-                <span class="sr-only">Cart</span> <span id="cart_count" class="cart-link-count bg-primary text-white">
-               <%if cart.nil?%>
-                0
+                <%if cart.nil? || cart.count == 0%>
+
                     <%else%>
+                <span class="sr-only">Cart</span> <span id="cart_count" class="cart-link-count bg-primary text-white">
+
                   <% c=0%>
                     <%session[:cart].values.each {|v| c=c+v}%>
                     <%=c%>
-                    <%end%>
+
 
 
               </span></span>
+            <%end%>
           </a>
 
           <!--Shopping cart dropdown -->
           <div style="width: 400px;" class="dropdown-menu dropdown-menu-right dropdown-menu-arrow cart-dropdown-menu" role="menu">
-            <h5 class="dropdown-header mb-0">
-              Ваш заказ:
-            </h5>
-            <hr class="mt-0 mb-3" />
-            <!--Shopping cart items-->
-            <div class="cart-items">
-              <%if cart.nil?%>
 
+            <div class="cart-items">
+              <%if cart.nil? || cart.count == 0%>
+                  <h5 class="dropdown-header mb-0">
+                    Корзина пуста
+                  </h5>
               <%else%>
+                  <h5 class="dropdown-header mb-0">
+                    Ваш заказ:
+                  </h5>
+                  <hr class="mt-0 mb-3" />
+                  <!--Shopping cart items-->
                   <%cart.each do |cc|%>
                       <div class="cart-items-item">
 
@@ -109,7 +114,7 @@
                             <%= cc.item_name%>
                           </h5>
                           <p class="mb-0">
-                            <%if session[:cart][cc.id.to_s] >= cc.item_opt_price_count  %>
+                            <%if check_cart?  %>
 
                                 <span class="text-primary cart_item_bold"> <%= cc.item_opt_price%> </span> &#8381;
                                 <%session[:total] = session[:total] + (cc.item_opt_price* session[:cart][cc.id.to_s])%> x <span id="item<%= cc.id%>count"><%=session[:cart][cc.id.to_s]%></span>
@@ -136,6 +141,17 @@
                         </div>
                       </div>
                   <%end%>
+
+                  <hr class="mt-3 mb-0" />
+                  <div id="cart_text" class="dropdown-footer text-center">
+
+                    <h5 class="font-weight-bold">
+                      Итого (без учета стоимости доставки):<br/> <span id="total" class="text-primary"><%= session[:total]%></span> &#8381;
+                    </h5>
+                    <a href="/checkout#cart" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2">Перейти в корзину</a>
+                    <a href="/checkout#checkout" tabindex="-1" class="btn btn-primary btn-sm btn-rounded mx-2">Оформить заказ</a>
+
+                  </div>
               <%end%>
 
 
@@ -143,16 +159,7 @@
 
             </div>
             <!--End of Shopping cart items-->
-            <hr class="mt-3 mb-0" />
-            <div id="cart_text" class="dropdown-footer text-center">
 
-              <h5 class="font-weight-bold">
-                Итого (без учета стоимости доставки):<br/> <span id="total" class="text-primary"><%= session[:total]%></span> &#8381;
-              </h5>
-              <a href="/checkout#cart" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2">Перейти в корзину</a>
-              <a href="/checkout#checkout" tabindex="-1" class="btn btn-primary btn-sm btn-rounded mx-2">Оформить заказ</a>
-
-            </div>
 
           </div>
         </div>

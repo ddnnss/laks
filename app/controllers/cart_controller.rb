@@ -22,7 +22,12 @@ class CartController < ApplicationController
       client = Client.find(session[:client_id])
       client.update_column(:client_cart_items , session[:cart])
     end
+    if params[:sub] == '1'
+      redirect_to '/subcategory/' + item.subcategory.subcat_name_translit + '#item' + item.id.to_s
+    else
       redirect_to '/product/' + item.item_name_translit
+    end
+
   end
   def addtocart
     item = Item.find(params[:item_id])

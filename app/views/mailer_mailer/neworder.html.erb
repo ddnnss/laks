@@ -21,7 +21,7 @@
     <tr>
       <td style="padding: 3px; border: 1px solid #999; text-align: center; "><%= cc.item_name%></td>
       <td style="padding: 3px; border: 1px solid #999; text-align: center; ">
-        <%if @cart_items[cc.id.to_s] >= cc.item_opt_price_count  %>
+        <%if check_cart?  %>
 
           <%= cc.item_opt_price%> &#8381;
           <%@item_total = cc.item_opt_price* @cart_items[cc.id.to_s]%>

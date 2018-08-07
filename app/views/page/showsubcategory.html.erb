@@ -58,7 +58,7 @@
           <%@items.each do |item|%>
           <div class="col-lg-3">
             <!-- Product 2 -->
-            <div class="card mb-4 product-card hover-shadow ">
+            <div id="item<%=item.id%>" class="card mb-4 product-card hover-shadow ">
               <%if item.item_new %>
                   <div class="card-ribbon card-ribbon-top card-ribbon-left bg-success text-white"> НОВИНКА </div>
               <%end%>
@@ -94,42 +94,66 @@
               </div>
                 <hr/>
                 <small class="text-muted text-uppercase"><span style="color: #3A4A59;"> Артикул :<span class="text-muted"> <%= item.item_article%></span></span></small>
+                <%if session[:cart].nil?%>
+                <%else%>
+                <%if  session[:cart].keys.include? item.id.to_s%>
+                    <br>
+                    <p align="center" class="text-muted text-xs text-primary"> В КОРЗИНЕ <%=session[:cart][item.id.to_s]%> ШТ.</span> </p>
+                <%end%>
+                <%end%>
                 <hr/>
                 <div id="spinner_<%=item.id%>" ></div>
-                <div id="cart_buttons_<%=item.id%>">
+                <div id="cart_buttons_<%=item.id%>" class="row">
                   <%if item.item_presents%>
-                      <%if session[:cart].nil?%>
-                          <a style="color: #3A4A59;" href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fa fa-cart-plus"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ</span></a>
 
-                      <%else%>
-                          <%if session[:cart].keys.include? item.id.to_s%>
+                      <div class="col-md-5 ">
 
-                              <a style="color: #3A4A59;" href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fas fa-cart-arrow-down"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ ЕЩЕ</span></a>
+                          <input type="number" id="tocartvalue<%=item.id%>" name=""  min="1"  value="1" class=" form-control">
 
-                          <%else%>
-                              <a style="color: #3A4A59;" href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fa fa-cart-plus"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ</span></a>
-                          <%end%>
-                      <%end%>
+                        </div>
+
+
+                      <div class="col-md-4 ">
+
+                        <%if session[:cart].nil?%>
+                            <a  href="#" id="addbutton<%=item.id%>" onclick="return sethref(<%=item.id%>);" class="btn btn-outline-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> В корзину</span></a>
+                        <% else %>
+                            <%if session[:cart].keys.include? item.id.to_s%>
+                                <a  href="#" id="addbutton<%=item.id%>" onclick="return sethref(<%=item.id%>);" class="btn btn-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> Добавить еще</span></a>
+
+
+                            <% else %>
+                                <a href="#" id="addbutton<%=item.id%>" onclick="return sethref(<%=item.id%>);" class="btn btn-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> В корзину</span></a>
+                            <% end %>
+                        <% end %>
+
+                      </div>
+
                   <%else%>
-                      <a href="javascript:void(0)" ><span class="fas fa-lock"></span><span style="font-size: 13px;"> НЕТ В НАЛИЧИИ</span></a>
+                      <div class="col-md-12" >
+                        <a href="javascript:void(0)" ><span class="fas fa-lock text-center"></span><span style="font-size: 13px;"> НЕТ В НАЛИЧИИ</span></a>
+
+                      </div>
                   <%end%>
 
 
-                |
 
-                  <% if @wishlist.nil? %>
-                      <a style="color: #3A4A59;"  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button" onclick="return theFunction(<%=item.id%>); " data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span></a>
+                </div>
+                <%if session[:active]%>
+                  <% if @wishlist.nil?  %>
+                      <a style="color: #3A4A59;"  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button"  data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span> Добавить в закладки</a>
 
                 <%else%>
                   <% if @wishlist.include?(item.id.to_s) %>
                     <span class="fa fa-heart text-primary"></span>
                     <% else %>
                     <span id="wish<%=item.id%>button_off" style="display: none;" class="fa fa-heart text-primary"></span>
-                    <a style="color: #3A4A59;"  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button" onclick="return theFunction(<%=item.id%>); " data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span></a>
+                    <a style="color: #3A4A59;"  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button"  data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span></a>
                   <%end%>
                 <% end %>
+                    <%end%>
 
-              </div>
+
 
               </div>
 
@@ -147,7 +171,7 @@
                 <small class="text-muted text-uppercase"><span style="color: #3A4A59;">  Оптовая цена :</span></small>
                <strong><%=item.item_opt_price%> &#8381; </strong>
 
-                <a href="#" data-toggle="tooltip" title="" data-original-title="При заказе от :  <%=item.item_opt_price_count%> штук"><i style="color: #3A4A59;" class="fa fa-info-circle fa-lg "></i></a>
+                <a href="#" data-toggle="tooltip" title="" data-original-title="Цена актуальна при общей стоимости заказа свыше 5 000 руб."><i style="color: #3A4A59;" class="fa fa-info-circle fa-lg "></i></a>
                 <% if session[:admin]%>
                     <hr>
                     <a href="/admin/edititem?item_id=<%=item.id%>" class="btn btn-primary">Редактировать</a>
@@ -181,13 +205,13 @@
         $('#<%=@parent_cat.cat_name_translit %>').addClass('show');
         $('#<%=@subcat.subcat_name_translit %>').addClass('text-primary');
 
-    });
-    function theFunction (id) {
-        $("#cart_buttons_"+id).css('display','none');
-        $("#spinner_"+id).addClass('spinner');
-    return true;
-    }
 
+    });
+    function sethref(id) {
+        tocartvalue = $('#tocartvalue'+id).val();
+        $('#addbutton'+id).attr('href','/addtocartalt/'+ id + '/' + tocartvalue + '?sub=1');
+        return true;
+    }
     function getSearchParams(k){
         var p={};
         location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})

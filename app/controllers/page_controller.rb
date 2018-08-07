@@ -421,6 +421,7 @@ class PageController < ApplicationController
       else
         session[:total] = 0
         @cart= Item.find(session[:cart].keys)
+        
         logger.info('[INFO] : Корзина получена.')
       end
     else
