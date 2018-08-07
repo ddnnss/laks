@@ -11,7 +11,6 @@
       <div class="header-block-flex order-1 mr-auto">
         <nav class="nav nav-sm header-block-flex">
           <img style="width: 20px;" src="/images/tel.png" >
-          <a style="font-size: 15px;"  class="nav-link  text-uppercase" href="tel:+74959263359" ><%=check_cart? ? 'опт' : 'не опт' %></a>
           <a style="font-size: 15px;"  class="nav-link  text-uppercase" href="tel:+74959263359" >8 (495) 926 33 59</a>
           <img style="width: 20px;" src="/images/up.png">
           <a style="font-size: 15px;" class="nav-link  text-uppercase" href="tel:+79646477676" >8 (964) 647 76 76</a>
@@ -98,7 +97,7 @@
                   </h5>
               <%else%>
                   <h5 class="dropdown-header mb-0">
-                    Ваш заказ:
+                    Ваш заказ <%=check_cart? ? '(оптовые цены)' : '(розничные цены)' %> :
                   </h5>
                   <hr class="mt-0 mb-3" />
                   <!--Shopping cart items-->
