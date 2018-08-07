@@ -51,8 +51,11 @@
           </div>
 
         </div>
-        <hr class="my-4" >
 
+        <hr class="my-4" >
+    <div class="digg_pagination mb-3">
+      <%= will_paginate @items,:previous_label => ("&#11013;"), :next_label => ("&#10145;"), :container => false %>
+    </div>
 
         <div class="row">
           <%@items.each do |item|%>
@@ -185,7 +188,7 @@
         <!-- Pagination -->
        <div class="digg_pagination">
 
-          <%= will_paginate @items,:previous_label => t("<<"), :next_label => t(">>"), :container => false %>
+          <%= will_paginate @items,:previous_label => ("&#11013;"), :next_label => ("&#10145;"), :container => false %>
         </div>
       </div>
 

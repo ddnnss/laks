@@ -106,17 +106,20 @@ section.p6:hover a:after {
 
 
 .digg_pagination {
-  background: white;
+
   cursor: default;
   /* self-clearing method: */ }
 .digg_pagination a, .digg_pagination span, .digg_pagination em {
   padding: 0.2em 0.5em;
   display: block;
   float: left;
-  margin-right: 1px; }
+  margin-right: 1px;
+  height: 32px;}
 .digg_pagination .disabled {
   color: #999999;
-  border: 1px solid #dddddd; }
+  border: 1px solid #dddddd;
+  height: 32px;
+}
 .digg_pagination .current {
   font-style: normal;
   font-weight: bold;
