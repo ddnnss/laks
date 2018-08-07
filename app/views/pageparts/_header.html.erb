@@ -28,13 +28,14 @@
 
       </div>
 
-      <div class="nav nav-icons header-block order-12">
+      <div style="    margin-top: 6px;
+          height: 10px;" class="nav nav-icons header-block order-12">
         <%if session[:active]%>
 
-            <a style="font-size: 14px;" href="/logout"  class="btn btn-sm btn-primary text-uppercase d-none d-sm-block">выход</a>
+            <a style="font-size: 14px;" href="/logout"  class="mb-2 btn btn-outline-light text-uppercase d-none d-sm-block">выход</a>
         <%else%>
 
-            <a style="font-size: 14px;" href="#" data-toggle="modal" data-target=".login-modal-lg" class="btn btn-sm btn-primary text-uppercase d-none d-sm-block">вход/регистрация</a>
+            <a style="font-size: 14px;" href="#" data-toggle="modal" data-target=".login-modal-lg" class="mb-2 btn btn-outline-light text-uppercase d-none d-sm-block">вход/регистрация</a>
         <%end%>
         <!--@todo: replace with company social media details <div class="header-divider header-divider-sm"></div>-->
 
@@ -59,7 +60,7 @@
     <div class="header-inner container">
       <!--branding/logo   <div class="header-divider d-none d-lg-block"></div>-->
       <div class="header-brand">
-        <a href="/"><%= image_tag(asset_path('logo.png')) %></a>
+        <a href="/"><%= image_tag(asset_path('logo.jpg')) %></a>
 
       </div>
       <!-- other header content -->
@@ -165,7 +166,7 @@
           <!--main navigation-->
           <ul class="nav navbar-nav float-lg-right dropdown-effect-fade">
             <li class="nav-item dropdown">
-              <a href="#" style="color: #3A4A59;" class="nav-link dropdown-toggle animated dropdown" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false"><i class="fas fa-bars mr-2" style="font-size: 15px;"></i>ВСЕ КАТЕГОРИИ</a>
+              <a href="#" style="color: #3A4A59;" class="nav-link dropdown-toggle animated dropdown" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false"><i class="fas fa-bars mr-2" style="font-size: 15px;"></i>КАТАЛОГ ТОВАРОВ</a>
               <!-- Menu -->
               <div class="dropdown-menu">
                 <% md.each do |menudrop|%>

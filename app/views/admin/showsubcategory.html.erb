@@ -16,20 +16,41 @@
           <hr/>
           <%= form_for  :addnewitem, url: addnewitem_path do |f|%>
 
-            <div class="form-group row">
-              <label class="col-sm-4">Товар в наличии ?</label>
-              <div class="col-sm-1">
-                <div class="form-check">
-                  <input type="checkbox" class="form-check-input" name="item_presents" id="item_presents" value="1" checked >
-                </div>
-              </div>
-            </div>
+
             <div class="form-group row">
               <label for="item_name" class="col-sm-2 col-form-label">Название товара :</label>
               <div class="col-sm-10">
                 <%=f.text_field  :item_name, :required => true , class:'form-control', id:'item_name'%>
               </div>
             </div>
+              <div class="col-sm-12">
+                <p>Тег TITLE для товара :
+                  <%=f.text_field  :item_page_title, :required => true , class:'form-control', id:'item_page_title'%></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Тег DESCRIPTION для товара :
+                  <%=f.text_field  :item_page_description, :required => true , class:'form-control', id:'item_page_description'%></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Картинка №1 для товара  :
+                  <%= f.file_field :item_image1, :required => true %></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Картинка №2 для товара  :
+                  <%= f.file_field :item_image2 %></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Картинка №3 для товара  :
+                  <%= f.file_field :item_image3 %></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Картинка №4 для товара  :
+                  <%= f.file_field :item_image4 %></p>
+              </div>
+              <div class="col-sm-12">
+                <p>Описание товара:
+                  <textarea class="summernote-5"  id="summernote-addnewitrm" name="item_description" rows="18" ></textarea></p>
+              </div>
             <div class="form-group row">
               <label for="item_postavshik" class="col-sm-2 col-form-label">Поставщик товара :</label>
               <div class="col-sm-10">
@@ -170,6 +191,23 @@
 
 
             <hr/>
+
+              <div class="col-sm-12">
+                <p>Фильтры для товара :
+
+                  <%= f.select(:item_filter, @tags.each {|k| [ k, k] },{ },
+                               { :multiple => true, :size => 5, id:'item_filter', class: 'form-control', required: true, style: 'height: 150px;' }
+                      ) %>
+                </p>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4">Товар в наличии ?</label>
+                <div class="col-sm-1">
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="item_presents" id="item_presents" value="1" checked >
+                  </div>
+                </div>
+              </div>
             <div class="col-sm-12">
 
               <div class="form-check form-check-inline">
@@ -201,22 +239,7 @@
               </select>
             </div>
 
-            <div class="col-sm-12">
-              <p>Тег TITLE для товара :
-                <%=f.text_field  :item_page_title, :required => true , class:'form-control', id:'item_page_title'%></p>
-            </div>
-            <div class="col-sm-12">
-              <p>Тег DESCRIPTION для товара :
-                <%=f.text_field  :item_page_description, :required => true , class:'form-control', id:'item_page_description'%></p>
-            </div>
-              <div class="col-sm-12">
-                <p>Фильтры для товара :
 
-                  <%= f.select(:item_filter, @tags.each {|k| [ k, k] },{ },
-                               { :multiple => true, :size => 5, id:'item_filter', class: 'form-control', required: true, style: 'height: 150px;' }
-                      ) %>
-                </p>
-              </div>
 
               <div class="col-sm-12">
                 <p>Комментарий  к товару (видно только админам) :
@@ -225,29 +248,11 @@
 
               </div>
 
-            <div class="col-sm-12">
-              <p>Описание товара:
-                <textarea class="summernote-5"  id="summernote-addnewitrm" name="item_description" rows="18" ></textarea></p>
-            </div>
 
 
 
-            <div class="col-sm-12">
-              <p>Картинка №1 для товара  :
-                <%= f.file_field :item_image1, :required => true %></p>
-            </div>
-            <div class="col-sm-12">
-              <p>Картинка №2 для товара  :
-                <%= f.file_field :item_image2 %></p>
-            </div>
-            <div class="col-sm-12">
-              <p>Картинка №3 для товара  :
-                <%= f.file_field :item_image3 %></p>
-            </div>
-            <div class="col-sm-12">
-              <p>Картинка №4 для товара  :
-                <%= f.file_field :item_image4 %></p>
-            </div>
+
+
 
             <input name="act" value="sub" type="hidden" />
             <input name="type" value="save" type="hidden" />
