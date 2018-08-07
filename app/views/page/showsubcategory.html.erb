@@ -19,7 +19,7 @@
             <a href="/subcategory/<%=@subcat.subcat_name_translit%>?filter=all" class="mb-2 btn btn-outline-primary " id="filter-all">ВСЕ ТОВАРЫ</a>
             <a href="/subcategory/<%=@subcat.subcat_name_translit%>?filter=new" class="mb-2 btn btn-outline-success " id="filter-new">НОВИНКИ</a>
             <%@filters.each do |f| %>
-                <a href="/subcategory/<%=@subcat.subcat_name_translit%>?filter=<%=f%>" class="mb-2 btn btn-outline-secondary " id="filter-<%=f%>"><%=f%></a>
+                <a href="/subcategory/<%=@subcat.subcat_name_translit%>?filter=<%=f%>" class="mb-2 btn btn-outline-secondary " id="filter-<%=f.gsub(' ','')%>"><%=f%></a>
 
             <%end%>
           </div>
@@ -227,9 +227,11 @@
         $('#pp_select').val(decodeURIComponent(getSearchParams('pp')));
     }
     if (getSearchParams('filter')!== undefined){
-        $('#filter-'+decodeURIComponent(getSearchParams('filter'))).addClass('active');
+        $('#filter-'+decodeURIComponent(getSearchParams('filter')).replace(" ", "")).addClass('active');
 
     }
+
+   
 
 
 </script>

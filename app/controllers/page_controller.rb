@@ -108,9 +108,9 @@ class PageController < ApplicationController
     if params[:sort_type].present?
       case params[:sort_type]
         when '1'
-          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name desc')
-        when '2'
           @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name asc')
+        when '2'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name desc')
         when '3'
           @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_price desc')
         when '4'
@@ -122,7 +122,7 @@ class PageController < ApplicationController
 
       end
     else
-      @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name desc')
+      @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name asc')
     end
 
     if params[:search]!='' && params[:search].present?
@@ -421,7 +421,7 @@ class PageController < ApplicationController
       else
         session[:total] = 0
         @cart= Item.find(session[:cart].keys)
-        
+
         logger.info('[INFO] : Корзина получена.')
       end
     else
