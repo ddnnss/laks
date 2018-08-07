@@ -209,7 +209,14 @@
     });
     function sethref(id) {
         tocartvalue = $('#tocartvalue'+id).val();
-        $('#addbutton'+id).attr('href','/addtocartalt/'+ id + '/' + tocartvalue + '?sub=1');
+        if (getSearchParams('page') == undefined) {
+            $('#addbutton' + id).attr('href', '/addtocartalt/' + id + '/' + tocartvalue + '?sub=1')
+        }
+            else
+                {
+            $('#addbutton'+id).attr('href','/addtocartalt/'+ id + '/' + tocartvalue + '?sub=1&page='+getSearchParams('page'));
+        }
+
         return true;
     }
     function getSearchParams(k){
