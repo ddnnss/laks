@@ -227,11 +227,11 @@
         $('#pp_select').val(decodeURIComponent(getSearchParams('pp')));
     }
     if (getSearchParams('filter')!== undefined){
-        $('#filter-'+decodeURIComponent(getSearchParams('filter')).replace(" ", "")).addClass('active');
+        $('#filter-'+decodeURIComponent(getSearchParams('filter')).replace(/\s+/g, '')).addClass('active');
 
     }
 
-   
+
 
 
 </script>
