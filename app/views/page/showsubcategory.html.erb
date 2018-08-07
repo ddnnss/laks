@@ -119,14 +119,14 @@
                       <div class="col-md-4 ">
 
                         <%if session[:cart].nil?%>
-                            <a  href="#" id="addbutton<%=item.id%>" onclick="return sethref(<%=item.id%>);" class="btn btn-outline-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> В корзину</span></a>
+                            <a style="margin-top: 3px;"  href="#" id="addbutton<%=item.id%>" onclick="return sethref(<%=item.id%>);" class="btn btn-outline-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> В корзину</span></a>
                         <% else %>
                             <%if session[:cart].keys.include? item.id.to_s%>
-                                <a  href="#" id="addbutton<%=item.id%>" onclick="return sethref(<%=item.id%>);" class="btn btn-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> Добавить еще</span></a>
+                                <a style="margin-top: 3px;"  href="#" id="addbutton<%=item.id%>" onclick="return sethref(<%=item.id%>);" class="btn btn-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> Добавить еще</span></a>
 
 
                             <% else %>
-                                <a href="#" id="addbutton<%=item.id%>" onclick="return sethref(<%=item.id%>);" class="btn btn-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> В корзину</span></a>
+                                <a style="margin-top: 3px;" href="#" id="addbutton<%=item.id%>" onclick="return sethref(<%=item.id%>);" class="btn btn-primary" ><span class="fa fa-cart-plus"></span><span  style="font-size: 13px;"> В корзину</span></a>
                             <% end %>
                         <% end %>
 
