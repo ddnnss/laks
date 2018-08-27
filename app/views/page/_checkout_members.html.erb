@@ -56,15 +56,9 @@
 
             </td>
             <td>
-              <div class="input-group input-group-quantity" data-toggle="quantity">
-                  <span class="input-group-append">
-                    <input type="button" value="-" onclick="return show_butt();" class="btn btn-secondary quantity-down" field="quantity">
-                  </span>
-                <input type="text" name="<%=cc.id%>" onchange="return show_butt();" min="1" value="<%= session[:cart][cc.id.to_s] %>" class="quantity form-control">
-                <span class="input-group-append">
-                    <input type="button" value="+" onclick="return show_butt();" class="btn btn-secondary quantity-up" field="quantity">
-                  </span>
-              </div>
+
+                <input style="width: 100px;" type="number" name="<%=cc.id%>" onchange="return show_butt();" min="1" value="<%= session[:cart][cc.id.to_s] %>" class="quantity form-control">
+
             </td>
             <td class="text-md-right"><span class="font-weight-bold"><%= @item_total%> &#8381;</span></td>
           </tr>

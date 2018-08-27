@@ -236,7 +236,7 @@
             <div class="col-sm-12">
               <p>Фильтры для товара :
 
-              <%= f.select(:item_filter, @tags.each {|k| [ k, k] },{ },
+              <%= f.select(:item_filter, @tags.each {|k| [ k, k] },{:selected => @selected_tags },
                            { :multiple => true, :size => 5, id:'item_filter', class: 'form-control', required: true, style: 'height: 150px;' }
                   ) %>
             </div>

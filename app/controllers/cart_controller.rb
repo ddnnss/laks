@@ -22,16 +22,25 @@ class CartController < ApplicationController
       client = Client.find(session[:client_id])
       client.update_column(:client_cart_items , session[:cart])
     end
-    if params[:sub] == '1'
+    case params[:ret]
+      when '1'
       if params[:page].present?
         redirect_to '/subcategory/' + item.subcategory.subcat_name_translit + '?page='+params[:page]  + '#item' + item.id.to_s
       else
         redirect_to '/subcategory/' + item.subcategory.subcat_name_translit + '#item' + item.id.to_s
       end
+      when '2'
+        if params[:page].present?
+          redirect_to request.referer + item.collection.collection_name_translit + '?page='+params[:page]  + '#item' + item.id.to_s
+        else
+          redirect_to  request.referer + '#item' + item.id.to_s
+        end
 
     else
       redirect_to '/product/' + item.item_name_translit
     end
+
+
 
   end
   def addtocart
@@ -213,6 +222,7 @@ class CartController < ApplicationController
                     @discout_result = true
                     discount_value = discount.discount_discount_value
                     session[:discount_value] = discount_value
+                    session[:discount_code] = params[:discount_code]
                     discount.destroy!
                     logger.info('[INFO] :Скидочный купон удален из базы.')
                   else
@@ -224,6 +234,7 @@ class CartController < ApplicationController
                       logger.info('[INFO] :Срока действия купона актуален.')
                       discount_value = discount.discount_discount_value
                       session[:discount_value] = discount_value
+                      session[:discount_code] = params[:discount_code]
                       @discout_result = true
                     end
 

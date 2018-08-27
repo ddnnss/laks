@@ -1,0 +1,108 @@
+<div id="content">
+  <div class="container">
+    <h4 >
+      Административный раздел | Заказы
+    </h4>
+
+
+    <div class="row">
+
+      <%=render 'admin/menu'%>
+<%ordertotal = 0%>
+
+      <div class="col-md-9">
+
+        <table width="100%">
+          <tr>
+            <td></td>
+            <td>Название товара</td>
+            <td>Количество товара</td>
+            <td>Цена за ед.</td>
+            <td>Общая стоимость</td>
+
+          </tr>
+          <%@order_items.each do |o|%>
+          <tr>
+            <td><img class="cart-img img-fluid" src="/images/items/<%=o.id%>/<%=o.item_image1 %>" ></td>
+            <td><%=o.item_name%></td>
+            <td><%=@order.order_items[o.id.to_s]%></td>
+            <td><%=@order_opt_price ? o.item_opt_price : o.item_price %> &#8381;</td>
+            <td><%=@order_opt_price ? o.item_opt_price.to_i * @order.order_items[o.id.to_s].to_i : o.item_price.to_i * @order.order_items[o.id.to_s].to_i %> &#8381;</td>
+            <%ordertotal = ordertotal + (@order_opt_price ? o.item_opt_price.to_i * @order.order_items[o.id.to_s].to_i : o.item_price.to_i * @order.order_items[o.id.to_s].to_i)%>
+          </tr>
+          <%end%>
+          <%if @order_discount%>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>СКИДКА ПО КОДУ</td>
+                <td><%=@order_discount_code%></td>
+                <td><%=ordertotal * @order_discount_value.to_i / 100 %> (<%=@order_discount_value%>%) &#8381;</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>ИТОГО</td>
+                <td><%=ordertotal - (ordertotal * @order_discount_value.to_i / 100) %> &#8381;</td>
+              </tr>
+              <%else%>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>ИТОГО</td>
+                <td><%=ordertotal %> &#8381;</td>
+              </tr>
+          <%end%>
+
+        </table>
+<hr>
+        <h4 >
+          Заказчик:
+        </h4>
+        <%if @order_guest%>
+            <strong>Имя </strong>:  <%= @order.order_guest_data['guest_name']%><br>
+            <strong>Фамилия </strong> : <%= @order.order_guest_data['guest_family']%><br>
+            <strong>Телефон </strong>: <%= @order.order_guest_data['guest_phone']%><br>
+            <strong>E-Mail </strong>: <%= @order.order_guest_data['client_email']%><br>
+            <strong>Страна </strong>: <%= @order.order_guest_data['guest_country']%><br>
+            <strong>Город </strong>: <%= @order.order_guest_data['guest_city']%><br>
+            <strong>Индекс </strong>: <%= @order.order_guest_data['guest_post_code']%><br>
+            <strong>Адрес </strong>: <%= @order.order_guest_data['guest_address']%><br>
+
+        <%else%>
+            <strong>Имя </strong>:  <%= @customer.client_name%><br>
+            <strong>Фамилия </strong> : <%= @customer.client_family%><br>
+            <strong>Отчество </strong> : <%= @customer.client_ot4estvo%><br>
+            <strong>Телефон </strong>: <%= @customer.client_phone%><br>
+            <strong>E-Mail </strong>: <%= @customer.client_email%><br>
+            <strong>Страна </strong>: <%= @customer.client_country%><br>
+            <strong>Город </strong>: <%= @customer.client_city%><br>
+            <strong>Индекс </strong>: <%= @customer.client_post_code%><br>
+            <strong>Адрес </strong>: <%= @customer.client_address%><br>
+            <strong>Паспортные данные</strong>: <%= @customer.client_passport%><br>
+
+        <%end%>
+        <hr>
+        <h4 >
+          Способ доставки: <%=@order_dostavka%>
+        </h4>
+        <hr>
+        <h4 >
+          Способ оплаты: <%=@order_oplata%>
+        </h4>
+        <hr>
+<%= form_for :order_status, url: admin_orders_path do %>
+        <select name="order_status">
+          <option value = 'Заказ в обработке'>Заказ в обработке</option>
+          <option value = 'Заказ отправлен'>Заказ отправлен</option>
+
+        </select>
+            <input type="hidden" name="order_id" value="<%=@order.id%>">
+            <%= submit_tag 'Изменить статус заказа'%>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>

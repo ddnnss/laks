@@ -12,6 +12,7 @@ class PageController < ApplicationController
       @action_items = Item.where(item_in_sale: true).random_records(3)
     end
     session[:newclient]=false
+    session[:discount_value] = '0'
 
   end
   def login_mobile
@@ -280,6 +281,9 @@ class PageController < ApplicationController
       neworder.order_status = 'Заказ принят'
       neworder.order_items = session[:cart]
       neworder.order_summ = session[:cart_total].to_i - discount_summ
+      if session[:discount_value] != '0'
+      neworder.order_discount_code = session[:discount_code] + ',' + session[:discount_value]
+      end
 
 
       neworder.order_dostavka = params[:member_dostavka]
@@ -297,6 +301,7 @@ class PageController < ApplicationController
       end
       logger.info('[INFO] : Корзина очищена в сессии.')
       session[:discount_value] = '0'
+      session[:discount_code] = ''
       c = Client.find(session[:client_id])
       c.update_column(:client_cart_items,nil)
       logger.info('[INFO] : Корзина очищена в БД, переход на страницу успешного размещения заказа')
@@ -341,7 +346,9 @@ class PageController < ApplicationController
       neworder.order_status = 'Заказ принят'
       neworder.order_items = session[:cart]
       neworder.order_summ = session[:cart_total].to_i - discount_summ
-
+      if session[:discount_value] != '0'
+      neworder.order_discount_code = session[:discount_code] + ',' + session[:discount_value]
+      end
       params[:placeorder].each do |key,val|
         guest_data[key]=val
       end
@@ -365,7 +372,7 @@ class PageController < ApplicationController
         session[:cart].delete(k)
        end
       session[:discount_value] = '0'
-
+      session[:discount_code] = ''
       logger.info('[INFO] : Корзина очищена, переход на страницу успешного размещения заказа')
       redirect_to order_path
 

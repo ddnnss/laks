@@ -1,0 +1,50 @@
+<div id="content">
+  <div class="container">
+    <h4 >
+      Административный раздел | Заказы
+    </h4>
+
+
+    <div class="row">
+
+      <%=render 'admin/menu'%>
+
+
+      <div class="col-md-9">
+
+        <table width="100%">
+          <tr>
+            <td>№</td>
+            <td>Дата</td>
+            <td>Номер</td>
+            <td>Статус</td>
+            <td>Сумма</td>
+            <td>Доставка</td>
+          </tr>
+          <%@orders.each do |o|%>
+          <tr>
+                <td><%=o.id%></td>
+                <td><%=o.created_at%></td>
+                <td><a href="/admin/order_info?order_id=<%=o.id%>"><%=o.order_number%></a> </td>
+                <td><%=o.order_status%></td>
+                <td><%=o.order_summ%></td>
+                <td>
+                 <% case o.order_dostavka%>
+                 <% when '1'%>
+                 Курьерская доставка
+                    <% when '2'%>
+                  Самовывоз
+                    <% when '3'%>
+                  Транспортная компания
+                    <%  end%>
+                </td>
+
+          </tr>
+          <%end%>
+        </table>
+
+
+      </div>
+    </div>
+  </div>
+</div>

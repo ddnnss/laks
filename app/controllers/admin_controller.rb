@@ -19,6 +19,60 @@ class AdminController < ApplicationController
 def index
 
 end
+  def orders
+    if params[:order_id].present?
+      o = Order.find(params[:order_id])
+      o.update_column(:order_status ,params[:order_status])
+    end
+    @order_active = 'active'
+    @orders=Order.all
+  end
+  def order_info
+    @order_active = 'active'
+    @order = Order.find(params[:order_id])
+    @order_items = Item.where(id: @order.order_items.keys)
+    if @order.client_id == 0
+        @order_guest = true
+      else
+        @order_guest = false
+        @customer = Client.find(@order.client_id)
+    end
+    case @order.order_dostavka
+          when '1'
+            @order_dostavka = 'Курьерская доставка'
+          when '2'
+            @order_dostavka = 'Самовывоз'
+          when '3'
+            @order_dostavka = 'Транспортная компания'
+    end
+    case @order.order_oplata
+      when '1'
+        @order_oplata = 'Оплата при доставке'
+      when '2'
+        @order_oplata = 'Расчетный счет'
+      when '3'
+        @order_oplata = 'Оплата банковской картой'
+    end
+    summ = 0
+    @order_items.each do |i|
+      summ = summ + i.item_price * @order.order_items[i.id.to_s]
+      logger.info ('Стоимость заказа :' + summ.to_s)
+    end
+    if summ > 5000
+      @order_opt_price = true
+    else
+      @order_opt_price = false
+    end
+    if @order.order_discount_code.nil?
+      @order_discount = false
+    else
+      @order_discount = true
+      @order_discount_code = @order.order_discount_code.split(',')[0]
+      @order_discount_value = @order.order_discount_code.split(',')[1]
+    end
+
+
+  end
   def deleteitem
     i = Item.find(params[:item_id])
     i.destroy!
@@ -71,6 +125,7 @@ end
       end
       if params[:item_replace].present?
         i.update_column(:subcategory_id,params[:subcat_id])
+        i.update_column(:item_filter , '')
 
 
       end
@@ -175,6 +230,7 @@ redirect_to '/admin/items'
       @item = Item.find(params[:item_id])
       @collections = Collection.all
       @tags = @item.subcategory.subcat_filter.split(",")
+      @selected_tags = @item.item_filter.split(",")
       @aktion = Aktion.all
       @cat_main = Category.all
       @cat_sub = Subcategory.where(category_id: @cat_main.first.id)

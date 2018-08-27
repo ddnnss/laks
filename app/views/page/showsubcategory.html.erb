@@ -213,11 +213,11 @@
     function sethref(id) {
         tocartvalue = $('#tocartvalue'+id).val();
         if (getSearchParams('page') == undefined) {
-            $('#addbutton' + id).attr('href', '/addtocartalt/' + id + '/' + tocartvalue + '?sub=1')
+            $('#addbutton' + id).attr('href', '/addtocartalt/' + id + '/' + tocartvalue + '?ret=1')
         }
             else
                 {
-            $('#addbutton'+id).attr('href','/addtocartalt/'+ id + '/' + tocartvalue + '?sub=1&page='+getSearchParams('page'));
+            $('#addbutton'+id).attr('href','/addtocartalt/'+ id + '/' + tocartvalue + '?ret=1&page='+getSearchParams('page'));
         }
 
         return true;
