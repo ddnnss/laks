@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180614180809) do
+ActiveRecord::Schema.define(version: 20180906192053) do
 
   create_table "aktions", force: :cascade do |t|
     t.string "aktion_name", default: ""
@@ -170,6 +170,13 @@ ActiveRecord::Schema.define(version: 20180614180809) do
     t.index ["order_number"], name: "index_orders_on_order_number"
     t.index ["order_status"], name: "index_orders_on_order_status"
     t.index ["order_tracking"], name: "index_orders_on_order_tracking"
+  end
+
+  create_table "sendmails", force: :cascade do |t|
+    t.text "mail_text"
+    t.string "mail_subject"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sliders", force: :cascade do |t|

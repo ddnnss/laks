@@ -1,0 +1,41 @@
+<div id="content">
+  <div class="container">
+    <h4 >
+      Административный раздел | Почтовая рассылка
+    </h4>
+
+
+    <div class="row">
+
+      <%=render 'admin/menu'%>
+
+
+      <div class="col-md-9">
+        <h4>Редактирование рассылки</h4>
+        <%= form_for :sendmail , url: admin_savemail_path do |f| %>
+            <div class="col-sm-12">
+              <p>Тема письма (название рассылки):
+                <input type="text" name="mail_name" value="<%=@mail.mail_subject%>" class="form-control" required></p>
+            </div>
+            <div class="col-sm-12">
+              <p>Описание товара:
+                <textarea class="summernote-5" required  name="mail_text"  ></textarea></p>
+            </div>
+            <input type="hidden" name="act" value="update">
+            <input type="hidden" name="mail_id" value="<%=@mail.id%>">
+            <%=f.submit 'Сохранить'%>
+        <%end%>
+        <a href="/admin/savemail?act=delete&mail_id=<%=@mail.id%>">УДАЛИТЬ</a>
+        <hr>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<script language="JavaScript">
+    $(document).ready(function() {
+        $('.summernote-5').summernote('code',"<%= j @mail.mail_text.html_safe %>");
+        $('.note-popover').css('display', 'none');
+    });
+</script>

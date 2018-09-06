@@ -22,4 +22,10 @@ class MailerMailer < ApplicationMailer
     mail(to: @mail,subject: "Ваш заказ успешно размещен")
     logger.info('[INFO] : Письмо на ' + @mail + ' отправлено')
   end
+
+  def sendmails(email,text,subject)
+    @mail_text = text
+    mail(to: email,subject: subject)
+  end
+
 end

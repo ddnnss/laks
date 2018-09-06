@@ -27,6 +27,42 @@ end
     @order_active = 'active'
     @orders=Order.all
   end
+
+  def sendmail
+    @sendmail = 'active'
+    @mails = Sendmail.all
+
+  end
+
+  def savemail
+    if params[:act] == 'update'
+          m = Sendmail.find(params[:mail_id])
+          m.update_column(:mail_subject,params[:mail_name])
+          m.update_column(:mail_text,params[:mail_text])
+    end
+    if params[:act] ==  'delete'
+          m = Sendmail.find(params[:mail_id])
+          m.destroy
+    end
+
+    if params[:act] ==  'new'
+      m = Sendmail.new
+      m.mail_subject = params[:mail_name]
+      m.mail_text = params[:mail_text]
+      m.save
+    end
+
+    redirect_to '/admin/sendmail'
+
+
+  end
+
+  def editmail
+    @mail = Sendmail.find(params[:mail_id])
+  end
+  def sendmailaction
+    MailerMailer.sendmails('greshnik.im@gmail.com',params[:mail_text],'Тестовая рассылка').deliver_later
+  end
   def order_info
     @order_active = 'active'
     @order = Order.find(params[:order_id])
