@@ -1,0 +1,46 @@
+<div id="content">
+  <div class="container">
+    <h4 >
+      Административный раздел | Пользователи
+    </h4>
+
+
+    <div class="row">
+
+      <%=render 'admin/menu'%>
+
+
+      <div class="col-md-12">
+        <hr>
+
+        <table width="100%">
+          <tr>
+            <td>№</td>
+            <td>Пользователь</td>
+            <td>VIP</td>
+            <td>Дата регистрации</td>
+
+          </tr>
+
+          <%@clients.each do |c|%>
+              <tr>
+                <td><%=c.id%></td>
+                <td><a href="/admin/clientinfo?client_id=<%=c.id%>"><%=c.client_name%> <%=c.client_family%></a> </td>
+                <td><%=c.client_vip ? 'ДА' : 'НЕТ'%></td>
+                <td><%=c.created_at.strftime("%d.%m.%Y")%></td>
+
+
+
+              </tr>
+          <%end%>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script language="JavaScript">
+    $(document).ready(function() {
+        $('.summernote-5').summernote();
+        $('.note-popover').css('display', 'none');
+    });
+</script>

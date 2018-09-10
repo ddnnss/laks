@@ -10,7 +10,8 @@
       <%=render 'admin/menu'%>
 
 
-      <div class="col-md-9">
+      <div class="col-md-12">
+        <hr>
        <h4>Создание новой рассылки</h4>
         <%= form_for :sendmail , url: admin_savemail_path do |f| %>
             <div class="col-sm-12">
@@ -18,7 +19,7 @@
                 <input type="text" name="mail_name" class="form-control" required></p>
             </div>
             <div class="col-sm-12">
-              <p>Описание товара:
+              <p>Содержание рассылки:
                 <textarea class="summernote-5" required  name="mail_text"  ></textarea></p>
             </div>
             <input type="hidden" name="act" value="new">
@@ -38,7 +39,7 @@
               <tr>
                 <td><%=m.id%></td>
                 <td><a href="/admin/editmail?mail_id=<%=m.id%>"><%=m.mail_subject%></a> </td>
-                <td><%=m.created_at%></td>
+                <td><%=m.created_at.strftime("%d.%m.%Y")%></td>
 
 
 

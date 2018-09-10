@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
   match '/admin/edititem'  => 'admin#edititem', via: [:post, :get]
   match '/admin/orders'  => 'admin#orders', via: [:get , :post]
+  match '/admin/clients'  => 'admin#clients', via: [:get ]
+  match '/admin/clientinfo'  => 'admin#clientinfo', via: [:get , :post]
   match '/admin/sendmail'  => 'admin#sendmail', via: [:get , :post]
   match '/admin/sendmailaction'  => 'admin#sendmailaction', via: [ :post]
   match '/admin/savemail'  => 'admin#savemail', via: [ :post, :get]

@@ -19,6 +19,40 @@ class AdminController < ApplicationController
 def index
 
 end
+
+  def clients
+    @clients_active = 'active'
+    @clients = Client.all
+  end
+  def clientinfo
+
+    @client = Client.find(params[:client_id])
+    @cl_orders=@client.orders
+    if params[:client_action]=='update'
+      @client.update_column(:client_name,params[:client_name])
+      @client.update_column(:client_family,params[:client_family])
+      @client.update_column(:client_ot4estvo,params[:client_ot4estvo])
+      @client.update_column(:client_passport,params[:client_passport])
+      @client.update_column(:client_comment,params[:client_comment])
+      @client.update_column(:client_phone,params[:client_phone])
+      @client.update_column(:client_email,params[:client_email])
+      @client.update_column(:client_country,params[:client_country])
+      @client.update_column(:client_city,params[:client_city])
+      @client.update_column(:client_post_code,params[:client_post_code])
+      @client.update_column(:client_address,params[:client_address])
+
+      if params[:client_vip].present?
+        @client.update_column(:client_vip,true)
+      else
+        @client.update_column(:client_vip,false)
+      end
+
+      redirect_to '/admin/clientinfo?client_id=' + @client.id.to_s
+
+
+    end
+
+  end
   def orders
     if params[:order_id].present?
       o = Order.find(params[:order_id])
