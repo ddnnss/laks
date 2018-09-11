@@ -172,19 +172,19 @@
           <!--main navigation-->
           <ul class="nav navbar-nav float-lg-right dropdown-effect-fade">
             <li class="nav-item dropdown">
-              <a href="#" style="color: #3A4A59;" class="nav-link dropdown-toggle animated dropdown" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false"><i class="fas fa-bars mr-2" style="font-size: 15px;"></i>КАТАЛОГ ТОВАРОВ</a>
+              <a href="#" style="color: #3A4A59; font-weight: bold !important;" class="nav-link dropdown-toggle animated dropdown" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false"><i class="fas fa-bars mr-2" style="font-size: 15px;"></i>КАТАЛОГ ТОВАРОВ</a>
               <!-- Menu -->
               <div class="dropdown-menu">
                 <% md.each do |menudrop|%>
 
                     <div class="dropdown dropdown-submenu dropdown-menu-right">
 
-                      <a href="" onclick="window.location ='/category/<%=menudrop.cat_name_translit%>' " class="dropdown-item dropdown-toggle animated dropdown" id="headers-drop" data-toggle="dropdown" data-hover="dropdown" data-close-others="false" aria-expanded="false"><%=menudrop.cat_name%></a>
+                      <a href="" style="color: #3A4A59; font-weight: bold !important;" onclick="window.location ='/category/<%=menudrop.cat_name_translit%>' " class="dropdown-item dropdown-toggle animated dropdown" id="headers-drop" data-toggle="dropdown" data-hover="dropdown" data-close-others="false" aria-expanded="false"><%=menudrop.cat_name%></a>
                       <!-- Header variations -->
                       <%if menudrop.subcategories.count>0%>
                       <div class="dropdown-menu" role="menu" aria-labelledby="headers-drop" style="display: none;">
                         <%menudrop.subcategories.each do |subcat|%>
-                        <a href="/subcategory/<%=subcat.subcat_name_translit%>"  class="dropdown-item"><%=subcat.subcat_name%></a>
+                        <a href="/subcategory/<%=subcat.subcat_name_translit%>" style="color: #3A4A59; font-weight: bold !important;"  class="dropdown-item"><%=subcat.subcat_name%></a>
 
                         <%end%>
                         </div>
@@ -197,13 +197,13 @@
 
             </li>
             <% mc.each do |menucat|%>
-                <li  class="nav-item"><a  style="color: #3A4A59;" href="/category/<%=menucat.cat_name_translit%>" class="nav-link"><%=menucat.cat_name%></a> </li>
+                <li  class="nav-item"><a  style="color: #3A4A59; font-weight: bold !important;" href="/category/<%=menucat.cat_name_translit%>" class="nav-link"><%=menucat.cat_name%></a> </li>
 
             <%end%>
-            <li class="nav-item "><a  style="color: #D24B6F;" href="/search?new=1" class="nav-link">НОВИНКИ</a></li>
-            <li class="nav-item "><a  style="color: #D24B6F;" href="/search?discount=1" class="nav-link">СКИДКИ</a></li>
-            <li class="nav-item "><a  style="color: #D24B6F;" href="/about" class="nav-link">О НАС</a></li>
-            <li class="nav-item "><a  style="color: #D24B6F;" href="/about" class="nav-link">КОНТАКТЫ</a></li>
+            <li class="nav-item "><a  style="color: #D24B6F; font-weight: bold !important;" href="/search?new=1" class="nav-link">НОВИНКИ</a></li>
+            <li class="nav-item "><a  style="color: #D24B6F; font-weight: bold !important;" href="/search?discount=1" class="nav-link">СКИДКИ</a></li>
+            <li class="nav-item "><a  style="color: #D24B6F; font-weight: bold !important;" href="/about" class="nav-link">О НАС</a></li>
+            <li class="nav-item "><a  style="color: #D24B6F; font-weight: bold !important;" href="/about" class="nav-link">КОНТАКТЫ</a></li>
             <%if session[:active]%>
 
             <ul class="nav navbar-nav float-lg-right navbar-nav-flush-right dropdown-effect-fadeup">
