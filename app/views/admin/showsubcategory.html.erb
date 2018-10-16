@@ -56,7 +56,9 @@
               <label for="item_postavshik" class="col-sm-2 col-form-label">Поставщик товара :</label>
               <div class="col-sm-10">
                 <select class="form-control"  name="item_postavshik" id="item_postavshik" >
-                  <option>Севастопольская</option>
+                  <option>севастопольская 200</option>
+                  <option>севастопольская 300</option>
+                  <option>севастопольская 700</option>
                   <option>Китай</option>
 
                 </select>
@@ -84,14 +86,7 @@
 
                       </div>
                     </div>
-                    <div class="form-group row">
-                      <label class="col-sm-4">Кол-во товара для опт. цены</label>
-                      <div class="col-sm-1">
 
-                        <input style="width: 90px;"  class="form-control" type="number" value="" id="item_opt_price_count" name="item_opt_price_count" >
-
-                      </div>
-                    </div>
                     <div class="form-group row">
                       <label class="col-sm-4">Товар новинка ?</label>
                       <div class="col-sm-1">
@@ -307,10 +302,12 @@
           <tr>
             <td style="width: 10%;"></td>
             <td style="width: 50%;">Название</td>
+            <td style="width: 50%;">Коллекция</td>
             <td style="width: 5%;">Артикул</td>
             <td style="width: 5%;">Цена роз.</td>
             <td style="width: 5%;">Цена опт.</td>
             <td style="width: 5%;">Скидка %</td>
+            <td style="width: 2%;"></td>
             <td style="width: 2%;"></td>
 
           </tr>
@@ -318,11 +315,13 @@
         <tr>
           <td><img src="/images/items/<%= i.id%>/<%= i.item_image1%>" width="100"></td>
           <td><%=i.item_name%></td>
+          <td><%=i.collection_id > 0 ? Collection.find(i.collection_id).collection_name: 'НЕТ'%></td>
           <td><%=i.item_article%></td>
           <td><%=i.item_price%></td>
           <td><%=i.item_opt_price%></td>
           <td><%=i.item_discount%></td>
           <td><a href="/admin/edititem?item_id=<%=i.id%>"><i class="far fa-edit" ></i></a> </td>
+          <td><a href="/admin/deleteitem?item_id=<%=i.id%>"><i class="fas fa-trash-alt" onclick="return confirm('ТОЧНО УДАЛИТЬ? ЭТО ДЕЙСТВИЕ НЕЛЬЗЯ ОТМЕНИТЬ!')" ></i></a> </td>
         </tr>
         <% end %>
           </tbody>

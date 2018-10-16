@@ -18,7 +18,7 @@
                 <td></td>
                 <td><a href="#" id="<%= cat.id%>" class="maincat"  data-toggle="modal" data-target=".new-subcategory"><i class="far fa-plus-square" ></i></a></td>
                 <td> <%= link_to '<i class="far fa-edit" ></i>'.html_safe, {:controller => 'admin', :action => 'editcategory', :cat_id => cat.id, :main => '1' },method: :post, :remote => true  %></td>
-                <td><a href="/admin/deletecategory?id=<%= cat.id%>&type=main"><i class="fas fa-trash-alt" ></i></a></td>
+                <td><a href="/admin/deletecategory?id=<%= cat.id%>&type=main" onclick="return confirm('ТОЧНО УДАЛИТЬ? ЭТО ДЕЙСТВИЕ НЕЛЬЗЯ ОТМЕНИТЬ!')"><i class="fas fa-trash-alt" ></i></a></td>
               </tr>
               <% cat.subcategories.order('subcat_order ASC').each do |sc|%>
                   <tr>
@@ -26,7 +26,7 @@
                     <td>Товаров : <span class="badge badge-primary"><%= sc.items.count%></span>  </td>
                     <td></td>
                     <td><%= link_to '<i class="far fa-edit" ></i>'.html_safe, {:controller => 'admin', :action => 'editcategory', :cat_id => sc.id, :main => '0' },method: :post, :remote => true  %></td>
-                    <td><a href="/admin/deletecategory?id=<%= sc.id%>&maincat=<%= cat.id%>"><i class="fas fa-trash-alt" ></i></a></td>
+                    <td><a href="/admin/deletecategory?id=<%= sc.id%>&maincat=<%= cat.id%>" onclick="return confirm('ТОЧНО УДАЛИТЬ? ЭТО ДЕЙСТВИЕ НЕЛЬЗЯ ОТМЕНИТЬ!')"><i class="fas fa-trash-alt" ></i></a></td>
                   </tr>
               <% end %>
           <% end %>

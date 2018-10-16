@@ -1,5 +1,14 @@
 class AdminController < ApplicationController
-  before_action :getmenu, :getcart
+  before_action :getmenu, :getcart, :ch_admin
+
+  def ch_admin
+    if client_admin
+      return true
+    else
+      redirect_to '/'
+    end
+  end
+
   def getmenu
     @cat_all = Category.all
     @menu_cat = Category.where(show_in_menu: true)
@@ -177,7 +186,7 @@ end
       i.update_column(:item_description, params[:item_description])
       i.update_column(:item_price, params[:item_price].to_i)
       i.update_column(:item_opt_price, params[:item_opt_price].to_i)
-      i.update_column(:item_opt_price_count, params[:item_opt_price_count].to_i)
+    ##  i.update_column(:item_opt_price_count, params[:item_opt_price_count].to_i)
       i.update_column(:item_postavshik, params[:item_postavshik])
 
       i.update_column(:aktion_id, 0)
@@ -294,7 +303,7 @@ end
       end
 
 
-redirect_to '/admin/items'
+redirect_to '/admin/showsubcategory?subcat_id=' + i.subcategory_id.to_s
     else
       @items_active = 'active'
       @item = Item.find(params[:item_id])
@@ -493,14 +502,14 @@ end
     newitem = Item.new
     newitem.subcategory_id = params[:subcat_id]
     newitem.item_name = params[:addnewitem][:item_name]
-    newitem.item_name_translit = Translit.convert(params[:addnewitem][:item_name].gsub(' ','-'), :english)
+    newitem.item_name_translit = Translit.convert(params[:addnewitem][:item_name].gsub(' ','-').gsub('ь','').gsub('ъ','').gsub(/[?!*.,:;\/`"'#]/, ''), :english)
     newitem.item_name_caps = params[:addnewitem][:item_name].mb_chars.upcase
     newitem.item_page_title = params[:addnewitem][:item_page_title]
     newitem.item_page_description = params[:addnewitem][:item_page_description]
     newitem.item_description = params[:item_description]
     newitem.item_price = params[:item_price].to_i
     newitem.item_opt_price = params[:item_opt_price].to_i
-    newitem.item_opt_price_count = params[:item_opt_price_count].to_i
+  ##  newitem.item_opt_price_count = params[:item_opt_price_count].to_i
     newitem.item_postavshik = params[:item_postavshik]
     newitem.item_comment = params[:item_comment]
     newitem.aktion_id = 0

@@ -1,7 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :check_cart?
-
+  def current_user
+    return unless session[:client_id]
+    @current_user ||= Client.find(session[:client_id])
+  end
   def check_cart?
     unless session[:cart].nil?
       summ = 0
@@ -18,4 +21,10 @@ class ApplicationController < ActionController::Base
 
     end
   end
+
+  def client_admin
+    return unless session[:client_id]
+    @client_admin = current_user.client_admin
+  end
+
 end
