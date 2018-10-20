@@ -15,6 +15,15 @@ class PageController < ApplicationController
     session[:discount_value] = '0'
 
   end
+
+  def about
+    @page_type='О МАГАЗИНЕ'
+   @title = 'О МАГАЗИНЕ'
+  end
+  def contact
+    @page_type='КОНТАКТЫ'
+    @title = 'КОНТАКТЫ'
+  end
   def login_mobile
     if session[:active]
       redirect_to root_path

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/admin/actremove', to: 'admin#removefromaktion'
   get '/admin/showsubcategory', to: 'admin#showsubcategory'
 
+
   match '/admin/edititem'  => 'admin#edititem', via: [:post, :get]
   match '/admin/orders'  => 'admin#orders', via: [:get , :post]
   match '/admin/clients'  => 'admin#clients', via: [:get ]
@@ -39,6 +40,8 @@ Rails.application.routes.draw do
   match '/editcollection'  => 'admin#editcollection', via: [:post]
   match '/addslide'  => 'admin#addslide', via: [:post, :get]
 
+  match '/itemchange'  => 'admin#itemchange', via: [:post]
+
   match '/login'  => 'client#login', via: [:post]
   match '/lostpass'  => 'client#lostpass', via: [:post]
   match '/search'  => 'page#search', via: [:post , :get]
@@ -58,6 +61,8 @@ Rails.application.routes.draw do
   match '/profile'  => 'page#profile', via: [:post, :get]
 
   get '/category(/:name)', to: 'page#showcategory'
+  get '/about_us', to: 'page#about'
+  get '/contact', to: 'page#contact'
   get '/subcategory(/:name)', to: 'page#showsubcategory'
   get '/collection(/:name)', to: 'page#showcollection'
   get '/product(/:item_name)', to: 'page#showitem'

@@ -29,6 +29,32 @@ def index
 
 end
 
+  def itemchange
+  params[:show_items].split(',').each do |i|
+    unless params[:item_new].present?
+      params[:item_new] = '0'
+    end
+    unless params[:item_pres].present?
+      params[:item_pres] = '0'
+    end
+    item=Item.find_by_id(i)
+    if params[:item_new].include? i
+      item.update_column(:item_new,true)
+    else
+      item.update_column(:item_new,false)
+    end
+    if params[:item_pres].include? i
+      item.update_column(:item_presents,true)
+    else
+      item.update_column(:item_presents,false)
+    end
+
+  end
+  redirect_to '/admin/showsubcategory?subcat_id=' + params[:sub_id]
+
+
+  end
+
   def clients
     @clients_active = 'active'
     @clients = Client.all
@@ -350,6 +376,11 @@ end
     end
     @collections = Collection.all
     @aktion = Aktion.all
+    @show_items=''
+    @items.each do |i|
+      @show_items = @show_items + i.id.to_s + ','
+    end
+    @show_items = @show_items[0..-2]
   end
 
   def aktions

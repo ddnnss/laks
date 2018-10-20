@@ -1,0 +1,149 @@
+<div id="features" class="container py-4 py-lg-6">
+  <hr class="hr-lg mt-0 mb-3 w-10 mx-auto hr-primary" />
+  <h2 class="text-center text-uppercase font-weight-bold my-0">
+    АКЦИИ И СКИДКИ
+  </h2>
+
+  <hr class="mb-5 w-50 mx-auto" />
+  <!-- Products cards -->
+  <div class="card-deck-wrapper">
+    <div class="card-deck">
+      <!-- Product -->
+      <%@action_items.each do |item|%>
+          <div class="card mb-4 product-card hover-shadow ">
+            <%if item.item_new %>
+                <div class="card-ribbon card-ribbon-top card-ribbon-left bg-success text-white"> НОВИНКА </div>
+            <%end%>
+            <%if item.collection_id > 0 %>
+                <div class="card-ribbon card-ribbon-top card-ribbon-left bg-primary text-white" style="    left: -95px !important;
+                    width: 300px;
+                    top: 36px;"> В КОЛЛЕКЦИИ </div>
+            <%end%>
+            <!-- Hover content
+            <div class="overlay-hover-content overlay-op-7">
+              <a href="shop-cart.html" class="btn btn-primary btn-block text-uppercase font-weight-bold mb-3 btn-lg"><i class="fa fa-cart-plus mr-2"></i> В корзину</a>
+              <a href="shop-product.html" class="text-white text-sm">Подробнее о товаре</a> <a href="#" class="text-white text-sm">Добавить в закладки</a>
+
+            </div>-->
+            <!-- Image & price content -->
+            <div class="pos-relative">
+              <a href="/product/<%=item.item_name_translit%>">
+                <img class="card-img-top img-fluid" src="/images/items/<%=item.id%>/<%=item.item_image1%>" alt="Купить <%=item.item_name%> в Москве по оптовым ценам">
+              </a>
+              <%if item.item_discount > 0 %>
+                    <span class="badge badge-primary product-price-badge pos-absolute pos-t pos-r mt-2 mr-2 persist">
+                 - <%=item.item_discount%> %
+                </span>
+              <%else %>
+
+              <%end%>
+
+            </div>
+            <!-- Content -->
+            <div class="card-body text-center ">
+              <div style="height: 60px; padding-bottom: 10px;">
+                <a style="text-decoration: none; color: #3A4A59; font-weight: bold;" href="/product/<%=item.item_name_translit%>"> <%=item.item_name%></a>
+              </div>
+              <hr/>
+              <small class="text-muted text-uppercase"><span style="color: #3A4A59;"> Артикул :<span class="text-muted"> <%= item.item_article%></span></span></small>
+              <hr/>
+              <div id="spinner_<%=item.id%>" ></div>
+              <div id="cart_buttons_<%=item.id%>">
+                <%if item.item_presents%>
+                    <%if session[:cart].nil?%>
+                        <a style="color: #3A4A59;" href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fa fa-cart-plus"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ</span></a>
+
+                    <%else%>
+                        <%if session[:cart].keys.include? item.id.to_s%>
+
+                            <a style="color: #3A4A59;" href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fas fa-cart-arrow-down"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ ЕЩЕ</span></a>
+
+                        <%else%>
+                            <a style="color: #3A4A59;" href="/addtocart/<%=item.id%>" id="item-<%=item.id%>" onclick="return theFunction(<%=item.id%>);" data-remote="true"><span id="cart_state_<%=item.id%>" class="fa fa-cart-plus"></span><span id="cart_state_txt_<%=item.id%>" style="font-size: 13px;"> ДОБАВИТЬ</span></a>
+                        <%end%>
+                    <%end%>
+                <%else%>
+                    <a href="javascript:void(0)" ><span class="fas fa-lock"></span><span style="font-size: 13px;"> НЕТ В НАЛИЧИИ</span></a>
+                <%end%>
+
+
+                |
+
+                <% if @wishlist.nil? %>
+                    <a style="color: #3A4A59;"  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button" onclick="return theFunction(<%=item.id%>); " data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span></a>
+
+                <%else%>
+                    <% if @wishlist.include?(item.id.to_s) %>
+                        <span class="fa fa-heart text-primary"></span>
+                    <% else %>
+                        <span id="wish<%=item.id%>button_off" style="display: none;" class="fa fa-heart text-primary"></span>
+                        <a style="color: #3A4A59;"  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button" onclick="return theFunction(<%=item.id%>); " data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span></a>
+                    <%end%>
+                <% end %>
+
+              </div>
+
+            </div>
+
+            <div class="card-footer text-center">
+              <small class="text-muted text-uppercase"><span style="color: #3A4A59;"> Цена :</span></small>
+              <%if item.item_discount > 0 %>
+                  <del class="op-5">&#8381; <%=item.item_price%></del>
+                  /
+                  <strong> <%=item.item_price - (item.item_price * item.item_discount / 100)%> &#8381;</strong>
+              <%else %>
+                  <strong> <%=item.item_price%> &#8381;</strong>
+              <%end%>
+              <br/>
+
+              <small class="text-muted text-uppercase"><span style="color: #3A4A59;">  Оптовая цена :</span></small>
+              <strong><%=item.item_opt_price%> &#8381; </strong>
+
+              <a href="#" data-toggle="tooltip" title="" data-original-title="При заказе от :  <%=item.item_opt_price_count%> штук"><i style="color: #3A4A59;" class="fa fa-info-circle fa-lg "></i></a>
+              <% if session[:admin]%>
+                  <hr>
+                  <a href="/admin/edititem?item_id=<%=item.id%>" class="btn btn-primary">Редактировать</a>
+              <%end%>
+            </div>
+          </div>
+          <!-- Product -->
+      <% end %>
+    </div>
+  </div>
+</div>
+
+  <div class="slider-wrapper rev_slider_wrapper bg-black" data-page-class="slider-appstrap-theme">
+    <div class="rev_slider" data-toggle="slider-rev" data-settings='{"startwidth":920, "startheight":500, "delay":10000}'>
+      <ul>
+        <%@slides.each do |slide|%>
+            <li class="slide overlay overlay-op-2" data-transition="fadethroughdark" data-slotamount="7" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="1500" data-thumb="" data-rotate="0" data-saveperformance="off" data-title="Summer" data-mediafilter="earlybird">
+              <!-- MAIN IMAGE -->
+              <img src="/images/slider/<%=slide.slider_image%>" alt="Background image" data-bgposition="center center" data-bgfit="cover" data-bgparallax="10" class="rev-slidebg" data-no-retina />
+              <!-- LAYERS -->
+              <!-- SLIDE 1 Content-->
+              <div class="slide-content container">
+                <!--elements within .slide-content are pushed below navbar on "behind"-->
+                <!-- Layer 1 -->
+                <div style="    margin-left: 40px;" class="tp-caption text-grey" data-x="['left','left','left','left']" data-hoffset="['0','0','0','40']" data-y="['bottom','bottom','bottom','bottom']" data-voffset="['140','140','140','140']" data-fontsize="['52','52','52','52']" data-lineheight="['52','52','52','52']" data-width="420" data-height="none" data-whitespace="normal" data-type="text" data-basealign="slide" data-responsive_offset="on" data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1200,"to":"o:1;","delay":1300,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"opacity:0;","ease":"nothing"}]' data-textAlign="left">
+                  <span  class="font-weight-bold text-uppercase text-white">
+                    <%=slide.slider_text1%>
+                    <br />
+                    <%=slide.slider_text2%>
+                  </span>
+                </div>
+                <!-- Layer 3 -->
+                <div style="margin-left: 40px;" class="tp-caption text-grey" data-x="['left','left','left','left']" data-hoffset="['0','0','0','40']" data-y="['bottom','bottom','bottom','bottom']" data-voffset="['80','80','80','80']" data-fontsize="['20','20','20','30']" data-width="none" data-height="none" data-whitespace="nowrap" data-type="text" data-basealign="slide" data-responsive_offset="on" data-frames='[{"delay":0,"speed":1200,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","to":"o:1;","delay":1400},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]' data-textAlign="['center','center','center','center']"><a href="<%=slide.slider_url%>" class="btn btn-primary" ><%=slide.slider_text3%></a>
+                </div>
+                <!-- Layer 3
+                <div class="tp-caption rs-parallaxlevel-8" data-frames='[{"from":"o:0;sX:3;sY:3;","speed":1500,"to":"o:0.10;sX:3;sY:3;","delay":500,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1200,"to":"x:[100%];","ease":"Power3.easeInOut"}]' data-x="left" data-y="bottom" data-hoffset="0" data-voffset="0" data-width="none" data-height="none" data-type="image" data-basealign="slide"> <i class="fa fa-bullseye icon-25x icon-bg op-1 text-white"></i>
+                </div> -->
+                <!-- Layer 4-->
+                <div class="tp-caption tp-resizeme bg-primary-bright" data-frames='[{"from":"x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":500,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"x:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]' data-x="['left','left','left','left']" data-hoffset="['0','0','0','40']" data-y="bottom" data-voffset="120" data-width="355" data-height="4" data-basealign="slide"></div>
+              </div>
+            </li>
+        <%end%>
+      </ul>
+      <div class="tp-bannertimer tp-bottom"></div>
+    </div>
+    <!--end of tp-banner-->
+  </div>

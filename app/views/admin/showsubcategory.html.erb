@@ -297,6 +297,8 @@
 
         </div>
         <hr>
+        <%= form_for :item, url: itemchange_path do |f|%>
+
         <table class="table" style="text-align: center;">
           <tbody>
           <tr>
@@ -307,6 +309,8 @@
             <td style="width: 5%;">Цена роз.</td>
             <td style="width: 5%;">Цена опт.</td>
             <td style="width: 5%;">Скидка %</td>
+            <td>Новинка</td>
+            <td>Наличие</td>
             <td style="width: 2%;"></td>
             <td style="width: 2%;"></td>
 
@@ -320,12 +324,32 @@
           <td><%=i.item_price%></td>
           <td><%=i.item_opt_price%></td>
           <td><%=i.item_discount%></td>
+          <td>
+            <%if i.item_new%>
+
+                <%= check_box_tag 'item_new[]' , i.id ,true, onchange:'return show_butt();' , checked: 'checked'%>
+            <%else%>
+                <%= check_box_tag 'item_new[]' ,  i.id,false, onchange:'return show_butt();' %>
+            <%end%>
+          </td>
+          <td>
+            <%if i.item_presents%>
+
+                <%= check_box_tag 'item_pres[]' , i.id ,true, onchange:'return show_butt();' , checked: 'checked'%>
+            <%else%>
+                <%= check_box_tag 'item_pres[]' ,  i.id,false, onchange:'return show_butt();' %>
+            <%end%>
+          </td>
           <td><a href="/admin/edititem?item_id=<%=i.id%>"><i class="far fa-edit" ></i></a> </td>
           <td><a href="/admin/deleteitem?item_id=<%=i.id%>"><i class="fas fa-trash-alt" onclick="return confirm('ТОЧНО УДАЛИТЬ? ЭТО ДЕЙСТВИЕ НЕЛЬЗЯ ОТМЕНИТЬ!')" ></i></a> </td>
         </tr>
         <% end %>
           </tbody>
         </table>
+            <input type="hidden" value="<%=@show_items%>" name="show_items">
+            <input type="hidden" value="<%=@subcat.id%>" name="sub_id">
+            <button style="display: none;" id="recheck" class="btn btn-primary btn-rounded btn-lg"  type="submit">Обновить товары</button>
+            <%end%>
         <div class="digg_pagination">
 
           <%= will_paginate @items,:previous_label => t("<<"), :next_label => t(">>"), :container => false %>
@@ -388,4 +412,12 @@
             $('#searchtxtarticle').val(decodeURIComponent(getSearchParams('article')));
         }
     });
+
+
+        function show_butt() {
+            $("#recheck").css('display','block');
+
+            return true;
+        }
+
 </script>
