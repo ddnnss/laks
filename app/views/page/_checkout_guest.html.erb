@@ -35,27 +35,20 @@
         </td>
         <td> <span class="font-weight-bold"><%=cc.item_name %></span> </td>
         <td>
-          <%if check_cart?  %>
 
-              <span style="font-size: 10px;" class="badge badge-primary">ОПТОВАЯ ЦЕНА</span> <span class="text-primary cart_item_bold"> <%= cc.item_opt_price%> </span> &#8381;
-            <%session[:cart_total] = session[:cart_total] + (cc.item_opt_price* session[:cart][cc.id.to_s])%>
-            <span style="display: none;" id="iiitem<%=cc.id%>_price_total"><%= @item_total=cc.item_opt_price* session[:cart][cc.id.to_s]%></span>
-
-          <%else%>
             <%if cc.item_discount > 0%>
                                       <span id="item<%=cc.id%>_cur_price">
-                                      <%=cc.item_price - (cc.item_price * cc.item_discount / 100)%></span> &#8381;
-              <%session[:cart_total] = session[:cart_total] + (cc.item_price - (cc.item_price * cc.item_discount / 100))* session[:cart][cc.id.to_s]%>
-              <span style="display: none;" id="iiitem<%=cc.id%>_price_total"><%=@item_total=(cc.item_price - (cc.item_price * cc.item_discount / 100))* session[:cart][cc.id.to_s]%></span>
+                                      <%=cc.item_opt_price - (cc.item_opt_price * cc.item_discount / 100)%></span> &#8381;
+              <%session[:cart_total] = session[:cart_total] + (cc.item_opt_price - (cc.item_opt_price * cc.item_discount / 100))* session[:cart][cc.id.to_s]%>
+              <span style="display: none;" id="iiitem<%=cc.id%>_price_total"><%=@item_total=(cc.item_opt_price - (cc.item_opt_price * cc.item_discount / 100))* session[:cart][cc.id.to_s]%></span>
 
             <%else%>
                                       <span id="item<%=cc.id%>_cur_price">
-                                      <%= cc.item_price%></span> &#8381;
-              <%session[:cart_total] = session[:cart_total] + (cc.item_price* session[:cart][cc.id.to_s])%>
-              <span style="display: none;" id="iiitem<%=cc.id%>_price_total"><%=@item_total=cc.item_price* session[:cart][cc.id.to_s]%></span>
+                                      <%= cc.item_opt_price%></span> &#8381;
+              <%session[:cart_total] = session[:cart_total] + (cc.item_opt_price* session[:cart][cc.id.to_s])%>
+              <span style="display: none;" id="iiitem<%=cc.id%>_price_total"><%=@item_total=cc.item_opt_price* session[:cart][cc.id.to_s]%></span>
 
             <%end%>
-          <%end%>
 
         </td>
         <td >

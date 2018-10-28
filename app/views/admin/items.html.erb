@@ -65,8 +65,7 @@
             <td style="width: 30%;">Категория/Подкатегория</td>
             <td style="width: 30%;">Название</td>
             <td style="width: 5%;">Артикул</td>
-            <td style="width: 5%;">Цена роз.</td>
-            <td style="width: 5%;">Цена опт.</td>
+            <td style="width: 5%;">Цена</td>
             <td style="width: 5%;">Скидка %</td>
             <td style="width: 2%;"></td>
             <td style="width: 2%;"></td>
@@ -77,7 +76,6 @@
                 <td><%=i.subcategory.category.cat_name%> / <a href="/admin/showsubcategory?subcat_id=<%= i.subcategory.id%>"><%=i.subcategory.subcat_name%></a></td>
                 <td><%=i.item_name%></td>
                 <td><%=i.item_article%></td>
-                <td><%=i.item_price%></td>
                 <td><%=i.item_opt_price%></td>
                 <td><%=i.item_discount%></td>
                 <td><a href="/admin/edititem?item_id=<%=i.id%>"><i class="far fa-edit" ></i></a> </td>

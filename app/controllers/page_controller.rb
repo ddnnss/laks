@@ -20,6 +20,74 @@ class PageController < ApplicationController
     @page_type='О МАГАЗИНЕ'
    @title = 'О МАГАЗИНЕ'
   end
+
+  def discount_page
+    @page_type='СКИДКИ'
+    @title = 'СКИДКИ'
+    @items = Item.where(:item_in_sale => true)
+
+    if params[:sort_type].present?
+      case params[:sort_type]
+        when '1'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name desc')
+        when '2'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name asc')
+        when '3'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_opt_price desc')
+        when '4'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_opt_price asc')
+        when '5'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount desc')
+        when '6'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount asc')
+
+      end
+    else
+      @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name desc')
+    end
+
+    if params[:search]!='' && params[:search].present?
+
+      @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).where('item_name_caps LIKE ?','%'+params[:search].mb_chars.upcase+'%')
+
+    else
+
+    end
+
+  end
+  def new_page
+    @page_type='НОВИНКИ'
+    @title = 'НОВИНКИ'
+    @items = Item.where(:item_new => true)
+
+    if params[:sort_type].present?
+      case params[:sort_type]
+        when '1'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name desc')
+        when '2'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name asc')
+        when '3'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_opt_price desc')
+        when '4'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_opt_price asc')
+        when '5'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount desc')
+        when '6'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount asc')
+
+      end
+    else
+      @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name desc')
+    end
+
+    if params[:search]!='' && params[:search].present?
+
+      @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).where('item_name_caps LIKE ?','%'+params[:search].mb_chars.upcase+'%')
+
+    else
+
+    end
+  end
   def contact
     @page_type='КОНТАКТЫ'
     @title = 'КОНТАКТЫ'
@@ -60,9 +128,9 @@ class PageController < ApplicationController
       when '2'
         @items = @coll.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name asc')
       when '3'
-        @items = @coll.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_price desc')
+        @items = @coll.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_opt_price desc')
       when '4'
-        @items = @coll.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_price asc')
+        @items = @coll.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_opt_price asc')
       when '5'
         @items = @coll.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount desc')
       when '6'
@@ -122,9 +190,9 @@ class PageController < ApplicationController
         when '2'
           @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name desc')
         when '3'
-          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_price desc')
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_opt_price desc')
         when '4'
-          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_price asc')
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_opt_price asc')
         when '5'
           @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount desc')
         when '6'

@@ -13,9 +13,10 @@ if ('<%=@status %>' == 'ok')
         'position'          :'top right'
     });
     $("#wish<%= @item_id%>button").css("display", "none");
-    $("#wish<%= @item_id%>button_off").css("display", "block");
+
     $("#wish<%= @item_id%>icon").removeClass('far');
     $("#wish<%= @item_id%>icon").addClass('fas');
+    $("#wishlist_text_<%=@item_id%>").css("display", "block");
 
 }
 if ('<%=@status %>' == 'err')

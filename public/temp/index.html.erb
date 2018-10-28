@@ -59,7 +59,7 @@
                     <label class="col-sm-4">Розничная цена :</label>
                     <div class="col-sm-1">
 
-                      <input style="width: 90px;" required="required" class="form-control" type="number" value="" id="item_price" name="item_price" >
+                      <input style="width: 90px;" required="required" class="form-control" type="number" value="" id="item_opt_price" name="item_opt_price" >
 
                     </div>
                   </div>
@@ -385,15 +385,15 @@
                               <%else%>
                                   <%if cc.item_discount > 0%>
                                       <span id="item<%=cc.id%>_cur_price">
-                                      <%=cc.item_price - (cc.item_price * cc.item_discount / 100)%></span> &#8381; x <span id="item<%= cc.id%>count"><%=session[:cart][cc.id.to_s]%></span>
-                                      <%session[:total] = session[:total] + (cc.item_price - (cc.item_price * cc.item_discount / 100))* session[:cart][cc.id.to_s]%>
-                                      <span style="display: none;" id="iitem<%=cc.id%>_price_total"><%=(cc.item_price - (cc.item_price * cc.item_discount / 100))* session[:cart][cc.id.to_s]%></span>
+                                      <%=cc.item_opt_price - (cc.item_opt_price * cc.item_discount / 100)%></span> &#8381; x <span id="item<%= cc.id%>count"><%=session[:cart][cc.id.to_s]%></span>
+                                      <%session[:total] = session[:total] + (cc.item_opt_price - (cc.item_opt_price * cc.item_discount / 100))* session[:cart][cc.id.to_s]%>
+                                      <span style="display: none;" id="iitem<%=cc.id%>_price_total"><%=(cc.item_opt_price - (cc.item_opt_price * cc.item_discount / 100))* session[:cart][cc.id.to_s]%></span>
 
                                   <%else%>
                                       <span id="item<%=cc.id%>_cur_price">
-                                      <%= cc.item_price%></span> &#8381;
-                                      <%session[:total] = session[:total] + (cc.item_price* session[:cart][cc.id.to_s])%> x <span id="item<%= cc.id%>count"><%=session[:cart][cc.id.to_s]%></span>
-                                      <span style="display: none;" id="iitem<%=cc.id%>_price_total"><%=cc.item_price* session[:cart][cc.id.to_s]%></span>
+                                      <%= cc.item_opt_price%></span> &#8381;
+                                      <%session[:total] = session[:total] + (cc.item_opt_price* session[:cart][cc.id.to_s])%> x <span id="item<%= cc.id%>count"><%=session[:cart][cc.id.to_s]%></span>
+                                      <span style="display: none;" id="iitem<%=cc.id%>_price_total"><%=cc.item_opt_price* session[:cart][cc.id.to_s]%></span>
 
                                   <%end%>
                               <%end%>
@@ -779,9 +779,9 @@
             </div>
 
             <div class="card-footer">
-              Цена : <del class="op-5">&#8381; <%=item.item_price%></del>
+              Цена : <del class="op-5">&#8381; <%=item.item_opt_price%></del>
               /
-              <%=item.item_price - (item.item_price * item.item_discount / 100)%> &#8381;
+              <%=item.item_opt_price - (item.item_opt_price * item.item_discount / 100)%> &#8381;
               <%if item.item_presents%>
                   <p class="text-muted text-uppercase text-xs mb-0"><span class="badge badge-success">товар в наличии</span> </p>
               <% else %>

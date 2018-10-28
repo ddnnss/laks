@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
       summ = 0
       cart = Item.find(session[:cart].keys)
         cart.each do |i|
-          summ = summ + i.item_price * session[:cart][i.id.to_s]
+          summ = summ + i.item_opt_price * session[:cart][i.id.to_s]
           logger.info ('Стоимость корзины :' + summ.to_s)
       end
       if summ > 5000

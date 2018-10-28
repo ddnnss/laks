@@ -63,6 +63,8 @@ Rails.application.routes.draw do
   get '/category(/:name)', to: 'page#showcategory'
   get '/about_us', to: 'page#about'
   get '/contact', to: 'page#contact'
+  get '/discounts', to: 'page#discount_page'
+  get '/new', to: 'page#new_page'
   get '/subcategory(/:name)', to: 'page#showsubcategory'
   get '/collection(/:name)', to: 'page#showcollection'
   get '/product(/:item_name)', to: 'page#showitem'

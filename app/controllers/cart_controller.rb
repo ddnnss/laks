@@ -111,18 +111,18 @@ class CartController < ApplicationController
           @item_name = item.item_name
           @item_count = session[:cart][item.id.to_s]
           if @item_count >= item.item_opt_price_count #оптовая цена
-            @item_price = item.item_opt_price
+            @item_opt_price = item.item_opt_price
             @item_total_price = item.item_opt_price * @item_count
             @opt_price = true
             logger.info('[INFO] : Существующий товар обновлен по оптовой цене.')
            else
              if item.item_discount > 0
-               @item_price = item.item_price - (item.item_price * item.item_discount / 100)
-               @item_total_price = @item_price * @item_count
+               @item_opt_price = item.item_opt_price - (item.item_opt_price * item.item_discount / 100)
+               @item_total_price = @item_opt_price * @item_count
                @opt_price = false
              else
-               @item_price = item.item_price
-               @item_total_price = @item_price * @item_count
+               @item_opt_price = item.item_opt_price
+               @item_total_price = @item_opt_price * @item_count
                @opt_price = false
              end
           end
@@ -139,9 +139,9 @@ class CartController < ApplicationController
           @item_name_translit = item.item_name_translit
           @item_image = item.item_image1
           if item.item_discount > 0
-            @item_price = item.item_price - (item.item_price * item.item_discount / 100)
+            @item_opt_price = item.item_opt_price - (item.item_opt_price * item.item_discount / 100)
           else
-            @item_price = item.item_price
+            @item_opt_price = item.item_opt_price
           end
           logger.info('[INFO] : Новый товар добавлен в корзину.')
           format.js

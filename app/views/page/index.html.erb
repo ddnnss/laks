@@ -11,9 +11,9 @@
 
 
 <!-- ======== @Region: #highlighted ======== -->
-<div id="highlighted" class="container mt-3">
+<div id="highlighted" class=" mt-3">
 <br>
-  <div class="bd-example">
+  <div class="bd-example container">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
         <%f_id = @slides.first.id%>
@@ -60,17 +60,13 @@
 
   <div class="row">
     <div class="col-lg-4 d-flex" style="padding-bottom: 25px; height: 250px;">
-      <div class="p-5 py-lg-6 overlay overlay-op-5  flex-ew hover-shadow  flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/search?new=1" style="background-image: url('/images/new.jpg');background-position: center;">
-        <hr class="w-50 mx-auto hr-primary" style="border-top: 3px solid rgba(0, 0, 0, 0.1);">
-        <h2 class="text-white text-center text-uppercase mb-0">
-          НОВИНКИ
-        </h2>
-        <hr class="w-50 mx-auto hr-primary" style="border-top: 3px solid rgba(0, 0, 0, 0.1);">
+      <div class="p-5 py-lg-6 overlay overlay-op-1  flex-ew hover-shadow  flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/discounts" style="background-image: url('/images/new.jpg');background-position: center;">
+
       </div>
     </div>
     <%  @cat_all.each do |cat|%>
         <div class="col-lg-4 d-flex" style="padding-bottom: 25px; height: 250px;">
-          <div class="p-5 py-lg-6 overlay overlay-op-5  flex-ew hover-shadow  flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/category/<%=cat.cat_name_translit%>" style="background-image: url('/images/maincategory/<%=cat.cat_image%>');background-position: center;">
+          <div class="p-5 py-lg-6 overlay overlay-op-2  flex-ew hover-shadow  flex-valign clickable-element bg-img blazy-bg b-loaded" data-url="/category/<%=cat.cat_name_translit%>" style="background-image: url('/images/maincategory/<%=cat.cat_image%>');background-position: center;">
             <hr class="w-50 mx-auto hr-primary" style="border-top: 3px solid rgba(0, 0, 0, 0.1);">
             <h2 class="text-white text-center text-uppercase mb-0">
               <%=cat.cat_name%>

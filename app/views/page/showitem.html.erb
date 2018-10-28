@@ -100,18 +100,14 @@
 
               Цена :
               <%if @item.item_discount > 0 %>
-                  <del class="op-5">&#8381; <%=@item.item_price%></del>
+                  <del class="op-5">&#8381; <%=@item.item_opt_price%></del>
                   /
-                  <%=@item.item_price - (@item.item_price * @item.item_discount / 100)%> &#8381;
+                  <%=@item.item_opt_price - (@item.item_opt_price * @item.item_discount / 100)%> &#8381;
               <%else %>
-                  <%=@item.item_price%> &#8381;
+                  <%=@item.item_opt_price%> &#8381;
               <%end%>
             </h5>
-            <h5 class="font-weight-bold text-primary">
 
-              Оптовая цена :  <%=@item.item_opt_price%> &#8381; <a href="#" data-toggle="tooltip" title="" data-original-title="При заказе от :  <%=@item.item_opt_price_count%> штук"><i class="fa fa-info-circle fa-lg "></i></a>
-
-            </h5>
             <hr class="my-3">
             <%if @item.item_description!=''%>
             <%= @item.item_description.html_safe %>
@@ -330,39 +326,42 @@
 
 
                 </div>
-                <%if session[:active]%>
-                    <% if @wishlist.nil?  %>
-                        <a style="color: #3A4A59;"  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button"  data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span> Добавить в закладки</a>
 
-                    <%else%>
-                        <% if @wishlist.include?(item.id.to_s) %>
-                            <span class="fa fa-heart text-primary"></span>
-                        <% else %>
-                            <span id="wish<%=item.id%>button_off" style="display: none;" class="fa fa-heart text-primary"></span>
-                            <a style="color: #3A4A59;"  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button"  data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span></a>
-                        <%end%>
-                    <% end %>
-                <%end%>
 
 
 
               </div>
 
               <div class="card-footer text-center">
+
                 <small class="text-muted text-uppercase"><span style="color: #3A4A59;"> Цена :</span></small>
                 <%if item.item_discount > 0 %>
-                    <del class="op-5">&#8381; <%=item.item_price%></del>
+                    <del class="op-5">&#8381; <%=item.item_opt_price%></del>
                     /
-                    <strong> <%=item.item_price - (item.item_price * item.item_discount / 100)%> &#8381;</strong>
+                    <strong> <%=item.item_opt_price - (item.item_opt_price * item.item_discount / 100)%> &#8381;</strong>
                 <%else %>
-                    <strong> <%=item.item_price%> &#8381;</strong>
+                    <strong> <%=item.item_opt_price%> &#8381;</strong>
                 <%end%>
                 <br/>
 
-                <small class="text-muted text-uppercase"><span style="color: #3A4A59;">  Оптовая цена :</span></small>
-                <strong><%=item.item_opt_price%> &#8381; </strong>
+                <%if session[:active]%>
+                    <% if @wishlist.nil?  %>
+                        <a style="color: #3A4A59;text-decoration: none;"  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button"  data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span> <span id="wishlist_text_<%=item.id%>" style="font-size: 10px;" class="text-muted"> ДОБАВИТЬ В ЗАКЛАДКИ</span></a>
 
-                <a href="#" data-toggle="tooltip" title="" data-original-title="Цена актуальна при общей стоимости заказа свыше 5 000 руб."><i style="color: #3A4A59;" class="fa fa-info-circle fa-lg "></i></a>
+                    <%else%>
+                        <% if @wishlist.include?(item.id.to_s) %>
+                            <span class="fa fa-heart text-primary"></span> <span style="font-size: 10px;" class="text-muted"> ТОВАР ДОБАВЛЕН В ЗАКЛАДКИ</span>
+                        <% else %>
+                            <span id="wishlist_text_<%=item.id%>" style="display: none;">
+                                                  <span id="wish<%=item.id%>button_off" class="fa fa-heart text-primary"></span><span id="wishlist_text_<%=item.id%>" style="font-size: 10px;" class="text-muted"> ТОВАР ДОБАВЛЕН В ЗАКЛАДКИ</span>
+                            </span>
+
+                            <a style="color: #3A4A59; text-decoration: none;"  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button"  data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span> <span id="wishlist_text_<%=item.id%>" style="font-size: 10px;" class="text-muted"> ДОБАВИТЬ В ЗАКЛАДКИ</span></a>
+                        <%end%>
+                    <% end %>
+                <%end%>
+
+
                 <% if session[:admin]%>
                     <hr>
                     <a href="/admin/edititem?item_id=<%=item.id%>" class="btn btn-primary">Редактировать</a>

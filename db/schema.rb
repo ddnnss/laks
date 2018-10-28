@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 20180906192053) do
     t.text "item_comment", default: ""
     t.string "item_page_title", default: ""
     t.string "item_page_description", default: ""
-    t.integer "item_price"
+    t.integer "item_opt_price"
     t.integer "item_opt_price"
     t.integer "item_opt_price_count"
     t.integer "item_discount", default: 0
@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(version: 20180906192053) do
     t.index ["item_name_caps"], name: "index_items_on_item_name_caps"
     t.index ["item_name_translit"], name: "index_items_on_item_name_translit"
     t.index ["item_new"], name: "index_items_on_item_new"
-    t.index ["item_price"], name: "index_items_on_item_price"
+    t.index ["item_opt_price"], name: "index_items_on_item_opt_price"
     t.index ["subcategory_id"], name: "index_items_on_subcategory_id"
   end
 

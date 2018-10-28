@@ -88,11 +88,11 @@
             <div class="card-footer text-center">
               <small class="text-muted text-uppercase"><span style="color: #3A4A59;"> Цена :</span></small>
               <%if item.item_discount > 0 %>
-                  <del class="op-5">&#8381; <%=item.item_price%></del>
+                  <del class="op-5">&#8381; <%=item.item_opt_price%></del>
                   /
-                  <strong> <%=item.item_price - (item.item_price * item.item_discount / 100)%> &#8381;</strong>
+                  <strong> <%=item.item_opt_price - (item.item_opt_price * item.item_discount / 100)%> &#8381;</strong>
               <%else %>
-                  <strong> <%=item.item_price%> &#8381;</strong>
+                  <strong> <%=item.item_opt_price%> &#8381;</strong>
               <%end%>
               <br/>
 

@@ -1,6 +1,6 @@
 var cartItem = " <div class=\"cart-items-item\">\n" +
 
-    " <span style=\"display: none;\" id=\"iitem<%= @item_id%>_price_total\"><%= @item_price%></span>\n"+
+    " <span style=\"display: none;\" id=\"iitem<%= @item_id%>_price_total\"><%= @item_opt_price%></span>\n"+
 
     "                  <a href=\"/product/<%= @item_name_translit%>\" class=\"cart-img mr-2 float-left\">\n" +
     "                    <img class=\"img-fluid\" src=\"/images/items/<%= @item_id%>/<%= @item_image%>\" alt=\"Интернет магазин Lakshmi88 предлагает купить <%= @item_name%>\">\n" +
@@ -9,7 +9,7 @@ var cartItem = " <div class=\"cart-items-item\">\n" +
     "                    <h5 class=\"mb-0\">\n" +
     "                      <%= @item_name%>\n" +
     "                    </h5>\n" +
-    "                    <p class=\"mb-0 cart_item\"><span id=\"item<%= @item_id%>_cur_price\"><%= @item_price%></span> &#8381; x <span id=\"item<%= @item_id%>count\">1</span></p>\n" +
+    "                    <p class=\"mb-0 cart_item\"><span id=\"item<%= @item_id%>_cur_price\"><%= @item_opt_price%></span> &#8381; x <span id=\"item<%= @item_id%>count\">1</span></p>\n" +
 
     "                  </div>\n" +
     "                </div>";
@@ -23,7 +23,7 @@ if ('<%=@dup %>' == 'true')
         $('#iitem<%= @item_id%>_price_total').html(<%=  @item_total_price%>);
         $('#item<%= @item_id%>_cur_price').addClass('text-primary');
         $('#item<%= @item_id%>_cur_price').addClass('cart_item_bold');
-        $('#item<%= @item_id%>_cur_price').html(<%= @item_price%>);
+        $('#item<%= @item_id%>_cur_price').html(<%= @item_opt_price%>);
 
         $('#total').html(total('#cart-items-item'));
         var cart_total = parseInt( $('#cart_count').html());
@@ -36,7 +36,7 @@ if ('<%=@dup %>' == 'true')
     }else{
         $('#item<%= @item_id%>count').html(<%= @item_count%>);
         var cur_total = parseInt( $('#total').html());
-        $('#total').html(cur_total + <%= @item_price%>);
+        $('#total').html(cur_total + <%= @item_opt_price%>);
         var cart_total = parseInt( $('#cart_count').html());
         $('#cart_count').html(cart_total + 1);
 
@@ -54,7 +54,7 @@ else
     $(".cart-items").append(cartItem);
 
     var cur_total = parseInt( $('#total').html());
-    $('#total').html(cur_total + <%= @item_price%>);
+    $('#total').html(cur_total + <%= @item_opt_price%>);
     var cart_total = parseInt( $('#cart_count').html());
     $('#cart_count').html(cart_total + 1);
     $('#cart_state_txt_<%= @item_id%>').html(' ДОБАВИТЬ ЕЩЕ');

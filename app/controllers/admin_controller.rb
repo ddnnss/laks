@@ -160,7 +160,7 @@ end
     end
     summ = 0
     @order_items.each do |i|
-      summ = summ + i.item_price * @order.order_items[i.id.to_s]
+      summ = summ + i.item_opt_price * @order.order_items[i.id.to_s]
       logger.info ('Стоимость заказа :' + summ.to_s)
     end
     if summ > 5000
@@ -210,7 +210,7 @@ end
       i.update_column(:item_page_title, params[:item_page_title])
       i.update_column(:item_page_description, params[:item_page_description])
       i.update_column(:item_description, params[:item_description])
-      i.update_column(:item_price, params[:item_price].to_i)
+      i.update_column(:item_opt_price, params[:item_opt_price].to_i)
       i.update_column(:item_opt_price, params[:item_opt_price].to_i)
     ##  i.update_column(:item_opt_price_count, params[:item_opt_price_count].to_i)
       i.update_column(:item_postavshik, params[:item_postavshik])
@@ -354,9 +354,9 @@ end
         when '2'
           @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_name asc')
         when '3'
-          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_price desc')
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_opt_price desc')
         when '4'
-          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_price asc')
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_opt_price asc')
         when '5'
           @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_discount desc')
         when '6'
@@ -402,9 +402,9 @@ end
         when '2'
           @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_name asc')
         when '3'
-          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_price desc')
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_opt_price desc')
         when '4'
-          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_price asc')
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_opt_price asc')
         when '5'
           @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 15 ).order('item_discount desc')
         when '6'
@@ -538,7 +538,7 @@ end
     newitem.item_page_title = params[:addnewitem][:item_page_title]
     newitem.item_page_description = params[:addnewitem][:item_page_description]
     newitem.item_description = params[:item_description]
-    newitem.item_price = params[:item_price].to_i
+    newitem.item_opt_price = params[:item_opt_price].to_i
     newitem.item_opt_price = params[:item_opt_price].to_i
   ##  newitem.item_opt_price_count = params[:item_opt_price_count].to_i
     newitem.item_postavshik = params[:item_postavshik]

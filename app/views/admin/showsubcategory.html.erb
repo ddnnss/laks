@@ -52,34 +52,15 @@
                 <p>Описание товара:
                   <textarea class="summernote-5"  id="summernote-addnewitrm" name="item_description" rows="18" ></textarea></p>
               </div>
-            <div class="form-group row">
-              <label for="item_postavshik" class="col-sm-2 col-form-label">Поставщик товара :</label>
-              <div class="col-sm-10">
-                <select class="form-control"  name="item_postavshik" id="item_postavshik" >
-                  <option>севастопольская 200</option>
-                  <option>севастопольская 300</option>
-                  <option>севастопольская 700</option>
-                  <option>Китай</option>
-
-                </select>
-              </div>
-            </div>
 
 
 
               <table class="table">
                 <tbody>
                 <tr >
-                  <td >  <div class="form-group row">
-                    <label class="col-sm-4">Розничная цена :</label>
-                    <div class="col-sm-1">
-
-                      <input style="width: 90px;" required="required" class="form-control" type="number" value="" id="item_price" name="item_price" >
-
-                    </div>
-                  </div>
+                  <td >
                     <div class="form-group row">
-                      <label class="col-sm-4">Оптовая  цена :</label>
+                      <label class="col-sm-4">Цена :</label>
                       <div class="col-sm-1">
 
                         <input style="width: 90px;" required="required" class="form-control" type="number" value="" id="item_opt_price" name="item_opt_price" >
@@ -162,14 +143,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="form-group row">
-                      <label class="col-sm-3">Цвет</label>
-                      <div class="col-sm-7">
-                        <div class="form-group ">
-                          <%=f.text_field  :item_color, class:'form-control', id:'item_color'%>
-                        </div>
-                      </div>
-                    </div>
+
                     <div class="form-group row">
                       <label class="col-sm-3">Материал</label>
                       <div class="col-sm-7">
@@ -306,8 +280,7 @@
             <td style="width: 50%;">Название</td>
             <td style="width: 50%;">Коллекция</td>
             <td style="width: 5%;">Артикул</td>
-            <td style="width: 5%;">Цена роз.</td>
-            <td style="width: 5%;">Цена опт.</td>
+            <td style="width: 5%;">Цена</td>
             <td style="width: 5%;">Скидка %</td>
             <td>Новинка</td>
             <td>Наличие</td>
@@ -321,7 +294,6 @@
           <td><%=i.item_name%></td>
           <td><%=i.collection_id > 0 ? Collection.find(i.collection_id).collection_name: 'НЕТ'%></td>
           <td><%=i.item_article%></td>
-          <td><%=i.item_price%></td>
           <td><%=i.item_opt_price%></td>
           <td><%=i.item_discount%></td>
           <td>
