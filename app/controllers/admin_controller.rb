@@ -9,6 +9,17 @@ class AdminController < ApplicationController
     end
   end
 
+
+  def deleteorder
+    o = Order.find(params[:id])
+    o.destroy
+    redirect_to '/admin/orders'
+  end
+  def deleteclient
+    c = Client.find(params[:id])
+    c.destroy
+    redirect_to '/admin/clients'
+  end
   def getmenu
     @cat_all = Category.all
     @menu_cat = Category.where(show_in_menu: true)
@@ -75,6 +86,7 @@ end
       @client.update_column(:client_city,params[:client_city])
       @client.update_column(:client_post_code,params[:client_post_code])
       @client.update_column(:client_address,params[:client_address])
+      @client.update_column(:client_password,params[:client_password])
 
       if params[:client_vip].present?
         @client.update_column(:client_vip,true)
@@ -158,16 +170,16 @@ end
       when '3'
         @order_oplata = 'Оплата банковской картой'
     end
-    summ = 0
-    @order_items.each do |i|
-      summ = summ + i.item_opt_price * @order.order_items[i.id.to_s]
-      logger.info ('Стоимость заказа :' + summ.to_s)
-    end
-    if summ > 5000
-      @order_opt_price = true
-    else
+  ##  summ = 0
+  ##  @order_items.each do |i|
+   ##   summ = summ + i.item_opt_price * @order.order_items[i.id.to_s]
+   ##   logger.info ('Стоимость заказа :' + summ.to_s)
+   ## end
+  ##  if summ > 5000
+  ##    @order_opt_price = true
+  ##  else
       @order_opt_price = false
-    end
+  ##  end
     if @order.order_discount_code.nil?
       @order_discount = false
     else

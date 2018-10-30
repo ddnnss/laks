@@ -1,27 +1,67 @@
+<%ordertotal = 0%>
 <div id="page-header">
   <div class="container clearfix">
-
-    <nav class="breadcrumb float-md-left"> <a class="breadcrumb-item" href="/">ГЛАВНАЯ</a> <a class="breadcrumb-item" href="#">ОФОРМЛЕНИЕ ЗАКАЗА</a> <span class="breadcrumb-item active">РАЗМЕЩЕНИЕ ЗАКАЗА</span> </nav>
+    <nav class="breadcrumb float-md-left">
+      <a class="breadcrumb-item" href="/">ГЛАВНАЯ</a>
+      <span class="breadcrumb-item active">СОСТОЯНИЕ ЗАКАЗА : <strong><%=@order.order_number%></strong></span> </nav>
   </div>
 </div>
 <div id="content" class="py-5">
+
   <div class="container">
     <div class="text-center mb-6">
-      <i class="fa fa-check-circle icon-6x text-success"></i>
       <h3>
-        Ваш заказ был успешно размещен.
+        Статус заказа : <%=@order.order_status%>
       </h3>
-      <h4 class="font-weight-normal">
-        Код заказа: <%=session[:order]%>
-      </h4>
-      <p>На Ваш адрес электронной почты высланы все необходимые инструкции.</p>
-      <% if session[:newclient]%>
-        <p>Вы успешно зарегистрированы на сайте, подтвердите свой адрес электронной почты для активации аккаунта.</p>
-      <% end %>
+
     </div>
+    <table width="100%">
+      <tr>
+        <td></td>
+        <td>Название товара</td>
+        <td>Артикл</td>
+        <td>Количество товара</td>
+        <td>Цена за ед.</td>
+        <td>Общая стоимость</td>
 
+      </tr>
+      <%@order_items.each do |o|%>
+          <tr>
+            <td><img class="cart-img img-fluid" src="/images/items/<%=o.id%>/<%=o.item_image1 %>" ></td>
+            <td><%=o.item_name%></td>
+            <td><%=o.item_article%></td>
+            <td><%=@order.order_items[o.id.to_s]%></td>
+            <td><%=@order_opt_price ? o.item_opt_price : o.item_opt_price %> &#8381;</td>
+            <td><%=@order_opt_price ? o.item_opt_price.to_i * @order.order_items[o.id.to_s].to_i : o.item_opt_price.to_i * @order.order_items[o.id.to_s].to_i %> &#8381;</td>
+            <%ordertotal = ordertotal + (@order_opt_price ? o.item_opt_price.to_i * @order.order_items[o.id.to_s].to_i : o.item_opt_price.to_i * @order.order_items[o.id.to_s].to_i)%>
+          </tr>
+      <%end%>
+      <%if @order_discount%>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>СКИДКА ПО КОДУ</td>
+            <td><%=@order_discount_code%></td>
+            <td><%=ordertotal * @order_discount_value.to_i / 100 %> (<%=@order_discount_value%>%) &#8381;</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>ИТОГО</td>
+            <td><%=ordertotal - (ordertotal * @order_discount_value.to_i / 100) %> &#8381;</td>
+          </tr>
+      <%else%>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>ИТОГО</td>
+            <td><%=ordertotal %> &#8381;</td>
+          </tr>
+      <%end%>
 
-
+    </table>
 
   </div>
 </div>

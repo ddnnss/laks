@@ -82,7 +82,7 @@ class ClientController < ApplicationController
       @client=Client.new(client_data)
 
       if @client.valid? ##check client
-        @client.client_password = [*('a'..'z'),*('0'..'9')].shuffle[0,8].join
+        @client.client_password = [*('0'..'9')].shuffle[0,8].join
         @client.client_name = params[:registration][:client_name]
         @client.client_family = params[:registration][:client_family]
         @client.client_phone = params[:registration][:client_phone]

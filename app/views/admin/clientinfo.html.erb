@@ -81,6 +81,12 @@
                 <%=text_field_tag  :client_address,@client.client_address, :required => true , class:'form-control', id:'client_address'%>
               </div>
             </div>
+            <div id="client_password" class="form-group row">
+              <label for="client_address" class="col-sm-2 col-form-label form_label">Пароль</label>
+              <div class="col-sm-10">
+                <%=text_field_tag  :client_password,@client.client_password, :required => true , class:'form-control', id:'client_password'%>
+              </div>
+            </div>
             <hr>
             <div id="orders" class="form-group row">
               <label for="client_comment" class="col-sm-2 col-form-label form_label">Комментарий к клиенту</label>

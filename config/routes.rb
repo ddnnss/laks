@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get '/admin/collremove', to: 'admin#removefromcollection'
   get '/admin/actremove', to: 'admin#removefromaktion'
   get '/admin/showsubcategory', to: 'admin#showsubcategory'
+  get '/admin/deleteorder', to: 'admin#deleteorder'
+  get '/admin/deleteclient', to: 'admin#deleteclient'
 
 
   match '/admin/edititem'  => 'admin#edititem', via: [:post, :get]
@@ -54,6 +56,7 @@ Rails.application.routes.draw do
   match '/addtocartalt(/:item_id)(/:val)'  => 'cart#addtocartalt', via: [:get]
   match '/wishlist(/:item_id)'  => 'cart#add_to_wishlist', via: [:get]
   match '/order(/:order_code)'  => 'page#orderstatus', via: [:get]
+  match '/order_info(/:order_code)'  => 'page#order_info', via: [:get]
   get '/remove(/:id)', to: 'cart#removeitem'
   match '/discount'  => 'cart#applydiscount', via: [:post , :get]
 

@@ -390,7 +390,7 @@ class PageController < ApplicationController
         logger.info('[INFO] : Инициализация сохранения заказа с регистрацией.....')
         @client =Client.new(client_data)
             if @client.valid?                  #guest email check
-              @client.client_password = [*('a'..'z'),*('0'..'9')].shuffle[0,8].join
+              @client.client_password = [*('0'..'9')].shuffle[0,8].join
               @client.client_name = params[:placeorder][:guest_name]
               @client.client_family = params[:placeorder][:guest_family]
               @client.client_phone = params[:placeorder][:guest_phone]
@@ -468,9 +468,19 @@ class PageController < ApplicationController
     @keywords=@description.gsub(' и ',' ').gsub(' в ',' ').split(' ').join(',')
     session[:cart_total] = 0
     session[:total] = 0
+    @order = Order.find_by_order_number(params[:order_code])
+    @order_items = Item.where(id: @order.order_items.keys)
+    if @order.order_discount_code.nil?
+      @order_discount = false
+    else
+      @order_discount = true
+      @order_discount_code = @order.order_discount_code.split(',')[0]
+      @order_discount_value = @order.order_discount_code.split(',')[1]
+    end
   end
 
   def orderstatus
+
 
   end
 
@@ -487,6 +497,7 @@ class PageController < ApplicationController
       @client_info.update_column(:client_city,params[:client_city])
       @client_info.update_column(:client_post_code,params[:client_post_code])
       @client_info.update_column(:client_address,params[:client_address])
+      @client_info.update_column(:client_password,params[:client_password])
       session[:client_data_bad] = false
       redirect_to request.referer
 

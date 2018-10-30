@@ -21,6 +21,7 @@
             <td>Статус</td>
             <td>Сумма</td>
             <td>Доставка</td>
+            <td></td>
           </tr>
           <%@orders.each do |o|%>
           <tr>
@@ -39,6 +40,7 @@
                   Транспортная компания
                     <%  end%>
                 </td>
+            <td><a href="/admin/deleteorder?id=<%=o.id%>" onclick="return confirm('ТОЧНО УДАЛИТЬ? ЭТО ДЕЙСТВИЕ НЕЛЬЗЯ ОТМЕНИТЬ!')"><i class="fas fa-trash-alt" ></i></a></td>
 
           </tr>
           <%end%>

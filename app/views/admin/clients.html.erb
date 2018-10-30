@@ -17,8 +17,11 @@
           <tr>
             <td>№</td>
             <td>Пользователь</td>
+            <td>Телефон</td>
+            <td>E-Mail</td>
             <td>VIP</td>
             <td>Дата регистрации</td>
+            <td></td>
 
           </tr>
 
@@ -26,9 +29,11 @@
               <tr>
                 <td><%=c.id%></td>
                 <td><a href="/admin/clientinfo?client_id=<%=c.id%>"><%=c.client_name%> <%=c.client_family%></a> </td>
+                <td><%=c.client_phone%></td>
+                <td><%=c.client_email%></td>
                 <td><%=c.client_vip ? 'ДА' : 'НЕТ'%></td>
                 <td><%=c.created_at.strftime("%d.%m.%Y")%></td>
-
+                <td><a href="/admin/deleteclient?id=<%=c.id%>" onclick="return confirm('ТОЧНО УДАЛИТЬ? ЭТО ДЕЙСТВИЕ НЕЛЬЗЯ ОТМЕНИТЬ!')"><i class="fas fa-trash-alt" ></i></a></td>
 
 
               </tr>
