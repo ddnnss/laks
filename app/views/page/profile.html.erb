@@ -216,28 +216,15 @@
                 <%end%>
                 <br/>
 
-                <%if session[:active]%>
-                    <% if @wishlist.nil?  %>
-                        <a style="color: #3A4A59;text-decoration: none;"  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button"  data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span> <span id="wishlist_text_<%=item.id%>" style="font-size: 10px;" class="text-muted"> ДОБАВИТЬ В ЗАКЛАДКИ</span></a>
 
-                    <%else%>
-                        <% if @wishlist.include?(item.id.to_s) %>
-                            <span class="fa fa-heart text-primary"></span> <span style="font-size: 10px;" class="text-muted"> ТОВАР ДОБАВЛЕН В ЗАКЛАДКИ</span>
-                        <% else %>
-                            <span id="wishlist_text_<%=item.id%>" style="display: none;">
-                                                  <span id="wish<%=item.id%>button_off" class="fa fa-heart text-primary"></span><span id="wishlist_text_<%=item.id%>" style="font-size: 10px;" class="text-muted"> ТОВАР ДОБАВЛЕН В ЗАКЛАДКИ</span>
-                            </span>
-
-                            <a style="color: #3A4A59; text-decoration: none;"  href="/wishlist/<%=item.id%>"  id="wish<%=item.id%>button"  data-remote="true"><span id="wish<%=item.id%>icon" class="far fa-heart"></span> <span id="wishlist_text_<%=item.id%>" style="font-size: 10px;" class="text-muted"> ДОБАВИТЬ В ЗАКЛАДКИ</span></a>
-                        <%end%>
-                    <% end %>
-                <%end%>
 
 
                 <% if session[:admin]%>
                     <hr>
                     <a href="/admin/edititem?item_id=<%=item.id%>" class="btn btn-primary">Редактировать</a>
                 <%end%>
+                <hr>
+                <a href="/wishlist_remove/<%=item.id%>" class="btn btn-primary">Убрать из закладок</a>
               </div>
             </div>
           </div>
@@ -256,6 +243,14 @@
     function theFunction (id) {
         $("#cart_buttons_"+id).css('display','none');
         $("#spinner_"+id).addClass('spinner');
+        return true;
+    }
+
+    function sethref(id) {
+        tocartvalue = $('#tocartvalue'+id).val();
+
+            $('#addbutton' + id).attr('href', '/addtocartalt/' + id + '/' + tocartvalue + '?ret=3')
+
         return true;
     }
 </script>

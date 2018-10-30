@@ -24,18 +24,38 @@
 
           </tr>
           <%@order_items.each do |o|%>
-          <tr>
-            <td><img class="cart-img img-fluid" src="/images/items/<%=o.id%>/<%=o.item_image1 %>" ></td>
-            <td><%=o.item_name%></td>
-            <td><%=o.item_article%></td>
-            <td><%=@order.order_items[o.id.to_s]%></td>
-            <td><%=@order_opt_price ? o.item_opt_price : o.item_opt_price %> &#8381;</td>
-            <td><%=@order_opt_price ? o.item_opt_price.to_i * @order.order_items[o.id.to_s].to_i : o.item_opt_price.to_i * @order.order_items[o.id.to_s].to_i %> &#8381;</td>
-            <%ordertotal = ordertotal + (@order_opt_price ? o.item_opt_price.to_i * @order.order_items[o.id.to_s].to_i : o.item_opt_price.to_i * @order.order_items[o.id.to_s].to_i)%>
-          </tr>
+              <tr>
+                <td><img class="cart-img img-fluid" src="/images/items/<%=o.id%>/<%=o.item_image1 %>" ></td>
+                <td><%=o.item_name%></td>
+                <td><%=o.item_article%></td>
+                <td><%=@order.order_items[o.id.to_s]%></td>
+                <td>
+                  <%if o.item_discount > 0%>
+                      <%=o.item_opt_price - (o.item_opt_price * o.item_discount / 100)%> &#8381;
+                  <%else%>
+                      <%= o.item_opt_price%> &#8381;
+                  <%end%>
+                </td>
+                <td>
+                  <%if o.item_discount > 0%>
+                      <%=(o.item_opt_price - (o.item_opt_price * o.item_discount / 100)) * @order.order_items[o.id.to_s].to_i%> &#8381;
+                      <%ordertotal = ordertotal + ((o.item_opt_price - (o.item_opt_price * o.item_discount / 100)) * @order.order_items[o.id.to_s].to_i )%>
+
+                  <%else%>
+                      <%= o.item_opt_price.to_i * @order.order_items[o.id.to_s].to_i%> &#8381;
+                      <%ordertotal = ordertotal + ( o.item_opt_price.to_i * @order.order_items[o.id.to_s].to_i)%>
+
+                  <%end%>
+
+                </td>
+
+
+
+              </tr>
           <%end%>
           <%if @order_discount%>
               <tr>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td>СКИДКА ПО КОДУ</td>
@@ -46,11 +66,13 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
                 <td>ИТОГО</td>
                 <td><%=ordertotal - (ordertotal * @order_discount_value.to_i / 100) %> &#8381;</td>
               </tr>
               <%else%>
               <tr>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>

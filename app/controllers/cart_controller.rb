@@ -35,6 +35,8 @@ class CartController < ApplicationController
         else
           redirect_to  request.referer + '#item' + item.id.to_s
         end
+      when '3'
+        redirect_to '/profile#wishlist'
 
     else
       redirect_to '/product/' + item.item_name_translit
@@ -205,6 +207,12 @@ class CartController < ApplicationController
       end
     end
 
+  end
+
+  def wishlist_remove
+
+    current_user.update_column(:client_wishlist,(current_user.client_wishlist.split(',')  - [(params[:item_id])]).join(','))
+    redirect_to '/profile#wishlist'
   end
 
   def applydiscount

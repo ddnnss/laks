@@ -470,6 +470,8 @@ class PageController < ApplicationController
     session[:total] = 0
     @order = Order.find_by_order_number(params[:order_code])
     @order_items = Item.where(id: @order.order_items.keys)
+
+
     if @order.order_discount_code.nil?
       @order_discount = false
     else

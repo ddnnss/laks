@@ -1,13 +1,16 @@
+<img src="http://185.209.23.83/assets/logo-5087d2a1af481ec5866529bffa01da6fef158329d1ef08f9d02e3c1e221fc2e3.jpg" width="300px">
+<br>
 <p>Ваш заказ был успешно размещен.</p>
 <p> Код заказа: <strong><%=@code%></strong> </p>
-<p>Для просмотра статуса заказа Вы можете воспользоваться ссылкой</p>
+<p>Для просмотра статуса заказа Вы можете воспользоваться этой ссылкой</p>
 <hr>
 <p>Ваш заказ :</p>
 <table style="border-collapse: collapse; width: 600px;" >
   <thead>
   <tr>
-
+    <th style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5;">...</th>
     <th style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5;">Название</th>
+    <th style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5;">Артикул</th>
     <th style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5; ">Цена</th>
     <th style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5; ">Количество</th>
     <th style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5;">Итог</th>
@@ -19,7 +22,10 @@
     <%@cart_itemss.each do |cc|%>
 
     <tr>
+      <td style="padding: 3px; border: 1px solid #999; text-align: center; "><img src="http://185.209.23.83/items/<%= cc.id%>/<%= cc.item_image1%>"></td>
+
       <td style="padding: 3px; border: 1px solid #999; text-align: center; "><%= cc.item_name%></td>
+      <td style="padding: 3px; border: 1px solid #999; text-align: center; "><%= cc.item_article%></td>
       <td style="padding: 3px; border: 1px solid #999; text-align: center; ">
 
           <%if cc.item_discount > 0%>
@@ -46,6 +52,9 @@
 
     <%end%>
     <tr>
+
+      <td></td>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -53,12 +62,18 @@
     </tr>
    <%unless @discount == '0' || @discount.nil?%>
   <tr>
+
+    <td></td>
+    <td></td>
     <td></td>
     <td></td>
     <td></td>
     <td style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5;">Скидка по промо-коду : <%=@discount%> %</td>
   </tr>
     <tr>
+      
+      <td></td>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
