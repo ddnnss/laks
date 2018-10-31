@@ -1,11 +1,80 @@
-<img src="http://185.209.23.83/assets/logo-5087d2a1af481ec5866529bffa01da6fef158329d1ef08f9d02e3c1e221fc2e3.jpg" width="300px">
+<img src="http://185.209.23.83/assets/logo-5087d2a1af481ec5866529bffa01da6fef158329d1ef08f9d02e3c1e221fc2e3.jpg" width="450px">
 <br>
 <p>Ваш заказ был успешно размещен.</p>
-<p> Код заказа: <strong><%=@code%></strong> </p>
-<p>Для просмотра статуса заказа Вы можете воспользоваться этой ссылкой</p>
-<hr>
-<p>Ваш заказ :</p>
-<table style="border-collapse: collapse; width: 600px;" >
+<p style="font-size: 20px;"> Код заказа: <strong><%=@code%></strong> </p>
+
+<table style="border-collapse: collapse; width: 900px;" >
+  <tr>
+    <td style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5;"><strong>Детализация заказа</strong></td>
+
+  </tr>
+  <tr>
+    <td style="padding: 3px; border: 1px solid #999;">
+      <strong>№ заказа</strong> : <%=@order.id%><br>
+      <strong>Дата заказа</strong> : <%=@order.created_at.strftime("%d.%m.%Y | %H:%M:%S")%><br>
+      <strong>Способ оплаты</strong> :
+      <% case @order.order_oplata%>
+     <% when '1'%>
+     Оплата при доставке <br>
+         <%  when '2'%>
+      Расчетный счет <br>
+         <% when '3'%>
+      Оплата банковской картой <br>
+         <%  end%>
+
+      <strong>Способ доставки</strong> :
+      <% case @order.order_dostavka%>
+      <% when '1'%>
+          Курьерская доставка <br>
+      <% when '2'%>
+          Самовывоз <br>
+      <% when '3'%>
+          Транспортная компания
+      <%  end%>
+
+    </td>
+  </tr>
+
+</table>
+
+<table style="border-collapse: collapse; width: 900px;" >
+  <tr>
+    <td style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5;"><strong>Данные заказчика</strong></td>
+
+  </tr>
+  <tr>
+    <td style="padding: 3px; border: 1px solid #999; ">
+      <%if @order_guest%>
+          <strong>Имя </strong>:  <%= @order.order_guest_data['guest_name']%><br>
+          <strong>Фамилия </strong> : <%= @order.order_guest_data['guest_family']%><br>
+          <strong>Телефон </strong>: <%= @order.order_guest_data['guest_phone']%><br>
+          <strong>E-Mail </strong>: <%= @order.order_guest_data['client_email']%><br>
+          <strong>Страна </strong>: <%= @order.order_guest_data['guest_country']%><br>
+          <strong>Город </strong>: <%= @order.order_guest_data['guest_city']%><br>
+          <strong>Индекс </strong>: <%= @order.order_guest_data['guest_post_code']%><br>
+          <strong>Адрес </strong>: <%= @order.order_guest_data['guest_address']%><br>
+
+      <%else%>
+          <strong>Имя </strong>:  <%= @customer.client_name%><br>
+          <strong>Фамилия </strong> : <%= @customer.client_family%><br>
+          <strong>Отчество </strong> : <%= @customer.client_ot4estvo%><br>
+          <strong>Телефон </strong>: <%= @customer.client_phone%><br>
+          <strong>E-Mail </strong>: <%= @customer.client_email%><br>
+          <strong>Страна </strong>: <%= @customer.client_country%><br>
+          <strong>Город </strong>: <%= @customer.client_city%><br>
+          <strong>Индекс </strong>: <%= @customer.client_post_code%><br>
+          <strong>Адрес </strong>: <%= @customer.client_address%><br>
+
+
+      <%end%>
+
+    </td>
+  </tr>
+
+</table>
+
+<p><strong>Ваш заказ :</strong></p>
+<table style="border-collapse: collapse; width: 900px;" >
   <thead>
   <tr>
     <th style="padding: 3px; border: 1px solid #999; text-align: center; background: #f5f5f5;">...</th>

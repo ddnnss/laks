@@ -37,6 +37,8 @@ class CartController < ApplicationController
         end
       when '3'
         redirect_to '/profile#wishlist'
+      when '4'
+        redirect_to '/search?q='+params[:return]
 
     else
       redirect_to '/product/' + item.item_name_translit

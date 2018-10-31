@@ -164,6 +164,20 @@
         $("#spinner_"+id).addClass('spinner');
         return true;
     }
+    function sethref(id) {
+        tocartvalue = $('#tocartvalue'+id).val();
 
+            $('#addbutton' + id).attr('href', '/addtocartalt/' + id + '/' + tocartvalue + '?ret=4&return='+getSearchParams('q'))
+
+
+
+
+        return true;
+    }
+    function getSearchParams(k){
+        var p={};
+        location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
+        return k?p[k]:p;
+    }
 
 </script>

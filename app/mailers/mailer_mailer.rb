@@ -18,6 +18,13 @@ class MailerMailer < ApplicationMailer
     @item_total = 0
     @code=code
     @discount=discount
+    @order = Order.find_by_order_number(code)
+    if @order.client_id == 0
+      @order_guest = true
+    else
+      @order_guest = false
+      @customer = Client.find(@order.client_id)
+    end
     @cart_itemss = Item.find(@cart_items.keys)
     mail(to: @mail,subject: "Ваш заказ успешно размещен")
     logger.info('[INFO] : Письмо на ' + @mail + ' отправлено')
