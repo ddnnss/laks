@@ -372,6 +372,7 @@ class PageController < ApplicationController
       logger.info('[INFO] : Отправка письма пользователю.....' +  session[:client_email])
 
       MailerMailer.neworder(session[:client_email],session[:cart],session[:order],session[:discount_value]).deliver_later
+      MailerMailer.neworder('info@lakshmi888.ru',session[:cart],session[:order],session[:discount_value]).deliver_later
       a=session[:cart].keys
       a.each do |k|
         session[:cart].delete(k)
@@ -444,6 +445,7 @@ class PageController < ApplicationController
       logger.info('[INFO] : Отправка письма пользователю.....' + params[:placeorder][:client_email])
 
       MailerMailer.neworder(params[:placeorder][:client_email],session[:cart],session[:order],session[:discount_value]).deliver_later
+      MailerMailer.neworder('info@lakshmi888.ru',session[:cart],session[:order],session[:discount_value]).deliver_later
       a=session[:cart].keys
        a.each do |k|
         session[:cart].delete(k)
