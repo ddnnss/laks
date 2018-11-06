@@ -217,7 +217,7 @@ end
       i = Item.find(params[:item_id])
 
       i.update_column(:item_name, params[:item_name])
-      i.update_column(:item_name_translit, Translit.convert(params[:item_name].gsub(' ','-'), :english))
+      i.update_column(:item_name_translit, Translit.convert(params[:item_name].gsub(' ','-').gsub('ь','').gsub('ъ','').gsub(/[?!*.,:;\/`"'#]/, ''), :english))
       i.update_column(:item_name_caps, params[:item_name].mb_chars.upcase)
       i.update_column(:item_page_title, params[:item_page_title])
       i.update_column(:item_page_description, params[:item_page_description])

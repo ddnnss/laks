@@ -30,15 +30,15 @@ class CartController < ApplicationController
         redirect_to '/subcategory/' + item.subcategory.subcat_name_translit + '#item' + item.id.to_s
       end
       when '2'
-        if params[:page].present?
-          redirect_to request.referer + item.collection.collection_name_translit + '?page='+params[:page]  + '#item' + item.id.to_s
-        else
+
+
           redirect_to  request.referer + '#item' + item.id.to_s
-        end
+
       when '3'
         redirect_to '/profile#wishlist'
       when '4'
         redirect_to '/search?q='+params[:return]
+
 
     else
       redirect_to '/product/' + item.item_name_translit

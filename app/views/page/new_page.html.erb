@@ -191,14 +191,7 @@
 
     function sethref(id) {
         tocartvalue = $('#tocartvalue'+id).val();
-        if (getSearchParams('page') == undefined) {
-            $('#addbutton' + id).attr('href', '/addtocartalt/' + id + '/' + tocartvalue + '?ret=2')
-        }
-        else
-        {
-            $('#addbutton'+id).attr('href','/addtocartalt/'+ id + '/' + tocartvalue + '?ret=2&page='+getSearchParams('page'));
-        }
-
+        $('#addbutton' + id).attr('href', '/addtocartalt/' + id + '/' + tocartvalue + '?ret=2');
         return true;
     }
 
