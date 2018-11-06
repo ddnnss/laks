@@ -31,10 +31,10 @@
           height: 10px;" class="nav nav-icons header-block order-12">
         <%if session[:active]%>
 
-            <a style="font-size: 14px;" href="/logout"  class="mb-2 btn btn-outline-light text-uppercase d-none d-sm-block">выход</a>
+            <a style="font-size: 14px;" href="/logout"  class="mb-2 btn btn-outline-light text-uppercase d-none d-xl-block d-lg-block">выход</a>
         <%else%>
 
-            <a style="font-size: 14px;" href="#" data-toggle="modal" data-target=".login-modal-lg" class="mb-2 btn btn-outline-light text-uppercase d-none d-sm-block">вход/регистрация</a>
+            <a style="font-size: 14px;" href="#" data-toggle="modal" data-target=".login-modal-lg" class="mb-2 btn btn-outline-light text-uppercase d-none d-xl-block d-lg-block">вход/регистрация</a>
         <%end%>
         <!--@todo: replace with company social media details <div class="header-divider header-divider-sm"></div>-->
 
@@ -66,8 +66,7 @@
       <div class="header-block order-12">
 
         <!--Search trigger -->
-        <a style="font-size: 30px;" href="<%= session[:active] ? '/logout' : '/login' %>"  class="d-lg-none btn btn-icon btn-link header-btn float-right " ><i class="<%= session[:active] ? 'fas fa-sign-out-alt' : 'fas fa-sign-in-alt' %>" ></i></a>
-        <a href="#search" class="btn btn-icon btn-link header-btn float-right order-11" data-toggle="search-form" data-target=".header-search"><i class="fa fa-search fa-flip-horizontal search-icon"></i></a>
+       <a href="#search" class="btn btn-icon btn-link header-btn float-right order-11" data-toggle="search-form" data-target=".header-search"><i class="fa fa-search fa-flip-horizontal search-icon"></i></a>
         <div  class="dropdown dropdowns-no-carets dropdown-effect-fadeup float-right">
           <a href="#" class="btn btn-icon btn-dark btn-link float-right dropdown-toggle cart-link" data-toggle="dropdown">
               <span class="cart-link-icon">
@@ -198,6 +197,8 @@
             <li class="nav-item "><a  style="color: #D24B6F; font-weight: bold !important;" href="/discounts" class="nav-link">СКИДКИ</a></li>
             <li class="nav-item "><a  style="color: #D24B6F; font-weight: bold !important;" href="/about_us" class="nav-link">О НАС</a></li>
             <li class="nav-item "><a  style="color: #D24B6F; font-weight: bold !important;" href="/contact" class="nav-link">КОНТАКТЫ</a></li>
+            <li class="nav-item d-lg-none"> <a style="color: #D24B6F; font-weight: bold !important;" href="<%= session[:active] ? '/logout' : '/login' %> " class="nav-link"><%= session[:active] ? 'ВЫХОД' : 'вход/регистрация' %> </a>
+            </li>
             <%if session[:active]%>
 
             <ul class="nav navbar-nav float-lg-right navbar-nav-flush-right dropdown-effect-fadeup">
