@@ -40,6 +40,10 @@ class PageController < ApplicationController
           @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount desc')
         when '6'
           @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount asc')
+        when '7'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('created_at desc')
+        when '8'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('created_at asc')
 
       end
     else
@@ -74,6 +78,10 @@ class PageController < ApplicationController
           @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount desc')
         when '6'
           @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount asc')
+        when '7'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('created_at desc')
+        when '8'
+          @items = @items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('created_at asc')
 
       end
     else
@@ -135,6 +143,10 @@ class PageController < ApplicationController
         @items = @coll.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount desc')
       when '6'
         @items = @coll.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount asc')
+        when '7'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('created_at desc')
+        when '8'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('created_at asc')
 
       end
     else
@@ -197,6 +209,10 @@ class PageController < ApplicationController
           @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount desc')
         when '6'
           @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_discount asc')
+        when '7'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('created_at desc')
+        when '8'
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('created_at asc')
 
       end
     else
