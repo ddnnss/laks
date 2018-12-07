@@ -82,16 +82,18 @@ class ClientController < ApplicationController
       @client=Client.new(client_data)
 
       if @client.valid? ##check client
-        @client.client_password = [*('0'..'9')].shuffle[0,8].join
+        @client.client_password = params[:registration][:client_password]  #[*('0'..'9')].shuffle[0,8].join
         @client.client_name = params[:registration][:client_name]
         @client.client_family = params[:registration][:client_family]
         @client.client_phone = params[:registration][:client_phone]
+        @client.client_activated = true
+
         @client.save
         logger.info('[INFO] : Новый позьзователь успешно зарегистрирован.')
         MailerMailer.activation(@client).deliver_later
 
         respond_to do |format|
-          @res='Письмо с инструкцией по активации отправлено (возможно оно попадет в спам)'
+          @res='Аккаунт создан, желаем прияных покупок.' # @res='Письмо с инструкцией по активации отправлено (возможно оно попадет в спам)'
           @status = 'ok'
           format.js
         end           ##end respond

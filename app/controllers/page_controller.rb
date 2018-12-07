@@ -216,7 +216,7 @@ class PageController < ApplicationController
 
       end
     else
-      @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name asc')
+      @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('created_at desc') #  @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name asc')
     end
 
     if params[:search]!='' && params[:search].present?
@@ -226,11 +226,11 @@ class PageController < ApplicationController
     if params[:filter].present?
       case params[:filter]
         when 'all'
-          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('item_name desc')
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).order('created_at desc')
         when 'new'
-          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).where(:item_new => true )
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).where(:item_new => true ).order('created_at desc')
         else
-          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).where('item_filter LIKE ?','%'+params[:filter]+'%')
+          @items = @subcat.items.paginate(:page => params[:page], :per_page => params[:pp].present? ? params[:pp] : 12 ).where('item_filter LIKE ?','%'+params[:filter]+'%').order('created_at desc')
       end
     end
 
