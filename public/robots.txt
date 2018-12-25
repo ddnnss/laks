@@ -1,1 +1,47 @@
-# See http://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+User-agent: *
+
+Disallow: */index.php
+
+Disallow: */search/
+
+Disallow: */filter/
+
+Disallow: */sort_type/
+
+Disallow: /admin/
+
+Disallow: /order/
+
+Disallow: /checkout#cart/
+
+User-agent: googlebot
+
+Disallow: */index.php
+
+Disallow: */search/
+
+Disallow: */filter/
+
+Disallow: */sort_type/
+
+Disallow: /admin/
+
+Disallow: /order/
+
+Disallow: /checkout#cart/
+
+User-agent: yandex
+
+Disallow: */index.php
+
+Disallow: */search/
+
+Disallow: */filter/
+
+Disallow: */sort_type/
+
+Disallow: /admin/
+
+Disallow: /order/
+
+Disallow: /checkout#cart
